@@ -1,0 +1,92 @@
+<div style="padding: 10px 0 5px">
+  <div class="row">
+    <div class="col-md-12 col-lg-12 col-xxxl-12">
+      <nb-card>
+        <nb-card-body style="padding-left: 0px !important;">
+          <nb-actions size="medium" fullWidth>
+            <nb-action *ngIf="showCheckBox" style="padding: 0px 0.5rem 0px 1rem !important;justify-content: flex-start; ">
+              <nb-checkbox  (change)="checkedAcction()" [checked]="bulkAction_isChecked" ></nb-checkbox>
+           
+              <nb-icon *ngIf="showBulkAction"
+                icon="more-vertical"
+                style="color: #d3d3eb; font-size: 25px"
+              ></nb-icon>
+            </nb-action>
+            <nb-action style="padding: 0px 0.5rem 0px 0.5rem !important;justify-content: flex-start;">
+              <nb-form-field style="padding: 5px; min-width: 170px">
+                <nb-icon nbPrefix icon="search-outline" pack="eva"></nb-icon>
+                <input type="text" placeholder="Search" #searchInput nbInput (keyup)="handleSearch(searchInput.value)" />
+              </nb-form-field>
+            </nb-action>
+            <nb-action>
+              <span>Filter</span> &nbsp; &nbsp;
+              <button
+                nbButton
+                style="background-color: transparent; border: 1px solid #b6b3b3"
+                (click)="changeFilter()"
+              >
+                <ng-template [ngIf]="!showFilter">
+                  All &nbsp;<nb-icon icon="options-2-outline"></nb-icon>
+                </ng-template>
+                <ng-template [ngIf]="showFilter">
+                  Filter &nbsp;<nb-icon icon="options-2-outline"></nb-icon>
+                </ng-template>
+              </button>
+            </nb-action>
+            <!-- <nb-action>
+              <span>Sort by</span>&nbsp; &nbsp;
+              <button
+                nbButton
+                style="background-color: transparent; border: 1px solid #b6b3b3"
+              >
+                Most recent &nbsp;<nb-icon
+                  icon="arrow-ios-downward-outline"
+                ></nb-icon>
+              </button>
+            </nb-action> -->
+            <nb-action>
+              <ng-template #card>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <nb-list>
+                      <nb-list-item (click)='downloadas("Excel")' style="cursor: pointer; min-width: 40px;"><img src="assets/icons/excelicon.svg">&nbsp;Excel</nb-list-item>
+                      <nb-list-item (click)='downloadas("pdf")' style="cursor: pointer;min-width: 40px;"><img src="assets/icons/pdf.svg">&nbsp;Pdf</nb-list-item>
+                    </nb-list>
+                  </div>
+                </div>
+              </ng-template>
+              <button [nbPopover]="card"
+                nbButton
+                style="background-color: transparent; border: 1px solid #b6b3b3"
+              >
+                Export as
+              </button>
+            </nb-action>
+            <nb-action (click)='downloadas("Print")' >
+              <nb-icon 
+                icon="printer-outline"
+                status="primary"
+                style="font-size: 35px" style="cursor: pointer;"
+              ></nb-icon>
+              <span style="cursor: pointer;">Print</span>
+            </nb-action>
+          </nb-actions>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+  <div *ngIf="showFilter">
+    <div class='row' *ngIf="filterFields.length > 0">
+      <div class="form-group col-sm-4" *ngFor="let field of filterFields">
+        <label>{{field.title}}</label>
+        <input (change)="fieldValueChanged($event, field.name)" class="form-control"/>
+      </div>
+      <div class="form-group col-sm-4">
+        <div style="padding-top: 30px;">
+        <input nbButton status='primary' value='Submit' type='button' (click)="submitFilter()"/>
+      </div>
+    </div>
+    <ng-content select='div'></ng-content>
+  </div>
+</div>
+</div>

@@ -1,0 +1,103 @@
+
+
+<nb-card style="border: none !important;">
+    <nb-card-body >
+        <div style="display: flex; flex-direction: row;flex-wrap: wrap;padding-bottom: 10px;">
+            <nb-actions size="medium">
+                <nb-action>{{monthLabel}} - {{year}}</nb-action>
+                <nb-action (click)="prevMonth()" icon="arrow-ios-back-outline"></nb-action>
+             
+            
+                <nb-action icon="arrow-ios-forward-outline" (click)="nextMonth()"></nb-action>
+                <nb-action (click)="gotoThisMonth()" style="cursor: pointer;">Today</nb-action>
+              </nb-actions>  
+        
+        
+        </div>
+       <table class="calendar">
+<thead>
+    <tr >
+<th class="calendar__day__header " *ngFor="let day of days" >
+ {{day.name}}
+</th>
+    </tr>
+</thead>
+<tbody>
+    <tr *ngFor="let week of weeks">
+        <td *ngFor="let day of week" 
+        [class]="{'other-month': day.getMonth() !== month, today: day.isToday, selectedDay: day == selectedDay}"
+        class="calendar__day__cell" (click)='dateClicked(day)'>
+             <div style="padding-left: 15px; display: flex;flex-direction: column;">{{day.getDate()}}</div>
+             <span class="afterSpan" *ngIf='day.hasEvent'>
+         <i class="fa fa-info-circle"></i>
+            </span>
+        </td>
+    </tr>
+</tbody>
+       </table>
+
+        <table style="padding: 2rem; margin-top: 2rem;  border-collapse: collapse; border-spacing: 0; font-size: 1em; ">
+      
+            <tbody>
+            <tr>
+                <td colspan="10">
+                    <button nbButton [nbPopover]="selectedDay"></button>
+                    <div class="row " *ngIf='selectedDay'>
+                      
+                        <div class="col s12 m6">
+                            <div style="display: flex; text-align: center; justify-content: center; font-size: larger; font-weight: bold;
+                                    margin-top: 2rem;margin-bottom: 2rem;">
+                                Created Events
+                            </div>
+                            <table class="responsive-table">
+                                <thead>
+
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
+                                        <th>Description</th>
+
+                                    </tr>
+
+
+                                </thead>
+
+                                <tbody>
+                                  
+
+                                    <tr *ngFor='let event of selectedDay.events; index as i' style="padding: 0.5rem;">
+                                        <td style="margin-right: 0.5rem;">
+                                            {{event.title}}
+
+                                        </td>
+                                        <td>
+                                            {{event.start | date:'medium'}}
+
+                                        </td>
+                                        <td>
+                                            {{event.end | date:'medium'}}
+
+                                        </td>
+                                        <td>
+                                            {{event.description}}
+                                        </td>
+                                        <a class="action-btn">
+                                            <i class="far fa-trash-alt" style="cursor: pointer; "
+                                                (click)="deleteEvent(event.id)"></i>
+                                        </a>
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </td>
+
+            </tr>
+
+            </tbody>
+        </table>
+    </nb-card-body>
+</nb-card>
