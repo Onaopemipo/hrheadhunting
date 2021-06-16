@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from "@angular/forms";
+import { FormGroup, NgForm } from "@angular/forms";
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../../_services/authentication.service';
 
@@ -10,12 +10,12 @@ import { AuthenticationService } from '../../../_services/authentication.service
 })
 export class LoginComponent implements OnInit {
   show: boolean = false;
-  loginForm: FormGroup;
+  loginForm: NgForm;
   userloginDto: any = {
     email: '',
     passwword: ''
-  }; 
-  emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"; 
+  };
+  emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   btnprocessing: boolean = false;
   errorMsg: string = "";
   constructor(

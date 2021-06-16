@@ -1,0 +1,311 @@
+<ngx-componentsheader [pageName]="pagetitle"></ngx-componentsheader>
+  <div>
+    <nb-card>
+      <nb-card-body>
+        <form>
+          <div class="form-group row mydiv">
+            <label for="Title" class="col-sm-3 col-form-label mylabel">Job Title</label>
+            <div class="col-sm-5 col-md-5 col-lg-5">
+              <select class="custom-select" name="jobTitle" placeholder="Job Title">
+              <option value="">--Select Job Title--</option>
+              <option *ngFor="let job of allJobRoles" [value]="job.id">{{ job.name }}</option>
+              </select>
+              <!-- <div *ngIf="jobTitle.invalid && (jobTitle.dirty || jobTitle.touched)" class="error">
+                <div *ngIf="jobTitle.errors.required">Job Title is required</div>
+              </div> -->
+            </div>
+          </div>
+
+          <div class="form-group row ">
+            <label for="Department" class="col-sm-3 col-form-label mylabel">Department</label>
+            <div class="col-sm-5 col-md-5 col-lg-5">
+              <select class="custom-select" name="departmentName" required>
+                <option value="">--Select Department--</option>
+                <option *ngFor="let department of allDepartments" [value]="department.id">{{ department.name }}</option>
+              </select>
+              <!-- <div *ngIf="departmentName.invalid && (departmentName.dirty || departmentName.touched)" class="error">
+                <div *ngIf="departmentName.errors.required">Department is required</div>
+              </div> -->
+            </div>
+          </div>
+
+          <h6>Location</h6>
+          <div class="form-group row mydiv">
+            <label for="Country" class="col-sm-3 col-form-label mylabel">Country</label>
+            <div class="col-sm-5 col-md-5 col-lg-5">
+              <select name="country"  (change)="fetchStates($event.target.value)" class="custom-select" required>
+                <option value="">--Select country--</option>
+                <option *ngFor="let mycountry of allCountries" [value]="mycountry.id">{{mycountry.name}}</option>
+              </select>
+              <!-- <div *ngIf="country.invalid && (country.dirty || country.touched)" class="error">
+                <div *ngIf="country.errors.required">Country is required</div>
+              </div> -->
+            </div>
+          </div>
+
+          <div class="form-group row mydiv">
+            <label for="Region" class="col-sm-3 col-form-label mylabel">Region, City or Zip Code</label>
+            <div class="col-sm-5 col-md-5 col-lg-5">
+              <select class="custom-select" name="stateRegion" required>
+                <option value="">--Select State--</option>
+                <option *ngFor="let state of allStates" [value]="state.id">{{state.state_name}}</option>
+              </select>
+              <!-- <div *ngIf="stateRegion.invalid && (stateRegion.dirty || stateRegion.touched)" class="error">
+                <div *ngIf="stateRegion.errors.required">Region, City or Zip Code is required</div>
+              </div> -->
+            </div>
+          </div>
+
+          <h6>Description</h6>
+
+          <div class="form-group row mydiv">
+            <label for="Descripion" class="col-sm-3 col-form-label mylabel">Descripion</label>
+            <div class="col-sm-5 col-md-5 col-lg-5">
+              <textarea name="description" cols="30" rows="10" style="width: 100%;"></textarea>
+              <!-- <div *ngIf="description.invalid && (description.dirty || description.touched)" class="error">
+                <div *ngIf="description.errors.required">Descripion is required</div>
+              </div> -->
+            </div>
+          </div>
+
+          <div class="form-group row mydiv">
+            <label for="Descripion" class="col-sm-3 col-form-label mylabel">Job Requirement</label>
+            <div class="col-sm-5 col-md-5 col-lg-5">
+              <textarea name="requirements"  cols="30" rows="10" style="width: 100%;" required></textarea>
+              <!-- <div *ngIf="requirements.invalid && (requirements.dirty || requirements.touched)" class="error">
+                <div *ngIf="requirements.errors.required">Job Requirement is required</div>
+              </div> -->
+            </div>
+          </div>
+
+          <h6>Employment Details</h6>
+
+          <div class="form-group row mydiv">
+            <label for="employmentType" class="col-sm-3 col-form-label mylabel">Employment Type</label>
+            <div class="col-sm-5 col-md-5 col-lg-5">
+              <select class="custom-select" name="employmentType" required>
+                <option value="">--Select Employment Type--</option>
+                <option *ngFor="let employ of employmentTypes" [value]="employ.id">{{employ.text}}</option>
+              </select>
+              <!-- <div *ngIf="employmentType.invalid && (employmentType.dirty || employmentType.touched)" class="error">
+                <div *ngIf="employmentType.errors.required">Employment Type is required</div>
+              </div> -->
+            </div>
+
+          </div>
+
+          <div class="form-group row mydiv">
+            <label for="availability" class="col-sm-3 col-form-label mylabel">Availability</label>
+            <div class="col-sm-5 col-md-5 col-lg-5">
+              <select class="custom-select" name="availability" required>
+                <option value="">--Select Availability--</option>
+                <option *ngFor="let avail of jobAvailability" [value]="avail.id">{{avail.text}}</option>
+              </select>
+              <!-- <div *ngIf="availability.invalid && (availability.dirty || availability.touched)" class="error">
+                <div *ngIf="availability.errors.required">Availability is required</div>
+              </div> -->
+            </div>
+          </div>
+
+          <div class="form-group row mydiv">
+            <label for="Region" class="col-sm-3 col-form-label mylabel">Experience</label>
+            <div class="col-sm-5 col-md-5 col-lg-5">
+             <input type="number" class="form-control" name="experience"  placeholder="Experience in months" required>
+             <!-- <div *ngIf="experience.invalid && (experience.dirty || experience.touched)" class="error">
+              <div *ngIf="experience.errors.required">Experience is required</div>
+            </div> -->
+            </div>
+          </div>
+
+          <div class="form-group row mydiv">
+            <label class="col-sm-3 col-form-label mylabel">Minimum Qualification</label>
+            <div class="col-sm-5 col-md-5 col-lg-5">
+              <select type="text" class="form-control" name="minQualification" placeholder="Minimum Education" required>
+              <option value="">--Select Qualification--</option>
+              <option *ngFor="let qualification of qualificationData" [value]="qualification.categoryId">{{qualification.name}}</option>
+              </select>
+              <!-- <div *ngIf="minQualification.invalid && (minQualification.dirty || minQualification.touched)" class="error">
+                <div *ngIf="minQualification.errors.required">Minimum Qualification is required</div>
+              </div> -->
+            </div>
+          </div>
+
+          <div class="form-group row mydiv">
+            <label class="col-sm-3 col-form-label mylabel">Maximum Qualification</label>
+            <div class="col-sm-5 col-md-5 col-lg-5">
+            <select type="text" class="form-control" name="maxQualification" placeholder="Maximum Education" required>
+              <option value="">--Select Qualification--</option>
+              <option *ngFor="let qualification of qualificationData" [value]="qualification.categoryId">{{qualification.name}}</option>
+              </select>
+              <!-- <div *ngIf="maxQualification.invalid && (maxQualification.dirty || maxQualification.touched)" class="error">
+                <div *ngIf="maxQualification.errors.required">Maximum Qualification is required</div>
+              </div> -->
+            </div>
+          </div>
+
+          <h6>Annual Salary</h6>
+
+          <div class="form-group row mydiv">
+            <label for="Country" class="col-sm-3 col-form-label mylabel">Currency <span
+                style="font-size: 16px; color: #95A8B8;">(optional)</span></label>
+            <div class="col-sm-5 col-md-5 col-lg-5">
+              <select class="custom-select" name="jobCurrency" required>
+                <option value="">Select </option>
+                <option *ngFor="let currency of allCurrencies" [value]="currency.code">{{ currency.name }}</option>
+              </select>
+              <!-- <div *ngIf="jobCurrency.invalid && (jobCurrency.dirty || jobCurrency.touched)" class="error">
+                <div *ngIf="jobCurrency.errors.required">Currency is required</div>
+              </div> -->
+            </div>
+          </div>
+
+          <div class="form-group row mydiv">
+            <label for="currency" class="col-sm-3 col-form-label mylabel">Min Salary<span
+                style="font-size: 16px; color: #95A8B8;">(optional)</span></label>
+            <div class="col-sm-5 col-md-5 col-lg-5">
+              <app-amount-input ></app-amount-input>
+            </div>
+          </div>
+
+          <div class="form-group row mydiv">
+            <label for="currency" class="col-sm-3 col-form-label mylabel">Max Salary<span
+                style="font-size: 16px; color: #95A8B8;">(optional)</span></label>
+            <div class="col-sm-5 col-md-5 col-lg-5">
+              <app-amount-input ></app-amount-input>
+            </div>
+          </div>
+
+          <hr style="margin: 40px 0px;">
+
+          <div class="form-group row mydiv">
+            <label for="currency" class="col-sm-3 col-form-label mylabel">Post Validity</label>
+            <div class="col-sm-5 col-md-5 col-lg-5">
+              <ngx-date-range required></ngx-date-range>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="Beneficiary" class="col-sm-3 col-form-label">Reviewers</label>
+            <div class="col-sm-5 col-md-5 col-lg-5">
+              <ngx-employee-master-search (masterSubmitted)="getSelectedEmployee($event,'employee')" [allowmultipleselection]="allowmultipleselection" [selectionHeader]="selectionHeader" [addbtnText]="addbtnText"></ngx-employee-master-search>
+            <ngx-employee-master-search (masterSubmitted)="getSelectedEmployee($event,'employee')" [allowmultipleselection]="allowmultipleselection" [selectionHeader]="selectionHeader" [addbtnText]="addbtnText"></ngx-employee-master-search>
+            </div>
+          </div>
+
+
+          <!-- Add reviewrs modal -->
+
+          <div class="form-group row mydiv">
+            <label for="Country" class="col-sm-3 col-form-label mylabel">Scorecard <span
+                style="font-size: 16px; color: #95A8B8;">(optional)</span></label>
+            <div class="col-sm-5 col-md-5 col-lg-5">
+              <select class="custom-select" name="scorecard" required>
+                <option value="">Select </option>
+                <option *ngFor="let card of allScoreCards" [value]="card.id">{{ card.focusArea }}</option>
+              </select>
+
+            </div>
+          </div>
+
+          <div class="form-group row mydiv">
+            <label for="Country" class="col-sm-3 col-form-label mylabel">Quiz <span
+                style="font-size: 16px; color: #95A8B8;">(optional)</span></label>
+            <div class="col-sm-5 col-md-5 col-lg-5">
+              <select class="custom-select" required>
+                <option type="button" class="select-button" value="">Select Quiz</option>
+                <option *ngFor="let quiz of allQuizes" type="button" class="select-button" [value]="quiz.id">{{ quiz.name }}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="specialization" class="col-sm-3 col-form-label" style="font-weight: bold;"></label>
+            <div class="col-sm-5">
+              <button *ngIf="!loading" nbButton status="primary" (click)="addNewJob()">Post Now</button>
+              <button *ngIf="loading" nbButton status="primary">Now Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button>
+              <span style="padding: 8px;"></span>
+              <button *ngIf="loading" nbButton (click)="postNewDraft()">Save as Draft</button>
+
+            </div>
+          </div>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+
+
+  <!-- <ngx-side-modal [(show)]="showModal">
+    <div modal-header><Header></Header></div>
+    <div modal-body>
+      <div class="row">
+        <div class="col-sm-4 form-group">
+          <label>Department</label>
+          <select class="form-control">
+            <option></option>
+          </select>
+        </div>
+        <div class="col-sm-4 form-group">
+          <label>Branch</label>
+          <select class="form-control">
+            <option></option>
+          </select>
+        </div>
+        <div class="col-sm-4 form-group">
+          <label>Unit</label>
+          <select class="form-control">
+            <option></option>
+          </select>
+        </div>
+        <div class="col-sm-4 form-group">
+          <label>Level</label>
+          <select class="form-control">
+            <option></option>
+          </select>
+        </div>
+        <div class="col-sm-4 form-group">
+          <label>Gender</label>
+          <select class="form-control">
+            <option></option>
+          </select>
+        </div>
+        <div class="col-sm-4 form-group">
+          <label style="visibility: hidden;">Gender</label>
+          <button nbButton status='primary' style="min-width: unset !important;">Search</button>
+        </div>
+      </div>
+      <div>
+        <div style="display: flex; justify-content: flex-end; margin: 1rem 0rem">
+          <span style="color: #4847E0; cursor: pointer;">Select All</span>
+        </div>
+        <div style="border-top: 0.5px solid #CCCCCC;;">
+          <div *ngFor="let i of [1,2,3,4,5]"
+            style="display: flex; align-items: center; border-bottom: 0.5px solid #CCCCCC; padding: 1rem;">
+            <input type="checkbox" style="margin-right: 2rem;" />
+            <div style="display: flex;">
+              <img style="width: 3rem; height: 3rem; border-radius: 50%; margin-right: 1rem;"
+                src="https://via.placeholder.com/300/09f.png/fff%20C/O%20https://placeholder.com/" />
+              <div style="display: flex; justify-content: space-between; flex-direction: column;">
+                <div style="font-family: Rubik;
+                                    font-style: normal;
+                                    font-weight: normal;
+                                    font-size: 16px;
+                                    line-height: 19px;
+                                    display: flex;">Sherrif Shorunke</div>
+                <div style="font-family: Rubik;
+                                    font-style: normal;
+                                    font-weight: normal;
+                                    font-size: 14px;
+                                    display: flex;
+                                    color: #6C757D;">UX</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="display: flex; justify-content: flex-end; margin: 1rem;">
+        <button nbButton status='primary' style="margin-right: 0.5rem;">Add Reviewer</button>
+        <button nbButton status='primary' outline style="background: transparent;">Cancel</button>
+      </div>
+    </div>
+  </ngx-side-modal> -->
+

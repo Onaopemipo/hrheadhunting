@@ -10,8 +10,14 @@ export const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./modules/modules.module').then(m => m.ModulesModule),
-    canLoad: [AuthGuard],
+    // canLoad: [AuthGuard],
   },
+
+  // {
+  //   path: 'recruitment',
+  //   loadChildren: () => import('./modules/recruitment/recruitment.module').then(m => m.RecruitmentModule)
+  // },
+
 
 
    { path: '', redirectTo: 'auth', pathMatch: 'full' },

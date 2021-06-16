@@ -1,6 +1,12 @@
 .limiter {
     width: 100%;
+    background-color: #F4F6FC;
     margin: 0 auto
+}
+
+.sidebg {
+  width: 100%;
+  background-image: url('/src/assets/images/camera1.jpg');
 }
 
 .container-login {
@@ -25,22 +31,32 @@
 nb-checkbox {
     margin-bottom: 1rem;
   }
-  
+
   .form-inline [fullWidth] {
     flex: 1;
   }
-  
+
   .form-inline > * {
     margin: 0 1.5rem 1.5rem 0;
   }
-  
+
   nb-card.inline-form-card nb-card-body {
     padding-bottom: 0;
   }
-  
+
   label{
     color: #080730 !important;
     font-size: 1rem !important;
     font-style: normal !important;
 
+  }
+
+  .form-style {
+    width: 100%;
+    margin: 0 auto;
+    display: flexbox;
+    flex-direction: row;
+    align-self: center;
+    justify-content:space-around;
+    align-items: center;
   }

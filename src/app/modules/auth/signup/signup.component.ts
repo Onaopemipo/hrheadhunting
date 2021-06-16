@@ -7,11 +7,22 @@ import { Router} from '@angular/router';
 })
 export class SignupComponent implements OnInit {
 
+  show: boolean = false;
+  emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
+  btnprocessing: boolean = false;
+  errorMsg: string = "";
+
   constructor(private route: Router) { }
   gotoSetup() {
     this.route.navigate(['/onboarding/accountsetup']);
   }
   ngOnInit(): void {
+  }
+
+
+
+  viewpassword() {
+    this.show = !this.show;
   }
 
 }

@@ -12,12 +12,13 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { ComponentsModule } from 'app/components/components.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { JobsComponent } from './jobs/jobs.component';
 
 
 
 
 @NgModule({
-  declarations: [ModulesComponent, DashboardComponent, ],
+  declarations: [ModulesComponent, DashboardComponent, JobsComponent],
   imports: [
     CommonModule,
     ComponentsModule,
@@ -30,6 +31,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     NbIconModule,
     NbSelectModule,
     NbCheckboxModule
+  ],
+
+  providers: [
+
   ]
 })
 export class ModulesModule { }

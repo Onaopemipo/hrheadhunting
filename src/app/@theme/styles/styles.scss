@@ -39,8 +39,8 @@ nb-layout-footer{
 }
 
 .fc .fc-daygrid-day.fc-day-today {
-  background-color: #4847E01A !important;
-  border-top: 3px solid #4847E0;
+  background-color: #6B9BF21A !important;
+  border-top: 3px solid #6B9BF2;
 }
 .black{
   color: #080730;
@@ -55,7 +55,7 @@ nb-layout-footer{
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: #4847E01A
+  background: #6B9BF21A
 }
 .grey-2{
   color: #6C757D;;
@@ -318,7 +318,7 @@ opacity: 1;
   line-height: 22px !important;
   font-family: 'Rubik',sans-serif !important;
 letter-spacing: 0px;
-color:  #4847E0;
+color:  #6B9BF2;
 opacity: 1;
 }
 
@@ -331,7 +331,7 @@ line-height: 128% !important;
 
 text-decoration-line: none !important;
 
-color: #4847E0 !important;
+color: #6B9BF2 !important;
 }
 
 .a-small-normal{
@@ -343,7 +343,7 @@ line-height: 22px !important;
 
 text-decoration-line: none !important;
 
-color: #4847E0 !important;
+color: #6B9BF2 !important;
 }
 
 button{
@@ -351,7 +351,7 @@ button{
   //min-width: 144px !important;
 }
 .cbadge{
-  color:#4847E0;
+  color:#6B9BF2;
   padding: 6px 12px 6px 12px;
   min-height: 30px;
   min-width: 33px;
@@ -365,7 +365,7 @@ button{
   height: 4rem;
   overflow: hidden;
   border-radius: 50%;
-  border: 0.5px solid #4847E0;
+  border: 0.5px solid #6B9BF2;
 }
 
 .circular-avatar img {
@@ -379,7 +379,7 @@ button{
   height: 7.9375rem;
   overflow: hidden;
   border-radius: 50%;
-  // border: 0.5px solid #4847E0;
+  // border: 0.5px solid #6B9BF2;
 }
 
 .employee-avatar img {
@@ -410,7 +410,7 @@ opacity: 1;
   font-size: 16px !important;
   line-height: 22px !important;
   letter-spacing: 0px;
-  color: #4847E0 !important;
+  color: #6B9BF2 !important;
   opacity: 1;
   }
 .wizardlistactive{
@@ -418,7 +418,7 @@ opacity: 1;
   &::before{
   content: '';
   height: 2.5rem;
-  border: 3px solid #4847E0;
+  border: 3px solid #6B9BF2;
   display: block;
   }
 }
@@ -460,7 +460,7 @@ opacity: 1;
 .underlined-button{
   text-decoration: underline;
   font: normal normal normal 16px/22px Rubik;
-  color: #4847E0;
+  color: #6B9BF2;
   padding: 0px;
   text-align: left;
   width: fit-content;
