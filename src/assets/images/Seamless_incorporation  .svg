@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 56 56">
+  <g id="Group_31783" data-name="Group 31783" transform="translate(-1234.5 -1434.828)">
+    <g id="Group_31778" data-name="Group 31778">
+      <g id="Ellipse_11" data-name="Ellipse 11" transform="translate(1234.5 1434.828)" fill="#fff" stroke="#032b69" stroke-width="1">
+        <circle cx="28" cy="28" r="28" stroke="none"/>
+        <circle cx="28" cy="28" r="27.5" fill="none"/>
+      </g>
+      <circle id="Ellipse_12" data-name="Ellipse 12" cx="23.5" cy="23.5" r="23.5" transform="translate(1239.5 1438.828)" fill="rgba(100,149,237,0.2)"/>
+      <path id="Icon_awesome-question-circle" data-name="Icon awesome-question-circle" d="M28.191,14.377A13.814,13.814,0,1,1,14.377.563,13.814,13.814,0,0,1,28.191,14.377ZM14.748,5.13A7.215,7.215,0,0,0,8.255,8.682a.669.669,0,0,0,.151.906l1.933,1.466a.668.668,0,0,0,.928-.118c1-1.262,1.677-1.994,3.192-1.994,1.138,0,2.546.732,2.546,1.836,0,.834-.689,1.263-1.812,1.893-1.31.735-3.044,1.649-3.044,3.936v.223a.668.668,0,0,0,.668.668h3.119a.668.668,0,0,0,.668-.668v-.074c0-1.585,4.634-1.651,4.634-5.942C21.239,7.581,17.887,5.13,14.748,5.13Zm-.371,13.814a2.562,2.562,0,1,0,2.562,2.562A2.565,2.565,0,0,0,14.377,18.945Z" transform="translate(1247.123 1448.451)" fill="#6495ed"/>
+    </g>
+  </g>
+</svg>

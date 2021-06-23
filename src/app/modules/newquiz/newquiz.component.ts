@@ -1,0 +1,129 @@
+import { Router } from '@angular/router';
+import { AlertserviceService } from 'app/_services/alertservice.service';
+// import { IDTextViewModel } from 'app/_services/service-proxies';
+// import { RecruitmentQuizServiceProxy, ManageQuizDTO, QuestionDTO, QuestionOptionDTO } from './../../../../_services/service-proxies';
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'ngx-newquiz',
+  templateUrl: './newquiz.component.html',
+  styleUrls: ['./newquiz.component.scss']
+})
+export class NewquizComponent implements OnInit {
+
+  optionTypes = [
+    {id: 0, label: 'Multiple Choice'},
+    {id: 1, label: 'True/False'},
+    {id: 2, label: 'Long Text'},
+    {id: 3, label: 'Description'},
+  ]
+  multiChoice: [] = [];
+  booleanChoice = [
+    { id: 0, label: 'A', value: 'True'},
+    { id: 1, label: 'B', value: 'False'},
+];
+  // questions: QuestionDTO[] = [];
+
+myOptionType: number;
+
+  pagetitle: string = 'Add Quiz';
+  newQuizModel;
+  allQuizTypes:  [] = [];
+  allQuestionTypes:  [] = [];
+  allQuestions:  [] = [];
+  questionModel;
+  questionOptionModel;
+  newOption = "";
+  loading:boolean = false;
+
+  constructor(private alertMe: AlertserviceService, private router: Router) { }
+
+  defaultQuestion() {
+    // return new QuestionDTO();
+  }
+
+  ngOnInit(): void {
+    // this.fetchQuestionTypes;
+    // this.fetchQuizTypes;
+    // this.allQuestions = [
+    //   this.defaultQuestion()
+    // ]
+  }
+
+  onChange(event){
+    this.myOptionType = event;
+  }
+
+  cancelUpdate(){}
+  addNewQuiz(){}
+  addNewQuestion(){}
+  toggleNewQuiz(){}
+
+  // addNewQuestion(){
+  //   this.questionModel.questionOptions = this.multiChoice;
+  //   this.allQuestions.push(this.questionModel);
+  //   this.questionModel = new QuestionDTO();
+  //   this.multiChoice = [];
+  // }
+
+  // addOption(newOption: string){
+  //   var DuplicateChk = this.multiChoice.find(x=>x.value == newOption);
+  //   if(DuplicateChk){
+  //     this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.FAILED, 'Option exist already', 'Dismiss')
+  //   }else{
+  //     const option = new QuestionOptionDTO();
+  //     option.value = newOption;
+  //     this.multiChoice.push(option);
+  //   }
+  // }
+
+  // addNewQuiz() {
+  //   this.loading = true;
+  //   this.newQuizModel.questions = JSON.stringify(this.allQuestions);
+  //   this.newQuizModel.typeId = 1;
+  //   this.quiz.addUpdateQuiz(this.newQuizModel).subscribe(data => {
+  //   this.loading = false;
+  //     if(!data.hasError){
+  //       this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'Quiz Added!', 'Dismiss').subscribe(res => {
+  //         if(res){
+  //           this.router.navigateByUrl('recruitment/quiz')
+  //         }
+  //       });
+  //     }
+  //   }, (error) => {
+
+  //     if (error.status == 400) {
+  //       this.alertMe.openCatchErrorModal(this.alertMe.ALERT_TYPES.FAILED, error.title, "OK", error.errors);
+  //     }
+  //   });
+  // }
+
+  // async fetchQuizTypes(){
+  //   const data = await this.quiz.getQuizTypes().toPromise();
+  //   if(!data.hasError){
+  //     this.allQuizTypes = data.result;
+  //   }
+  // }
+
+  // removeOption(moption){
+  //  this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.CONFIRM, '', 'Yes').subscribe(res => {
+  //    if(res){
+  //     for( var i = 0; i < this.multiChoice.length; i++){
+  //       if (this.multiChoice[i] === moption) {
+  //         this.multiChoice.splice(i, 1);
+  //           i--;
+  //       }
+  //   }
+  //    }
+  //  })
+  // }
+
+  // async fetchQuestionTypes(){
+  //   const data = await this.quiz.getQuestionTypes().toPromise();
+  //   if(!data.hasError){
+  //     this.allQuestionTypes = data.result;
+  //   }
+  // }
+
+
+}

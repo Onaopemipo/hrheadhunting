@@ -1,0 +1,54 @@
+<!-- <ngx-componentsheader pageName='Settings' *ngIf="selectedCase == ''"></ngx-componentsheader>
+<ngx-componentsheader *ngIf="selectedCase =='Hiring_Stages'" pageName='Settings' [requiredButton]="[{name:'newStage', label:'Add New Stage', icon: 'plus'}]" (buttonClick)="addStage()"></ngx-componentsheader>
+<ngx-componentsheader *ngIf="selectedCase =='EmailSms_Templates'" pageName='Settings' [requiredButton]="[{name:'newTemplate', label:'Add New Template', icon: 'plus'}]" (buttonClick)=" toggleNewTemplate()"></ngx-componentsheader>
+<ngx-componentsheader *ngIf="selectedCase =='Evaluation'" pageName='Settings' [requiredButton]="[{name:'newScorescard', label:'Add Scorecard', icon: 'plus'}]" (buttonClick)="toggleScorecard()"></ngx-componentsheader>
+<div *ngIf="scorecardCounter < 1" class="row" style="min-height: 75vh; display: flex; flex-direction: row; align-content: center; align-self: center; align-items: center; justify-content:center;">
+  <div class="col-md-4">
+    <div style="background-color: #ffffff; display: flex; flex-direction: column; justify-content: flex-start;">
+      <img src="/src/assets/images/Job_Seeker.png" style="margin: 20px; width:3rem;">
+      <div style="padding: 20px;">
+        <h6>Job Seeker</h6>
+      <span>
+        Create a unique profile and let’s you get hired
+      </span>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div style="background-color: #ffffff; display: flex; flex-direction: column; justify-content: flex-start;">
+      <img src="/src/assets/images/Employer.png" style="margin: 20px; width:3rem;">
+      <div style="padding: 20px;">
+        <h6>Employer</h6>
+      <span>
+        Get the best talents to work with by registering with us
+      </span>
+      </div>
+
+    </div>
+  </div>
+</div>
+<div class="row"  style="min-height: 75vh; display: flex; flex-direction: row; align-content: center; align-self: center; align-items: center; justify-content:center;">
+  <div class="col-md-4"></div>
+  <div class="col-md-4"></div>
+  <div class="col-md-4"></div>
+</div>
+
+<div *ngIf="scorecardCounter > 0" class="row">
+  <div class="col-lg-4 col-md-4 col-xxl-4">
+      <nb-card>
+      <div>
+          <div #linklist style="display: flex;flex-direction: column;" *ngFor="let hiringlist of hiringChecklist; let i = index">
+
+          <div (click)="selectPanel(hiringlist,i)" [ngClass]="{'wizardlistactive': hiringlist.status == 'Active','wizardlistinactive': hiringlist.status != 'Active'}" style="display: flex;flex-direction: row;margin: .5rem 0 .5rem 0; align-items: center;cursor: pointer;">
+          <div style="padding-left: 1rem;"><nb-icon icon="checkmark-circle-2" status="{{hiringlist.status == 'Active'? 'primary': 'none'}}"></nb-icon></div>
+          <div style="padding-left: 0.625rem;"><span [ngClass]="{'listtextActive': hiringlist.status == 'Active','listtextInactive': hiringlist.status != 'Active'}" >{{hiringlist.label}} </span> </div>
+          </div>
+
+        </div>
+      </div>
+
+      </nb-card>
+      </div>
+</div> -->

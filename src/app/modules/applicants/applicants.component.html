@@ -1,0 +1,276 @@
+<ngx-single-column-layout>
+  <router-outlet></router-outlet>
+</ngx-single-column-layout>
+
+<!-- <router-outlet>
+
+</router-outlet> -->
+<!--
+<ngx-one-column-layout>
+  <router-outlet>
+
+  </router-outlet>
+
+</ngx-one-column-layout> -->
+
+<!--
+
+<ngx-componentsheader pageName='Settings' *ngIf="selectedCase == ''"></ngx-componentsheader>
+<ngx-componentsheader *ngIf="selectedCase =='Hiring_Stages'" pageName='Settings' [requiredButton]="[{name:'newStage', label:'Add New Stage', icon: 'plus'}]" (buttonClick)="addStage()"></ngx-componentsheader>
+<ngx-componentsheader *ngIf="selectedCase =='EmailSms_Templates'" pageName='Settings' [requiredButton]="[{name:'newTemplate', label:'Add New Template', icon: 'plus'}]" (buttonClick)=" toggleNewTemplate()"></ngx-componentsheader>
+<ngx-componentsheader *ngIf="selectedCase =='Evaluation'" pageName='Settings' [requiredButton]="[{name:'newScorescard', label:'Add Scorecard', icon: 'plus'}]" (buttonClick)="toggleScorecard()"></ngx-componentsheader>
+<div *ngIf="scorecardCounter < 1" class="row" style="min-height: 75vh; display: flex; flex-direction: row; align-content: center; align-self: center; align-items: center; justify-content:center;">
+  <div class="col-md-4">
+    <div style="background-color: #ffffff; display: flex; flex-direction: column; justify-content: flex-start;">
+      <img src="assets/icons/stages.jpg" style="margin: 20px; width:3rem;">
+      <div style="padding: 20px;">
+        <h6>Set Hiring Stages</h6>
+      <span>
+        Start by creating interview stages for prospective applicants.
+      </span>
+      </div>
+      <div style="padding: 20px;">
+        <button nbButton status="primary" (click)="createNewStage()" style="align-items: flex-start">Set Stages</button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div style="background-color: #ffffff; display: flex; flex-direction: column; justify-content: flex-start;">
+      <img src="assets/icons/template.jpg" style="margin: 20px; width:3rem;">
+      <div style="padding: 20px;">
+        <h6>Create Email Template</h6>
+      <span>
+        Create templates to make your hiring process faster.
+      </span>
+      </div>
+      <div style="padding: 20px;">
+        <button sty nbButton status="primary" (click)="createNewTemplate()" style="align-items: flex-start">Create Templates</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div *ngIf="scorecardCounter > 0" class="row">
+  <div class="col-lg-4 col-md-4 col-xxl-4">
+      <nb-card>
+      <div>
+          <div #linklist style="display: flex;flex-direction: column;" *ngFor="let hiringlist of hiringChecklist; let i = index">
+
+          <div (click)="selectPanel(hiringlist,i)" [ngClass]="{'wizardlistactive': hiringlist.status == 'Active','wizardlistinactive': hiringlist.status != 'Active'}" style="display: flex;flex-direction: row;margin: .5rem 0 .5rem 0; align-items: center;cursor: pointer;">
+          <div style="padding-left: 1rem;"><nb-icon icon="checkmark-circle-2" status="{{hiringlist.status == 'Active'? 'primary': 'none'}}"></nb-icon></div>
+          <div style="padding-left: 0.625rem;"><span [ngClass]="{'listtextActive': hiringlist.status == 'Active','listtextInactive': hiringlist.status != 'Active'}" >{{hiringlist.label}} </span> </div>
+          </div>
+
+        </div>
+      </div>
+
+      </nb-card>
+      </div>
+</div> -->
+
+
+<!-- <ngx-side-modal [(show)]="newStage">
+  <div modal-header>Add New Stage</div>
+  <div modal-body>
+          <form action="">
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text" name="title" #title="ngModel" [(ngModel)]="stagesModel.name" class="form-control" placeholder="Enter Name" required>
+              <div *ngIf="title.invalid && (title.dirty || title.touched)" class="error">
+                <div *ngIf="title.errors.required">Name is required</div>
+              </div>
+            </div>
+
+
+            <div class="form-group">
+              <label style="margin-right: 15px;">Auto-respond-with-mail?</label>
+             <div style=" display: flex; justify-content:left; flex-direction: row;">
+               <label style="margin-right: 20px;">Off</label> <nb-toggle style="margin-right: 20px;" [(ngModel)]="stagesModel.autoEmailRespond" (checked)="autoEmail()"></nb-toggle><label>On</label>
+             </div>
+            </div>
+
+            <div class="form-group">
+              <label>Email Template</label>
+              <select class=" form-control" name="emailTemplate" #emailTemplate="ngModel" [(ngModel)]="stagesModel.emailTemplateId" placeholder="Enter Email">
+                <option value="">--Select Template--</option>
+                <option *ngFor="let template of allTemplates" [value]="template.id">{{template.subject}}</option>
+              </select>
+              <div *ngIf="emailTemplate.invalid && (emailTemplate.dirty || emailTemplate.touched)" class="error">
+                <div *ngIf="emailTemplate.errors.required">Template is required</div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Reviewers</label>
+              <ngx-employee-master-search (masterSubmitted)="getSelectedEmployee($event,'employee')" [allowmultipleselection]="allowmultipleselection" [selectionHeader]="selectionHeader" [addbtnText]="addbtnText"></ngx-employee-master-search>
+            </div>
+          </form>
+        </div>
+
+        <div modal-actions class="d-flex">
+          <button *ngIf="!btnProcessing" nbButton status="primary" class="d-flex column" (click)="addNewStage()">Save</button>
+          <button *ngIf="btnProcessing" nbButton status="primary">Now Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button>
+          <button nbButton outline status="primary" class="d-flex column" (click)="addStage()">Cancel</button>
+         </div>
+</ngx-side-modal>
+
+<ngx-side-modal [(show)]="newSubStage">
+  <div modal-header>Add Sub Stage</div>
+  <div modal-body>
+          <form action="">
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text" name="title" #title="ngModel" [(ngModel)]="substageModel.name" class="form-control" placeholder="Enter Name" required>
+              <div *ngIf="title.invalid && (title.dirty || title.touched)" class="error">
+                <div *ngIf="title.errors.required">Name is required</div>
+              </div>
+            </div>
+
+
+            <div class="form-group">
+              <label style="margin-right: 15px;">Auto-respond-with-mail?</label>
+             <div style=" display: flex; justify-content:left; flex-direction: row;">
+               <label style="margin-right: 20px;">Off</label> <nb-toggle style="margin-right: 20px;" [(ngModel)]="substageModel.autoEmailRespond" (checked)="autoEmail()"></nb-toggle><label>On</label>
+             </div>
+            </div>
+
+            <div class="form-group">
+              <label>Email Template</label>
+              <select class=" form-control" name="emailTemplate" #emailTemplate="ngModel" [(ngModel)]="substageModel.emailTemplateId" placeholder="Enter Email">
+                <option value="">--Select Template--</option>
+                <option *ngFor="let template of allTemplates" [value]="template.id">{{template.subject}}</option>
+              </select>
+              <div *ngIf="emailTemplate.invalid && (emailTemplate.dirty || emailTemplate.touched)" class="error">
+                <div *ngIf="emailTemplate.errors.required">Template is required</div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="Country" >Scorecard</label>
+                <select class="custom-select" name="scorecard" ngModel="scorecard" [(ngModel)]="substageModel.scoreCard" required>
+                  <option value="">--Select ScoreCard--</option>
+                  <option *ngFor="let card of allScorecards" [value]="card.id">{{ card.focusArea }}</option>
+                </select>
+
+            </div>
+
+            <div class="form-group">
+              <label>Reviewers</label>
+              <ngx-employee-master-search (masterSubmitted)="getSubSelectedEmployee($event,'employee')" [allowmultipleselection]="allowmultipleselection" [selectionHeader]="selectionHeader" [addbtnText]="addbtnText"></ngx-employee-master-search>
+            </div>
+          </form>
+        </div>
+
+        <div modal-actions class="d-flex">
+          <button *ngIf="!btnProcessing" nbButton status="primary" class="d-flex column" (click)=" addSubStage()">Save</button>
+          <button *ngIf="btnProcessing" nbButton status="primary">Now Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button>
+          <button nbButton outline status="primary" class="d-flex column" (click)="addStage()">Cancel</button>
+         </div>
+</ngx-side-modal>
+
+
+<ngx-side-modal [(show)]="scorecard">
+  <div modal-header>Add ScoreCard</div>
+
+  <div modal-body>
+    <form>
+      <div class="form-group row mydiv">
+        <div class="col">
+          <label for="Name" class="col-form-label mylabel">Core Focus Area</label>
+          <input type="text" name="focusArea" #focusArea="ngModel" [(ngModel)]="scoreCardModel.focusArea" class="form-control" placeholder="Focus Area" required>
+        </div>
+      </div>
+
+      <div class="form-group row mydiv">
+        <div class="col">
+          <label for="TotalWeight" class="col-form-label mylabel">Total Weight</label>
+         <input type="number" name="totalWeight" #totalWeight="ngModel" [(ngModel)]="scoreCardModel.totalWeight" class="form-control" required>
+        </div>
+      </div>
+
+      <div class="form-group row mydiv">
+        <div class="col">
+          <label for="ScoringType" class="col-form-label mylabel">Scoring type</label>
+          <select class="custom-select" name="scoreTypes" #scoreTypes="ngModel" [(ngModel)]="scoreCardModel.scoringTypeId" required>
+            <option value="">Select </option>
+            <option *ngFor="let scoreType of scoringTypes" [value]="scoreType.id">{{scoreType.name}}</option>
+          </select>
+        </div>
+      </div>
+
+      <h6>Questions</h6>
+
+      <div class="form-group row mydiv">
+        <div class="col">
+          <label class="col-form-label mylabel">Question</label><br>
+          <textarea name="question" #question="ngModel" [(ngModel)]="questionModel.question" cols="30" rows="10" style="width: 100%;"></textarea>
+        </div>
+      </div>
+
+      <div class="form-group row mydiv">
+        <div class="col" >
+          <label class="col-form-label mylabel">Weight</label>
+         <input type="number" min="0" name="questionWeight" #questionWeight="ngModel" [(ngModel)]="questionModel.weight" class="form-control">
+        </div>
+      </div>
+
+      <div *ngIf="questionBank.length > 0" style="margin: 10px;">
+        <span class="cbadge"  *ngFor="let question of questionBank; let i = index " [attr.data-index]="i" class="row" style="margin: 5px;">Question {{ i+1 }} Added &nbsp;
+          <i class="fa fa-times" (click)="removeQuestion(question)" style="cursor: pointer;color: red;"></i></span>
+      </div>
+
+      <div class="form-group row mydiv">
+        <div class="col">
+          <button nbButton (click)="addMoreQuestion()">
+            <i class="fas fa-plus" style="color: #4847E0; padding-right: 10px;"></i>
+            Add New Question</button>
+        </div>
+      </div>
+
+        <div class="form-group row">
+          <div class="col">
+            <button *ngIf="!btnProcessing" nbButton status="primary" (click)="addScoreCard()" >Save</button>
+            <button *ngIf="btnProcessing" nbButton status="primary">Now Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button>
+            <span style="padding: 8px;"></span>
+            <button nbButton>Discard</button>
+          </div>
+        </div>
+      </form>
+  </div>
+
+
+</ngx-side-modal>
+
+<ngx-side-modal [(show)]="newTemplate">
+  <div modal-header>Add Template</div>
+  <div modal-body>
+    <form>
+      <div class="form-group row mydiv">
+        <div class="col">
+          <label for="Name" class="col-form-label mylabel">Name</label>
+          <input type="text" class="form-control" id="jobTitle" placeholder="Name">
+        </div>
+      </div>
+
+      <div class="form-group row mydiv">
+        <div class="col">
+          <label for="Body" class="col-form-label mylabel">Body</label>
+          <textarea name="" id="" cols="30" rows="10"></textarea>
+        </div>
+      </div>
+
+      </form>
+        </div>
+
+         <div class="form-group row">
+          <div class="col">
+            <button *ngIf="!btnProcessing" nbButton status="primary" (click)="createNewTemplate()" >Save</button>
+            <button *ngIf="btnProcessing" nbButton status="primary">Processing... &nbsp; <i class="fa fa-spin fa-spinner"></i></button>
+            <span style="padding: 8px;"></span>
+            <button nbButton>Discard</button>
+          </div>
+        </div>
+</ngx-side-modal> -->

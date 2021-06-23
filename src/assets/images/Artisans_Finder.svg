@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="55" height="56" viewBox="0 0 55 56">
+  <g id="Group_31782" data-name="Group 31782" transform="translate(-975.5 -1434.828)">
+    <g id="Group_31777" data-name="Group 31777">
+      <g id="Ellipse_11" data-name="Ellipse 11" transform="translate(975.5 1434.828)" fill="#fff" stroke="#032b69" stroke-width="1">
+        <ellipse cx="27.5" cy="28" rx="27.5" ry="28" stroke="none"/>
+        <ellipse cx="27.5" cy="28" rx="27" ry="27.5" fill="none"/>
+      </g>
+      <circle id="Ellipse_12" data-name="Ellipse 12" cx="23.5" cy="23.5" r="23.5" transform="translate(979.5 1438.828)" fill="rgba(100,149,237,0.2)"/>
+      <path id="Icon_awesome-screwdriver" data-name="Icon awesome-screwdriver" d="M24.175,0,17.268,5.18V8.529L12.788,13.01a5.313,5.313,0,0,1,1.831,1.831L19.1,10.361h3.349l5.18-6.907ZM6.907,15.033.589,21.351a2.012,2.012,0,0,0,0,2.844L3.433,27.04a2.011,2.011,0,0,0,2.844,0L12.6,20.722a4.022,4.022,0,1,0-5.688-5.688Z" transform="translate(989.185 1448.514)" fill="#6495ed"/>
+    </g>
+  </g>
+</svg>

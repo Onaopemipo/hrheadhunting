@@ -1,0 +1,570 @@
+<ngx-componentsheader pageName='Jobs' [requiredButton]="rButton" (buttonClick)=" newJobPosting()"></ngx-componentsheader>
+
+<div *ngIf="jobsCounter < 1" style="background-color: #ffffff;">
+  <nb-card>
+    <nb-card-body>
+        <ngx-default-content pageHeader={{myPlanHeader}} pageDescription="{{myPlanDesc}}" buttonValue={{myButton}}
+          (buttonClick)="newJobPosting()" [loading]="loading"></ngx-default-content>
+    </nb-card-body>
+  </nb-card>
+</div>
+<!--
+<div *ngIf="jobsCounter > 0">
+  <nb-card>
+    <nb-card-body>
+      <ngx-tableheader></ngx-tableheader>
+      <ngx-tablecomponent [loading]='loading' [userData]='allJobs' [actions]='tableActions' [tableColum]="postedJobsTable"></ngx-tablecomponent>
+    </nb-card-body>
+  </nb-card>
+</div> -->
+
+<nb-card *ngIf="jobsCounter > 0">
+  <nb-card-body>
+    <!-- <div headerButton>
+
+    </div> -->
+    <nb-tabset  *ngIf="jobsCounter > 0" (changeTab)="selectTab($event)">
+      <nb-tab tabTitle="Posted Jobs" [tabId]="TABS.postedJobs">
+          <div *ngIf="jobsCounter < 1">
+            <ngx-default-content [pageHeader]="myHeader" [pageDescription]="myDescription" [buttonValue]="myButton" (buttonClick)="addBudgetItem()">
+            </ngx-default-content>
+            </div>
+
+            <div *ngIf="jobsCounter > 0">
+              <ngx-tablecomponent [loading]='loading' [userData]='allJobs' [actions]='tableActions' [tableColum]="postedJobsTable" (actionClick)="tableActionClicked($event)"></ngx-tablecomponent>
+            </div>
+      </nb-tab>
+
+      <nb-tab tabTitle="Awaiting Approval" [tabId]="TABS.awaitingApproval">
+          <div *ngIf="awaitingJobsCounter < 1">
+            <ngx-default-content [pageHeader]="myHeader" [pageDescription]="myDescription" [buttonValue]="myButton" (buttonClick)="addBudgetItem()">
+            </ngx-default-content>
+            </div>
+
+          <div *ngIf="awaitingJobsCounter > 0">
+          <ngx-tablecomponent
+          [tableColum]="scheduledJobsTable"
+          (filterChange)="filterUpdated($event)"
+          [showActions]="false"
+          [showFilter]="true"
+          [userData]="tableData"
+          [showActions]="true"
+          [actions]="tableActions"
+          (actionClick)="tableActionClicked($event)"></ngx-tablecomponent>
+          </div>
+      </nb-tab>
+
+
+      <nb-tab tabTitle="Drafts" [tabId]="TABS.draftedJobs">
+            <div *ngIf="draftCounter < 1">
+              <ngx-default-content [pageHeader]="myHeader" [pageDescription]="myDescription" [buttonValue]="myButton" (buttonClick)="addBudgetItem()">
+              </ngx-default-content>
+              </div>
+
+            <div *ngIf="draftCounter > 0">
+             <ngx-tablecomponent [tableColum]="draftedJobsTable" [userData]="allDraftJobs" [actions]="draftTableActions" (actionClick)="draftTableActionClicked($event)"></ngx-tablecomponent>
+            </div>
+      </nb-tab>
+
+    </nb-tabset>
+  </nb-card-body>
+</nb-card>
+<!--
+<ngx-side-modal [(show)]='showCvModal' style="width: auto;" position='Center'>
+  <div modal-header></div>
+
+  <div modal-body>
+
+    <div class="card">
+
+      <nb-card>
+
+        <div class="row human">
+          <div class="container">
+            <div>
+              <header style="font-weight: bold;">HUMAN RESOURCES MANAGER</header>
+            </div>
+            <div class="need">
+              <p>Products</p>
+              <p style="margin-left: 0.27rem;">.Nigeria</p>
+              <p style="margin-left: 0.27rem;">.Part Time</p>
+            </div>
+          </div>
+
+
+
+
+        </div>
+      </nb-card>
+      <div class="row">
+        <div class="col-md-8 col-xxl-8">
+          <nb-card>
+            <nb-card-body>
+              <div>
+                <div
+                  style="border-bottom: 0.800000011920929px solid #CED4DA;padding-bottom: 10px; display: flex;flex-direction: row;">
+                  <div style="flex: auto; display: flex;padding-top: 15px;">
+                    <p style=" text-transform: uppercase; font-weight: bold;">Job Description
+                    </p>
+                  </div>
+
+
+
+                </div>
+              </div>
+              <span style="padding: 10px;"></span>
+
+              <div class="WorkExperience">
+
+                <div class="row">
+                  <div class="col-lg-8 way">
+                    <p>
+                      HT has been long established fact that a reader will be distracted by the readable
+                    </p>
+                    <p>
+                      content of page when looking at its layout. The point of using Lorem Ipsum is that
+                      <span>it has a more-or-less normal distribution of letters,</span>
+                    </p>
+                    <p>
+                      An oppose to using 'Content here, content here; making it look like readable a
+                      English
+                    </p>
+                    <p>
+                      Ht has been long established fact that a reader will be distracted by the readable
+                      <span>English</span>
+                    </p>
+                    <p>
+                      Ht has been long established fact that a reader will be distracted by the readable
+                      <span>English</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+
+              <div>
+                <div
+                  style="border-bottom: 0.800000011920929px solid #CED4DA;padding-bottom: 10px; display: flex;flex-direction: row;">
+                  <div style="flex: auto; display: flex;padding-top: 15px;">
+                    <p style=" text-transform: uppercase; font-weight: bold;">Job Description
+                    </p>
+                  </div>
+
+                </div>
+              </div>
+              <span style="padding: 10px;"></span>
+
+              <div class="WorkExperience">
+
+                <div class="row">
+                  <div class="col-lg-8 way">
+
+                    <p>
+                      An oppose to using 'Content here, content here; making it look like readable a
+                      English
+                    </p>
+                    <p>
+                      An oppose to using 'Content here, content here;
+                    </p>
+
+                    <p>
+                      <span>
+                        An oppose to using 'Content here, content here;making it look like readable a
+                        English
+                      </span>
+
+                    </p>
+
+                    <p>
+                      <span>
+                        An oppose to using 'Content here, content here;making it look like readable a
+                        English
+                      </span>
+
+                    </p>
+
+                  </div>
+                </div>
+              </div>
+            </nb-card-body>
+          </nb-card>
+
+
+
+        </div>
+
+
+        <div class="col-md-4 col-xxl-4">
+          <div class="row">
+            <div class="col-md-12 col-xxl-12">
+              <nb-card>
+                <nb-card-body>
+                  <div>
+                    <div
+                      style="border-bottom: 0.800000011920929px solid #CED4DA;padding-bottom: 10px; display: flex;flex-direction: row;">
+                      <div
+                        style="flex: auto; display: flex;padding-top: 15px; background-color: #4847E0; padding: 2rem;">
+                        <p style="color: white !important; text-transform: uppercase; font-size: large;"
+                          class="listsubheader">Job Summary</p>
+                      </div>
+
+                    </div>
+
+
+                  </div>
+                  <span style="padding: 20px;"></span>
+                  <div>
+                    <div
+                      style="display: flex; flex-direction: column; justify-content: center; padding: 20px; background: rgba(72, 71, 224, 0.04);">
+                      <div
+                        style="font-size: large; padding-top: 30px;  align-self: start; display: flex;flex-wrap: wrap;">
+                        <div>
+                          <i class="fas fa-boxes"></i>
+                        </div>
+                        <div style="margin-left: 1rem;">
+                          &#8358;250,000
+                        </div>
+                      </div>
+
+
+                      <div
+                        style="font-size: large; padding-top: 30px;  align-self: start; display: flex;flex-wrap: wrap;">
+                        <div>
+                          <img style="height: 25px;" src="assets/icons/officelocation.jpg" alt="">
+                        </div>
+                        <div style="margin-left: 1rem; font-weight: bold;">
+                          Lagos
+                        </div>
+                      </div>
+
+
+
+                      <div
+                        style="font-size: large; padding-top: 30px;  align-self: start; display: flex;flex-wrap: wrap;">
+                        <div>
+                          <img style="height: 25px;" src="assets/icons/NumberofShifts.jpg" alt="">
+                        </div>
+                        <div style="margin-left: 1rem; font-weight: bold;">
+                          3 Months ago
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </nb-card-body>
+              </nb-card>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-12 col-xxl-12">
+              <nb-card-header>
+                <span>Reviewers</span>
+              </nb-card-header>
+              <div>
+                <div>
+                  <ngx-employee-list></ngx-employee-list>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div style="margin-top: 2rem; font-size: larger;">
+            <nb-card-header>
+              <span style="font-weight: bold; padding: 1rem; margin-top: 2rem; font-size: larger;">ScoreCard</span>
+            </nb-card-header>
+
+
+          </div>
+
+
+          <button nbButton outline status="primary" class="d-flex column"
+            style="background-color: white; border: none; text-decoration: underline;">Product ScoreCard</button>
+
+
+          <div style="display: flex; justify-content: flex-end; margin: 1rem; margin-top: 14rem;">
+            <button nbButton status='primary' style="margin-right: 0.5rem;">Edit </button>
+            <button nbButton status='primary' outline style="background: transparent;">Close</button>
+          </div>
+        </div>
+
+
+
+      </div>
+
+      <div class="col-md-8 col-xxl-8">
+
+      </div>
+
+      <div class="col-md-8 col-xxl-8">
+
+      </div>
+      <div class="col-md-8 col-xxl-8">
+
+      </div>
+
+    </div>
+  </div>
+</ngx-side-modal>
+
+<ngx-side-modal [(show)]="showdeleteModal">
+  <div modal-header></div>
+  <div modal-body>
+    <nb-card>
+      <nb-card-body>
+        <div>
+          <div
+            style="border-bottom: 0.800000011920929px solid #CED4DA;padding-bottom: 10px; display: flex;flex-direction: row;">
+            <div style="flex: auto; display: flex;padding-top: 15px;">
+              <p style=" text-transform: uppercase; font-weight: bold;">Delete Job Posting
+              </p>
+            </div>
+
+
+
+          </div>
+        </div>
+        <span style="padding: 10px;"></span>
+
+        <span></span>
+
+      <div>
+        <p>
+          Are you sure you want to delete this job posting? they will no longer be
+        </p>
+        <p>
+         accesible.
+        </p>
+
+      </div>
+
+
+      <div modal-actions class="d-flex" style="margin-top: 10rem;   margin-left: 8rem;">
+
+        <button nbButton status="primary" class="d-flex column" style="margin-left: -4rem;">Delete</button>
+        <button nbButton outline status="primary" class="d-flex column"
+            style="background-color: white; margin-left: 1.2rem;">Cancel</button>
+
+    </div>
+      </nb-card-body>
+
+
+    </nb-card>
+
+  </div>
+
+
+
+</ngx-side-modal>
+
+<ngx-side-modal [(show)]="showJob" style="width: 600px;">
+  <div modal-header>{{ singleJob.jobTitle }}</div>
+
+  <div modal-body>
+    <nb-card>
+      <nb-card-body>
+        <form>
+          <div class="form-group row mydiv">
+            <label for="Title" >Job Title</label>
+
+              <select class="custom-select" name="jobTitle" #jobTitle="ngModel" [(ngModel)]="singleJob.jobTitleId" placeholder="Job Title">
+              <option value="">--Select Job Title--</option>
+              <option *ngFor="let job of allJobRoles" [value]="job.id">{{ job.name }}</option>
+              </select>
+              <div *ngIf="jobTitle.invalid && (jobTitle.dirty || jobTitle.touched)" class="error">
+                <div *ngIf="jobTitle.errors.required">Job Title is required</div>
+              </div>
+          </div>
+
+          <div class="form-group row ">
+            <label for="Department" >Department</label>
+
+              <select class="custom-select" name="departmentName" #departmentName="ngModel" [(ngModel)]="singleJob.departmentId" required>
+                <option value="">--Select Department--</option>
+                <option *ngFor="let department of allDepartments" [value]="department.id">{{ department.name }}</option>
+              </select>
+              <div *ngIf="departmentName.invalid && (departmentName.dirty || departmentName.touched)" class="error">
+                <div *ngIf="departmentName.errors.required">Department is required</div>
+              </div>
+          </div>
+
+          <h6>Location</h6>
+          <div class="form-group row mydiv">
+            <label for="Country" >Country</label>
+
+              <select name="country" #country="ngModel" [(ngModel)]="singleJob.countryId" (change)="fetchStates($event.target.value)" class="custom-select" required>
+                <option value="">--Select country--</option>
+                <option *ngFor="let mycountry of allCountries" [value]="mycountry.id">{{mycountry.name}}</option>
+              </select>
+              <div *ngIf="country.invalid && (country.dirty || country.touched)" class="error">
+                <div *ngIf="country.errors.required">Country is required</div>
+              </div>
+          </div>
+
+          <div class="form-group row mydiv">
+            <label for="Region" >Region, City or Zip Code</label>
+              <select class="custom-select"name="stateRegion" #stateRegion="ngModel" [(ngModel)]="singleJob.stateId" required>
+                <option value="">--Select State--</option>
+                <option *ngFor="let state of allStates" [value]="state.id">{{state.state_name}}</option>
+              </select>
+              <div *ngIf="stateRegion.invalid && (stateRegion.dirty || stateRegion.touched)" class="error">
+                <div *ngIf="stateRegion.errors.required">Region, City or Zip Code is required</div>
+              </div>
+          </div>
+
+          <h6>Description</h6>
+
+          <div class="form-group row mydiv">
+            <label for="Descripion" >Descripion</label>
+              <textarea name="description" #description="ngModel" [(ngModel)]="singleJob.description" cols="30" rows="10" style="width: 100%;"></textarea>
+              <div *ngIf="description.invalid && (description.dirty || description.touched)" class="error">
+                <div *ngIf="description.errors.required">Descripion is required</div>
+              </div>
+          </div>
+
+          <div class="form-group row mydiv">
+            <label for="Descripion" >Job Requirement</label>
+
+              <textarea name="requirements" #requirements="ngModel" [(ngModel)]="singleJob.requirements" cols="30" rows="10" style="width: 100%;"></textarea>
+              <div *ngIf="requirements.invalid && (requirements.dirty || requirements.touched)" class="error">
+                <div *ngIf="requirements.errors.required">Job Requirement is required</div>
+              </div>
+            </div>
+
+          <h6>Employment Details</h6>
+
+          <div class="form-group row mydiv">
+            <label for="employmentType" >Employment Type</label>
+
+              <select class="custom-select" name="employmentType" #employmentType="ngModel" [(ngModel)]="singleJob.employmentTypeId" required>
+                <option value="">--Select Employment Type--</option>
+                <option *ngFor="let employ of employmentTypes" [value]="employ.id">{{employ.text}}</option>
+              </select>
+              <div *ngIf="employmentType.invalid && (employmentType.dirty || employmentType.touched)" class="error">
+                <div *ngIf="employmentType.errors.required">Employment Type is required</div>
+              </div>
+          </div>
+
+          <div class="form-group row mydiv">
+            <label for="availability" >Availability</label>
+
+              <select class="custom-select" name="availability" #availability="ngModel" [(ngModel)]="singleJob.jobAvailabilityId" required>
+                <option value="">--Select Availability--</option>
+                <option *ngFor="let avail of jobAvailability" [value]="avail.id">{{avail.text}}</option>
+              </select>
+              <div *ngIf="availability.invalid && (availability.dirty || availability.touched)" class="error">
+                <div *ngIf="availability.errors.required">Availability is required</div>
+              </div>
+          </div>
+
+          <div class="form-group row mydiv">
+            <label for="Region" >Experience</label>
+
+             <input type="number" class="form-control" name="experience" #experience="ngModel" [(ngModel)]="singleJob.experience" placeholder="Experience in months" required>
+             <div *ngIf="experience.invalid && (experience.dirty || experience.touched)" class="error">
+              <div *ngIf="experience.errors.required">Experience is required</div>
+            </div>
+          </div>
+
+          <div class="form-group row mydiv">
+            <label >Minimum Qualification</label>
+
+              <select type="text" class="form-control" name="minQualification" #minQualification="ngModel" [(ngModel)]="singleJob.minQualificationId" placeholder="Minimum Education">
+              <option value="">--Select Qualification--</option>
+              <option *ngFor="let qualification of qualificationData" [value]="qualification.categoryId">{{qualification.name}}</option>
+              </select>
+              <div *ngIf="minQualification.invalid && (minQualification.dirty || minQualification.touched)" class="error">
+                <div *ngIf="minQualification.errors.required">Minimum Qualification is required</div>
+              </div>
+          </div>
+
+          <div class="form-group row mydiv">
+            <label >Maximum Qualification</label>
+
+            <select type="text" class="form-control" name="maxQualification" #maxQualification="ngModel" [(ngModel)]="singleJob.maxQualificationId" placeholder="Maximum Education">
+              <option value="">--Select Qualification--</option>
+              <option *ngFor="let qualification of qualificationData" [value]="qualification.categoryId">{{qualification.name}}</option>
+              </select>
+              <div *ngIf="maxQualification.invalid && (maxQualification.dirty || maxQualification.touched)" class="error">
+                <div *ngIf="maxQualification.errors.required">Maximum Qualification is required</div>
+              </div>
+          </div>
+
+          <h6>Annual Salary</h6>
+
+          <div class="form-group row mydiv">
+            <label for="Country" >Currency <span
+                style="font-size: 16px; color: #95A8B8;">(optional)</span></label>
+
+              <select class="custom-select"  name="jobCurrency" #jobCurrency="ngModel" [(ngModel)]="singleJob.currency" required>
+                <option value="">Select </option>
+                <option *ngFor="let currency of allCurrencies" [value]="currency.code">{{ currency.name }}</option>
+              </select>
+              <div *ngIf="jobCurrency.invalid && (jobCurrency.dirty || jobCurrency.touched)" class="error">
+                <div *ngIf="jobCurrency.errors.required">Currency is required</div>
+              </div>
+          </div>
+
+          <div class="form-group row mydiv">
+            <label for="currency" >Min Salary<span style="font-size: 16px; color: #95A8B8;">(optional)</span></label>
+              <app-amount-input class="form-control" [(value)]="singleJob.minSalary"></app-amount-input>
+
+          </div>
+
+          <div class="form-group row mydiv">
+            <label for="currency" >Max Salary<span style="font-size: 16px; color: #95A8B8;">(optional)</span></label>
+              <app-amount-input class="form-control" [(value)]="singleJob.maxSalary"></app-amount-input>
+          </div>
+
+          <hr style="margin: 40px 0px;">
+
+          <div class="form-group row mydiv">
+            <label>Post Validity</label>
+
+              <ngx-date-range [(start)]="singleJob.postValidityFrom" [(end)]="singleJob.postValidityTo" required></ngx-date-range>
+
+          </div>
+
+          <div class="form-group row">
+            <label>Reviewers</label>
+              <ngx-employee-master-search class="form-control" (masterSubmitted)="getSelectedEmployee($event,'employee')" [allowmultipleselection]="allowmultipleselection" [selectionHeader]="selectionHeader" [addbtnText]="addbtnText"></ngx-employee-master-search>
+            </div>
+
+          <div class="form-group row mydiv">
+            <label for="Country" >Scorecard <span
+                style="font-size: 16px; color: #95A8B8;">(optional)</span></label>
+
+              <select class="custom-select" name="scorecard" ngModel="scorecard" [(ngModel)]="singleJob.scoreCardId" required>
+                <option value="">Select </option>
+                <option *ngFor="let card of allScoreCards" [value]="card.id">{{ card.focusArea }}</option>
+              </select>
+
+          </div>
+
+          <div class="form-group row mydiv">
+            <label for="Country" >Quiz <span style="font-size: 16px; color: #95A8B8;">(optional)</span></label>
+
+              <select class="custom-select" required>
+                <option type="button" class="select-button">Select Quiz</option>
+                <option *ngFor="let quiz of allQuizes" type="button" class="select-button" [value]="quiz.id">{{ quiz.name }}</option>
+              </select>
+
+          </div>
+
+          <div class="form-group row">
+            <label for="specialization" style="font-weight: bold;"></label>
+            <div class="col-sm-5">
+              <button *ngIf="!loading" nbButton status="primary" (click)="updateJob()">Update Job</button>
+              <button *ngIf="loading" nbButton status="primary">Now Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button>
+              <span style="padding: 8px;"></span>
+              <button *ngIf="!loading" nbButton status="outline" (click)="cacel()">Update Job</button>
+            </div>
+          </div>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+
+</ngx-side-modal> -->

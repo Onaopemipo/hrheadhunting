@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="55" height="56" viewBox="0 0 55 56">
+  <g id="Group_31781" data-name="Group 31781" transform="translate(-715.5 -1434.828)">
+    <g id="Group_31776" data-name="Group 31776">
+      <g id="Ellipse_11" data-name="Ellipse 11" transform="translate(715.5 1434.828)" fill="#fff" stroke="#032b69" stroke-width="1">
+        <ellipse cx="27.5" cy="28" rx="27.5" ry="28" stroke="none"/>
+        <ellipse cx="27.5" cy="28" rx="27" ry="27.5" fill="none"/>
+      </g>
+      <circle id="Ellipse_12" data-name="Ellipse 12" cx="23.5" cy="23.5" r="23.5" transform="translate(719.5 1438.828)" fill="rgba(100,149,237,0.2)"/>
+      <path id="Icon_awesome-user-edit" data-name="Icon awesome-user-edit" d="M9.256,10.578A5.289,5.289,0,1,0,3.967,5.289,5.289,5.289,0,0,0,9.256,10.578Zm3.7,1.322h-.69a7.193,7.193,0,0,1-6.025,0h-.69A5.555,5.555,0,0,0,0,17.454v1.719a1.984,1.984,0,0,0,1.983,1.983H13.343a1.984,1.984,0,0,1-.107-.88l.281-2.516.05-.459.326-.326,3.194-3.194a5.5,5.5,0,0,0-4.128-1.88Zm1.872,6-.281,2.521a.658.658,0,0,0,.727.727l2.516-.281,5.7-5.7L20.528,12.21,14.83,17.9Zm11.326-6.793L24.59,9.545a.99.99,0,0,0-1.4,0l-1.562,1.562-.169.169,2.967,2.963,1.727-1.727a1,1,0,0,0,0-1.4Z" transform="translate(732.475 1450.489)" fill="#6495ed"/>
+    </g>
+  </g>
+</svg>

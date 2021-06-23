@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 56 56">
+  <g id="Group_31771" data-name="Group 31771" transform="translate(-455.5 -1203.828)">
+    <g id="Ellipse_11" data-name="Ellipse 11" transform="translate(455.5 1203.828)" fill="#fff" stroke="#032b69" stroke-width="1">
+      <circle cx="28" cy="28" r="28" stroke="none"/>
+      <circle cx="28" cy="28" r="27.5" fill="none"/>
+    </g>
+    <ellipse id="Ellipse_12" data-name="Ellipse 12" cx="23.5" cy="24" rx="23.5" ry="24" transform="translate(459.5 1207.828)" fill="rgba(100,149,237,0.2)"/>
+    <path id="Icon_awesome-suitcase" data-name="Icon awesome-suitcase" d="M6.183,23.891H18.549V4.569A2.319,2.319,0,0,0,16.231,2.25H8.5A2.319,2.319,0,0,0,6.183,4.569ZM9.275,5.342h6.183V6.887H9.275ZM24.732,9.206V21.572a2.319,2.319,0,0,1-2.319,2.319H20.1v-17h2.319A2.319,2.319,0,0,1,24.732,9.206ZM4.637,23.891H2.319A2.319,2.319,0,0,1,0,21.572V9.206A2.319,2.319,0,0,1,2.319,6.887H4.637Z" transform="translate(470.568 1217.358)" fill="#6495ed"/>
+  </g>
+</svg>
