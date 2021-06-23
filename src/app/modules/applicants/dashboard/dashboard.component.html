@@ -1,7 +1,5 @@
 <div class="bg-img">
   <div class="container">
-    <!-- <img src="assets/images/logo_2.png" alt="" style="width: 100px; height: 100px;"> -->
-
     <nav class="navbar navbar-expand-lg navbar-light bg-light  bg-transparent" style="color: #fff;">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -43,7 +41,7 @@
               <a class="nav-link" [routerLink]="['/auth/login']"><i class="fa fa-user" style="padding: 6px;"></i>Login</a>
             </li>
           </ul>
-          <button class="btn" nbButton outline size="small" style="color: #1F2566; background-color: #fff;">Post Job</button>
+          <button class="btn" [routerLink]="['/auth/login']" nbButton outline size="small" style="color: #1F2566; background-color: #fff;">Post Job</button>
         </form>
       </div>
     </nav>

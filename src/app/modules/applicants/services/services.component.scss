@@ -9,6 +9,15 @@
 
 }
 
+.navbar-nav {
+  color: #fff;
+}
+
+avbar-light .navbar-nav .show > .nav-link, .navbar-light .navbar-nav .active > .nav-link, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .nav-link.active {
+  color:#fff;
+  font-size: 15px;
+}
+
 .icon {
   font-size: 12px;
   padding-right: 10px;
@@ -63,6 +72,23 @@ li {
 
 .hidden-spacer {
   height: 56px
+}
+
+.has-search .form-control {
+  padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+  position: absolute;
+  z-index: 2;
+  display: block;
+  padding-top: 10px;
+  width: 2.375rem;
+  height: 2.375rem;
+  line-height: 2.375rem;
+  text-align: center;
+  pointer-events: none;
+  color: #aaa;
 }
 
 

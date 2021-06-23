@@ -12,10 +12,11 @@ import { JobboardsComponent } from './jobboards/jobboards.component';
 import { ScorecvComponent } from './scorecv/scorecv.component';
 import { PricingComponent } from './pricing/pricing.component';
 import { NbTableModule, NbCardModule, NbTabsetModule, NbCheckboxModule } from '@nebular/theme';
+import { TrainingComponent } from './training/training.component';
 
 
 @NgModule({
-  declarations: [DashboardComponent, SignupComponent, ServicesComponent, BlogsComponent, AboutComponent, JobboardsComponent, ScorecvComponent, PricingComponent],
+  declarations: [DashboardComponent, SignupComponent, ServicesComponent, BlogsComponent, AboutComponent, JobboardsComponent, ScorecvComponent, PricingComponent, TrainingComponent],
   imports: [
     CommonModule,
     ApplicantsRoutingModule,

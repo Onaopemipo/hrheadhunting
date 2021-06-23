@@ -1,3 +1,4 @@
+import { TrainingComponent } from './training/training.component';
 import { ServicesComponent } from './services/services.component';
 import { PricingComponent } from './pricing/pricing.component';
 import { AboutComponent } from './about/about.component';
@@ -50,7 +51,10 @@ const routes: Routes = [
         component: ServicesComponent
       },
 
-      {},
+      {
+        path: 'training',
+        component: TrainingComponent
+      },
 
       {
         path: 'signup',
