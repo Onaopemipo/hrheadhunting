@@ -1,5 +1,5 @@
-<div class="logo" style="margin: 2% 5%;">
-  <img src="assets/images/Logo.png" alt="" style="width: 100px; height: 100px;">
+<div class="logo" style="margin: 1% 3%;">
+  <img src="assets/images/Logo.png" alt=""  style="width: 150px; height: 150px;">
 </div>
 <div class="limiter" *ngIf="pageNo < 1">
   <div style="background-color: #fff; padding: 3% 6%; margin: 7%; text-align:center;">
@@ -32,17 +32,68 @@
 
   </div>
 </div>
+<div class="limiter">
+  <div style=" padding: 3% 6%; text-align:left;">
+<div class="row" style="display: flex; flex-direction: row; justify-content: space-around; align-items: flex-end;">
+
+  <div class="col-sm-6">
+    <h6 style="color: #1F2666; font-size: 19px; text-align: center;">One last step and you are good to go!</h6><br>
+    <div class="row" style="display: flex; flex-direction: row; justify-content: center;">
+      <button (click)="toggleJobSeekers()" type="button" nbButton status="primary">For Job Seekers</button>
+      <button (click)="toggleEmpoyers()" type="button" nbButton status="primary" style="margin-left: 5px;">For Employers</button>
+    </div>
+  </div>
+</div>
+</div>
+</div>
 
 <div class="limiter" *ngIf="pageNo > 0">
-  <div style="background-color: #fff; padding: 3% 6%; margin: 7%; text-align:left;">
-    <h6 style="text-align: center; color: #1F2666;">One last step and you are good to go!</h6><br>
+  <div style="background-color: #fff; padding: 3% 6%; margin: 4%; text-align:left;">
     <div class="row" style="display: flex; flex-direction: row; justify-content: left;">
+
       <div class="col">
         <nb-card>
-          <nb-card-body>
+          <nb-card-body *ngIf="jobSeekerStatus">
+            <div class="form-row" style="display: flex; flex-direction: row; justify-content: space-between;">
+              <div class="col-md-5 form-group">
+                <div style="border: 2px solid #0066F4; cursor: pointer; padding: 2px;">
+                  <img src="assets/icons/linkedin.png" style="width: 40px; height: 30px; padding-right: 10px;" alt="">
+                  <span>Sign up with LinkedIn</span>
+                </div>
 
-            <nb-tabset fullWidth>
-              <nb-tab tabTitle="For Job seekers">
+
+                <div style="padding: 10px;"></div>
+
+                <div style="border: 2px solid #0066F4; cursor: pointer; padding: 2px;">
+                  <img src="assets/icons/facebook.png" style="width: 40px; height: 30px; padding-right: 10px;" alt="">
+                  <span>Sign up with Facebook</span>
+                </div>
+
+                <div style="padding: 10px;"></div>
+              </div>
+
+              <div style="padding: 10px;"></div>
+
+              <div class="col-md-5 form-group">
+                <!-- <div class="col-md-5 form-group"> -->
+                  <div style="border: 2px solid #0066F4; cursor: pointer; padding: 2px;">
+                    <img src="assets/icons/google.png" style="width: 40px; height: 30px; padding-right: 10px;" alt="">
+                    <span>Sign up with Google</span>
+                  </div>
+
+
+                  <div style="padding: 10px;"></div>
+
+                  <div style="border: 2px solid #0066F4; cursor: pointer; padding: 2px;">
+                    <img src="assets/icons/twitter.png" style="width: 40px; height: 3S0px; padding-right: 10px;" alt="">
+                    <span>Sign up with Twitter</span>
+                  </div>
+                  <div style="padding: 10px;"></div>
+                <!-- </div> -->
+
+              </div>
+            </div>
+            <hr>
                 <form>
                   <h6>WORK PREFERENCE</h6><br>
                   <div class="form-row" style="display: flex; flex-direction: row; justify-content: space-between;">
@@ -50,7 +101,7 @@
                       <label for="" style="padding-top: 5px;">Field of Interest</label>
                       <select class="form-control" name="interest" #interest="ngModel" [(ngModel)]="jobSeeker.fieldOfInterestId" required>
                         <option value="">Select Field</option>
-                        <option *ngFor="let skill of skillData" [value]="skill.categoryId">{{skill.name}}</option>
+                        <option *ngFor="let skill of skillData" [value]="skillid">{{skill.text}}</option>
                       </select>
 
                       <div style="padding: 10px;"></div>
@@ -58,15 +109,13 @@
                       <label for="" style="padding-top: 5px;">Where do you want to work?</label>
                       <select class="form-control" name="residenceState" #residenceState="ngModel" [(ngModel)]="jobSeeker.stateOfInterestId" required>
                         <option value="">Select</option>
-                        <option *ngFor="let state of stateData" [value]="state.id">{{state.name}}</option>
+                        <option *ngFor="let state of stateData" [value]="state.id">{{state.text}}</option>
                       </select>
 
                       <div style="padding: 10px;"></div>
 
                       <label for="" style="padding-top: 5px;">How available are you to resume a new role?</label>
-                      <select class="form-control" name="availability" #availability="ngModel" [(ngModel)]="jobSeeker.availabilityDuration" required>
-                        <option value="">Select</option>
-                      </select>
+                      <input type="number" class="form-control" name="availability" #availability="ngModel" [(ngModel)]="jobSeeker.availabilityDuration" required>
                     </div>
 
                     <div style="padding: 10px;"></div>
@@ -80,7 +129,7 @@
                       <label for="">Where are you based?</label>
                       <select class="form-control" name="residence" #residence="ngModel" [(ngModel)]="jobSeeker.residentialStateId" required>
                         <option value="">Select</option>
-                        <option *ngFor="let state of stateData" [value]="state.id">{{state.name}}</option>
+                        <option *ngFor="let state of stateData" [value]="state.id">{{state.text}}</option>
                       </select>
 
                     </div>
@@ -92,7 +141,7 @@
                       <label for="" style="padding-top: 5px;">Highest Qualification</label>
                       <select type="text" class="form-control" name="qualification" #qualification="ngModel" [(ngModel)]="jobSeeker.qualificationId" required>
                         <option value="">Select</option>
-                        <option *ngFor="let myqual of qualificationData" [value]="myqual.categoryId">{{myqual.name}}</option>
+                        <option *ngFor="let myqual of qualificationData" [value]="myqualid">{{myqual.text}}</option>
                       </select>
 
                       <div style="padding: 10px;"></div>
@@ -100,7 +149,7 @@
                       <label for="" style="padding-top: 5px;">Institution Name</label>
                       <select type="text" class="form-control" name="institution" #institution="ngModel" [(ngModel)]="jobSeeker.institutionId" required>
                         <option value="">Select</option>
-                        <option *ngFor="let inst of institutionData" [value]="inst.categoryId">{{inst.name}}</option>
+                        <option *ngFor="let inst of institutionData" [value]="instid">{{inst.text}}</option>
                       </select>
 
                       <div style="padding: 10px;"></div>
@@ -116,7 +165,7 @@
                       <label for="" style="padding-top: 5px;">Course of study</label>
                       <select type="text" class="form-control" name="course" #course="ngModel" [(ngModel)]="jobSeeker.courseOfStudyId" required>
                         <option value="">Select</option>
-                        <option *ngFor="let mycourse of courseData" [value]="mycourse.id">{{mycourse.name}}</option>
+                        <option *ngFor="let mycourse of courseData" [value]="mycourse.id">{{mycourse.text}}</option>
                       </select>
 
                       <div style="padding: 10px;"></div>
@@ -124,7 +173,7 @@
                       <label for="">Grade</label>
                       <select type="text" class="form-control" name="grade" #grade="ngModel" [(ngModel)]="jobSeeker.gradeId" required>
                         <option value="">Select</option>
-                        <option *ngFor="let mygrade of gradeData" [value]="mydgrade.id">{{mygrade.name}}</option>
+                        <option *ngFor="let mygrade of gradeData" [value]="mygrade.id">{{mygrade.text}}</option>
                       </select>
 
                       <div style="padding: 10px;"></div>
@@ -190,95 +239,92 @@
                 </div>
 
                   <div style="display: flex; flex-direction: row; justify-content: right; align-items: flex-end;">
-                  <button *ngIf="!btnprocessing" (click)="toggleTest()" type="button" nbButton status="primary">Get Started</button>
+                  <button *ngIf="!btnprocessing" (click)="registerApplicant()" type="button" nbButton status="primary">Get Started</button>
                   <button *ngIf="btnprocessing" type="button" nbButton fullWidth status="primary">Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button>
                   <div style="padding: 5px;"></div>
                   </div>
                 </form>
-              </nb-tab>
 
-              <!-- Employer Tab  -->
+          </nb-card-body>
 
-              <nb-tab tabTitle="For Employers">
-                <form>
-                  <h6>PERSONAL INFORMATION</h6><br>
-                  <div class="form-row" style="display: flex; flex-direction: row; justify-content: space-between;">
-                    <div class="col-md-5 form-group">
-                      <label for="" style="padding-top: 5px;">First name</label>
-                      <input type="text" class="form-control" name="firstName" #firstName="ngModel" [(ngModel)]="employer.firstName" placeholder="First name">
+          <nb-card-body *ngIf="employersStatus">
+            <form>
+              <h6>PERSONAL INFORMATION</h6><br>
+              <div class="form-row" style="display: flex; flex-direction: row; justify-content: space-between;">
+                <div class="col-md-5 form-group">
+                  <label for="" style="padding-top: 5px;">First name</label>
+                  <input type="text" class="form-control" name="firstName" #firstName="ngModel" [(ngModel)]="employer.firstName" placeholder="First name">
 
-                      <div style="padding: 10px;"></div>
+                  <div style="padding: 10px;"></div>
 
-                      <label for="" style="padding-top: 5px;">Last name</label>
-                      <input type="text" class="form-control" name="lastName" #lastName="ngModel" [(ngModel)]="employer.lastName" placeholder="Last name">
+                  <label for="" style="padding-top: 5px;">Last name</label>
+                  <input type="text" class="form-control" name="lastName" #lastName="ngModel" [(ngModel)]="employer.lastName" placeholder="Last name">
 
-                      <div style="padding: 10px;"></div>
+                  <div style="padding: 10px;"></div>
 
-                      <label for="inputEmail4">Email</label>
-                       <input type="email" class="form-control" name="email" #email="ngModel" [(ngModel)]="employer.email">
+                  <label for="inputEmail4">Email</label>
+                   <input type="email" class="form-control" name="email" #email="ngModel" [(ngModel)]="employer.email">
 
-                       <div style="padding: 10px;"></div>
+                   <div style="padding: 10px;"></div>
 
-                       <label>Phone Number</label>
-                       <input type="tel" class="form-control" name="phone" #phone="ngModel" [(ngModel)]="employer.phone">
+                   <label>Phone Number</label>
+                   <input type="tel" class="form-control" name="phone" #phone="ngModel" [(ngModel)]="employer.mobile">
 
-                       <div style="padding: 10px;"></div>
+                   <div style="padding: 10px;"></div>
 
-                       <label for="inputPassword4">Password</label>
-                       <div style="display: flex;border: 0.800000011920929px solid #CED4DA;border-radius: 3px;background-color: #f7f9fc;padding: 5px;">
-                        <input [type]="show ? 'text' : 'password'" nbInput fullWidth placeholder="Password" name="password" #password="ngModel" [(ngModel)]="employer.password" required style="border: none;">
-                        <nb-icon  (click)="viewpassword()" *ngIf="!show"  icon="eye-off-outline" style="font-size: 32px;color: #95A8B8;cursor: pointer;"></nb-icon>
-                        <nb-icon  (click)="viewpassword()" *ngIf="show"  icon="eye-outline" style="font-size: 32px;color: #95A8B8;cursor: pointer;"></nb-icon>
-                      </div>
-                      </div>
-
-                    <div style="padding: 10px;"></div>
-
-                    <div class="col-md-5 form-group">
-                      <label for="" style="padding-top: 5px;">Company Name</label>
-                      <input type="text" class="form-control" name="companyName" #companyName="ngModel" [(ngModel)]="employer.name" placeholder="Company Name">
-
-                      <div style="padding: 10px;"></div>
-
-                      <label for="">Sector</label>
-                      <select class="form-control" name="sector" #sector="ngModel" [(ngModel)]="employer.sectorId">
-                        <option value="">Select</option>
-                        <option *ngFor="let sec of sectorData" [value]="sec.categoryId">{{sec.name}}</option>
-                      </select>
-
-                      <div style="padding: 10px;"></div>
-
-                      <label for="">Employer Type</label>
-                      <select class="form-control" name="employerType" #employerType="ngModel" [(ngModel)]="employer.employerTypeId">
-                        <option value="">Select</option>
-                      </select>
-
-                      <div style="padding: 10px;"></div>
-
-                      <label for="" style="padding-top: 5px;">Contact Person</label>
-                      <input type="text" class="form-control" name="contactPerson" #contactPerson="ngModel" [(ngModel)]="employer.contactPerson" placeholder="Contact Person">
-
-                      <div style="padding: 10px;"></div>
-
-                      <label for="inputPassword4">Confirm Password</label>
-                       <div style="display: flex;border: 0.800000011920929px solid #CED4DA;border-radius: 3px;background-color: #f7f9fc;padding: 5px;">
-                        <input [type]="show ? 'text' : 'password'" nbInput fullWidth placeholder="Confirm Password" name="conPassword" #conPassword="ngModel" [(ngModel)]="employer.confirmPassword" required style="border: none;">
-                        <nb-icon  (click)="viewpassword()" *ngIf="!show"  icon="eye-off-outline" style="font-size: 32px;color: #95A8B8;cursor: pointer;"></nb-icon>
-                        <nb-icon  (click)="viewpassword()" *ngIf="show"  icon="eye-outline" style="font-size: 32px;color: #95A8B8;cursor: pointer;"></nb-icon>
-                      </div>
-                       <div style="padding: 10px;"></div>
-
-                    </div>
+                   <label for="inputPassword4">Password</label>
+                   <div style="display: flex;border: 0.800000011920929px solid #CED4DA;border-radius: 3px;background-color: #f7f9fc;padding: 5px;">
+                    <input [type]="show ? 'text' : 'password'" nbInput fullWidth placeholder="Password" name="password" #password="ngModel" [(ngModel)]="employer.password" required style="border: none;">
+                    <nb-icon  (click)="viewpassword()" *ngIf="!show"  icon="eye-off-outline" style="font-size: 32px;color: #95A8B8;cursor: pointer;"></nb-icon>
+                    <nb-icon  (click)="viewpassword()" *ngIf="show"  icon="eye-outline" style="font-size: 32px;color: #95A8B8;cursor: pointer;"></nb-icon>
                   </div>
-                  <div>
-                    <button *ngIf="!btnprocessing" (click)="toggleTest()" type="button" nbButton status="primary">Get Started</button>
-                  <button *ngIf="btnprocessing" type="button" nbButton fullWidth status="primary">Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button>
-                  <div style="padding: 5px;"></div>
                   </div>
-                </form>
-              </nb-tab>
-            </nb-tabset>
 
+                <div style="padding: 10px;"></div>
+
+                <div class="col-md-5 form-group">
+                  <label for="" style="padding-top: 5px;">Company Name</label>
+                  <input type="text" class="form-control" name="companyName" #companyName="ngModel" [(ngModel)]="employer.name" placeholder="Company Name">
+
+                  <div style="padding: 10px;"></div>
+
+                  <label for="">Sector</label>
+                  <select class="custom-select" name="sector" #sector="ngModel" [(ngModel)]="employer.sectorId">
+                    <option value="">Select</option>
+                    <option *ngFor="let sec of sectorData" [value]="sec.id">{{sec.text}}</option>
+                  </select>
+
+                  <div style="padding: 10px;"></div>
+
+                  <label for="">Employer Type</label>
+                  <select class="custom-select" name="employerType" #employerType="ngModel" [(ngModel)]="employer.employerTypeId">
+                    <option value="">Select</option>
+                    <option *ngFor="let empdata of employerTypeData" [value]="empdata.id">{{empdata.text}}</option>
+                  </select>
+
+                  <div style="padding: 10px;"></div>
+
+                  <label for="" style="padding-top: 5px;">Contact Person</label>
+                  <input type="text" class="form-control" name="contactPerson" #contactPerson="ngModel" [(ngModel)]="employer.contactPerson" placeholder="Contact Person">
+
+                  <div style="padding: 10px;"></div>
+
+                  <label for="inputPassword4">Confirm Password</label>
+                   <div style="display: flex;border: 0.800000011920929px solid #CED4DA;border-radius: 3px;background-color: #f7f9fc;padding: 5px;">
+                    <input [type]="show ? 'text' : 'password'" nbInput fullWidth placeholder="Confirm Password" name="conPassword" #conPassword="ngModel" [(ngModel)]="employer.confirmPassword" required style="border: none;">
+                    <nb-icon  (click)="viewpassword()" *ngIf="!show"  icon="eye-off-outline" style="font-size: 32px;color: #95A8B8;cursor: pointer;"></nb-icon>
+                    <nb-icon  (click)="viewpassword()" *ngIf="show"  icon="eye-outline" style="font-size: 32px;color: #95A8B8;cursor: pointer;"></nb-icon>
+                  </div>
+                   <div style="padding: 10px;"></div>
+
+                </div>
+              </div>
+              <div>
+                <button *ngIf="!btnprocessing" (click)="registerEmployer()" type="button" nbButton status="primary">Get Started</button>
+              <button *ngIf="btnprocessing" type="button" nbButton fullWidth status="primary">Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button>
+              <div style="padding: 5px;"></div>
+              </div>
+            </form>
           </nb-card-body>
         </nb-card>
       </div>

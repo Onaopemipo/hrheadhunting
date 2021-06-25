@@ -1,7 +1,7 @@
 
 <div class="limiter">
-  <div style="margin-left: 6%;">
-    <img src="assets/images/Logo.png" alt="" style="width: 100px; height: 100px;">
+  <div>
+    <img src="assets/images/Logo.png" alt="" style="width: 150px; height: 150px; margin-left: 15%;">
   </div>
   <div class="container-login" >
     <div class="col-sm-4" style="background-color: #6495ED; height: 500px; padding: 30px;">
@@ -15,8 +15,8 @@
       <form name="loginForm" id="loginForm" #loginForm="ngForm">
         <div class="form-group row">
           <div class="col">
-            <label for="exampleInputEmail1" class="label">Email or Phone Number</label>
-          <input type="email" nbInput fullWidth id="exampleInputEmail1" placeholder="Email" name="email" [pattern]="emailPattern" required>
+            <label for="exampleInputEmail1" class="label">Email</label>
+          <input type="email" nbInput fullWidth placeholder="Email" name="email" #email='ngModel' [(ngModel)]="userlogin.email" [pattern]="emailPattern" required>
           <!-- <div *ngIf="email.invalid && (email.dirty || email.touched) " class="error">
             <div *ngIf="(email.errors.required || email.errors)">
               Valid email is required
@@ -29,7 +29,7 @@
          <div class="col">
           <label class="label">Password</label>
           <div style="display: flex;border: 0.800000011920929px solid #CED4DA;border-radius: 3px;background-color: #f7f9fc;padding: 5px;">
-            <input [type]="show ? 'text' : 'password'" nbInput fullWidth placeholder="Password" id="password" name="password" required style="border: none;">
+            <input [type]="show ? 'text' : 'password'" nbInput fullWidth placeholder="Password" name="password" #password="ngModel" [(ngModel)]="userlogin.password" required style="border: none;">
             <nb-icon  (click)="viewpassword()" *ngIf="!show"  icon="eye-off-outline" style="font-size: 32px;color: #95A8B8;cursor: pointer;"></nb-icon>
             <nb-icon  (click)="viewpassword()" *ngIf="show"  icon="eye-outline" style="font-size: 32px;color: #95A8B8;cursor: pointer;"></nb-icon>
           </div>
@@ -48,7 +48,7 @@
         <div style="padding: 5px;"></div>
       </form>
       <div style="padding: 15px;"></div>
-      <p style="text-align: center;font-size: .9rem;color: #080730;font-weight: 600;">I have an account? <a routerLink="/auth/login" style="font-weight: 700;">Sign In</a></p>
+      <p style="text-align: center;font-size: .9rem;color: #080730;font-weight: 600;">Don't have an account? <a routerLink="/auth/signup" style="font-weight: 700;">Sign Up</a></p>
     </div>
   </div>
 </div>

@@ -1,4 +1,4 @@
-import { ApiServiceProxy, AccountServiceProxy } from './../../_services/service-proxies';
+import { ApiServiceProxy, AccountServiceProxy, InstitutionServiceProxy, CourseServiceProxy, SectorsServiceProxy, SkillAreasServiceProxy, StatesServiceProxy, EmployerTypesServiceProxy, CountriesServiceProxy, GradesServiceProxy, QualificationServiceProxy } from './../../_services/service-proxies';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ThemeModule } from '../../@theme/theme.module';
@@ -40,6 +40,15 @@ import { SignupComponent } from './signup/signup.component';
   providers: [
     ApiServiceProxy,
     AccountServiceProxy,
+    InstitutionServiceProxy,
+    CourseServiceProxy,
+    SectorsServiceProxy,
+    SkillAreasServiceProxy,
+    StatesServiceProxy,
+    EmployerTypesServiceProxy,
+    CountriesServiceProxy,
+    GradesServiceProxy,
+    QualificationServiceProxy,
   ]
 
 })

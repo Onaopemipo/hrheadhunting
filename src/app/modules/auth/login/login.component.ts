@@ -1,4 +1,4 @@
-import { AccountServiceProxy } from './../../../_services/service-proxies';
+import { AccountServiceProxy, UserLoginDTO } from './../../../_services/service-proxies';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, NgForm } from "@angular/forms";
 import { Router } from '@angular/router';
@@ -13,12 +13,10 @@ import { AuthenticationService } from '../../../_services/authentication.service
 export class LoginComponent implements OnInit {
   show: boolean = false;
   loginForm: NgForm;
-  userloginDto: any = {
-    email: '',
-    passwword: ''
-  };
+  userlogin: UserLoginDTO = new UserLoginDTO();
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   btnprocessing: boolean = false;
+
   errorMsg: string = "";
   constructor(
     private AuthenService: AuthenticationService,
@@ -31,11 +29,18 @@ export class LoginComponent implements OnInit {
   }
   loginUser() {
     this.btnprocessing = true;
-    this.loginServices.getToken(this.userloginDto).subscribe((resp) => {
+    this.userlogin.isSocial = false;
+    this.loginServices.getToken(this.userlogin).subscribe((resp) => {
       if (!resp.hasError) {
-        this.openSuccessalert(resp.message);
-        console.log(resp)
-        console.log(resp.result)
+        // this.openSuccessalert(resp.message);
+        // console.log(resp)
+        // console.log(resp.result)
+        // alert('I am loggedin')
+        this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES, resp.message, 'Go to Dashboard').subscribe(data => {
+          if(data){
+            this.router.navigateByUrl('/applicants')
+          }
+        })
        this.AuthenService.addUser(resp.result);
       } else {
         this.clearerror();
@@ -56,7 +61,7 @@ export class LoginComponent implements OnInit {
 }
 
   openSuccessalert(message) {
-    this.alertMe.openModalAlert('success', message, 'Go to Dashboard')
+    this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, message, 'Go to Dashboard')
       .subscribe(data => {
         this.btnprocessing = false;
         this.router.navigate(['/dashboard']);

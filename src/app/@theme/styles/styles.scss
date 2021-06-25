@@ -484,6 +484,7 @@ opacity: 1;
 
 .nb-theme-smartace .overlay-backdrop {
   background: rgba(0, 0, 0, 0.9);
+  background-color: #1F2566;
 }
 
 .my-form > h4{
@@ -491,4 +492,25 @@ opacity: 1;
   font-style: normal;
   font-weight: 500;
   font-size: 1.2rem;
+}
+
+.nb-theme-smartace .menu-sidebar .scrollable {
+  padding-top: 2.25rem;
+  background-color: #1F2566;
+}
+
+.menu-item a .menu-title {
+  flex: 1 0 auto;
+  color: #89909F;
+}
+
+.menu-item:active a:active .menu-title:active {
+  flex: 1 0 auto;
+  color: #ffffff;
+}
+
+.nb-theme-smartace nb-layout.window-mode .layout nb-layout-header nav {
+  max-width: 1920px;
+  margin: 0 auto;
+  background-color: #fff;
 }
