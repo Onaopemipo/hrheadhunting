@@ -61,9 +61,10 @@ p {
 
 li {
   color: #95A8B8, 100%;
-  font-size: 12px;
-  text-justify: distribute;
-  font-weight: 400;
+  font-size: 15px;
+  // text-align: center;
+  // text-justify: distribute;
+  font-weight: 500;
 }
 
 // header {
@@ -139,7 +140,7 @@ li {
   float: left;
   color: #f2f2f2;
   text-align: center;
-  padding: 14px 16px;
+  // padding: 14px 16px;
   text-decoration: none;
   font-size: 17px;
 
@@ -166,4 +167,26 @@ li {
   pointer-events: none;
   color: #aaa;
 }
+
+// .signup-option {
+//   background-color: #ffffff;
+//   padding: 10px;
+//   height: auto;
+//   width: 25%;
+//   text-align: center;
+//   padding: 20px;
+//   border: 2px solid #6495ED;
+//   border-radius: 10px;
+// }
+
+// .img-central {
+//   display: block;
+//   width: 10%;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+//   position: absolute;
+//   padding: 25px;
+// }
+
 

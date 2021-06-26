@@ -52,6 +52,19 @@
     <div style="padding-top: 30px;">
       <h6 style="text-align: center; color: #fff;">Our Pricing Plan</h6>
     </div>
+    <div class="limiter">
+      <div style=" padding: 1% 6%; text-align:left;">
+    <div class="row" style="display: flex; flex-direction: row; justify-content: space-around; align-items: flex-end;">
+    
+      <div class="col-sm-6">
+        <div class="row" style="display: flex; flex-direction: row; justify-content: center;">
+          <button (click)="toggleJobSeekers()" type="button" class="btn btn-primary" nbButton status="primary">Recruiter Plans</button>
+          <button (click)="toggleEmpoyers()" type="button" class="btn btn-primary" nbButton status="primary" style="margin-left: 5px;">CV Rewrite Service</button>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
    </div>
 
 
@@ -59,11 +72,123 @@
 
 </div>
 
+<!-- <div class="limiter"> -->
+  <div style="background-color: #fff; padding: 3% 6%; margin: 1% 6%; text-align:left;">
+    <div class="row" style="display: flex; flex-direction: row; justify-content: left;">
 
-<div style="margin-top: 30%;">
+      <div class="col">
+        <nb-card>
+          <nb-card-body *ngIf="jobSeekerStatus">
+            <table class="table table-striped text-center">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Free Plan</th>
+                  <th scope="col">Basic Plan</th>
+                  <th scope="col">Premium</th>
+                  <th scope="col">Ultimate Recruitment</th>
+                  <th scope="col">Assessment</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td scope="row">Job Postings</td>
+                  <td><span class="input-group-addon" style="background-color: #C7C7C7; padding: 5px;"><i class="fa fa-check" aria-hidden="true"></i></span></td>
+                  <td><span class="input-group-addon" style="background-color: #C7C7C7; padding: 5px;"><i class="fa fa-check" aria-hidden="true"></i></span></td>
+                  <td>Candidates on our data are identify by us</td>
+                  <td>Psychometric Test</td>
+                  <td>Psychometric Test</td>
+                </tr>
+                <tr>
+                  <td scope="row">CVs are sent as an attachment to a verified email address.</td>
+                  <td><span class="input-group-addon" style="background-color: #C7C7C7; padding: 5px;"><i class="fa fa-check" aria-hidden="true"></i></span></td>
+                  <td><span class="input-group-addon" style="background-color: #C7C7C7; padding: 5px;"><i class="fa fa-check" aria-hidden="true"></i></span></td>
+                  <td>Our team will review the applications.</td>
+                  <td colspan="2">You can create  psychometric and competency-based assessment, and it will serve as outstanding 
+                    indicator of a candidate’s ability to execute the tasks needed for the job.</td>
+                  <!-- <td></td> -->
+                </tr>
+                <tr>
+                  <td scope="row">Access to profiles</td>
+                  <td></td>
+                  <td><span class="input-group-addon" style="background-color: #C7C7C7; padding: 5px;"><i class="fa fa-check" aria-hidden="true"></i></span></td>
+                  <td>Within one week of posting the position, five suitable applicants will
+                     be sent to the recruiter</td>
+                  <td colspan="2">You can create  psychometric and competency-based assessment, and it will serve as outstanding 
+                  indicator of a candidate’s ability to execute the tasks needed for the job.</td>
+                </tr>
 
-</div>
+                <tr>
+                  <td scope="row">Access to candidates’ video resumes</td>
+                  <td></td>
+                  <td><span class="input-group-addon" style="background-color: #C7C7C7; padding: 5px;"><i class="fa fa-check" aria-hidden="true"></i></span></td>
+                  <td><span class="input-group-addon" style="background-color: #C7C7C7; padding: 5px;"><i class="fa fa-check" aria-hidden="true"></i></span></td>
+                  <td></td>
+                  <td></td>
+                </tr>
 
+                <tr>
+                  <td scope="row">Shortlisting filter functions are available.</td>
+                  <td></td>
+                  <td><span class="input-group-addon" style="background-color: #C7C7C7; padding: 5px;"><i class="fa fa-check" aria-hidden="true"></i></span></td>
+                  <td><span class="input-group-addon" style="background-color: #C7C7C7; padding: 5px;"><i class="fa fa-check" aria-hidden="true"></i></span></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+
+                <tr>
+                  <td scope="row">Confidentiality is available.</td>
+                  <td></td>
+                  <td></td>
+                  <td><span class="input-group-addon" style="background-color: #C7C7C7; padding: 5px;"><i class="fa fa-check" aria-hidden="true"></i></span></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </nb-card-body>
+
+          <nb-card-body *ngIf="employersStatus">
+            <table class="table table-striped text-center">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Professional Growth</th>
+                  <th scope="col">Ultimate Recruitment</th>
+                  <th scope="col">Psychometric Assessment</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td scope="row">CV Rewrite</td>
+                  <td><span class="input-group-addon" style="background-color: #C7C7C7; padding: 5px;"><i class="fa fa-check" aria-hidden="true"></i></span></td>
+                  <td><span class="input-group-addon" style="background-color: #C7C7C7; padding: 5px;"><i class="fa fa-check" aria-hidden="true"></i></span></td>
+                  <td><span class="input-group-addon" style="background-color: #C7C7C7; padding: 5px;"><i class="fa fa-check" aria-hidden="true"></i></span></td>
+                </tr>
+                <tr>
+                  <td scope="row">Coverletter</td>
+                  <td></td>
+                  <td><span class="input-group-addon" style="background-color: #C7C7C7; padding: 5px;"><i class="fa fa-check" aria-hidden="true"></i></span></td>
+                  <td><span class="input-group-addon" style="background-color: #C7C7C7; padding: 5px;"><i class="fa fa-check" aria-hidden="true"></i></span></td>
+                  
+                </tr>
+                <tr>
+                  <td scope="row">LinkedIn Optimization</td>
+                  <td></td>
+                  <td></td>
+                  <td><span class="input-group-addon" style="background-color: #C7C7C7; padding: 5px;"><i class="fa fa-check" aria-hidden="true"></i></span></td>
+                </tr>
+
+              </tbody>
+            </table>
+          </nb-card-body>
+        </nb-card>
+      </div>
+    </div>
+  </div>
+  <div style="margin: 10%;"></div>
+<!-- </div> -->
+<!-- 
 <div class="row" style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; background-color: #1F2566; height: 225px; width: 100%; padding: 30px;">
   <div class="col-sm-3" style="color: #fff; padding: 10px; text-align: center;">
     <h6 style="color: #fff;">Company</h6><br>
@@ -96,4 +221,4 @@
       </span>
        </div>
   </div>
-  </div>
+  </div> -->
