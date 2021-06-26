@@ -351,19 +351,24 @@
   <div modal-body>
   <nb-card>
         <nb-card-body>
-            <div class="form-group row">
               <nb-radio-group name="MultiOption" >
                 <nb-radio>Card Payment</nb-radio>
                 <nb-radio>USSD Transfer</nb-radio>
               </nb-radio-group>
-            </div>
+
+              <ngx-file-upload></ngx-file-upload>
+              <div style="padding: 10px;"></div>
 
         </nb-card-body>
       </nb-card>
 
-        <div modal-actions class="d-flex">
+        <!-- <div modal-actions class="d-flex">
           <button nbButton status="primary" class="d-flex column" (click)="proceed()">Proceed</button>
           <button nbButton outline status="primary" class="d-flex column" (click)="cancel()">Cancel</button>
+         </div> -->
+         <div modal-actions style="display: flex; flex-direction: row; justify-content: flex-end;">
+          <button nbButton status="primary" [routerLink]="['/applicants']" style="margin-right: 20px;">Proceed</button>
+          <button nbButton outline status="primary" (click)="cancel()" >Cancel</button>
          </div>
   </div>
 </ngx-side-modal>

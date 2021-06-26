@@ -167,7 +167,12 @@ export class SignupComponent implements OnInit {
   }
 
   proceed(){
+    this.psychoTest = false;
     this.servicePayment = true;
+  }
+
+  dashboard(){
+    this.route.navigateByUrl('/applicants/')
   }
   cancel(){
     this.servicePayment = false;
