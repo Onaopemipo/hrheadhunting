@@ -6,7 +6,7 @@
     <h6>Select an option to continue</h6><br>
     <span>You can sign up as a job seeker looking for opportunities or as an employer searching for the next talent</span>
     <div class="row" style="display: flex; flex-direction: row; justify-content: center;">
-      <nb-card class="col-sm-3 signup-option" style="margin: 50px;">
+      <nb-card class="col-sm-3 signup-option" style="margin: 50px; cursor: pointer;" (click)="selectedOption()">
         <nb-card-body>
           <img src="assets/images/Job_Seeker.png" style="width: 100px; height: 100px; text-align: center;"  alt="">
         <h6>Job Seeker</h6>
@@ -16,7 +16,7 @@
         </nb-card-body>
       </nb-card>
 
-      <nb-card class="col-sm-3 signup-option" style="margin: 50px;">
+      <nb-card class="col-sm-3 signup-option" style="margin: 50px; cursor: pointer;">
         <nb-card-body>
           <img src="assets/images/Employer.png" style="width: 100px; height: 100px; text-align: center;" alt="">
         <h6>Employer</h6>
@@ -27,12 +27,13 @@
       </nb-card>
     </div>
 
-    <button nbButton status="primary" size="medium" style="width: 12%;" nextPage()>Get Started</button>
+    <button nbButton status="primary" size="medium" style="width: 12%;" (click)="nextPage()">Get Started</button>
 
 
   </div>
 </div>
-<div class="limiter">
+
+<div class="limiter"  *ngIf="pageNo > 0">
   <div style=" padding: 3% 6%; text-align:left;">
 <div class="row" style="display: flex; flex-direction: row; justify-content: space-around; align-items: flex-end;">
 
@@ -47,7 +48,7 @@
 </div>
 </div>
 
-<div class="limiter" *ngIf="pageNo > 0">
+<div class="limiter"  *ngIf="pageNo > 0">
   <div style="background-color: #fff; padding: 3% 6%; margin: 4%; text-align:left;">
     <div class="row" style="display: flex; flex-direction: row; justify-content: left;">
 
@@ -75,7 +76,6 @@
               <div style="padding: 10px;"></div>
 
               <div class="col-md-5 form-group">
-                <!-- <div class="col-md-5 form-group"> -->
                   <div style="border: 2px solid #0066F4; cursor: pointer; padding: 2px;">
                     <img src="assets/icons/google.png" style="width: 40px; height: 30px; padding-right: 10px;" alt="">
                     <span>Sign up with Google</span>
@@ -89,7 +89,6 @@
                     <span>Sign up with Twitter</span>
                   </div>
                   <div style="padding: 10px;"></div>
-                <!-- </div> -->
 
               </div>
             </div>
@@ -155,8 +154,8 @@
                       <div style="padding: 10px;"></div>
 
                       <label for="" style="padding-top: 5px;">Start Date</label>
-                      <ngx-date [(ngModel)]="jobSeeker.qualificationStartDate">
-                      </ngx-date>
+                      <!-- <ngx-date [(ngModel)]="jobSeeker.qualificationStartDate">
+                      </ngx-date> -->
                     </div>
 
                     <div style="padding: 10px;"></div>
@@ -179,11 +178,11 @@
                       <div style="padding: 10px;"></div>
 
                       <label for="">End Date</label>
-                      <ngx-date [(ngModel)]="jobSeeker.qualificationEndDate" >
-                      </ngx-date>
+                      <!-- <ngx-date [(ngModel)]="jobSeeker.qualificationEndDate" >
+                      </ngx-date> -->
 
                     </div>
-                  </div>
+                  </div> -->
 
                   <div style="padding: 10px;"></div>
                   <h6>EXPERIENCE</h6><br>
@@ -195,8 +194,8 @@
                       <div style="padding: 10px;"></div>
 
                       <label for="" style="padding-top: 5px;">Start Date</label>
-                      <ngx-date [(ngModel)]="jobSeeker.workStartDate">
-                      </ngx-date>
+                      <!-- <ngx-date [(ngModel)]="jobSeeker.workStartDate">
+                      </ngx-date> -->
                     </div>
 
                     <div class="col-md-5 form-group">
@@ -209,8 +208,8 @@
                       <nb-checkbox *ngIf="!currentWork" (checkedChange)="toggleJob($event)">Are you still working here?</nb-checkbox>
 
                       <label *ngIf="currentWork" for="">End Date</label>
-                      <ngx-date *ngIf="currentWork">
-                      </ngx-date>
+                      <!-- <ngx-date *ngIf="currentWork">
+                      </ngx-date> -->
 
                     </div>
                   </div>
@@ -219,10 +218,6 @@
                   <h6>SUMMARY</h6><br>
                   <div class="form-row" style="display: flex; flex-direction: row; justify-content: space-between;">
                     <div class="col-md-5 form-group">
-                      <!-- <ngx-file-upload></ngx-file-upload>
-                      <div style="padding: 10px;"></div>
-                      <ngx-file-upload></ngx-file-upload>
-                      <div style="padding: 10px;"></div> -->
                       <label for="">About yourself</label><br>
                       <textarea name="description" #description="ngModel" [(ngModel)]="jobSeeker.briefDescription" cols="30" rows="10" style="width: 100%;"></textarea>
                     </div>
@@ -239,7 +234,7 @@
                 </div>
 
                   <div style="display: flex; flex-direction: row; justify-content: right; align-items: flex-end;">
-                  <button *ngIf="!btnprocessing" (click)="registerApplicant()" type="button" nbButton status="primary">Get Started</button>
+                  <button *ngIf="!btnprocessing" (click)="toggleTest()" type="button" nbButton status="primary">Get Started</button>
                   <button *ngIf="btnprocessing" type="button" nbButton fullWidth status="primary">Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button>
                   <div style="padding: 5px;"></div>
                   </div>
@@ -368,7 +363,7 @@
 
         <div modal-actions class="d-flex">
           <button nbButton status="primary" class="d-flex column" (click)="proceed()">Proceed</button>
-          <button nbButton outline status="primary" class="d-flex column" (click)="cancel">Cancel</button>
+          <button nbButton outline status="primary" class="d-flex column" (click)="cancel()">Cancel</button>
          </div>
   </div>
 </ngx-side-modal>
