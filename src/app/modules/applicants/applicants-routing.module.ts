@@ -22,42 +22,42 @@ const routes: Routes = [
       },
 
       {
-        path: 'boards',
+        path: 'applicants/boards',
         component: JobboardsComponent
       },
 
       {
-        path: 'blog',
+        path: 'applicants/blog',
         component: BlogsComponent
       },
 
       {
-        path: 'scorecv',
+        path: 'applicants/scorecv',
         component:ScorecvComponent
       },
 
       {
-        path: 'about',
+        path: 'applicants/about',
         component: AboutComponent
       },
 
       {
-        path: 'pricing',
+        path: 'applicants/pricing',
         component: PricingComponent
       },
 
       {
-        path: 'services',
+        path: 'applicants/services',
         component: ServicesComponent
       },
 
       {
-        path: 'training',
+        path: 'applicants/training',
         component: TrainingComponent
       },
 
       {
-        path: 'signup',
+        path: 'applicants/signup',
         component: SignupComponent
       }
     ]
