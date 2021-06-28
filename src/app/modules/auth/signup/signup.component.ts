@@ -20,7 +20,7 @@ export class SignupComponent implements OnInit {
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   btnprocessing: boolean = false;
   errorMsg: string = "";
-  pageNo: number = 0;
+  pageNo: number = 1;
   psychoTest: boolean = false;
   btnProcessing: boolean = false;
   servicePayment: boolean = false;

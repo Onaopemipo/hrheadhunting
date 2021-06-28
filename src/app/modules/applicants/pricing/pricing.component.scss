@@ -13,7 +13,7 @@
   color: #fff;
 }
 
-avbar-light .navbar-nav .show > .nav-link, .navbar-light .navbar-nav .active > .nav-link, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .nav-link.active {
+.navbar-light .navbar-nav .show > .nav-link, .navbar-light .navbar-nav .active > .nav-link, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .nav-link.active {
   color:#fff;
   font-size: 15px;
 }
@@ -49,12 +49,12 @@ p {
   font-weight: 400;
 }
 
-.my-button {
-  color: #ffffff;
-  text-transform: capitalize;
-  background: #4847E0;
-  border-radius: 4px;
-}
+// .my-button {
+//   color: #ffffff;
+//   text-transform: capitalize;
+//   background: #4847E0;
+//   border-radius: 4px;
+// }
 
 li {
   color: #95A8B8, 100%;
@@ -164,3 +164,29 @@ li {
   color: #aaa;
 }
 
+th {
+  color: #012D57;
+}
+
+// .btn-primary:hover .btn-primary:active {
+//   background-color: aqua !important;
+//   color: #000 !important;
+// }
+
+
+// .btn {
+//   color: #FFF !important;
+//   background-color: #E8E8E8BE;
+//   border: none;
+// }
+
+.inactive {
+  background-color: #E8E8E8BE !important;
+  color: #70706F !important;
+  border: none !important;
+
+}
+
+// .btn:active .btn:hover{
+//   background-color: yellow !important;
+// }

@@ -1,6 +1,6 @@
 .limiter {
-  width: 100%;
-  margin: 0 auto;
+  width: 80%;
+  margin: 0 10%;
 }
 
 .container-login {
@@ -23,10 +23,10 @@
   z-index: 1
 }
 
-nb-tabset {
-  tabset-tab-active-background-color: #6495ED;
-  tabset-tab-active-text-color: #ffffff;
-}
+// nb-tabset {
+//   tabset-tab-active-background-color: #6495ED;
+//   tabset-tab-active-text-color: #ffffff;
+// }
 
 .img-central {
 display: block;
@@ -73,8 +73,12 @@ label{
   text-align: center;
   padding: 20px;
   margin: 1%;
-  border: 2px solid #6495ED;
-  border-radius: 10px;
+  border: 1px solid #788290;
+  border-radius: 5px;
+}
+
+div.signup-option:active :hover {
+  border: 1px solid #6495ED;
 }
 
 .img-central {
@@ -86,3 +90,17 @@ label{
   position: absolute;
   padding: 25px;
 }
+
+.inactive {
+  background-color: #E8E8E8BE !important;
+  color: #70706F !important;
+  border: none !important;
+}
+
+
+// .nb-theme-smartace [nbButton].appearance-filled.status-primary {
+//   background-color: #ffffff;
+//   border-color: #6B9BF2;
+//   color: #ffffff;
+// }
+

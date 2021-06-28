@@ -1,3 +1,4 @@
+import { ApplicantsComponent } from './applicants/applicants.component';
 import { ReportsComponent } from './reports/reports.component';
 import { QuizComponent } from './quiz/quiz.component';
 import { NgModule } from '@angular/core';
@@ -16,6 +17,11 @@ const routes: Routes = [{
     {path: 'dashboard',
     component: DashboardComponent
     },
+
+    // {
+    //   path: 'applicants',
+    //   component: ApplicantsComponent
+    // },
 
     {
       path: 'jobs',

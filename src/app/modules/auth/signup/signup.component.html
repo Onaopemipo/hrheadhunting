@@ -1,8 +1,8 @@
-<div class="logo" style="margin: 1% 3%;">
+<div class="limiter">
   <img src="assets/images/Logo.png" alt=""  style="width: 150px; height: 150px;">
 </div>
 <div class="limiter" *ngIf="pageNo < 1">
-  <div style="background-color: #fff; padding: 3% 6%; margin: 7%; text-align:center;">
+  <div style="background-color: #fff; padding: 1% 6%; text-align:center;">
     <h6>Select an option to continue</h6><br>
     <span>You can sign up as a job seeker looking for opportunities or as an employer searching for the next talent</span>
     <div class="row" style="display: flex; flex-direction: row; justify-content: center;">
@@ -34,14 +34,15 @@
 </div>
 
 <div class="limiter"  *ngIf="pageNo > 0">
-  <div style=" padding: 3% 6%; text-align:left;">
+  <div style=" padding: 1% 6%; text-align:left;">
 <div class="row" style="display: flex; flex-direction: row; justify-content: space-around; align-items: flex-end;">
-
   <div class="col-sm-6">
     <h6 style="color: #1F2666; font-size: 19px; text-align: center;">One last step and you are good to go!</h6><br>
-    <div class="row" style="display: flex; flex-direction: row; justify-content: center;">
+    <div class="row" style="display: flex; flex-direction: row; justify-content: center; align-content: center;">
+     <div class="col-sm-5" style="display: flex; flex-direction: row; justify-content: center; padding: 2px 5px;">
       <button (click)="toggleJobSeekers()" type="button" nbButton status="primary">For Job Seekers</button>
-      <button (click)="toggleEmpoyers()" type="button" nbButton status="primary" style="margin-left: 5px;">For Employers</button>
+      <button (click)="toggleEmpoyers()" type="button" nbButton status="primary inactive" style="margin-left: 3px; color: #70706F; border: none;">For Employers</button>
+     </div>
     </div>
   </div>
 </div>
