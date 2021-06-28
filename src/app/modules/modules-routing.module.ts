@@ -14,14 +14,14 @@ const routes: Routes = [{
   component: ModulesComponent,
 
   children: [
-    {path: 'dashboard',
-    component: DashboardComponent
-    },
-
-    // {
-    //   path: 'applicants',
-    //   component: ApplicantsComponent
+    // {path: 'dashboard',
+    // component: DashboardComponent
     // },
+
+    {
+      path: 'applicants',
+      component: ApplicantsComponent
+    },
 
     {
       path: 'jobs',
