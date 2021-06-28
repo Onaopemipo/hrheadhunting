@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { ApplicantsRoutingModule } from './applicants-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { SignupComponent } from './signup/signup.component';
 import { ThemeModule } from 'app/@theme/theme.module';
 import { ServicesComponent } from './services/services.component';
 import { BlogsComponent } from './blogs/blogs.component';
@@ -16,7 +14,7 @@ import { TrainingComponent } from './training/training.component';
 
 
 @NgModule({
-  declarations: [DashboardComponent, SignupComponent, ServicesComponent, BlogsComponent, AboutComponent, JobboardsComponent, ScorecvComponent, PricingComponent, TrainingComponent],
+  declarations: [DashboardComponent, ServicesComponent, BlogsComponent, AboutComponent, JobboardsComponent, ScorecvComponent, PricingComponent, TrainingComponent],
   imports: [
     CommonModule,
     ApplicantsRoutingModule,
