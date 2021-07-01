@@ -15,7 +15,7 @@
 
 avbar-light .navbar-nav .show > .nav-link, .navbar-light .navbar-nav .active > .nav-link, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .nav-link.active {
   color:#fff;
-  font-size: 15px;
+  font-size: 13px;
 }
 
 .icon {
@@ -58,9 +58,10 @@ p {
 
 li {
   color: #95A8B8, 100%;
-  font-size: 12px;
+  font-size: 12px !important;
   text-justify: distribute;
   font-weight: 400;
+  font-family: Graphik;
 }
 
 // header {
@@ -164,3 +165,11 @@ li {
   color: #aaa;
 }
 
+.nb-theme-smartace [nbButton]{
+  font-family: Graphik !important;
+  font-size: 13px;
+  font-weight: normal;
+}
+.custom-select{
+  font-size: 13px;
+}

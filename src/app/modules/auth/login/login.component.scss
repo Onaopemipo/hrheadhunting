@@ -10,8 +10,8 @@
 }
 
 .container-login {
-    width: 100%;
-    min-height: 100vh;
+    width: 80%;
+    min-height: 70vh;
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;
@@ -59,10 +59,11 @@ nb-checkbox {
   }
 
   label{
-    color: #080730 !important;
-    font-size: 1rem !important;
+    color: #71727B !important;
+    font-size: 14px !important;
     font-style: normal !important;
-
+font-family: Rubik !important;
+font-weight: normal !important;
   }
 
   // .form-style {
