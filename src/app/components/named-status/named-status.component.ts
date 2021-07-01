@@ -16,11 +16,11 @@ export class NamedStatusComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getColor(){
-    return this.data.getNamedStatusColor()
+  getColor() {
+    return this.data.getNamedStatusColor();
   }
-  getLabel(){
-    return this.data.getNamedStatusLabel()
+  getLabel() {
+    return this.data.getNamedStatusLabel();
   }
 
 }

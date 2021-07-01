@@ -8,4 +8,37 @@
       right: 0.41rem !important;
     }
   }
+
+  .form-control{
+    font-size:14px;
+    font-weight: normal;
+    font-family: Rubik !important;
+  }
+
+  body {
+    font-family: Rubik !important;
+  }
+
+  .nb-theme-smartace { 
+    font-family: 'Rubik' !important;
+    font-weight: normal;
+    font-size: 14px;
+  }
+
+  .show-modal{ 
+    font-family: 'Rubik' !important;
+  }
+  nb-card{
+    font-family: 'Rubik' !important;
+    font-size: 14px;
+  }
+
+  .nb-theme-smartace [nbButton].appearance-filled.status-primary{
+    font-family: 'Rubik' !important;
+    font-weight: normal;
+    font-size: 14px;
+  }
+  .nb-theme-smartace li{
+    font-family: 'Rubik' !important;
+  }
 }

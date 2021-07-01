@@ -50,7 +50,8 @@
 </div>
 
 <div class="limiter" *ngIf="pageNo > 0">
-  <div style="background-color: #fff; padding: 3% 6%; margin: 4%; text-align:left;">
+  <div style="padding: 3% 6%; margin: -2% 7% 7% 7%; text-align:left;">
+    <h6 style="text-align: center; color: #1F2666;">One last step and you are good to go!</h6><br>
     <div class="row" style="display: flex; flex-direction: row; justify-content: left;">
 
       <div class="col">
@@ -435,7 +436,7 @@
       </nb-card>
       <div modal-actions style="display: flex; flex-direction: row; justify-content: flex-end;">
         <button nbButton status="primary" (click)="proceed()" style="margin-right: 20px;">Proceed</button>
-        <button nbButton outline status="primary" (click)="cancel()">No Please</button>
+        <button nbButton outline status="primary" (click)="cancel()">No, Please</button>
        </div>
   </div>
 </ngx-side-modal>

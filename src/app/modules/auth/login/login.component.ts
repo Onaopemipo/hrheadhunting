@@ -1,6 +1,6 @@
 import { AccountServiceProxy, UserLoginDTO } from './../../../_services/service-proxies';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, NgForm } from "@angular/forms";
+import { FormGroup, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertserviceService } from 'app/_services/alertservice.service';
 import { AuthenticationService } from '../../../_services/authentication.service';
@@ -49,13 +49,13 @@ export class LoginComponent implements OnInit {
       }
     }, error => {
       this.clearerror();
-        this.errorMsg = "Oops! Something went wrong, we are fixing it";
+        this.errorMsg = 'Oops! Something went wrong, we are fixing it';
 
-    })
+    });
   }
   clearerror() {
   setTimeout(() => {
-    this.errorMsg = "";
+    this.errorMsg = '';
     this.btnprocessing = false;
   }, 3000);
 }

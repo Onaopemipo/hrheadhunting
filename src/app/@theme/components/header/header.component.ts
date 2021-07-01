@@ -29,7 +29,7 @@ import { AuthenticationService } from 'app/_services/authentication.service';
 })
 export class NgxUserlistCardComponent {
   userMenu = [{ title: 'Profile' }, { title: 'Log out' }];
-  constructor(private AuthenService: AuthenticationService,) { }
+  constructor(private AuthenService: AuthenticationService, ) { }
   btnAction(btnact) {
     if (btnact == 'Log out') {
       this.AuthenService.clearusers();
@@ -77,7 +77,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private userService: UserData,
               private layoutService: LayoutService,
     private breakpointService: NbMediaBreakpointsService,
-  
+
     ) {
   }
 
@@ -103,7 +103,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       )
       .subscribe(themeName => this.currentTheme = themeName);
   }
- 
+
 
   ngOnDestroy() {
     this.destroy$.next();

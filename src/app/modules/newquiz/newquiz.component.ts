@@ -16,7 +16,7 @@ export class NewquizComponent implements OnInit {
     {id: 1, label: 'True/False'},
     {id: 2, label: 'Long Text'},
     {id: 3, label: 'Description'},
-  ]
+  ];
   multiChoice: [] = [];
   booleanChoice = [
     { id: 0, label: 'A', value: 'True'},
@@ -33,8 +33,8 @@ myOptionType: number;
   allQuestions:  [] = [];
   questionModel;
   questionOptionModel;
-  newOption = "";
-  loading:boolean = false;
+  newOption = '';
+  loading: boolean = false;
 
   constructor(private alertMe: AlertserviceService, private router: Router) { }
 
@@ -50,14 +50,14 @@ myOptionType: number;
     // ]
   }
 
-  onChange(event){
+  onChange(event) {
     this.myOptionType = event;
   }
 
-  cancelUpdate(){}
-  addNewQuiz(){}
-  addNewQuestion(){}
-  toggleNewQuiz(){}
+  cancelUpdate() {}
+  addNewQuiz() {}
+  addNewQuestion() {}
+  toggleNewQuiz() {}
 
   // addNewQuestion(){
   //   this.questionModel.questionOptions = this.multiChoice;

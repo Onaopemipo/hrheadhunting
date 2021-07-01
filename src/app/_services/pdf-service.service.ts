@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { jsPDF } from "jspdf";
+import { jsPDF } from 'jspdf';
 
 import autoTable from 'jspdf-autotable';
 
@@ -11,20 +11,20 @@ export class PdfServiceService {
 
   constructor() { }
   printAsPDF(theader, tbody, fileNane) {
-    console.log(theader,tbody)
-    var doc = new jsPDF({ orientation: "portrait" });
-    doc.addImage(window.location.origin +"/assets/icons/smartaceLogo.png", "PNG", 140, 5, 40, 5);
-    var finalY =  10
-    doc.text(fileNane, 14, finalY + 15)
+    console.log(theader, tbody);
+    let doc = new jsPDF({ orientation: 'portrait' });
+    doc.addImage(window.location.origin + '/assets/icons/smartaceLogo.png', 'PNG', 140, 5, 40, 5);
+    let finalY =  10;
+    doc.text(fileNane, 14, finalY + 15);
     autoTable(doc, {
       startY: finalY + 20,
-      tableWidth: "auto",
-      theme: "striped",
-      headStyles: {fillColor:"#4847E0",textColor:"#fff"},
+      tableWidth: 'auto',
+      theme: 'striped',
+      headStyles: {fillColor: '#4847E0', textColor: '#fff'},
       head: [theader[0]],
       body: tbody
     });
-  
+
     doc.autoPrint();
     // const blob = doc.output("bloburl");
     // window.open(blob.toString(),'self');
@@ -50,23 +50,23 @@ if (isSafari) {
 }
 hiddFrame.src = doc.output('bloburl').toString();
 document.body.appendChild(hiddFrame);
-    
+
   }
   downloadAsPDF(theader, tbody, fileNane) {
-  console.log(theader,tbody)
-    var doc = new jsPDF({ orientation: "portrait" });
-    doc.addImage(window.location.origin +"/assets/icons/smartaceLogo.png", "PNG", 140, 5, 40, 5);
-    var finalY =  10
-    doc.text(fileNane, 14, finalY + 15)
+  console.log(theader, tbody);
+    let doc = new jsPDF({ orientation: 'portrait' });
+    doc.addImage(window.location.origin + '/assets/icons/smartaceLogo.png', 'PNG', 140, 5, 40, 5);
+    let finalY =  10;
+    doc.text(fileNane, 14, finalY + 15);
     autoTable(doc, {
       startY: finalY + 20,
-      tableWidth: "auto",
-      theme: "striped",
-      headStyles: {fillColor:"#4847E0",textColor:"#fff"},
+      tableWidth: 'auto',
+      theme: 'striped',
+      headStyles: {fillColor: '#4847E0', textColor: '#fff'},
       head: [theader[0]],
       body: tbody
     });
-   doc.save(fileNane+'.pdf');
-  
+   doc.save(fileNane + '.pdf');
+
   }
 }

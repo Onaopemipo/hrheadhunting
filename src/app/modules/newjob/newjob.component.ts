@@ -16,24 +16,30 @@ export class NewjobComponent implements OnInit {
   employmentType: string = 'Full Time';
   pagetitle: string = 'Post New Job';
   newJob: boolean = false;
-  allJobs:  []= [];
+  allJobs:  [] = [];
   jobFilter: any;
   jobsCounter: number = 0;
   allDepartments:  [] = [];
-  certificationData: IDTextViewModel [] = [];
-  qualificationData: IDTextViewModel [] = [];
-  jobAvailability:  []= [];
   countryData: IDTextViewModel [] = [];
   stateData: IDTextViewModel [] = [];
+  courseData: IDTextViewModel[] = [];
+  qualificationData: IDTextViewModel [] = [];
+  sectorData: IDTextViewModel [] = [];
   skillData: IDTextViewModel [] = [];
+  employerTypeData: IDTextViewModel [] = [];
+  gradeData: IDTextViewModel [] = [];
+  employmentTypes:  [] = [];
+  jobAvailability:  [] = [];
+  allCountries:  [] = [];
+  allStates:  [] = [];
   allJobRoles:  [] = [];
   singleJob;
   loading: boolean = false;
   showModal: boolean = true;
   allScoreCards:  [] = [];
   allowmultipleselection: boolean = false;
-  selectionHeader: string = "Select Employee";
-  addbtnText: string = "Add Employee";
+  selectionHeader: string = 'Select Employee';
+  addbtnText: string = 'Add Employee';
   allQuizes:  [] = [];
   btnProcessing: boolean = false;
   jobtypeData: IDTextViewModel [] = [];
@@ -111,7 +117,7 @@ export class NewjobComponent implements OnInit {
   //     }
   // }
 
-  fetchAllJobs(){
+  fetchAllJobs() {
     // this.job.getAllJobs(this.jobFilter).subscribe(data => {
     //   if(!data.hasError){
     //     this.allJobs = data.result;

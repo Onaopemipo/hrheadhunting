@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, Input, Directive, ViewChildren, QueryList, TemplateRef,ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, Input, Directive, ViewChildren, QueryList, TemplateRef, ViewChild } from '@angular/core';
 import { ColumnTypes, TableColumn, TableData, TableAction, TableActionEvent } from './models';
 import { ExcelServiceService } from '../../_services/excel-service.service';
 import { PdfServiceService } from '../../_services/pdf-service.service';
@@ -54,7 +54,7 @@ export class TablecomponentComponent implements OnInit {
   items = [
     { title: 'Profile' },
     { title: 'Logout' },
-  ]; 
+  ];
   @Input() InputFileName = 'SmartaceFile';
   @Input() loading = false;
   @Input() tableColum: TableColumn[] = [];
@@ -88,7 +88,7 @@ export class TablecomponentComponent implements OnInit {
     // if (this.totalNoOfPages < 3) {
     //   this.paginatioShowingPages = [0, 1, 2, 3, 4];
     // } else {}
-    //this.paginatioShowingPages = [1, 2, 3, 4, 5, 6];
+    // this.paginatioShowingPages = [1, 2, 3, 4, 5, 6];
   }
   get currentPage() {
     return this._currentPage;
@@ -97,7 +97,7 @@ export class TablecomponentComponent implements OnInit {
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
   bulkAction_isChecked: boolean = false;
   @ViewChild(NbPopoverDirective) popover: NbPopoverDirective;
-  constructor(private ExcelService: ExcelServiceService, private PdfService:PdfServiceService) { }
+  constructor(private ExcelService: ExcelServiceService, private PdfService: PdfServiceService) { }
   test() {
     alert(112);
   }
@@ -115,26 +115,26 @@ export class TablecomponentComponent implements OnInit {
       this.userData.map(d => {
         d.is_selected = true;
         return d;
-      })
+      });
     } else {
       this.userData.map(d => {
         d.is_selected = false;
         return d;
-      })
+      });
     }
     this.bulkAction_isChecked = event != true ? false : true;
-    var data = event;
+    let data = event;
     this.actionBulkChecked.emit({
       name: 'bulkChecked',
       data,
-})
+});
 
   }
   customActionChecked(colIndex, data) {
-//console.log(this.userData)
+// console.log(this.userData)
     this.userData[colIndex]['is_selected'] = !this.userData[colIndex]['is_selected'];
- //console.log(this.userData[colIndex]);
-    var serchPos = this.userData.findIndex(u => u.is_selected === true);
+ // console.log(this.userData[colIndex]);
+    let serchPos = this.userData.findIndex(u => u.is_selected === true);
   //////  console.log('search Position',serchPos )
     this.bulkAction_isChecked = serchPos == -1 ? false : true;
    // console.log( this.bulkAction_isChecked)
@@ -163,7 +163,7 @@ export class TablecomponentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.userData)
+    console.log(this.userData);
     this.tableData = this.userData;
 
     // setTimeout(() => {
@@ -178,54 +178,53 @@ export class TablecomponentComponent implements OnInit {
     this.filterChange.emit(this.filter);
   }
   handleSearch(event) {
-    if(event && (event != "" || event == null))
-    {
+    if (event && (event != '' || event == null)) {
       this.userData = this.tableData;
-      var truchk = false;        
+      let truchk = false;
         this.userData = this.userData.filter(uf => {
           this.tableColum.some(sval => {
             if (uf[sval.name]) {
               // if(sval.type == this.COLUMN_TYPES.Text)
               // {
                // console.log(uf[sval.name], event.toString())
-                if (uf[sval.name].toString().toLowerCase().indexOf(event.toString().toLowerCase()) > -1) { truchk = true; return true;}else{truchk = false;}
-              //  }          
+                if (uf[sval.name].toString().toLowerCase().indexOf(event.toString().toLowerCase()) > -1) { truchk = true; return true; } else {truchk = false; }
+              //  }
               // else {
               //   if (uf[sval.name] == event) { truchk = true; return true;}else{truchk = false;}
               // }
             }
-        
-          })     
+
+          });
           return truchk;
-      })
-      
-    }else {
+      });
+
+    } else {
       this.userData = this.tableData;
     }
   }
   handleExportAs(event) {
-    if (event == "Excel") {
-      this.ExcelService.exportAsExcelFile(this.userData,this.InputFileName)
+    if (event == 'Excel') {
+      this.ExcelService.exportAsExcelFile(this.userData, this.InputFileName);
     }
-    if (event == "pdf"  || event == "Print") {
-      var theader = [];
-      var tbody = [];
+    if (event == 'pdf'  || event == 'Print') {
+      let theader = [];
+      let tbody = [];
 
       this.userData.forEach((dval, dindex) => {
-        var hobj = [];
-        var tobj = [];
+        let hobj = [];
+        let tobj = [];
         this.tableColum.forEach((hval) => {
-          hobj.push(hval.title)
-          tobj.push(dval[hval.name])
+          hobj.push(hval.title);
+          tobj.push(dval[hval.name]);
         });
         theader.push(hobj);
-        tbody.push(tobj)
-      })
-      if (event == "pdf") this.PdfService.downloadAsPDF(theader, tbody, this.InputFileName);
-      if (event == "Print") this.PdfService.printAsPDF(theader, tbody, this.InputFileName);
+        tbody.push(tobj);
+      });
+      if (event == 'pdf') this.PdfService.downloadAsPDF(theader, tbody, this.InputFileName);
+      if (event == 'Print') this.PdfService.printAsPDF(theader, tbody, this.InputFileName);
     }
   }
-  filterUpdated(filter){
+  filterUpdated(filter) {
     this.filter = {...filter, ...{page: this.currentPage, } };
     this.filterChange.emit(this.filter);
   }

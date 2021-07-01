@@ -17,9 +17,9 @@ export class SignupComponent implements OnInit {
   jobSeekerStatus: boolean = true;
   employersStatus: boolean = false;
   show: boolean = false;
-  emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
+  emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$';
   btnprocessing: boolean = false;
-  errorMsg: string = "";
+  errorMsg: string = '';
   pageNo: number = 1;
   psychoTest: boolean = false;
   btnProcessing: boolean = false;
@@ -59,7 +59,7 @@ export class SignupComponent implements OnInit {
     this.fetchTitle();
   }
 
-  toggleTest(){
+  toggleTest() {
     this.psychoTest = true;
   }
 
@@ -97,7 +97,7 @@ export class SignupComponent implements OnInit {
       if(!data.hasError){
         this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, '', 'OK')
       }
-    })
+    });
   }
 
   registerEmployer(){
@@ -125,7 +125,7 @@ export class SignupComponent implements OnInit {
   async fetchInstitution(){
     const data = await this.institution.fetchInstitutions().toPromise();
     this.institutionData = data.value;
-    console.log(data)
+    console.log(data);
   }
 
   async fetchEmploymentTypes(){
@@ -143,14 +143,14 @@ export class SignupComponent implements OnInit {
   async fetchCountries(){
     this.country.fetchCountries().subscribe(data => {
       this.countryData = data.value;
-    })
+    });
 
   }
 
   async fetchStates(){
     const data = await this.state.fetchStates().toPromise();
     this.stateData = data.value;
-    console.log('All states',this.stateData)
+    console.log('All states', this.stateData);
   }
   async fetchQualifications(){
     const data = await this.qualification.fetchQualifications().toPromise();

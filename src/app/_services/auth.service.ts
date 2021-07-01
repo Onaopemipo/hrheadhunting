@@ -37,7 +37,7 @@ export class AuthService {
             this.authServ.clearusers();
             resolve(false);
           }
-       }else {
+       } else {
         this.authServ.clearusers();
         resolve(false);
       }

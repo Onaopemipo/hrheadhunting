@@ -1,9 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output,ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { EventInput } from '@fullcalendar/angular';
 import { TableAction, TableColumn } from '../tablecomponent/models';
 import { NbPopoverDirective } from '@nebular/theme';
 const SORT_KEY = 'sort';
-export interface FilterField extends TableColumn {};
+export interface FilterField extends TableColumn {}
 @Component({
   selector: 'ngx-tableheader',
   templateUrl: './tableheader.component.html',
@@ -16,7 +16,7 @@ export class TableheaderComponent implements OnInit {
     this.showFilter = val;
   }
   @Input() showCheckBox: boolean = false;
-  @Output() bulkAction_Checked =new EventEmitter<boolean>();
+  @Output() bulkAction_Checked = new EventEmitter<boolean>();
   @Input() Bulkactions: TableAction[];
   @Input() showBulkAction: boolean = false;
   filterData: object = {};
@@ -26,14 +26,14 @@ export class TableheaderComponent implements OnInit {
   @Output() filterDataChange = new EventEmitter<object>();
   @Output() downloadasChange = new EventEmitter<string>();
   @Output() searchChange = new EventEmitter<string>();
-  @Input() bulkAction_isChecked:boolean = false;
+  @Input() bulkAction_isChecked: boolean = false;
   constructor() { }
 
   ngOnInit(): void {
-  
+
   }
   handleSearch(value) {
-    this.searchChange.emit(value)
+    this.searchChange.emit(value);
   }
   downloadas(downloadtype) {
     this.popover.hide();

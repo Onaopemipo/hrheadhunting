@@ -28,7 +28,7 @@ export class QuizComponent implements OnInit {
   allQuizTypes:  [] = [];
   allQuestionTypes:  [] = [];
   allQuizes:  [] = [];
-  quizId:number = 0;
+  quizId: number = 0;
   updateQuiz: boolean = false;
   myQuiz;
   newQuizModel;
@@ -47,14 +47,14 @@ export class QuizComponent implements OnInit {
 
   }
 
-  onChange(event){
+  onChange(event) {
     this.myOptionType = event;
   }
 
-  cancelUpdate(){}
-  addNewQuiz(){}
-  addNewQuestion(){}
-  toggleNewQuiz(){}
+  cancelUpdate() {}
+  addNewQuiz() {}
+  addNewQuestion() {}
+  toggleNewQuiz() {}
 
 
   // addNewQuestion(){

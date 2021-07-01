@@ -6,7 +6,7 @@ export interface TableData {
 }
 
 export enum ColumnTypes {
-    Text, Status, Date, Link,Object,Number, Mark, CustomStatus
+    Text, Status, Date, Link, Object, Number, Mark, CustomStatus
 }
 
 export interface TableColumn {
@@ -23,7 +23,7 @@ export interface TableAction {
   name: string;
 }
 
-export interface TableActionEvent<T=any> {
+export interface TableActionEvent<T= any> {
     name: string;
     data: T;
 }

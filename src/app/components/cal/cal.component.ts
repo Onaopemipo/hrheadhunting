@@ -8,10 +8,10 @@ enum DAYS {
 
 const allDays = [
   DAYS.MONDAY, DAYS.TUESDAY, DAYS.WEDNESDAY, DAYS.THURSDAY, DAYS.FRIDAY, DAYS.SATURDAY, DAYS.SUNDAY
-]
+];
 const weekDays = [
   DAYS.MONDAY, DAYS.TUESDAY, DAYS.WEDNESDAY, DAYS.THURSDAY, DAYS.FRIDAY,
-]
+];
 export interface ICalendarEvent {
   start: Date;
   end?: Date;
@@ -39,7 +39,7 @@ export class CalendarEvent {
   }
 
   constructor(obj: ICalendarEvent) {
-    this.start = obj.start
+    this.start = obj.start;
     this.end = obj.allday ? CalendarEvent.getDayEnd(obj.start) : obj.end;
     this.days = obj.skip_weekends ? weekDays : allDays;
     this.title = obj.title;
@@ -87,7 +87,7 @@ class MyDay {
   }
 
   getDate() {
-    return this.date.getDate()
+    return this.date.getDate();
   }
 
 }
@@ -170,16 +170,16 @@ export class CalComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.gotoThisMonth()
+    this.gotoThisMonth();
   }
 
   @Output() dateClick = new EventEmitter<any>();
   dateClicked(day: MyDay) {
-    this.popOver.show()
+    this.popOver.show();
     this.selectedDay = day;
     this.dateClick.emit(day);
-    
-    
+
+
   }
 
   day_events: Map<Date, CalendarEvent[]> = new Map<Date, CalendarEvent[]>();
@@ -193,17 +193,17 @@ export class CalComponent implements AfterViewInit {
     // })
     events.forEach(event => {
       MyDay.setEventToDate(event.start, event);
-    })
-    console.log(this._events)
-    console.log(MyDay.availableDays)
+    });
+    console.log(this._events);
+    console.log(MyDay.availableDays);
   }
 
   // setSelectedDay(day: MyDay) {
   //   this.selectedDay = day;
   // }
   async deleteEvent(id) {
-    alert(id)
-    alert('are you sure you want to delete this event')
+    alert(id);
+    alert('are you sure you want to delete this event');
 
     // const res = await this.DeleteEventsServiceProxy.deleteEvents(id).toPromise();
     // this.selectedDay.events.filter(delEvent =>
