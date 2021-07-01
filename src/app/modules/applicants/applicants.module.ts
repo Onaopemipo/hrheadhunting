@@ -1,3 +1,4 @@
+import { ComponentsModule } from 'app/components/components.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ApplicantsRoutingModule } from './applicants-routing.module';
@@ -22,7 +23,8 @@ import { TrainingComponent } from './training/training.component';
     NbTableModule,
     NbCardModule,
     NbTabsetModule,
-    NbCheckboxModule
+    NbCheckboxModule,
+    ComponentsModule
   ],
 
   providers: [

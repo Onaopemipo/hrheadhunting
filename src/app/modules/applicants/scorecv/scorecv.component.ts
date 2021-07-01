@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ScorecvComponent implements OnInit {
 
+  btnprocessing: boolean = false;
   constructor() { }
 
   ngOnInit(): void {

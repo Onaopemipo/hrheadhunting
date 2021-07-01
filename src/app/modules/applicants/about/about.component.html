@@ -1,12 +1,49 @@
  <div class="container" style="background-color: #fff; color: #4C7ED8;">
-    <nav class="navbar navbar-expand-lg" style="color: #4C7ED8">
+    <nav class="navbar navbar-expand-lg .navbar-fixed-top" style="color: #4C7ED8">
       <button class="navbar-toggler"  ype="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <img src="assets/images/Logo.png" [routerLink]="['/applicants']" alt="" style="width: 150px; height: 150px; padding-right: 20px;">
+      <img src="assets/images/Logo.png" [routerLink]="['/applicants/dashboard']" alt=""style="width: 150px; height: 150px; margin-right: 200px; cursor: pointer;">
 
-      <div class="collapse navbar-collapse">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto" style="display: flex; flex-direction: row; justify-content: space-between; color: #fff;">
+          <li class="nav-item active">
+            <a class="nav-link" [routerLink]="['/applicants/about']">About Us <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" [routerLink]="['/applicants/services']">Services <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" [routerLink]="['/applicants/blog']">Blog <span class="sr-only">(current)</span></a>
+          </li>
+
+          <li class="nav-item active">
+            <a class="nav-link"[routerLink]="['/applicants/boards']">Job Boards <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" [routerLink]="['/applicants/scorecv']">Score CV <span class="sr-only">(current)</span></a>
+          </li>
+
+          <li class="nav-item active">
+            <a class="nav-link"[routerLink]="['/applicants/pricing']">Pricing <span class="sr-only">(current)</span></a>
+          </li>
+        </ul>
+
+        <form class="form-inline my-2 my-lg-0">
+          <ul class="navbar-nav mr-auto" style="color: #fff;">
+            <li class="nav-item active">
+              <a class="nav-link" [routerLink]="['/auth/signup']"><i class="fa fa-user" style="padding: 6px;"></i>Sign Up</a>
+            </li>
+
+            <li class="nav-item active">
+              <a class="nav-link" [routerLink]="['/auth/login']"><i class="fa fa-user" style="padding: 6px;"></i>Login</a>
+            </li>
+          </ul>
+          <button class="btn" [routerLink]="['/auth/login']" nbButton outline size="small" style="color: #6495ED; background-color: #fff; border: 1px solid #6495ED;">Post Job</button>
+        </form>
+      </div>
+      <!-- <div class="collapse navbar-collapse">
         <ul class="navbar-nav mr-auto nav justify-content-center" style="color: #4C7ED8; font-size: 16px;">
           <li class="nav-item active">
             <a class="nav-link" [routerLink]="['/applicants/about']">About Us <span class="sr-only">(current)</span></a>
@@ -42,7 +79,7 @@
           </ul>
           <button class="btn" [routerLink]="['/auth/login']" nbButton outline size="small" style="color: #1F2566; background-color: #fff; border: 2px solid #4C7ED8;">Post Job</button>
         </form>
-      </div>
+      </div> -->
     </nav>
  </div>
 
@@ -51,14 +88,14 @@
   <div class="col-sm-7">
     <div class="row" style="padding: 50px;">
       <h3>About Us</h3>
-      <span style="text-align: justify;">We are Nigeria top job portal, that makes the recruiting process seamless for recruiters and job seekers alike.
+      <span style="text-align: justify; line-height: 2.6">We are Nigeria top job portal, that makes the recruiting process seamless for recruiters and job seekers alike.
      Job seekers can upload their video resumes and rate their resumes using Ai  to get the best positions.  Recruiters can upload psychometric and aptitude tests, filter key aspects of job seekers resumes, watch candidates video pitch; making short listing easy, cost and time saving. The portal has verified artisans in its offerings, making the  hiring of technicians much easier.
     Trainers can also take advantage of the high traffic on the portal to advertise their training programs
       </span>
     </div>
 
     <div class="row" style="background-color:#1F2566; margin: 20px 40px; border-radius: 7px;">
-      <span style="text-align: justify; color: #fff; padding: 30px;">
+      <span style="text-align: justify; color: #fff; padding: 30px; line-height: 2.6">
         We do not exclude artisans from our products. Today’s artisans are in high demand in Nigeria.
         We simply want to make the supply of manpower less demanding.
       </span>

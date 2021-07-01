@@ -1,3 +1,6 @@
+import { ApplicantselectionComponent } from './applicantselection/applicantselection.component';
+import { SettingsComponent } from './settings/settings.component';
+import { ApiServiceProxy, AccountServiceProxy, InstitutionServiceProxy, CourseServiceProxy, SectorsServiceProxy, SkillAreasServiceProxy, StatesServiceProxy, EmployerTypesServiceProxy, CountriesServiceProxy, GradesServiceProxy, QualificationServiceProxy, JobTypesServiceProxy, CurrenciesServiceProxy } from '../_services/service-proxies';
 import { NewjobComponent } from './newjob/newjob.component';
 import { NewquizComponent } from './newquiz/newquiz.component';
 import { ReportsComponent } from './reports/reports.component';
@@ -18,12 +21,13 @@ import { ComponentsModule } from 'app/components/components.module';
 import { JobsComponent } from './jobs/jobs.component';
 import { ApplicantsComponent } from './applicants/applicants.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { JobServiceProxy, CommonServiceProxy } from 'app/_services/service-proxies';
 
 
 
 
 @NgModule({
-  declarations: [ModulesComponent, JobsComponent, DashboardComponent, QuizComponent, ReportsComponent, ApplicantsComponent, NewquizComponent, NewjobComponent,],
+  declarations: [ModulesComponent, JobsComponent, DashboardComponent, QuizComponent, ReportsComponent, ApplicantsComponent, NewquizComponent, NewjobComponent, SettingsComponent, ApplicantselectionComponent],
   imports: [
     CommonModule,
     ComponentsModule,
@@ -39,7 +43,21 @@ import { DashboardComponent } from './dashboard/dashboard.component';
   ],
 
   providers: [
-
+    ApiServiceProxy,
+    AccountServiceProxy,
+    InstitutionServiceProxy,
+    CourseServiceProxy,
+    SectorsServiceProxy,
+    SkillAreasServiceProxy,
+    StatesServiceProxy,
+    EmployerTypesServiceProxy,
+    CountriesServiceProxy,
+    GradesServiceProxy,
+    QualificationServiceProxy,
+    JobServiceProxy,
+    JobTypesServiceProxy,
+    CurrenciesServiceProxy,
+    CommonServiceProxy,
   ]
 })
 export class ModulesModule { }

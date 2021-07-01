@@ -40,8 +40,8 @@ export class AccountServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json;odata.metadata=minimal;odata.streaming=true",
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Content-Type": "application/json",
+                "Accept": "text/plain"
             })
         };
 
@@ -116,8 +116,8 @@ export class AccountServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json;odata.metadata=minimal;odata.streaming=true",
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Content-Type": "application/json",
+                "Accept": "text/plain"
             })
         };
 
@@ -192,8 +192,8 @@ export class AccountServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json;odata.metadata=minimal;odata.streaming=true",
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Content-Type": "application/json",
+                "Accept": "text/plain"
             })
         };
 
@@ -267,7 +267,7 @@ export class AccountServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -342,8 +342,8 @@ export class AccountServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json;odata.metadata=minimal;odata.streaming=true",
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Content-Type": "application/json",
+                "Accept": "text/plain"
             })
         };
 
@@ -420,7 +420,7 @@ export class AccountServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -524,7 +524,7 @@ export class ActivityLogServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -612,8 +612,8 @@ export class CertificationServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json;odata.metadata=minimal;odata.streaming=true",
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Content-Type": "application/json",
+                "Accept": "text/plain"
             })
         };
 
@@ -701,7 +701,7 @@ export class CertificationServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -778,7 +778,7 @@ export class CertificationServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -840,6 +840,163 @@ export class CertificationServiceProxy {
 }
 
 @Injectable()
+export class CommonServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruitmentapi.azurewebsites.net";
+    }
+
+    /**
+     * @return Success
+     */
+    fetchAllEmployers(): Observable<IDTextViewModelIListOdataResult> {
+        let url_ = this.baseUrl + "/api/Common/FetchAllEmployers";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processFetchAllEmployers(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processFetchAllEmployers(<any>response_);
+                } catch (e) {
+                    return <Observable<IDTextViewModelIListOdataResult>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<IDTextViewModelIListOdataResult>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processFetchAllEmployers(response: HttpResponseBase): Observable<IDTextViewModelIListOdataResult> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = IDTextViewModelIListOdataResult.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData400) {
+                result400 = {} as any;
+                for (let key in resultData400) {
+                    if (resultData400.hasOwnProperty(key))
+                        (<any>result400)![key] = resultData400[key];
+                }
+            }
+            else {
+                result400 = <any>null;
+            }
+            return throwException("Bad Request", status, _responseText, _headers, result400);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Server Error", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<IDTextViewModelIListOdataResult>(<any>null);
+    }
+
+    /**
+     * @param searchText (optional) 
+     * @return Success
+     */
+    fetchAllJobTitles(searchText: string | null | undefined): Observable<IDTextViewModelIListOdataResult> {
+        let url_ = this.baseUrl + "/api/Common/FetchAllJobTitles?";
+        if (searchText !== undefined && searchText !== null)
+            url_ += "searchText=" + encodeURIComponent("" + searchText) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processFetchAllJobTitles(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processFetchAllJobTitles(<any>response_);
+                } catch (e) {
+                    return <Observable<IDTextViewModelIListOdataResult>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<IDTextViewModelIListOdataResult>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processFetchAllJobTitles(response: HttpResponseBase): Observable<IDTextViewModelIListOdataResult> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = IDTextViewModelIListOdataResult.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData400) {
+                result400 = {} as any;
+                for (let key in resultData400) {
+                    if (resultData400.hasOwnProperty(key))
+                        (<any>result400)![key] = resultData400[key];
+                }
+            }
+            else {
+                result400 = <any>null;
+            }
+            return throwException("Bad Request", status, _responseText, _headers, result400);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Server Error", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<IDTextViewModelIListOdataResult>(<any>null);
+    }
+}
+
+@Injectable()
 export class CommunicationServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -863,7 +1020,7 @@ export class CommunicationServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -940,7 +1097,7 @@ export class CommunicationServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -1016,8 +1173,8 @@ export class CommunicationServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json;odata.metadata=minimal;odata.streaming=true",
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Content-Type": "application/json",
+                "Accept": "text/plain"
             })
         };
 
@@ -1090,7 +1247,7 @@ export class CommunicationServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -1166,8 +1323,8 @@ export class CommunicationServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json;odata.metadata=minimal;odata.streaming=true",
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Content-Type": "application/json",
+                "Accept": "text/plain"
             })
         };
 
@@ -1240,7 +1397,7 @@ export class CommunicationServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -1317,7 +1474,7 @@ export class CommunicationServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -1403,7 +1560,7 @@ export class CommunicationServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -1480,7 +1637,7 @@ export class CommunicationServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -1584,7 +1741,7 @@ export class CountriesServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -1655,7 +1812,7 @@ export class CountriesServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -1730,7 +1887,7 @@ export class CountriesServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json;odata.metadata=minimal;odata.streaming=true",
+                "Content-Type": "application/json",
             })
         };
 
@@ -1863,7 +2020,7 @@ export class CourseServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -1934,7 +2091,7 @@ export class CourseServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -2009,7 +2166,7 @@ export class CourseServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json;odata.metadata=minimal;odata.streaming=true",
+                "Content-Type": "application/json",
             })
         };
 
@@ -2142,7 +2299,7 @@ export class CurrenciesServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -2213,7 +2370,7 @@ export class CurrenciesServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -2288,7 +2445,7 @@ export class CurrenciesServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json;odata.metadata=minimal;odata.streaming=true",
+                "Content-Type": "application/json",
             })
         };
 
@@ -2379,6 +2536,94 @@ export class CurrenciesServiceProxy {
 }
 
 @Injectable()
+export class DashboardServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruitmentapi.azurewebsites.net";
+    }
+
+    /**
+     * @param year (optional) 
+     * @return Success
+     */
+    fetchDashboardData(year: number | undefined): Observable<DashboardDTOOdataResult> {
+        let url_ = this.baseUrl + "/api/Dashboard/FetchDashboardData?";
+        if (year === null)
+            throw new Error("The parameter 'year' cannot be null.");
+        else if (year !== undefined)
+            url_ += "year=" + encodeURIComponent("" + year) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processFetchDashboardData(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processFetchDashboardData(<any>response_);
+                } catch (e) {
+                    return <Observable<DashboardDTOOdataResult>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<DashboardDTOOdataResult>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processFetchDashboardData(response: HttpResponseBase): Observable<DashboardDTOOdataResult> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = DashboardDTOOdataResult.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData400) {
+                result400 = {} as any;
+                for (let key in resultData400) {
+                    if (resultData400.hasOwnProperty(key))
+                        (<any>result400)![key] = resultData400[key];
+                }
+            }
+            else {
+                result400 = <any>null;
+            }
+            return throwException("Bad Request", status, _responseText, _headers, result400);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Server Error", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<DashboardDTOOdataResult>(<any>null);
+    }
+}
+
+@Injectable()
 export class EmployerTypesServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -2421,7 +2666,7 @@ export class EmployerTypesServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -2492,7 +2737,7 @@ export class EmployerTypesServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -2567,7 +2812,7 @@ export class EmployerTypesServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json;odata.metadata=minimal;odata.streaming=true",
+                "Content-Type": "application/json",
             })
         };
 
@@ -2700,7 +2945,7 @@ export class GradesServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -2771,7 +3016,7 @@ export class GradesServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -2846,7 +3091,7 @@ export class GradesServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json;odata.metadata=minimal;odata.streaming=true",
+                "Content-Type": "application/json",
             })
         };
 
@@ -2979,7 +3224,7 @@ export class InstitutionServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -3050,7 +3295,7 @@ export class InstitutionServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -3125,7 +3370,7 @@ export class InstitutionServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json;odata.metadata=minimal;odata.streaming=true",
+                "Content-Type": "application/json",
             })
         };
 
@@ -3230,7 +3475,7 @@ export class JobServiceProxy {
      * @param body (optional) 
      * @return Success
      */
-    postJob(body: Job | undefined): Observable<void> {
+    postJob(body: Job | undefined): Observable<MessageOutApiResult> {
         let url_ = this.baseUrl + "/api/Job/PostJob";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -3241,7 +3486,8 @@ export class JobServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json;odata.metadata=minimal;odata.streaming=true",
+                "Content-Type": "application/json",
+                "Accept": "text/plain"
             })
         };
 
@@ -3252,6 +3498,268 @@ export class JobServiceProxy {
                 try {
                     return this.processPostJob(<any>response_);
                 } catch (e) {
+                    return <Observable<MessageOutApiResult>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<MessageOutApiResult>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processPostJob(response: HttpResponseBase): Observable<MessageOutApiResult> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = MessageOutApiResult.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData400) {
+                result400 = {} as any;
+                for (let key in resultData400) {
+                    if (resultData400.hasOwnProperty(key))
+                        (<any>result400)![key] = resultData400[key];
+                }
+            }
+            else {
+                result400 = <any>null;
+            }
+            return throwException("Bad Request", status, _responseText, _headers, result400);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Server Error", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<MessageOutApiResult>(<any>null);
+    }
+
+    /**
+     * @param skillAreaId (optional) 
+     * @param sectorId (optional) 
+     * @param countryId (optional) 
+     * @param stateId (optional) 
+     * @param isNewlyAdded (optional) 
+     * @param isPopular (optional) 
+     * @param pageSize (optional) 
+     * @param pageNumber (optional) 
+     * @return Success
+     */
+    fetchAllJobs(skillAreaId: number | undefined, sectorId: number | undefined, countryId: number | undefined, stateId: number | undefined, isNewlyAdded: boolean | undefined, isPopular: boolean | undefined, pageSize: number | undefined, pageNumber: number | undefined): Observable<JobIListOdataResult> {
+        let url_ = this.baseUrl + "/api/Job/FetchAllJobs?";
+        if (skillAreaId === null)
+            throw new Error("The parameter 'skillAreaId' cannot be null.");
+        else if (skillAreaId !== undefined)
+            url_ += "SkillAreaId=" + encodeURIComponent("" + skillAreaId) + "&";
+        if (sectorId === null)
+            throw new Error("The parameter 'sectorId' cannot be null.");
+        else if (sectorId !== undefined)
+            url_ += "SectorId=" + encodeURIComponent("" + sectorId) + "&";
+        if (countryId === null)
+            throw new Error("The parameter 'countryId' cannot be null.");
+        else if (countryId !== undefined)
+            url_ += "CountryId=" + encodeURIComponent("" + countryId) + "&";
+        if (stateId === null)
+            throw new Error("The parameter 'stateId' cannot be null.");
+        else if (stateId !== undefined)
+            url_ += "StateId=" + encodeURIComponent("" + stateId) + "&";
+        if (isNewlyAdded === null)
+            throw new Error("The parameter 'isNewlyAdded' cannot be null.");
+        else if (isNewlyAdded !== undefined)
+            url_ += "IsNewlyAdded=" + encodeURIComponent("" + isNewlyAdded) + "&";
+        if (isPopular === null)
+            throw new Error("The parameter 'isPopular' cannot be null.");
+        else if (isPopular !== undefined)
+            url_ += "IsPopular=" + encodeURIComponent("" + isPopular) + "&";
+        if (pageSize === null)
+            throw new Error("The parameter 'pageSize' cannot be null.");
+        else if (pageSize !== undefined)
+            url_ += "pageSize=" + encodeURIComponent("" + pageSize) + "&";
+        if (pageNumber === null)
+            throw new Error("The parameter 'pageNumber' cannot be null.");
+        else if (pageNumber !== undefined)
+            url_ += "pageNumber=" + encodeURIComponent("" + pageNumber) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processFetchAllJobs(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processFetchAllJobs(<any>response_);
+                } catch (e) {
+                    return <Observable<JobIListOdataResult>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<JobIListOdataResult>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processFetchAllJobs(response: HttpResponseBase): Observable<JobIListOdataResult> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = JobIListOdataResult.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData400) {
+                result400 = {} as any;
+                for (let key in resultData400) {
+                    if (resultData400.hasOwnProperty(key))
+                        (<any>result400)![key] = resultData400[key];
+                }
+            }
+            else {
+                result400 = <any>null;
+            }
+            return throwException("Bad Request", status, _responseText, _headers, result400);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Server Error", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<JobIListOdataResult>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getJobById(id: number | undefined): Observable<JobDTOOdataResult> {
+        let url_ = this.baseUrl + "/api/Job/GetJobById?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetJobById(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetJobById(<any>response_);
+                } catch (e) {
+                    return <Observable<JobDTOOdataResult>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<JobDTOOdataResult>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetJobById(response: HttpResponseBase): Observable<JobDTOOdataResult> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = JobDTOOdataResult.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData400) {
+                result400 = {} as any;
+                for (let key in resultData400) {
+                    if (resultData400.hasOwnProperty(key))
+                        (<any>result400)![key] = resultData400[key];
+                }
+            }
+            else {
+                result400 = <any>null;
+            }
+            return throwException("Bad Request", status, _responseText, _headers, result400);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Server Error", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<JobDTOOdataResult>(<any>null);
+    }
+
+    /**
+     * @param jobId (optional) 
+     * @return Success
+     */
+    jobClicks(jobId: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/Job/JobClicks?";
+        if (jobId === null)
+            throw new Error("The parameter 'jobId' cannot be null.");
+        else if (jobId !== undefined)
+            url_ += "jobId=" + encodeURIComponent("" + jobId) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processJobClicks(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processJobClicks(<any>response_);
+                } catch (e) {
                     return <Observable<void>><any>_observableThrow(e);
                 }
             } else
@@ -3259,7 +3767,7 @@ export class JobServiceProxy {
         }));
     }
 
-    protected processPostJob(response: HttpResponseBase): Observable<void> {
+    protected processJobClicks(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -3270,12 +3778,108 @@ export class JobServiceProxy {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return _observableOf<void>(<any>null);
             }));
+        } else if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData400) {
+                result400 = {} as any;
+                for (let key in resultData400) {
+                    if (resultData400.hasOwnProperty(key))
+                        (<any>result400)![key] = resultData400[key];
+                }
+            }
+            else {
+                result400 = <any>null;
+            }
+            return throwException("Bad Request", status, _responseText, _headers, result400);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Server Error", status, _responseText, _headers);
+            }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
         return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param jobId (optional) 
+     * @return Success
+     */
+    applyJob(jobId: number | undefined): Observable<MessageOutApiResult> {
+        let url_ = this.baseUrl + "/api/Job/ApplyJob?";
+        if (jobId === null)
+            throw new Error("The parameter 'jobId' cannot be null.");
+        else if (jobId !== undefined)
+            url_ += "jobId=" + encodeURIComponent("" + jobId) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processApplyJob(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processApplyJob(<any>response_);
+                } catch (e) {
+                    return <Observable<MessageOutApiResult>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<MessageOutApiResult>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processApplyJob(response: HttpResponseBase): Observable<MessageOutApiResult> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = MessageOutApiResult.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData400) {
+                result400 = {} as any;
+                for (let key in resultData400) {
+                    if (resultData400.hasOwnProperty(key))
+                        (<any>result400)![key] = resultData400[key];
+                }
+            }
+            else {
+                result400 = <any>null;
+            }
+            return throwException("Bad Request", status, _responseText, _headers, result400);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Server Error", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<MessageOutApiResult>(<any>null);
     }
 }
 
@@ -3322,7 +3926,7 @@ export class JobTypesServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -3393,7 +3997,7 @@ export class JobTypesServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -3468,7 +4072,7 @@ export class JobTypesServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json;odata.metadata=minimal;odata.streaming=true",
+                "Content-Type": "application/json",
             })
         };
 
@@ -3585,8 +4189,8 @@ export class ProfessionalBodyServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json;odata.metadata=minimal;odata.streaming=true",
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Content-Type": "application/json",
+                "Accept": "text/plain"
             })
         };
 
@@ -3674,7 +4278,7 @@ export class ProfessionalBodyServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -3751,7 +4355,7 @@ export class ProfessionalBodyServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -3855,7 +4459,7 @@ export class QualificationServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -3926,7 +4530,7 @@ export class QualificationServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -4001,7 +4605,7 @@ export class QualificationServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json;odata.metadata=minimal;odata.streaming=true",
+                "Content-Type": "application/json",
             })
         };
 
@@ -4114,7 +4718,7 @@ export class ApiServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -4191,8 +4795,8 @@ export class ApiServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json;odata.metadata=minimal;odata.streaming=true",
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Content-Type": "application/json",
+                "Accept": "text/plain"
             })
         };
 
@@ -4267,7 +4871,7 @@ export class ApiServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json;odata.metadata=minimal;odata.streaming=true",
+                "Content-Type": "application/json",
             })
         };
 
@@ -4319,7 +4923,7 @@ export class ApiServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json;odata.metadata=minimal;odata.streaming=true",
+                "Content-Type": "application/json",
             })
         };
 
@@ -4367,7 +4971,7 @@ export class ApiServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -4430,7 +5034,7 @@ export class RolePermissionServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -4506,7 +5110,7 @@ export class RolePermissionServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -4581,8 +5185,8 @@ export class RolePermissionServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json;odata.metadata=minimal;odata.streaming=true",
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Content-Type": "application/json",
+                "Accept": "text/plain"
             })
         };
 
@@ -4686,7 +5290,7 @@ export class SectorsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -4757,7 +5361,7 @@ export class SectorsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -4832,7 +5436,7 @@ export class SectorsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json;odata.metadata=minimal;odata.streaming=true",
+                "Content-Type": "application/json",
             })
         };
 
@@ -4949,8 +5553,8 @@ export class SkillServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json;odata.metadata=minimal;odata.streaming=true",
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Content-Type": "application/json",
+                "Accept": "text/plain"
             })
         };
 
@@ -5038,7 +5642,7 @@ export class SkillServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -5115,7 +5719,7 @@ export class SkillServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -5219,7 +5823,7 @@ export class SkillAreasServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -5290,7 +5894,7 @@ export class SkillAreasServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -5365,7 +5969,7 @@ export class SkillAreasServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json;odata.metadata=minimal;odata.streaming=true",
+                "Content-Type": "application/json",
             })
         };
 
@@ -5498,7 +6102,7 @@ export class StatesServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -5569,7 +6173,7 @@ export class StatesServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -5644,7 +6248,7 @@ export class StatesServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json;odata.metadata=minimal;odata.streaming=true",
+                "Content-Type": "application/json",
             })
         };
 
@@ -5777,7 +6381,7 @@ export class SubscriptionsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -5848,7 +6452,7 @@ export class SubscriptionsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -5923,7 +6527,7 @@ export class SubscriptionsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json;odata.metadata=minimal;odata.streaming=true",
+                "Content-Type": "application/json",
             })
         };
 
@@ -6056,7 +6660,7 @@ export class TitlesServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -6127,7 +6731,7 @@ export class TitlesServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json;odata.metadata=minimal;odata.streaming=true"
+                "Accept": "text/plain"
             })
         };
 
@@ -6202,7 +6806,7 @@ export class TitlesServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json;odata.metadata=minimal;odata.streaming=true",
+                "Content-Type": "application/json",
             })
         };
 
@@ -7637,6 +8241,120 @@ export interface ICertificationDTOApiResult {
     totalRecord: number;
 }
 
+export class IDTextViewModel implements IIDTextViewModel {
+    id!: number;
+    text!: string | undefined;
+
+    constructor(data?: IIDTextViewModel) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.text = _data["text"];
+        }
+    }
+
+    static fromJS(data: any): IDTextViewModel {
+        data = typeof data === 'object' ? data : {};
+        let result = new IDTextViewModel();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["text"] = this.text;
+        return data; 
+    }
+
+    clone(): IDTextViewModel {
+        const json = this.toJSON();
+        let result = new IDTextViewModel();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IIDTextViewModel {
+    id: number;
+    text: string | undefined;
+}
+
+export class IDTextViewModelIListOdataResult implements IIDTextViewModelIListOdataResult {
+    id!: number;
+    hasError!: boolean;
+    message!: string | undefined;
+    odataContext!: string | undefined;
+    value!: IDTextViewModel[] | undefined;
+
+    constructor(data?: IIDTextViewModelIListOdataResult) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.hasError = _data["hasError"];
+            this.message = _data["message"];
+            this.odataContext = _data["odataContext"];
+            if (Array.isArray(_data["value"])) {
+                this.value = [] as any;
+                for (let item of _data["value"])
+                    this.value!.push(IDTextViewModel.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): IDTextViewModelIListOdataResult {
+        data = typeof data === 'object' ? data : {};
+        let result = new IDTextViewModelIListOdataResult();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["hasError"] = this.hasError;
+        data["message"] = this.message;
+        data["odataContext"] = this.odataContext;
+        if (Array.isArray(this.value)) {
+            data["value"] = [];
+            for (let item of this.value)
+                data["value"].push(item.toJSON());
+        }
+        return data; 
+    }
+
+    clone(): IDTextViewModelIListOdataResult {
+        const json = this.toJSON();
+        let result = new IDTextViewModelIListOdataResult();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IIDTextViewModelIListOdataResult {
+    id: number;
+    hasError: boolean;
+    message: string | undefined;
+    odataContext: string | undefined;
+    value: IDTextViewModel[] | undefined;
+}
+
 export class EmailSetting implements IEmailSetting {
     emailUserName!: string | undefined;
     emailHost!: string | undefined;
@@ -7860,53 +8578,6 @@ export interface IEmailSettingApiResult {
     result: EmailSetting;
     totalCount: number;
     totalRecord: number;
-}
-
-export class IDTextViewModel implements IIDTextViewModel {
-    id!: number;
-    text!: string | undefined;
-
-    constructor(data?: IIDTextViewModel) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.id = _data["id"];
-            this.text = _data["text"];
-        }
-    }
-
-    static fromJS(data: any): IDTextViewModel {
-        data = typeof data === 'object' ? data : {};
-        let result = new IDTextViewModel();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["text"] = this.text;
-        return data; 
-    }
-
-    clone(): IDTextViewModel {
-        const json = this.toJSON();
-        let result = new IDTextViewModel();
-        result.init(json);
-        return result;
-    }
-}
-
-export interface IIDTextViewModel {
-    id: number;
-    text: string | undefined;
 }
 
 export class IDTextViewModelListApiResult implements IIDTextViewModelListApiResult {
@@ -11278,6 +11949,7 @@ export class RegisteredUser implements IRegisteredUser {
     email!: string | undefined;
     mobile!: string | undefined;
     birthDate!: Date | undefined;
+    fieldOfInterestId!: number;
     stateOfResidentId!: number | undefined;
     stateOfInterestId!: number | undefined;
     nationalityId!: number | undefined;
@@ -11355,6 +12027,7 @@ export class RegisteredUser implements IRegisteredUser {
             this.email = _data["email"];
             this.mobile = _data["mobile"];
             this.birthDate = _data["birthDate"] ? new Date(_data["birthDate"].toString()) : <any>undefined;
+            this.fieldOfInterestId = _data["fieldOfInterestId"];
             this.stateOfResidentId = _data["stateOfResidentId"];
             this.stateOfInterestId = _data["stateOfInterestId"];
             this.nationalityId = _data["nationalityId"];
@@ -11472,6 +12145,7 @@ export class RegisteredUser implements IRegisteredUser {
         data["email"] = this.email;
         data["mobile"] = this.mobile;
         data["birthDate"] = this.birthDate ? this.birthDate.toISOString() : <any>undefined;
+        data["fieldOfInterestId"] = this.fieldOfInterestId;
         data["stateOfResidentId"] = this.stateOfResidentId;
         data["stateOfInterestId"] = this.stateOfInterestId;
         data["nationalityId"] = this.nationalityId;
@@ -11589,6 +12263,7 @@ export interface IRegisteredUser {
     email: string | undefined;
     mobile: string | undefined;
     birthDate: Date | undefined;
+    fieldOfInterestId: number;
     stateOfResidentId: number | undefined;
     stateOfInterestId: number | undefined;
     nationalityId: number | undefined;
@@ -11749,6 +12424,8 @@ export interface ICountry {
 
 export class CountryIListOdataResult implements ICountryIListOdataResult {
     id!: number;
+    hasError!: boolean;
+    message!: string | undefined;
     odataContext!: string | undefined;
     value!: Country[] | undefined;
 
@@ -11764,6 +12441,8 @@ export class CountryIListOdataResult implements ICountryIListOdataResult {
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
+            this.hasError = _data["hasError"];
+            this.message = _data["message"];
             this.odataContext = _data["odataContext"];
             if (Array.isArray(_data["value"])) {
                 this.value = [] as any;
@@ -11783,6 +12462,8 @@ export class CountryIListOdataResult implements ICountryIListOdataResult {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
+        data["hasError"] = this.hasError;
+        data["message"] = this.message;
         data["odataContext"] = this.odataContext;
         if (Array.isArray(this.value)) {
             data["value"] = [];
@@ -11802,71 +12483,16 @@ export class CountryIListOdataResult implements ICountryIListOdataResult {
 
 export interface ICountryIListOdataResult {
     id: number;
+    hasError: boolean;
+    message: string | undefined;
     odataContext: string | undefined;
     value: Country[] | undefined;
 }
 
-export class IDTextViewModelIListOdataResult implements IIDTextViewModelIListOdataResult {
-    id!: number;
-    odataContext!: string | undefined;
-    value!: IDTextViewModel[] | undefined;
-
-    constructor(data?: IIDTextViewModelIListOdataResult) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.id = _data["id"];
-            this.odataContext = _data["odataContext"];
-            if (Array.isArray(_data["value"])) {
-                this.value = [] as any;
-                for (let item of _data["value"])
-                    this.value!.push(IDTextViewModel.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): IDTextViewModelIListOdataResult {
-        data = typeof data === 'object' ? data : {};
-        let result = new IDTextViewModelIListOdataResult();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["odataContext"] = this.odataContext;
-        if (Array.isArray(this.value)) {
-            data["value"] = [];
-            for (let item of this.value)
-                data["value"].push(item.toJSON());
-        }
-        return data; 
-    }
-
-    clone(): IDTextViewModelIListOdataResult {
-        const json = this.toJSON();
-        let result = new IDTextViewModelIListOdataResult();
-        result.init(json);
-        return result;
-    }
-}
-
-export interface IIDTextViewModelIListOdataResult {
-    id: number;
-    odataContext: string | undefined;
-    value: IDTextViewModel[] | undefined;
-}
-
 export class CourseIListOdataResult implements ICourseIListOdataResult {
     id!: number;
+    hasError!: boolean;
+    message!: string | undefined;
     odataContext!: string | undefined;
     value!: Course[] | undefined;
 
@@ -11882,6 +12508,8 @@ export class CourseIListOdataResult implements ICourseIListOdataResult {
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
+            this.hasError = _data["hasError"];
+            this.message = _data["message"];
             this.odataContext = _data["odataContext"];
             if (Array.isArray(_data["value"])) {
                 this.value = [] as any;
@@ -11901,6 +12529,8 @@ export class CourseIListOdataResult implements ICourseIListOdataResult {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
+        data["hasError"] = this.hasError;
+        data["message"] = this.message;
         data["odataContext"] = this.odataContext;
         if (Array.isArray(this.value)) {
             data["value"] = [];
@@ -11920,6 +12550,8 @@ export class CourseIListOdataResult implements ICourseIListOdataResult {
 
 export interface ICourseIListOdataResult {
     id: number;
+    hasError: boolean;
+    message: string | undefined;
     odataContext: string | undefined;
     value: Course[] | undefined;
 }
@@ -12005,6 +12637,8 @@ export interface ICurrency {
 
 export class CurrencyIListOdataResult implements ICurrencyIListOdataResult {
     id!: number;
+    hasError!: boolean;
+    message!: string | undefined;
     odataContext!: string | undefined;
     value!: Currency[] | undefined;
 
@@ -12020,6 +12654,8 @@ export class CurrencyIListOdataResult implements ICurrencyIListOdataResult {
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
+            this.hasError = _data["hasError"];
+            this.message = _data["message"];
             this.odataContext = _data["odataContext"];
             if (Array.isArray(_data["value"])) {
                 this.value = [] as any;
@@ -12039,6 +12675,8 @@ export class CurrencyIListOdataResult implements ICurrencyIListOdataResult {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
+        data["hasError"] = this.hasError;
+        data["message"] = this.message;
         data["odataContext"] = this.odataContext;
         if (Array.isArray(this.value)) {
             data["value"] = [];
@@ -12058,8 +12696,230 @@ export class CurrencyIListOdataResult implements ICurrencyIListOdataResult {
 
 export interface ICurrencyIListOdataResult {
     id: number;
+    hasError: boolean;
+    message: string | undefined;
     odataContext: string | undefined;
     value: Currency[] | undefined;
+}
+
+export class VwDashboard implements IVwDashboard {
+    jobPosted!: number;
+    totalApplicants!: number;
+    totalEmployers!: number;
+    totalConsultants!: number;
+
+    constructor(data?: IVwDashboard) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.jobPosted = _data["jobPosted"];
+            this.totalApplicants = _data["totalApplicants"];
+            this.totalEmployers = _data["totalEmployers"];
+            this.totalConsultants = _data["totalConsultants"];
+        }
+    }
+
+    static fromJS(data: any): VwDashboard {
+        data = typeof data === 'object' ? data : {};
+        let result = new VwDashboard();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["jobPosted"] = this.jobPosted;
+        data["totalApplicants"] = this.totalApplicants;
+        data["totalEmployers"] = this.totalEmployers;
+        data["totalConsultants"] = this.totalConsultants;
+        return data; 
+    }
+
+    clone(): VwDashboard {
+        const json = this.toJSON();
+        let result = new VwDashboard();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IVwDashboard {
+    jobPosted: number;
+    totalApplicants: number;
+    totalEmployers: number;
+    totalConsultants: number;
+}
+
+export class DashboardData implements IDashboardData {
+    category!: string | undefined;
+    name!: string | undefined;
+    value!: number;
+
+    constructor(data?: IDashboardData) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.category = _data["category"];
+            this.name = _data["name"];
+            this.value = _data["value"];
+        }
+    }
+
+    static fromJS(data: any): DashboardData {
+        data = typeof data === 'object' ? data : {};
+        let result = new DashboardData();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["category"] = this.category;
+        data["name"] = this.name;
+        data["value"] = this.value;
+        return data; 
+    }
+
+    clone(): DashboardData {
+        const json = this.toJSON();
+        let result = new DashboardData();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IDashboardData {
+    category: string | undefined;
+    name: string | undefined;
+    value: number;
+}
+
+export class DashboardDTO implements IDashboardDTO {
+    aggregateData!: VwDashboard;
+    lstSkillSetData!: DashboardData[] | undefined;
+
+    constructor(data?: IDashboardDTO) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.aggregateData = _data["aggregateData"] ? VwDashboard.fromJS(_data["aggregateData"]) : <any>undefined;
+            if (Array.isArray(_data["lstSkillSetData"])) {
+                this.lstSkillSetData = [] as any;
+                for (let item of _data["lstSkillSetData"])
+                    this.lstSkillSetData!.push(DashboardData.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): DashboardDTO {
+        data = typeof data === 'object' ? data : {};
+        let result = new DashboardDTO();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["aggregateData"] = this.aggregateData ? this.aggregateData.toJSON() : <any>undefined;
+        if (Array.isArray(this.lstSkillSetData)) {
+            data["lstSkillSetData"] = [];
+            for (let item of this.lstSkillSetData)
+                data["lstSkillSetData"].push(item.toJSON());
+        }
+        return data; 
+    }
+
+    clone(): DashboardDTO {
+        const json = this.toJSON();
+        let result = new DashboardDTO();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IDashboardDTO {
+    aggregateData: VwDashboard;
+    lstSkillSetData: DashboardData[] | undefined;
+}
+
+export class DashboardDTOOdataResult implements IDashboardDTOOdataResult {
+    id!: number;
+    hasError!: boolean;
+    message!: string | undefined;
+    odataContext!: string | undefined;
+    value!: DashboardDTO;
+
+    constructor(data?: IDashboardDTOOdataResult) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.hasError = _data["hasError"];
+            this.message = _data["message"];
+            this.odataContext = _data["odataContext"];
+            this.value = _data["value"] ? DashboardDTO.fromJS(_data["value"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): DashboardDTOOdataResult {
+        data = typeof data === 'object' ? data : {};
+        let result = new DashboardDTOOdataResult();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["hasError"] = this.hasError;
+        data["message"] = this.message;
+        data["odataContext"] = this.odataContext;
+        data["value"] = this.value ? this.value.toJSON() : <any>undefined;
+        return data; 
+    }
+
+    clone(): DashboardDTOOdataResult {
+        const json = this.toJSON();
+        let result = new DashboardDTOOdataResult();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IDashboardDTOOdataResult {
+    id: number;
+    hasError: boolean;
+    message: string | undefined;
+    odataContext: string | undefined;
+    value: DashboardDTO;
 }
 
 export class EmployerType implements IEmployerType {
@@ -12143,6 +13003,8 @@ export interface IEmployerType {
 
 export class EmployerTypeIListOdataResult implements IEmployerTypeIListOdataResult {
     id!: number;
+    hasError!: boolean;
+    message!: string | undefined;
     odataContext!: string | undefined;
     value!: EmployerType[] | undefined;
 
@@ -12158,6 +13020,8 @@ export class EmployerTypeIListOdataResult implements IEmployerTypeIListOdataResu
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
+            this.hasError = _data["hasError"];
+            this.message = _data["message"];
             this.odataContext = _data["odataContext"];
             if (Array.isArray(_data["value"])) {
                 this.value = [] as any;
@@ -12177,6 +13041,8 @@ export class EmployerTypeIListOdataResult implements IEmployerTypeIListOdataResu
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
+        data["hasError"] = this.hasError;
+        data["message"] = this.message;
         data["odataContext"] = this.odataContext;
         if (Array.isArray(this.value)) {
             data["value"] = [];
@@ -12196,6 +13062,8 @@ export class EmployerTypeIListOdataResult implements IEmployerTypeIListOdataResu
 
 export interface IEmployerTypeIListOdataResult {
     id: number;
+    hasError: boolean;
+    message: string | undefined;
     odataContext: string | undefined;
     value: EmployerType[] | undefined;
 }
@@ -12281,6 +13149,8 @@ export interface IGrade {
 
 export class GradeIListOdataResult implements IGradeIListOdataResult {
     id!: number;
+    hasError!: boolean;
+    message!: string | undefined;
     odataContext!: string | undefined;
     value!: Grade[] | undefined;
 
@@ -12296,6 +13166,8 @@ export class GradeIListOdataResult implements IGradeIListOdataResult {
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
+            this.hasError = _data["hasError"];
+            this.message = _data["message"];
             this.odataContext = _data["odataContext"];
             if (Array.isArray(_data["value"])) {
                 this.value = [] as any;
@@ -12315,6 +13187,8 @@ export class GradeIListOdataResult implements IGradeIListOdataResult {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
+        data["hasError"] = this.hasError;
+        data["message"] = this.message;
         data["odataContext"] = this.odataContext;
         if (Array.isArray(this.value)) {
             data["value"] = [];
@@ -12334,12 +13208,16 @@ export class GradeIListOdataResult implements IGradeIListOdataResult {
 
 export interface IGradeIListOdataResult {
     id: number;
+    hasError: boolean;
+    message: string | undefined;
     odataContext: string | undefined;
     value: Grade[] | undefined;
 }
 
 export class InstitutionIListOdataResult implements IInstitutionIListOdataResult {
     id!: number;
+    hasError!: boolean;
+    message!: string | undefined;
     odataContext!: string | undefined;
     value!: Institution[] | undefined;
 
@@ -12355,6 +13233,8 @@ export class InstitutionIListOdataResult implements IInstitutionIListOdataResult
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
+            this.hasError = _data["hasError"];
+            this.message = _data["message"];
             this.odataContext = _data["odataContext"];
             if (Array.isArray(_data["value"])) {
                 this.value = [] as any;
@@ -12374,6 +13254,8 @@ export class InstitutionIListOdataResult implements IInstitutionIListOdataResult
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
+        data["hasError"] = this.hasError;
+        data["message"] = this.message;
         data["odataContext"] = this.odataContext;
         if (Array.isArray(this.value)) {
             data["value"] = [];
@@ -12393,12 +13275,329 @@ export class InstitutionIListOdataResult implements IInstitutionIListOdataResult
 
 export interface IInstitutionIListOdataResult {
     id: number;
+    hasError: boolean;
+    message: string | undefined;
     odataContext: string | undefined;
     value: Institution[] | undefined;
 }
 
+export class JobIListOdataResult implements IJobIListOdataResult {
+    id!: number;
+    hasError!: boolean;
+    message!: string | undefined;
+    odataContext!: string | undefined;
+    value!: Job[] | undefined;
+
+    constructor(data?: IJobIListOdataResult) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.hasError = _data["hasError"];
+            this.message = _data["message"];
+            this.odataContext = _data["odataContext"];
+            if (Array.isArray(_data["value"])) {
+                this.value = [] as any;
+                for (let item of _data["value"])
+                    this.value!.push(Job.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): JobIListOdataResult {
+        data = typeof data === 'object' ? data : {};
+        let result = new JobIListOdataResult();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["hasError"] = this.hasError;
+        data["message"] = this.message;
+        data["odataContext"] = this.odataContext;
+        if (Array.isArray(this.value)) {
+            data["value"] = [];
+            for (let item of this.value)
+                data["value"].push(item.toJSON());
+        }
+        return data; 
+    }
+
+    clone(): JobIListOdataResult {
+        const json = this.toJSON();
+        let result = new JobIListOdataResult();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IJobIListOdataResult {
+    id: number;
+    hasError: boolean;
+    message: string | undefined;
+    odataContext: string | undefined;
+    value: Job[] | undefined;
+}
+
+export class JobDTO implements IJobDTO {
+    id!: number;
+    companyID!: number;
+    details!: string | undefined;
+    requirements!: string | undefined;
+    position!: string | undefined;
+    recruiter!: string | undefined;
+    countryId!: number;
+    stateId!: number;
+    location!: string | undefined;
+    jobTypeId!: number;
+    minExpRequired!: number | undefined;
+    maxExpRequired!: number | undefined;
+    minSalary!: number | undefined;
+    maxSalary!: number | undefined;
+    minQualificationId!: number | undefined;
+    maxQualificationId!: number | undefined;
+    quizId!: number | undefined;
+    currencyId!: number | undefined;
+    skillAreaId!: number;
+    countryName!: string | undefined;
+    stateName!: string | undefined;
+    jobTypeName!: string | undefined;
+    skillAreaName!: string | undefined;
+    currencyName!: string | undefined;
+    minQualificationName!: string | undefined;
+    maxQualificationName!: string | undefined;
+    reviewers!: string | undefined;
+    clicks!: number;
+    endDate!: Date;
+    datePosted!: Date;
+    ref!: string | undefined;
+    dateCreated!: Date;
+    isDeleted!: boolean;
+    isActive!: boolean;
+    createdById!: number;
+    dateModified!: Date | undefined;
+    modifiedById!: number | undefined;
+
+    constructor(data?: IJobDTO) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.companyID = _data["companyID"];
+            this.details = _data["details"];
+            this.requirements = _data["requirements"];
+            this.position = _data["position"];
+            this.recruiter = _data["recruiter"];
+            this.countryId = _data["countryId"];
+            this.stateId = _data["stateId"];
+            this.location = _data["location"];
+            this.jobTypeId = _data["jobTypeId"];
+            this.minExpRequired = _data["minExpRequired"];
+            this.maxExpRequired = _data["maxExpRequired"];
+            this.minSalary = _data["minSalary"];
+            this.maxSalary = _data["maxSalary"];
+            this.minQualificationId = _data["minQualificationId"];
+            this.maxQualificationId = _data["maxQualificationId"];
+            this.quizId = _data["quizId"];
+            this.currencyId = _data["currencyId"];
+            this.skillAreaId = _data["skillAreaId"];
+            this.countryName = _data["countryName"];
+            this.stateName = _data["stateName"];
+            this.jobTypeName = _data["jobTypeName"];
+            this.skillAreaName = _data["skillAreaName"];
+            this.currencyName = _data["currencyName"];
+            this.minQualificationName = _data["minQualificationName"];
+            this.maxQualificationName = _data["maxQualificationName"];
+            this.reviewers = _data["reviewers"];
+            this.clicks = _data["clicks"];
+            this.endDate = _data["endDate"] ? new Date(_data["endDate"].toString()) : <any>undefined;
+            this.datePosted = _data["datePosted"] ? new Date(_data["datePosted"].toString()) : <any>undefined;
+            this.ref = _data["ref"];
+            this.dateCreated = _data["dateCreated"] ? new Date(_data["dateCreated"].toString()) : <any>undefined;
+            this.isDeleted = _data["isDeleted"];
+            this.isActive = _data["isActive"];
+            this.createdById = _data["createdById"];
+            this.dateModified = _data["dateModified"] ? new Date(_data["dateModified"].toString()) : <any>undefined;
+            this.modifiedById = _data["modifiedById"];
+        }
+    }
+
+    static fromJS(data: any): JobDTO {
+        data = typeof data === 'object' ? data : {};
+        let result = new JobDTO();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["companyID"] = this.companyID;
+        data["details"] = this.details;
+        data["requirements"] = this.requirements;
+        data["position"] = this.position;
+        data["recruiter"] = this.recruiter;
+        data["countryId"] = this.countryId;
+        data["stateId"] = this.stateId;
+        data["location"] = this.location;
+        data["jobTypeId"] = this.jobTypeId;
+        data["minExpRequired"] = this.minExpRequired;
+        data["maxExpRequired"] = this.maxExpRequired;
+        data["minSalary"] = this.minSalary;
+        data["maxSalary"] = this.maxSalary;
+        data["minQualificationId"] = this.minQualificationId;
+        data["maxQualificationId"] = this.maxQualificationId;
+        data["quizId"] = this.quizId;
+        data["currencyId"] = this.currencyId;
+        data["skillAreaId"] = this.skillAreaId;
+        data["countryName"] = this.countryName;
+        data["stateName"] = this.stateName;
+        data["jobTypeName"] = this.jobTypeName;
+        data["skillAreaName"] = this.skillAreaName;
+        data["currencyName"] = this.currencyName;
+        data["minQualificationName"] = this.minQualificationName;
+        data["maxQualificationName"] = this.maxQualificationName;
+        data["reviewers"] = this.reviewers;
+        data["clicks"] = this.clicks;
+        data["endDate"] = this.endDate ? this.endDate.toISOString() : <any>undefined;
+        data["datePosted"] = this.datePosted ? this.datePosted.toISOString() : <any>undefined;
+        data["ref"] = this.ref;
+        data["dateCreated"] = this.dateCreated ? this.dateCreated.toISOString() : <any>undefined;
+        data["isDeleted"] = this.isDeleted;
+        data["isActive"] = this.isActive;
+        data["createdById"] = this.createdById;
+        data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
+        data["modifiedById"] = this.modifiedById;
+        return data; 
+    }
+
+    clone(): JobDTO {
+        const json = this.toJSON();
+        let result = new JobDTO();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IJobDTO {
+    id: number;
+    companyID: number;
+    details: string | undefined;
+    requirements: string | undefined;
+    position: string | undefined;
+    recruiter: string | undefined;
+    countryId: number;
+    stateId: number;
+    location: string | undefined;
+    jobTypeId: number;
+    minExpRequired: number | undefined;
+    maxExpRequired: number | undefined;
+    minSalary: number | undefined;
+    maxSalary: number | undefined;
+    minQualificationId: number | undefined;
+    maxQualificationId: number | undefined;
+    quizId: number | undefined;
+    currencyId: number | undefined;
+    skillAreaId: number;
+    countryName: string | undefined;
+    stateName: string | undefined;
+    jobTypeName: string | undefined;
+    skillAreaName: string | undefined;
+    currencyName: string | undefined;
+    minQualificationName: string | undefined;
+    maxQualificationName: string | undefined;
+    reviewers: string | undefined;
+    clicks: number;
+    endDate: Date;
+    datePosted: Date;
+    ref: string | undefined;
+    dateCreated: Date;
+    isDeleted: boolean;
+    isActive: boolean;
+    createdById: number;
+    dateModified: Date | undefined;
+    modifiedById: number | undefined;
+}
+
+export class JobDTOOdataResult implements IJobDTOOdataResult {
+    id!: number;
+    hasError!: boolean;
+    message!: string | undefined;
+    odataContext!: string | undefined;
+    value!: JobDTO;
+
+    constructor(data?: IJobDTOOdataResult) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.hasError = _data["hasError"];
+            this.message = _data["message"];
+            this.odataContext = _data["odataContext"];
+            this.value = _data["value"] ? JobDTO.fromJS(_data["value"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): JobDTOOdataResult {
+        data = typeof data === 'object' ? data : {};
+        let result = new JobDTOOdataResult();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["hasError"] = this.hasError;
+        data["message"] = this.message;
+        data["odataContext"] = this.odataContext;
+        data["value"] = this.value ? this.value.toJSON() : <any>undefined;
+        return data; 
+    }
+
+    clone(): JobDTOOdataResult {
+        const json = this.toJSON();
+        let result = new JobDTOOdataResult();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IJobDTOOdataResult {
+    id: number;
+    hasError: boolean;
+    message: string | undefined;
+    odataContext: string | undefined;
+    value: JobDTO;
+}
+
 export class JobTypeIListOdataResult implements IJobTypeIListOdataResult {
     id!: number;
+    hasError!: boolean;
+    message!: string | undefined;
     odataContext!: string | undefined;
     value!: JobType[] | undefined;
 
@@ -12414,6 +13613,8 @@ export class JobTypeIListOdataResult implements IJobTypeIListOdataResult {
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
+            this.hasError = _data["hasError"];
+            this.message = _data["message"];
             this.odataContext = _data["odataContext"];
             if (Array.isArray(_data["value"])) {
                 this.value = [] as any;
@@ -12433,6 +13634,8 @@ export class JobTypeIListOdataResult implements IJobTypeIListOdataResult {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
+        data["hasError"] = this.hasError;
+        data["message"] = this.message;
         data["odataContext"] = this.odataContext;
         if (Array.isArray(this.value)) {
             data["value"] = [];
@@ -12452,6 +13655,8 @@ export class JobTypeIListOdataResult implements IJobTypeIListOdataResult {
 
 export interface IJobTypeIListOdataResult {
     id: number;
+    hasError: boolean;
+    message: string | undefined;
     odataContext: string | undefined;
     value: JobType[] | undefined;
 }
@@ -12738,6 +13943,8 @@ export interface IProfessionalBodyDTOApiResult {
 
 export class QualificationIListOdataResult implements IQualificationIListOdataResult {
     id!: number;
+    hasError!: boolean;
+    message!: string | undefined;
     odataContext!: string | undefined;
     value!: Qualification[] | undefined;
 
@@ -12753,6 +13960,8 @@ export class QualificationIListOdataResult implements IQualificationIListOdataRe
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
+            this.hasError = _data["hasError"];
+            this.message = _data["message"];
             this.odataContext = _data["odataContext"];
             if (Array.isArray(_data["value"])) {
                 this.value = [] as any;
@@ -12772,6 +13981,8 @@ export class QualificationIListOdataResult implements IQualificationIListOdataRe
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
+        data["hasError"] = this.hasError;
+        data["message"] = this.message;
         data["odataContext"] = this.odataContext;
         if (Array.isArray(this.value)) {
             data["value"] = [];
@@ -12791,6 +14002,8 @@ export class QualificationIListOdataResult implements IQualificationIListOdataRe
 
 export interface IQualificationIListOdataResult {
     id: number;
+    hasError: boolean;
+    message: string | undefined;
     odataContext: string | undefined;
     value: Qualification[] | undefined;
 }
@@ -12852,6 +14065,8 @@ export interface IApplicationRoleDTO {
 
 export class ApplicationRoleDTOOdataResult implements IApplicationRoleDTOOdataResult {
     id!: number;
+    hasError!: boolean;
+    message!: string | undefined;
     odataContext!: string | undefined;
     value!: ApplicationRoleDTO;
 
@@ -12867,6 +14082,8 @@ export class ApplicationRoleDTOOdataResult implements IApplicationRoleDTOOdataRe
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
+            this.hasError = _data["hasError"];
+            this.message = _data["message"];
             this.odataContext = _data["odataContext"];
             this.value = _data["value"] ? ApplicationRoleDTO.fromJS(_data["value"]) : <any>undefined;
         }
@@ -12882,6 +14099,8 @@ export class ApplicationRoleDTOOdataResult implements IApplicationRoleDTOOdataRe
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
+        data["hasError"] = this.hasError;
+        data["message"] = this.message;
         data["odataContext"] = this.odataContext;
         data["value"] = this.value ? this.value.toJSON() : <any>undefined;
         return data; 
@@ -12897,6 +14116,8 @@ export class ApplicationRoleDTOOdataResult implements IApplicationRoleDTOOdataRe
 
 export interface IApplicationRoleDTOOdataResult {
     id: number;
+    hasError: boolean;
+    message: string | undefined;
     odataContext: string | undefined;
     value: ApplicationRoleDTO;
 }
@@ -13280,6 +14501,8 @@ export interface ISector {
 
 export class SectorIListOdataResult implements ISectorIListOdataResult {
     id!: number;
+    hasError!: boolean;
+    message!: string | undefined;
     odataContext!: string | undefined;
     value!: Sector[] | undefined;
 
@@ -13295,6 +14518,8 @@ export class SectorIListOdataResult implements ISectorIListOdataResult {
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
+            this.hasError = _data["hasError"];
+            this.message = _data["message"];
             this.odataContext = _data["odataContext"];
             if (Array.isArray(_data["value"])) {
                 this.value = [] as any;
@@ -13314,6 +14539,8 @@ export class SectorIListOdataResult implements ISectorIListOdataResult {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
+        data["hasError"] = this.hasError;
+        data["message"] = this.message;
         data["odataContext"] = this.odataContext;
         if (Array.isArray(this.value)) {
             data["value"] = [];
@@ -13333,6 +14560,8 @@ export class SectorIListOdataResult implements ISectorIListOdataResult {
 
 export interface ISectorIListOdataResult {
     id: number;
+    hasError: boolean;
+    message: string | undefined;
     odataContext: string | undefined;
     value: Sector[] | undefined;
 }
@@ -13611,6 +14840,8 @@ export interface ISkillApiResult {
 
 export class SkillAreaIListOdataResult implements ISkillAreaIListOdataResult {
     id!: number;
+    hasError!: boolean;
+    message!: string | undefined;
     odataContext!: string | undefined;
     value!: SkillArea[] | undefined;
 
@@ -13626,6 +14857,8 @@ export class SkillAreaIListOdataResult implements ISkillAreaIListOdataResult {
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
+            this.hasError = _data["hasError"];
+            this.message = _data["message"];
             this.odataContext = _data["odataContext"];
             if (Array.isArray(_data["value"])) {
                 this.value = [] as any;
@@ -13645,6 +14878,8 @@ export class SkillAreaIListOdataResult implements ISkillAreaIListOdataResult {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
+        data["hasError"] = this.hasError;
+        data["message"] = this.message;
         data["odataContext"] = this.odataContext;
         if (Array.isArray(this.value)) {
             data["value"] = [];
@@ -13664,12 +14899,16 @@ export class SkillAreaIListOdataResult implements ISkillAreaIListOdataResult {
 
 export interface ISkillAreaIListOdataResult {
     id: number;
+    hasError: boolean;
+    message: string | undefined;
     odataContext: string | undefined;
     value: SkillArea[] | undefined;
 }
 
 export class StateIListOdataResult implements IStateIListOdataResult {
     id!: number;
+    hasError!: boolean;
+    message!: string | undefined;
     odataContext!: string | undefined;
     value!: State[] | undefined;
 
@@ -13685,6 +14924,8 @@ export class StateIListOdataResult implements IStateIListOdataResult {
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
+            this.hasError = _data["hasError"];
+            this.message = _data["message"];
             this.odataContext = _data["odataContext"];
             if (Array.isArray(_data["value"])) {
                 this.value = [] as any;
@@ -13704,6 +14945,8 @@ export class StateIListOdataResult implements IStateIListOdataResult {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
+        data["hasError"] = this.hasError;
+        data["message"] = this.message;
         data["odataContext"] = this.odataContext;
         if (Array.isArray(this.value)) {
             data["value"] = [];
@@ -13723,6 +14966,8 @@ export class StateIListOdataResult implements IStateIListOdataResult {
 
 export interface IStateIListOdataResult {
     id: number;
+    hasError: boolean;
+    message: string | undefined;
     odataContext: string | undefined;
     value: State[] | undefined;
 }
@@ -14289,6 +15534,8 @@ export interface ISubscription {
 
 export class SubscriptionIListOdataResult implements ISubscriptionIListOdataResult {
     id!: number;
+    hasError!: boolean;
+    message!: string | undefined;
     odataContext!: string | undefined;
     value!: Subscription[] | undefined;
 
@@ -14304,6 +15551,8 @@ export class SubscriptionIListOdataResult implements ISubscriptionIListOdataResu
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
+            this.hasError = _data["hasError"];
+            this.message = _data["message"];
             this.odataContext = _data["odataContext"];
             if (Array.isArray(_data["value"])) {
                 this.value = [] as any;
@@ -14323,6 +15572,8 @@ export class SubscriptionIListOdataResult implements ISubscriptionIListOdataResu
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
+        data["hasError"] = this.hasError;
+        data["message"] = this.message;
         data["odataContext"] = this.odataContext;
         if (Array.isArray(this.value)) {
             data["value"] = [];
@@ -14342,6 +15593,8 @@ export class SubscriptionIListOdataResult implements ISubscriptionIListOdataResu
 
 export interface ISubscriptionIListOdataResult {
     id: number;
+    hasError: boolean;
+    message: string | undefined;
     odataContext: string | undefined;
     value: Subscription[] | undefined;
 }
@@ -14489,6 +15742,8 @@ export interface ITitle {
 
 export class TitleIListOdataResult implements ITitleIListOdataResult {
     id!: number;
+    hasError!: boolean;
+    message!: string | undefined;
     odataContext!: string | undefined;
     value!: Title[] | undefined;
 
@@ -14504,6 +15759,8 @@ export class TitleIListOdataResult implements ITitleIListOdataResult {
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
+            this.hasError = _data["hasError"];
+            this.message = _data["message"];
             this.odataContext = _data["odataContext"];
             if (Array.isArray(_data["value"])) {
                 this.value = [] as any;
@@ -14523,6 +15780,8 @@ export class TitleIListOdataResult implements ITitleIListOdataResult {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
+        data["hasError"] = this.hasError;
+        data["message"] = this.message;
         data["odataContext"] = this.odataContext;
         if (Array.isArray(this.value)) {
             data["value"] = [];
@@ -14542,6 +15801,8 @@ export class TitleIListOdataResult implements ITitleIListOdataResult {
 
 export interface ITitleIListOdataResult {
     id: number;
+    hasError: boolean;
+    message: string | undefined;
     odataContext: string | undefined;
     value: Title[] | undefined;
 }

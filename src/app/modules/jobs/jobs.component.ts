@@ -1,12 +1,10 @@
+import { CurrenciesServiceProxy, Job } from './../../_services/service-proxies';
 import { ColumnTypes, TableAction, TableActionEvent, TableColumn } from 'app/components/tablecomponent/models';
-// import { IStatus, MyColor } from './../../../../components/status/models';
 import { Router } from '@angular/router';
-// import { DepartmentDTO, Certification, CommonServiceProxy, GetAllDepartmentsServiceProxy, IDTextViewModel, DataServiceProxy, State, JobRole } from 'app/_services/service-proxies';
 import { AlertserviceService } from 'app/_services/alertservice.service';
-// import { RecruitmentJobServiceProxy, ManageJobDTO, JobDTO, Qualification, RecruitmentSettingServiceProxy, Country, Currency, QuizDTO, RecruitmentScoreCard, RecruitmentQuizServiceProxy } from './../../../../_services/service-proxies';
-// import { TableAction, TableActionEvent, TableColumn } from './../../../../components/tablecomponent/models';
 import { Component, OnInit } from '@angular/core';
 import { IStatus, MyColor } from 'app/components/status/models';
+import { CountriesServiceProxy, GradesServiceProxy, IDTextViewModel, JobServiceProxy, JobTypesServiceProxy, QualificationServiceProxy, SectorsServiceProxy, SkillAreasServiceProxy, StatesServiceProxy } from 'app/_services/service-proxies';
 
 enum TP  {
 VIEW ='1',DELETE = '2'
@@ -59,10 +57,10 @@ export class JobsComponent implements OnInit {
   showCvModal = false
   showdeleteModal = false
 
-  myPlanHeader: string = 'You have not posted any Job';
-  myPlanDesc: string = 'Click on the button to post a job';
+  emptyHeader: string = 'You have not posted any Job';
+  emptyDescription: string = 'Click on the button to post a job';
+  emptyButton: string = 'Add a Job Posting';
 
-  myButton: string = 'Add a Job Posting';
   availability: string = 'Physical';
   employmentType: string = 'Full Time';
   newJob: boolean = false;
@@ -71,19 +69,27 @@ export class JobsComponent implements OnInit {
   jobsCounter: number = 0;
   allDepartments:  [] = [];
   certificationData:  [] = [];
-  qualificationData:  [] = [];
   employmentTypes:  []= [];
   jobAvailability:  []= [];
   allCountries:  [] = [];
   allStates: [] = [];
   allJobRoles:  [] = [];
-  // singleJob: JobDTO = new JobDTO().clone();
+  singleJob: Job = new Job().clone();
   tableData: string = '';
   allCurrencies:  [] = [];
   awaitingJobsCounter: number = 0;
   draftCounter: number = 0;
   allQuizes:  [] = [];
   allScoreCards:  [] = [];
+
+  countryData: IDTextViewModel [] = [];
+  stateData: IDTextViewModel [] = [];
+  courseData: IDTextViewModel[] = [];
+  qualificationData: IDTextViewModel [] = [];
+  sectorData: IDTextViewModel [] = [];
+  skillData: IDTextViewModel [] = [];
+  employerTypeData: IDTextViewModel [] = [];
+  gradeData: IDTextViewModel [] = [];
 
   rButton = [
     {name: 'a', label: 'Add New', icon: 'plus'},
@@ -212,9 +218,15 @@ draftTableActions: TableAction [] = [
   selectedOption;
   loading: boolean;
   showJob: boolean = false;
-  // newJobModel: ManageJobDTO = new ManageJobDTO();
+  jobtypeData: IDTextViewModel [] = [];
+  currencyData: IDTextViewModel [] = [];
+  newJobModel: Job = new Job();
 
-  constructor( private alertMe: AlertserviceService, private router: Router ) {
+  constructor( private alertMe: AlertserviceService, private router: Router, private job: JobServiceProxy,
+    private jobtype: JobTypesServiceProxy, private country:CountriesServiceProxy,
+    private qualification: QualificationServiceProxy, private curreny: CurrenciesServiceProxy,
+    private state: StatesServiceProxy, private sector: SectorsServiceProxy, private skill: SkillAreasServiceProxy,
+    private grade: GradesServiceProxy ) {
    }
 
   ngOnInit(): void {
@@ -237,39 +249,41 @@ draftTableActions: TableAction [] = [
   }
 
   newJobPosting(){
-    this.router.navigateByUrl('/recruitmentadmin/newjob');
+    this.router.navigateByUrl('newjob');
   }
-  // updateJob() {
-  //   this.loading = true;
-  //   this.newJobModel.id = this.singleJob.id;
-  //   this.newJobModel.jobTitleId = this.singleJob.jobTitleId;
-  //   this.newJobModel.maxQualificationId = this.singleJob.maxQualificationId;
-  //   this.newJobModel.maxSalary = this.singleJob.maxSalary;
-  //   this.newJobModel.minQualificationId = this.singleJob.minQualificationId;
-  //   this.newJobModel.minSalary = this.singleJob.minSalary;
-  //   this.newJobModel.postValidityFrom = this.singleJob.postValidityFrom;
-  //   this.newJobModel.postValidityTo = this.singleJob.postValidityTo;
-  //   this.newJobModel.requirements = this.singleJob.requirements;
-  //   this.newJobModel.scoreCardId = this.singleJob.scoreCardId;
-  //   this.newJobModel.stateId = this.singleJob.stateId;
-  //   this.newJobModel.countryId = this.singleJob.countryId;
-  //  this.job.addUpdateJob(this.newJobModel).subscribe(data => {
-  //   if(!data.hasError){
-  //     this.loading = false;
-  //     this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'Success', 'Dismiss').subscribe(res => {
-  //       if(res){
-  //         this.router.navigateByUrl('/recruitmentadmin/jobs');
-  //         this.fetchAllJobs();
-  //       }
-  //     })
-  //   }
-  //  }, (error) => {
 
-  //   if (error.status == 400) {
-  //     this.alertMe.openCatchErrorModal(this.alertMe.ALERT_TYPES.FAILED, error.title, "OK", error.errors);
-  //   }
-  // });
-  // }
+  updateJob() {
+    this.loading = true;
+    this.newJobModel.id = this.singleJob.id;
+    this.newJobModel.recruiter = this.singleJob.recruiter;
+    this.newJobModel.maxQualificationId = this.singleJob.maxQualificationId;
+    this.newJobModel.maxSalary = this.singleJob.maxSalary;
+    this.newJobModel.minQualificationId = this.singleJob.minQualificationId;
+    this.newJobModel.minSalary = this.singleJob.minSalary;
+    this.newJobModel.position = this.singleJob.position;
+    this.newJobModel.requirements = this.singleJob.requirements;
+    this.newJobModel.minExpRequired = this.singleJob.minExpRequired;
+    this.newJobModel.maxExpRequired = this.singleJob.maxExpRequired;
+    this.newJobModel.skillAreaId = this.singleJob.skillAreaId;
+    this.newJobModel.stateId = this.singleJob.stateId;
+    this.newJobModel.countryId = this.singleJob.countryId;
+    this.job.postJob(this.newJobModel).subscribe(data => {
+    if(5){
+      this.loading = false;
+      this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'Success', 'Dismiss').subscribe(res => {
+        if(res){
+          // this.router.navigateByUrl('/recruitmentadmin/jobs');
+          // this.fetchAllJobs();
+        }
+      })
+    }
+   }, (error) => {
+
+    if (error.status == 400) {
+      this.alertMe.openCatchErrorModal(this.alertMe.ALERT_TYPES.FAILED, error.title, "OK", error.errors);
+    }
+  });
+  }
 
   // deleteJob(){
   //   this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.CONFIRM, '','Yes').subscribe(res => {
@@ -293,12 +307,7 @@ draftTableActions: TableAction [] = [
   //   })
   // }
 
-  // async fetchCountries(){
-  //   const data = await this.dataService.getCountries().toPromise();
-  //   if(!data.hasError){
-  //     this.allCountries = data.result;
-  //   }
-  // }
+
 
   // async fetchJobRoles(){
   //   const data = await this.common.getJobRoles().toPromise();
@@ -307,14 +316,12 @@ draftTableActions: TableAction [] = [
   //   }
   // }
 
-  // async fetchCurrency(){
-  //   const data = await this.commonService.getCurrency().toPromise()
-  //   if(!data.hasError){
-  //     this.allCurrencies = data.result;
-  //   }
-  // }
+  async fetchCurrency(){
+    const data = await this.curreny.fetchCurrencies().toPromise()
+      this.currencyData = data.value;
+    }
 
-  // async fetchJobAvailabilty(){
+ // async fetchJobAvailabilty(){
   //   const data = await this.employment.getJobAvailabilities().toPromise();
   //   if(!data.hasError){
   //     this.jobAvailability = data.result;
@@ -329,12 +336,7 @@ draftTableActions: TableAction [] = [
   //   }
   // }
 
-  // async fetchEmploymentTypes(){
-  //   const data = await this.employment.getEmploymentTypes().toPromise();
-  //   if(!data.hasError){
-  //     this.employmentTypes = data.result;
-  //   }
-  // }
+
 
   // async fetchAllDepartments(){
   //   const data = await this.department.getAllDepartments(10,1).toPromise();
@@ -362,48 +364,20 @@ draftTableActions: TableAction [] = [
   //  }
   // }
 
-  // async fetchAllDraft(){
-  //   this.loading = true;
-  //   const data = await this.job.getAllJobs(true, undefined, 1,10).toPromise();
-  //   this.loading = false;
-  //   if(!data.hasError){
-  //     this.allDraftJobs = data.result.map(x => new JobWithStatus(x));
-  //     this.draftCounter = data.totalRecord;
-  //     console.log('My Jobs:',this.allDraftJobs)
-  //  }
-  // }
+  actionClicked(event: TableActionEvent){
+    if (event.name === TP.VIEW){
+      this.showCvModal = true
+    }
 
-  // async fetchScheduledJobs(){
-  //   this.loading = true;
-  //   const data = await this.job.getAllJobs(undefined, true, 1,10).toPromise();
-  //   this.loading = false;
-  //   if(!data.hasError){
-  //     this.allDraftJobs = data.result.map(x => new JobWithStatus(x));
-  //     this.scheduledCounter = data.totalRecord;
-  //     console.log('My Jobs:',this.allDraftJobs)
-  //  }
-  // }
+    if (event.name === TP.DELETE){
+      this.showdeleteModal = true
+    }
 
-  // actionClicked(event: TableActionEvent){
-  //   if (event.name === TP.VIEW){
-  //     this.showCvModal = true
-  //   }
+  }
+  showMasterSearchModal(){
+    this.showModal = true
+  }
 
-  //   if (event.name === TP.DELETE){
-  //     this.showdeleteModal = true
-  //   }
-
-  // }
-  // showMasterSearchModal(){
-  //   this.showModal = true
-  // }
-
-  // async fetchScoreCards(){
-  //   const data = await this.employment.getRecruitmentScoreCards().toPromise();
-  //   if(!data.hasError){
-  //     this.allScoreCards = data.result
-  //   }
-  //  }
 
   //  async fetchAllQuizes(){
   //   const data = await this.quiz.getAllQuizzes().toPromise();
@@ -421,10 +395,43 @@ draftTableActions: TableAction [] = [
 
   // }
 
+
+  async fetchCountries(){
+    this.country.fetchCountries().subscribe(data => {
+      this.countryData = data.value;
+    })
+
+  }
+
+async fetchStates(){
+    const data = await this.state.fetchStates().toPromise();
+    this.stateData = data.value;
+    console.log('All states',this.stateData)
+  }
+
+  async fetchQualifications(){
+    const data = await this.qualification.fetchQualifications().toPromise();
+    this.qualificationData = data.value;
+
+  }
+
+  async fetchJobType(){
+    const data = await this.jobtype.fetchJobTypes().toPromise();
+    this.jobtypeData = data.value;
+  }
+
+ async fetchSkillAreas(){
+    const data = await this.skill.fetchSkillAreas().toPromise();
+    this.skillData = data.value;
+  }
+
    getSelectedEmployee(event,selectType) {
      if(selectType == 'employee'){
-      // this.newJobModel.reviewers = event[0].employeeNumber;
+      this.newJobModel.reviewers = event[0].employeeNumber;
      }
   }
 
-}
+
+  }
+
+

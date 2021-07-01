@@ -19,12 +19,10 @@ export const routes: Routes = [
   //   canLoad: [AuthGuard],
   // },
 
-
-
-  {
-    path: 'recruitment',
-    loadChildren: () => import('./modules/recruitment/recruitment.module').then(m => m.RecruitmentModule)
-  },
+  // {
+  //   path: 'recruitment',
+  //   loadChildren: () => import('./modules/recruitment/recruitment.module').then(m => m.RecruitmentModule)
+  // },
 
 
 

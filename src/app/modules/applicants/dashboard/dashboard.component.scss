@@ -16,9 +16,20 @@
 .navbar-light .navbar-nav .show > .nav-link, .navbar-light .navbar-nav .active > .nav-link, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .nav-link.active {
   color:#fff;
   font-size: 15px;
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
 }
 
 .navbar-light .navbar-toggler {
+  color: #ffffff;
+}
+
+li {
+  margin-right: 20px;
+}
+
+.nav .justify-content-center {
   color: #ffffff;
 }
 
@@ -76,10 +87,6 @@ li {
 
 .hidden-spacer {
   height: 56px
-}
-
-.has-search .form-control {
-  padding-left: 2.375rem;
 }
 
 .has-search .form-control-feedback {

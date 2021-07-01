@@ -3,12 +3,12 @@
 <div *ngIf="jobsCounter < 1" style="background-color: #ffffff;">
   <nb-card>
     <nb-card-body>
-        <ngx-default-content pageHeader={{myPlanHeader}} pageDescription="{{myPlanDesc}}" buttonValue={{myButton}}
+        <ngx-default-content pageHeader={{emptyHeader}} pageDescription="{{emptyDescription}}" buttonValue={{myButton}}
           (buttonClick)="newJobPosting()" [loading]="loading"></ngx-default-content>
     </nb-card-body>
   </nb-card>
 </div>
-<!--
+
 <div *ngIf="jobsCounter > 0">
   <nb-card>
     <nb-card-body>
@@ -16,13 +16,11 @@
       <ngx-tablecomponent [loading]='loading' [userData]='allJobs' [actions]='tableActions' [tableColum]="postedJobsTable"></ngx-tablecomponent>
     </nb-card-body>
   </nb-card>
-</div> -->
+</div>
 
 <nb-card *ngIf="jobsCounter > 0">
   <nb-card-body>
-    <!-- <div headerButton>
 
-    </div> -->
     <nb-tabset  *ngIf="jobsCounter > 0" (changeTab)="selectTab($event)">
       <nb-tab tabTitle="Posted Jobs" [tabId]="TABS.postedJobs">
           <div *ngIf="jobsCounter < 1">
@@ -307,9 +305,9 @@
 
     </div>
   </div>
-</ngx-side-modal>
+</ngx-side-modal> -->
 
-<ngx-side-modal [(show)]="showdeleteModal">
+<!-- <ngx-side-modal [(show)]="showdeleteModal">
   <div modal-header></div>
   <div modal-body>
     <nb-card>
@@ -357,9 +355,9 @@
 
 
 
-</ngx-side-modal>
+</ngx-side-modal> -->
 
-<ngx-side-modal [(show)]="showJob" style="width: 600px;">
+<!-- <ngx-side-modal [(show)]="showJob" style="width: 600px;">
   <div modal-header>{{ singleJob.jobTitle }}</div>
 
   <div modal-body>
@@ -369,7 +367,7 @@
           <div class="form-group row mydiv">
             <label for="Title" >Job Title</label>
 
-              <select class="custom-select" name="jobTitle" #jobTitle="ngModel" [(ngModel)]="singleJob.jobTitleId" placeholder="Job Title">
+              <select class="custom-select" name="jobTitle" #jobTitle="ngModel" [(ngModel)]="singleJob.position" placeholder="Job Title">
               <option value="">--Select Job Title--</option>
               <option *ngFor="let job of allJobRoles" [value]="job.id">{{ job.name }}</option>
               </select>

@@ -5,9 +5,46 @@
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <img src="assets/images/logo_2.png" alt="" style="width: 120px; height: 150px; padding-right: 20px;">
+      <img src="assets/images/logo_2.png" alt="" [routerLink]="['/applicants/dashboard']" style="width: 150px; height: 150px; margin-right: 200px; cursor: pointer;">
 
       <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto" style="display: flex; flex-direction: row; justify-content: space-between; color: #fff;">
+          <li class="nav-item active">
+            <a class="nav-link" [routerLink]="['/applicants/about']">About Us <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" [routerLink]="['/applicants/services']">Services <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" [routerLink]="['/applicants/blog']">Blog <span class="sr-only">(current)</span></a>
+          </li>
+
+          <li class="nav-item active">
+            <a class="nav-link"[routerLink]="['/applicants/boards']">Job Boards <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" [routerLink]="['/applicants/scorecv']">Score CV <span class="sr-only">(current)</span></a>
+          </li>
+
+          <li class="nav-item active">
+            <a class="nav-link"[routerLink]="['/applicants/pricing']">Pricing <span class="sr-only">(current)</span></a>
+          </li>
+        </ul>
+
+        <form class="form-inline my-2 my-lg-0">
+          <ul class="navbar-nav mr-auto" style="color: #fff;">
+            <li class="nav-item active">
+              <a class="nav-link" [routerLink]="['/auth/signup']"><i class="fa fa-user" style="padding: 6px;"></i>Sign Up</a>
+            </li>
+
+            <li class="nav-item active">
+              <a class="nav-link" [routerLink]="['/auth/login']"><i class="fa fa-user" style="padding: 6px;"></i>Login</a>
+            </li>
+          </ul>
+          <button class="btn" [routerLink]="['/auth/login']" nbButton outline size="small" style="color: #6495ED; background-color: #fff; border: 1px solid #6495ED;">Post Job</button>
+        </form>
+      </div>
+      <!-- <div class="collapse navbar-collapse">
         <ul class="navbar-nav mr-auto" style="color: #fff;">
           <li class="nav-item active">
             <a class="nav-link" [routerLink]="['/applicants/about']">About Us <span class="sr-only">(current)</span></a>
@@ -43,7 +80,7 @@
           </ul>
           <button class="btn" [routerLink]="['/auth/login']" nbButton outline size="small" style="color: #1F2566; background-color: #fff;">Post Job</button>
         </form>
-      </div>
+      </div> -->
     </nav>
 
 
@@ -89,54 +126,25 @@
 
 <div class="row" style="display: flex; flex-direction: row; justify-content: space-between; padding: 50px; margin: 4%;">
   <div class="col-sm-5">
-    <img src="assets/images/Resume_scoring.png" style="height: 322px; width: 322px;" alt="">
+    <img src="assets/images/Resume_scoring.png" style="height: 100%; width: 100%;" alt="">
   </div>
- 
-  <div class="col-sm-7">
-   <div class="row">
-     <h3>Upload your CV for scoring</h3>
-     <span style="text-align: justify;"><span style="color: #afaea5;">26/06/2021 by Admin</span><br>We are Nigeria top job portal, that makes the recruiting process seamless for recruiters and job seekers alike.
-    Job seekers can upload their video resumes and rate their resumes using Ai  to get the best positions.  Recruiters can upload psychometric and aptitude tests, filter key aspects of job seekers resumes, watch candidates video pitch; making short listing easy, cost and time saving. The portal has verified artisans in its offerings, making the  hiring of technicians much easier.
-   Trainers can also take advantage of the high traffic on the portal to advertise their training programs
-     </span>
-     <button class="btn" nbButton outline size="small" style="color:#fff; margin-top: 20px; background-color:#1F2566;">Read More</button>
 
-   </div>
+  <div class="col-sm-6" style="border: 5px solid #E8E8E8BE; border-radius: 5px; padding: 2% 5%">
+     <form>
+      <h3>Score your CV Now</h3>
+      <span style="text-align: justify;"><p>Upload your CV and find out your CV score</p><br></span>
+      <div class="form-group">
+        <label for="Allowed Formats">Allowed Formats:</label>
+        <ngx-file-upload></ngx-file-upload>
+        <div style="padding: 10px;"></div>
+      </div>
 
+      <div style="display: flex; flex-direction: row; justify-content: right; align-items: flex-end;">
+      <button *ngIf="!btnprocessing"  type="button" nbButton status="primary">Analyze</button>
+      <button *ngIf="btnprocessing" type="button" nbButton fullWidth status="primary">Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button>
+      <div style="padding: 5px;"></div>
+      </div>
+    </form>
      </div>
 
 </div>
-
-<!-- <div class="row" style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; background-color: #1F2566; height: 225px; width: 100%; padding: 30px;">
-  <div class="col-sm-3" style="color: #fff; padding: 10px; text-align: center;">
-    <h6 style="color: #fff;">Company</h6><br>
-    <span>About</span><br>
-    <span>Help Center</span><br>
-    <span>Services</span><br>
-    <span>Services</span><br>
-    <span>Training</span><br>
-
-  </div>
-
-  <div class="col-sm-3" style="color: #fff; padding: 10px; text-align: center;">
-    <h6 style="color: #fff;">Quick Access</h6><br>
-    <span>Post a job</span><br>
-    <span>Create Profile</span><br>
-    <span>Login</span><br>
-
-  </div>
-  <div class="col-sm-3" style="display: flex; flex-direction: row; padding: 10px; justify-content: space-around; color: #fff; padding: 10px; text-align: center;">
-    <button type="submit" class="btn my-button" nbButton status="primary">Log In</button>
-    <button type="submit" class="btn my-button" nbButton status="primary" outline>Register now</button>
-  </div>
-
-  <div class="col-sm-3">
-    <h6 style="color: #fff;">Subscribe to our newsletter</h6><br>
-    <div class="input-group">
-      <input type="email" class="form-control" placeholder="Enter your email">
-      <span class="input-group-btn">
-      <button class="btn btn-theme" type="submit">Subscribe</button>
-      </span>
-       </div>
-  </div>
-  </div> -->

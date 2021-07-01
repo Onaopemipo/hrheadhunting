@@ -9,6 +9,9 @@
 
 }
 
+li {
+  margin-right: 10px;
+}
 .navbar-nav {
   color: #fff;
 }
@@ -18,6 +21,9 @@ avbar-light .navbar-nav .show > .nav-link, .navbar-light .navbar-nav .active > .
   font-size: 15px;
 }
 
+.navbar-dark .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;..");
+}
 .icon {
   font-size: 12px;
   padding-right: 10px;

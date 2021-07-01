@@ -21,6 +21,10 @@
 
 }
 
+.navbar-dark .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;..");
+}
+
 .icon {
   font-size: 12px;
   padding-right: 10px;
@@ -50,6 +54,10 @@ p {
   font-size: 12px;
   text-justify: distribute;
   font-weight: 400;
+}
+
+li {
+  margin-right: 10px;
 }
 
 .my-button {
