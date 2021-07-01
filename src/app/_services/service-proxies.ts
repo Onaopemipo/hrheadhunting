@@ -853,6 +853,77 @@ export class CommonServiceProxy {
     /**
      * @return Success
      */
+    fetchRecruitmentStages(): Observable<IDTextViewModelIListOdataResult> {
+        let url_ = this.baseUrl + "/api/Common/FetchRecruitmentStages";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processFetchRecruitmentStages(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processFetchRecruitmentStages(<any>response_);
+                } catch (e) {
+                    return <Observable<IDTextViewModelIListOdataResult>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<IDTextViewModelIListOdataResult>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processFetchRecruitmentStages(response: HttpResponseBase): Observable<IDTextViewModelIListOdataResult> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = IDTextViewModelIListOdataResult.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData400) {
+                result400 = {} as any;
+                for (let key in resultData400) {
+                    if (resultData400.hasOwnProperty(key))
+                        (<any>result400)![key] = resultData400[key];
+                }
+            }
+            else {
+                result400 = <any>null;
+            }
+            return throwException("Bad Request", status, _responseText, _headers, result400);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Server Error", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<IDTextViewModelIListOdataResult>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
     fetchAllEmployers(): Observable<IDTextViewModelIListOdataResult> {
         let url_ = this.baseUrl + "/api/Common/FetchAllEmployers";
         url_ = url_.replace(/[?&]$/, "");
@@ -9636,89 +9707,6 @@ export interface IJob {
     modifiedById: number | undefined;
 }
 
-export class RecruitmentStage implements IRecruitmentStage {
-    id!: number;
-    rank!: number;
-    name!: string | undefined;
-    companyID!: number;
-    subID!: number;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
-
-    constructor(data?: IRecruitmentStage) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.id = _data["id"];
-            this.rank = _data["rank"];
-            this.name = _data["name"];
-            this.companyID = _data["companyID"];
-            this.subID = _data["subID"];
-            this.dateCreated = _data["dateCreated"] ? new Date(_data["dateCreated"].toString()) : <any>undefined;
-            this.isDeleted = _data["isDeleted"];
-            this.isActive = _data["isActive"];
-            this.createdById = _data["createdById"];
-            this.dateModified = _data["dateModified"] ? new Date(_data["dateModified"].toString()) : <any>undefined;
-            this.modifiedById = _data["modifiedById"];
-        }
-    }
-
-    static fromJS(data: any): RecruitmentStage {
-        data = typeof data === 'object' ? data : {};
-        let result = new RecruitmentStage();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["rank"] = this.rank;
-        data["name"] = this.name;
-        data["companyID"] = this.companyID;
-        data["subID"] = this.subID;
-        data["dateCreated"] = this.dateCreated ? this.dateCreated.toISOString() : <any>undefined;
-        data["isDeleted"] = this.isDeleted;
-        data["isActive"] = this.isActive;
-        data["createdById"] = this.createdById;
-        data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
-        data["modifiedById"] = this.modifiedById;
-        return data; 
-    }
-
-    clone(): RecruitmentStage {
-        const json = this.toJSON();
-        let result = new RecruitmentStage();
-        result.init(json);
-        return result;
-    }
-}
-
-export interface IRecruitmentStage {
-    id: number;
-    rank: number;
-    name: string | undefined;
-    companyID: number;
-    subID: number;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
-}
-
 export class AppliedApplicant implements IAppliedApplicant {
     jobId!: number;
     applicantCode!: string | undefined;
@@ -9731,7 +9719,6 @@ export class AppliedApplicant implements IAppliedApplicant {
     recruitmentStageId!: number | undefined;
     testPassCode!: string | undefined;
     job!: Job;
-    recruitmentStage!: RecruitmentStage;
     registeredUser!: RegisteredUser;
     id!: number;
     companyID!: number;
@@ -9765,7 +9752,6 @@ export class AppliedApplicant implements IAppliedApplicant {
             this.recruitmentStageId = _data["recruitmentStageId"];
             this.testPassCode = _data["testPassCode"];
             this.job = _data["job"] ? Job.fromJS(_data["job"]) : <any>undefined;
-            this.recruitmentStage = _data["recruitmentStage"] ? RecruitmentStage.fromJS(_data["recruitmentStage"]) : <any>undefined;
             this.registeredUser = _data["registeredUser"] ? RegisteredUser.fromJS(_data["registeredUser"]) : <any>undefined;
             this.id = _data["id"];
             this.companyID = _data["companyID"];
@@ -9799,7 +9785,6 @@ export class AppliedApplicant implements IAppliedApplicant {
         data["recruitmentStageId"] = this.recruitmentStageId;
         data["testPassCode"] = this.testPassCode;
         data["job"] = this.job ? this.job.toJSON() : <any>undefined;
-        data["recruitmentStage"] = this.recruitmentStage ? this.recruitmentStage.toJSON() : <any>undefined;
         data["registeredUser"] = this.registeredUser ? this.registeredUser.toJSON() : <any>undefined;
         data["id"] = this.id;
         data["companyID"] = this.companyID;
@@ -9833,7 +9818,6 @@ export interface IAppliedApplicant {
     recruitmentStageId: number | undefined;
     testPassCode: string | undefined;
     job: Job;
-    recruitmentStage: RecruitmentStage;
     registeredUser: RegisteredUser;
     id: number;
     companyID: number;
@@ -12811,6 +12795,8 @@ export interface IDashboardData {
 export class DashboardDTO implements IDashboardDTO {
     aggregateData!: VwDashboard;
     lstSkillSetData!: DashboardData[] | undefined;
+    lstApplicantAgeRangeData!: DashboardData[] | undefined;
+    lstRecruitmentOverTimeData!: DashboardData[] | undefined;
 
     constructor(data?: IDashboardDTO) {
         if (data) {
@@ -12828,6 +12814,16 @@ export class DashboardDTO implements IDashboardDTO {
                 this.lstSkillSetData = [] as any;
                 for (let item of _data["lstSkillSetData"])
                     this.lstSkillSetData!.push(DashboardData.fromJS(item));
+            }
+            if (Array.isArray(_data["lstApplicantAgeRangeData"])) {
+                this.lstApplicantAgeRangeData = [] as any;
+                for (let item of _data["lstApplicantAgeRangeData"])
+                    this.lstApplicantAgeRangeData!.push(DashboardData.fromJS(item));
+            }
+            if (Array.isArray(_data["lstRecruitmentOverTimeData"])) {
+                this.lstRecruitmentOverTimeData = [] as any;
+                for (let item of _data["lstRecruitmentOverTimeData"])
+                    this.lstRecruitmentOverTimeData!.push(DashboardData.fromJS(item));
             }
         }
     }
@@ -12847,6 +12843,16 @@ export class DashboardDTO implements IDashboardDTO {
             for (let item of this.lstSkillSetData)
                 data["lstSkillSetData"].push(item.toJSON());
         }
+        if (Array.isArray(this.lstApplicantAgeRangeData)) {
+            data["lstApplicantAgeRangeData"] = [];
+            for (let item of this.lstApplicantAgeRangeData)
+                data["lstApplicantAgeRangeData"].push(item.toJSON());
+        }
+        if (Array.isArray(this.lstRecruitmentOverTimeData)) {
+            data["lstRecruitmentOverTimeData"] = [];
+            for (let item of this.lstRecruitmentOverTimeData)
+                data["lstRecruitmentOverTimeData"].push(item.toJSON());
+        }
         return data; 
     }
 
@@ -12861,6 +12867,8 @@ export class DashboardDTO implements IDashboardDTO {
 export interface IDashboardDTO {
     aggregateData: VwDashboard;
     lstSkillSetData: DashboardData[] | undefined;
+    lstApplicantAgeRangeData: DashboardData[] | undefined;
+    lstRecruitmentOverTimeData: DashboardData[] | undefined;
 }
 
 export class DashboardDTOOdataResult implements IDashboardDTOOdataResult {

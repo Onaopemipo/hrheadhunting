@@ -49,13 +49,13 @@
 </div>
 </div>
 
-<div class="limiter"  *ngIf="pageNo > 0">
+<div class="limiter" *ngIf="pageNo > 0">
   <div style="background-color: #fff; padding: 3% 6%; margin: 4%; text-align:left;">
     <div class="row" style="display: flex; flex-direction: row; justify-content: left;">
 
       <div class="col">
         <nb-card>
-          <nb-card-body *ngIf="jobSeekerStatus">
+          <nb-card-body *ngIf="jobSeekerStatus"  class="shadow-sm p-3 mb-5 bg-white rounded">
             <div class="form-row" style="display: flex; flex-direction: row; justify-content: space-between;">
               <div class="col-md-5 form-group">
                 <div style="border: 2px solid #0066F4; cursor: pointer; padding: 2px;">
@@ -95,6 +95,99 @@
             </div>
             <hr>
                 <form>
+                  <h6>PERSONAL INFORMATION</h6>
+                  <div class="form-row" style="display: flex; flex-direction: row; justify-content: space-between;">
+                    <div class="col-md-5 form-group">
+                      <div>
+                        <label for="">Title</label>
+                      <select class="form-control" name="title" #title="ngModel" [(ngModel)]="jobSeeker.titleId" required>
+                        <option value="">Select Title</option>
+                        <option *ngFor="let country of titleData" [value]="country.id">{{country.text}}</option>
+                      </select>
+                      </div>
+
+
+                      <div style="padding: 10px;"></div>
+
+                      <div>
+                        <label for="" style="padding-top: 5px;">Last name</label>
+                      <input type="text" class="form-control" name="lastName" #lastName="ngModel" [(ngModel)]="jobSeeker.lastName" placeholder="Last name">
+
+                      </div>
+                      <div style="padding: 10px;"></div>
+
+                      <label for="inputEmail4">Email</label>
+                       <input type="email" class="form-control" name="email" #email="ngModel" [(ngModel)]="jobSeeker.email">
+
+                       <div style="padding: 10px;"></div>
+
+                      <label for="">Nationality</label>
+                      <select class="form-control" name="nationality" #nationality="ngModel" [(ngModel)]="jobSeeker.nationalityId" required>
+                        <option value="">Select</option>
+                        <option *ngFor="let country of countryData" [value]="country.id">{{country.text}}</option>
+                      </select>
+
+                       <div style="padding: 10px;"></div>
+
+                      <div>
+                        <label>Date of Birth</label>
+                        <ngx-date [(ngModel)]="jobSeeker.dateOfBirth"> </ngx-date>
+                      </div>
+
+                      </div>
+
+                    <div style="padding: 10px;"></div>
+
+                    <div class="col-md-5 form-group">
+                      <div>
+                        <label for="" style="padding-top: 5px;">First name</label>
+                        <input type="text" class="form-control" name="firstName" #firstName="ngModel" [(ngModel)]="jobSeeker.firstName" placeholder="First name">
+
+                      </div>
+                      <div style="padding: 10px;"></div>
+
+                      <div>
+                        <label>Phone Number</label>
+                        <input type="tel" class="form-control" name="phone" #phone="ngModel" [(ngModel)]="jobSeeker.mobile">
+                      </div>
+
+
+                      <label for="" style="padding-top: 5px;">Where do you want to work?</label>
+                      <select class="form-control" name="residenceState" #residenceState="ngModel" [(ngModel)]="jobSeeker.stateOfInterestId" required>
+                        <option value="">Select</option>
+                        <option *ngFor="let state of stateData" [value]="state.id">{{state.text}}</option>
+                      </select>
+
+
+                      <div style="padding: 10px;"></div>
+
+                      <label for="">Gender</label>
+                      <nb-radio-group [(ngModel)]="jobSeeker.genderId" style="display: flex; flex-direction: row; justify-content:left; align-items: flex-start;">
+                        <nb-radio value="1">Male</nb-radio>
+                        <nb-radio value="2">Female</nb-radio>
+                      </nb-radio-group>
+
+                      <div style="padding: 10px;"></div>
+
+                      <label for="inputPassword4">Password</label>
+                      <div style="display: flex;border: 0.800000011920929px solid #CED4DA;border-radius: 3px;background-color: #f7f9fc;padding: 5px;">
+                       <input [type]="show ? 'text' : 'password'" nbInput fullWidth placeholder="Password" name="password" #password="ngModel" [(ngModel)]="employer.password" required style="border: none;">
+                       <nb-icon  (click)="viewpassword()" *ngIf="!show"  icon="eye-off-outline" style="font-size: 32px;color: #95A8B8;cursor: pointer;"></nb-icon>
+                       <nb-icon  (click)="viewpassword()" *ngIf="show"  icon="eye-outline" style="font-size: 32px;color: #95A8B8;cursor: pointer;"></nb-icon>
+                     </div>
+
+                      <div style="padding: 10px;"></div>
+
+                      <!-- <label for="inputPassword4">Confirm Password</label>
+                       <div style="display: flex;border: 0.800000011920929px solid #CED4DA;border-radius: 3px;background-color: #f7f9fc;padding: 5px;">
+                        <input [type]="show ? 'text' : 'password'" nbInput fullWidth placeholder="Confirm Password" name="conPassword" #conPassword="ngModel" [(ngModel)]="employer.confirmPassword" required style="border: none;">
+                        <nb-icon  (click)="viewpassword()" *ngIf="!show"  icon="eye-off-outline" style="font-size: 32px;color: #95A8B8;cursor: pointer;"></nb-icon>
+                        <nb-icon  (click)="viewpassword()" *ngIf="show"  icon="eye-outline" style="font-size: 32px;color: #95A8B8;cursor: pointer;"></nb-icon>
+                      </div>
+                       <div style="padding: 10px;"></div> -->
+
+                    </div>
+                  </div>
                   <h6>WORK PREFERENCE</h6><br>
                   <div class="form-row" style="display: flex; flex-direction: row; justify-content: space-between;">
                     <div class="col-md-5 form-group">
@@ -155,8 +248,8 @@
                       <div style="padding: 10px;"></div>
 
                       <label for="" style="padding-top: 5px;">Start Date</label>
-                      <!-- <ngx-date [(ngModel)]="jobSeeker.qualificationStartDate">
-                      </ngx-date> -->
+                      <ngx-date [(ngModel)]="jobSeeker.qualificationStartDate">
+                      </ngx-date>
                     </div>
 
                     <div style="padding: 10px;"></div>
@@ -179,11 +272,11 @@
                       <div style="padding: 10px;"></div>
 
                       <label for="">End Date</label>
-                      <!-- <ngx-date [(ngModel)]="jobSeeker.qualificationEndDate" >
-                      </ngx-date> -->
+                      <ngx-date [(ngModel)]="jobSeeker.qualificationEndDate" >
+                      </ngx-date>
 
                     </div>
-                  </div> -->
+                  </div>
 
                   <div style="padding: 10px;"></div>
                   <h6>EXPERIENCE</h6><br>
@@ -195,8 +288,8 @@
                       <div style="padding: 10px;"></div>
 
                       <label for="" style="padding-top: 5px;">Start Date</label>
-                      <!-- <ngx-date [(ngModel)]="jobSeeker.workStartDate">
-                      </ngx-date> -->
+                      <ngx-date [(ngModel)]="jobSeeker.workStartDate">
+                      </ngx-date>
                     </div>
 
                     <div class="col-md-5 form-group">
@@ -209,8 +302,8 @@
                       <nb-checkbox *ngIf="!currentWork" (checkedChange)="toggleJob($event)">Are you still working here?</nb-checkbox>
 
                       <label *ngIf="currentWork" for="">End Date</label>
-                      <!-- <ngx-date *ngIf="currentWork">
-                      </ngx-date> -->
+                      <ngx-date *ngIf="currentWork">
+                      </ngx-date>
 
                     </div>
                   </div>

@@ -1,4 +1,4 @@
-import { GradesServiceProxy, IDTextViewModel } from 'app/_services/service-proxies';
+import { GradesServiceProxy, IDTextViewModel, TitlesServiceProxy } from 'app/_services/service-proxies';
 import { AccountServiceProxy, ManageJobSeekerRegDTO,ManageEmployerDTO,InstitutionServiceProxy, CourseServiceProxy, QualificationServiceProxy,
   StatesServiceProxy, SectorsServiceProxy, SkillAreasServiceProxy, CountriesServiceProxy, EmployerTypesServiceProxy } from './../../../_services/service-proxies';
 import { Component, OnInit } from '@angular/core';
@@ -36,9 +36,10 @@ export class SignupComponent implements OnInit {
   skillData: IDTextViewModel [] = [];
   employerTypeData: IDTextViewModel [] = [];
   gradeData: IDTextViewModel [] = [];
+  titleData: IDTextViewModel [] = [];
 
   constructor(private route: Router, private account: AccountServiceProxy, private alertMe: AlertserviceService,
-    private institution: InstitutionServiceProxy, private country:CountriesServiceProxy,
+    private institution: InstitutionServiceProxy, private country:CountriesServiceProxy, private title: TitlesServiceProxy,
     private course: CourseServiceProxy, private qualification: QualificationServiceProxy, private employment: EmployerTypesServiceProxy,
     private state: StatesServiceProxy, private sector: SectorsServiceProxy, private skill: SkillAreasServiceProxy,
     private grade: GradesServiceProxy ) { }
@@ -55,6 +56,7 @@ export class SignupComponent implements OnInit {
     this.fetchSkillAreas();
     this.fetchEmploymentTypes();
     this.fetchGrades();
+    this.fetchTitle();
   }
 
   toggleTest(){
@@ -70,6 +72,18 @@ export class SignupComponent implements OnInit {
     this.employersStatus = true;
     this.jobSeekerStatus = false;
 
+  }
+
+  // async fetchGender(){
+  //   const data = await this.institution.fetchInstitutions().toPromise();
+  //   this.genderData = data.value;
+  //   console.log(data)
+  // }
+
+  async fetchTitle(){
+    const data = await this.title.fetchTitles().toPromise();
+    this.titleData = data.value;
+    console.log(data)
   }
 
 

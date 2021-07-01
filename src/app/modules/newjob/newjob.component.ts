@@ -39,6 +39,7 @@ export class NewjobComponent implements OnInit {
   jobtypeData: IDTextViewModel [] = [];
   currencyData: IDTextViewModel [] = [];
   recruiterData: IDTextViewModel [] = [];
+  jobTitleData: IDTextViewModel [] = [];
   newJobModel: Job = new Job();
 
 
@@ -156,6 +157,11 @@ export class NewjobComponent implements OnInit {
     async fetchRecruiters(){
       const data = await this.common.fetchAllEmployers().toPromise();
       this.recruiterData = data.value;
+    }
+
+    async fetchJobTitles(){
+      const data = await this.common.fetchAllJobTitles('').toPromise();
+      this.jobTitleData = data.value;
     }
 
      getSelectedEmployee(event,selectType) {

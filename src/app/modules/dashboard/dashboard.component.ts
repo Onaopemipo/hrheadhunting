@@ -1,3 +1,4 @@
+import { DashboardServiceProxy, DashboardDTO } from './../../_services/service-proxies';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NbThemeService } from '@nebular/theme';
 
@@ -21,6 +22,10 @@ export class DashboardComponent implements OnInit {
   UpcomingLeave: [] = [];
   Announcement: [] = [];
   Request: [] = [];
+  dashboardData: DashboardDTO = new DashboardDTO();
+  yearFilter = {
+    year: 2021
+  }
 
   single = [
     // {
@@ -86,7 +91,7 @@ export class DashboardComponent implements OnInit {
   ];
   customizePieOption: any = {};
   customizedlineoptions: any = {};
-  constructor(private theme: NbThemeService,) {
+  constructor(private theme: NbThemeService, private dashboard: DashboardServiceProxy) {
     this.colorScheme = {
       domain: ['#FF90A4', '#2E9CDA', '#2CD8C5', '#E2D136', '#5655CA'],
     };
@@ -363,7 +368,7 @@ export class DashboardComponent implements OnInit {
       days.push(day);
     }
     this.weekdays = days;
-    // this.fetchDash()
+    this.fetchDashboardData()
   }
 
   openModal() {
@@ -409,6 +414,11 @@ export class DashboardComponent implements OnInit {
   onClick(){
     // alert('hello')
 
+  }
+
+  async fetchDashboardData() {
+    const data = await this.dashboard.fetchDashboardData(this.yearFilter.year).toPromise();
+    this.dashboardData = data.value;
   }
 
 }

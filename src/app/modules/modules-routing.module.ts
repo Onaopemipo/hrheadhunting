@@ -18,11 +18,7 @@ const routes: Routes = [{
 
   children: [
 
-    // {path: '',
-    // component: ApplicantsComponent
-    // },
-
-    {path: 'dashboard',
+    {path: '',
     component: DashboardComponent
     },
 

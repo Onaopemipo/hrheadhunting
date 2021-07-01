@@ -1,3 +1,4 @@
+import { DashboardServiceProxy } from './../_services/service-proxies';
 import { ApplicantselectionComponent } from './applicantselection/applicantselection.component';
 import { SettingsComponent } from './settings/settings.component';
 import { ApiServiceProxy, AccountServiceProxy, InstitutionServiceProxy, CourseServiceProxy, SectorsServiceProxy, SkillAreasServiceProxy, StatesServiceProxy, EmployerTypesServiceProxy, CountriesServiceProxy, GradesServiceProxy, QualificationServiceProxy, JobTypesServiceProxy, CurrenciesServiceProxy } from '../_services/service-proxies';
@@ -58,6 +59,7 @@ import { JobServiceProxy, CommonServiceProxy } from 'app/_services/service-proxi
     JobTypesServiceProxy,
     CurrenciesServiceProxy,
     CommonServiceProxy,
+    DashboardServiceProxy,
   ]
 })
 export class ModulesModule { }
