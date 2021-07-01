@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-export class DateRange{
+export class DateRange {
   start: Date;
   end: Date;
 }

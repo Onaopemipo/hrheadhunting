@@ -10,12 +10,12 @@ export class AuthGuardService implements CanLoad {
   canLoad(routes: Route): Promise<boolean> {
     return new Promise((resolve, reject) => {
       this.auth.isAuthenticated().then(data => {
-        localStorage.setItem('returnUrl', this.router.url);  
+        localStorage.setItem('returnUrl', this.router.url);
         if (!data) {
           this.router.navigate(['auth']);
           resolve(false);
         } else {
-          this.AuthenService.getuser().then((usersdata:any) => {
+          this.AuthenService.getuser().then((usersdata: any) => {
             if (usersdata.length > 0) {
               const route = this.router.url.split('?')[0];
               if (usersdata[0]) {
@@ -23,7 +23,7 @@ export class AuthGuardService implements CanLoad {
               } else {
                 this.router.navigate(['auth']);
                 resolve(false);
-                
+
               }
             } else {
               this.router.navigate(['auth']);

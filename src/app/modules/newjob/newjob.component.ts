@@ -17,14 +17,14 @@ export class NewjobComponent implements OnInit {
   employmentType: string = 'Full Time';
   pagetitle: string = 'Post New Job';
   newJob: boolean = false;
-  allJobs:  []= [];
+  allJobs:  [] = [];
   jobFilter: any;
   jobsCounter: number = 0;
   allDepartments:  [] = [];
   certificationData:  [] = [];
   qualificationData:  [] = [];
-  employmentTypes:  []= [];
-  jobAvailability:  []= [];
+  employmentTypes:  [] = [];
+  jobAvailability:  [] = [];
   allCountries:  [] = [];
   allStates:  [] = [];
   allJobRoles:  [] = [];
@@ -35,12 +35,12 @@ export class NewjobComponent implements OnInit {
   allScoreCards:  [] = [];
   allCurrencies:  [] = [];
   allowmultipleselection: boolean = false;
-  selectionHeader: string = "Select Employee";
-  addbtnText: string = "Add Employee";
+  selectionHeader: string = 'Select Employee';
+  addbtnText: string = 'Add Employee';
   allQuizes:  [] = [];
   btnProcessing: boolean = false;
 
-  constructor( private alertMe: AlertserviceService,) {
+  constructor( private alertMe: AlertserviceService, ) {
    }
 
   ngOnInit(): void {
@@ -55,9 +55,9 @@ export class NewjobComponent implements OnInit {
     // this.fetchCurrency();
   }
 
-  postNewDraft(){}
-  addNewJob(){}
-  fetchStates(a){}
+  postNewDraft() {}
+  addNewJob() {}
+  fetchStates(a) {}
 
   // newJobPosting(){
   //   this.router.navigateByUrl('/recruitmentadmin/newjob');
@@ -176,7 +176,7 @@ export class NewjobComponent implements OnInit {
   //     }
   // }
 
-  fetchAllJobs(){
+  fetchAllJobs() {
     // this.job.getAllJobs(this.jobFilter).subscribe(data => {
     //   if(!data.hasError){
     //     this.allJobs = data.result;
@@ -192,8 +192,8 @@ export class NewjobComponent implements OnInit {
 //    }
 //   }
 
-  getSelectedEmployee(event,selectType) {
-    if(selectType == 'employee'){
+  getSelectedEmployee(event, selectType) {
+    if (selectType == 'employee') {
     //  this.newJobModel.reviewers = event[0].employeeNumber;
     }
  }

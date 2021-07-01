@@ -15,11 +15,11 @@ export class StatusComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getColor(){
-    return this.data.getStatusColor()
+  getColor() {
+    return this.data.getStatusColor();
   }
-  getLabel(){
-    return this.data.getStatusLabel()
+  getLabel() {
+    return this.data.getStatusLabel();
   }
 
 }

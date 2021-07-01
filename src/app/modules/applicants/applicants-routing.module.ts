@@ -33,7 +33,7 @@ const routes: Routes = [
 
       {
         path: 'scorecv',
-        component:ScorecvComponent
+        component: ScorecvComponent
       },
 
       {

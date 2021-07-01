@@ -4,11 +4,11 @@ export enum FORM_TYPES {
   text, amount, number, wysiwyg, select, file, employee, radio, date_range, date, checkbox
 }
 
-export class FormValidator{
+export class FormValidator {
   required: boolean = false;
 }
 
-export interface ISelectItem{
+export interface ISelectItem {
   selectValue: any;
   selectLabel: string;
 }
@@ -25,7 +25,7 @@ export class FormField {
   disabled?: boolean;
   selectOptions?: ISelectItem[];
   hide?: boolean;
-  dropdownId?: number
+  dropdownId?: number;
 }
 
 export class FormConfig {

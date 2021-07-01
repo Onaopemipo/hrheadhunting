@@ -19,9 +19,9 @@ export class AuthenticationService {
     getuser() {
         this.users = [];
         return new Promise((resolve) => {
-          this.users= JSON.parse(localStorage.getItem('user'));
+          this.users = JSON.parse(localStorage.getItem('user'));
             if (this.users) {
-                if(this.users.length > 0){
+                if (this.users.length > 0) {
                 this.globalUser.next(this.users[0]);
            } }
             resolve(this.users);

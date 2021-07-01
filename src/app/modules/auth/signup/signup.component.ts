@@ -15,9 +15,9 @@ export class SignupComponent implements OnInit {
   // applicantForm = NgForm;
   // employerForm = NgForm;
   show: boolean = false;
-  emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
+  emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$';
   btnprocessing: boolean = false;
-  errorMsg: string = "";
+  errorMsg: string = '';
   pageNo: number = 1;
   psychoTest: boolean = false;
   btnProcessing: boolean = false;
@@ -49,78 +49,78 @@ export class SignupComponent implements OnInit {
     this.fetchSkillAreas();
   }
 
-  toggleTest(){
+  toggleTest() {
     this.psychoTest = true;
   }
 
-  toggleJob(e){
+  toggleJob(e) {
     this.currentWork = e;
   }
 
-  registerApplicant(){
+  registerApplicant() {
     this.applicant.applicantSignUp(this.jobSeeker).subscribe(data => {
-      if(!data.hasError){
-        this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, '', 'OK')
+      if (!data.hasError) {
+        this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, '', 'OK');
       }
-    })
+    });
   }
 
-  async fetchInstitution(){
+  async fetchInstitution() {
     const data = await this.apis.institutionGet().toPromise();
     this.institutionData = data.value;
-    console.log(data)
+    console.log(data);
   }
 
-  async fetchEmploymentTypes(){
+  async fetchEmploymentTypes() {
     const data = await this.apis.employerTypesGet().toPromise();
     this.employerTypeData = data.value;
   }
 
-  async fetchCourses(){
+  async fetchCourses() {
     this.apis.courseGet().subscribe(res => {
       this.courseData = res.value;
    });
   }
 
-  async fetchCountries(){
+  async fetchCountries() {
     this.apis.countriesGet().subscribe(data => {
       this.countryData = data.value;
-    })
+    });
 
   }
 
-  async fetchStates(){
+  async fetchStates() {
     const data = await this.apis.statesGet().toPromise();
     this.stateData = data.value;
-    console.log('All states',this.stateData)
+    console.log('All states', this.stateData);
   }
-  async fetchQualifications(){
+  async fetchQualifications() {
     const data = await this.apis.qualificationGet().toPromise();
     this.qualificationData = data.value;
 
   }
 
-  async fetchSkillAreas(){
+  async fetchSkillAreas() {
     const data = await this.apis.skillAreasGet().toPromise();
     this.skillData = data.value;
   }
 
-  async fetchGrades(){
+  async fetchGrades() {
     // const data = await this.apis.().toPromise();
     // console.log(data)
   }
 
-  async fetchSectors(){
+  async fetchSectors() {
     this.apis.sectorsGet().subscribe(data => {
       this.sectorData = data.value;
     });
 
   }
 
-  proceed(){}
-  cancel(){}
+  proceed() {}
+  cancel() {}
 
-  nextPage(){
+  nextPage() {
     this.pageNo = 1;
   }
 

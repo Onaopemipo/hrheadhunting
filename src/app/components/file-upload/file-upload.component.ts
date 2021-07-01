@@ -38,7 +38,7 @@ export class FileUploadComponent implements OnInit {
   _files: Transfer[];
   get files() {
     let file = this._files;
-    if(!file){
+    if (!file) {
       file = [];
     }
     return file;
@@ -57,5 +57,5 @@ export class FileUploadComponent implements OnInit {
     event.stopPropagation();
     event.preventDefault();
   }
- 
+
 }

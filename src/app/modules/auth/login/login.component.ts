@@ -1,6 +1,6 @@
 import { AccountServiceProxy } from './../../../_services/service-proxies';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, NgForm } from "@angular/forms";
+import { FormGroup, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertserviceService } from 'app/_services/alertservice.service';
 import { AuthenticationService } from '../../../_services/authentication.service';
@@ -17,9 +17,9 @@ export class LoginComponent implements OnInit {
     email: '',
     passwword: ''
   };
-  emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
+  emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$';
   btnprocessing: boolean = false;
-  errorMsg: string = "";
+  errorMsg: string = '';
   constructor(
     private AuthenService: AuthenticationService,
     private router: Router,
@@ -34,8 +34,8 @@ export class LoginComponent implements OnInit {
     this.loginServices.getToken(this.userloginDto).subscribe((resp) => {
       if (!resp.hasError) {
         this.openSuccessalert(resp.message);
-        console.log(resp)
-        console.log(resp.result)
+        console.log(resp);
+        console.log(resp.result);
        this.AuthenService.addUser(resp.result);
       } else {
         this.clearerror();
@@ -44,13 +44,13 @@ export class LoginComponent implements OnInit {
       }
     }, error => {
       this.clearerror();
-        this.errorMsg = "Oops! Something went wrong, we are fixing it";
+        this.errorMsg = 'Oops! Something went wrong, we are fixing it';
 
-    })
+    });
   }
   clearerror() {
   setTimeout(() => {
-    this.errorMsg = "";
+    this.errorMsg = '';
     this.btnprocessing = false;
   }, 3000);
 }

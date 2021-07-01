@@ -24,8 +24,8 @@ export class CalenderComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     console.log(this);
     const $this = this;
-    let calendarEl = this.calendar.nativeElement;
-    let calendar = new Calendar(calendarEl, {
+    const calendarEl = this.calendar.nativeElement;
+    const calendar = new Calendar(calendarEl, {
       initialView: 'dayGridMonth',
       dateClick: function(info) {
         console.log(this);

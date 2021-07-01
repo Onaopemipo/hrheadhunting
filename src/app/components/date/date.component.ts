@@ -15,10 +15,10 @@ export class DateComponent implements OnInit {
   _dateItem = new Date();
   @Input() min;
   @Input() max;
-  set dateItem(val: Date){
+  set dateItem(val: Date) {
     this.valueChange.emit(val);
     this._dateItem = val;
-  };
+  }
   get dateItem() {
     return this._dateItem;
   }
@@ -44,7 +44,7 @@ export class DateComponent implements OnInit {
     }, 200);
   }
 
-  dateChanged(){
+  dateChanged() {
     this.valueChange.emit(this.dateItem);
     // console.log(this.dateItem)
   }
