@@ -9,16 +9,18 @@
 
 }
 
-.navbar-nav {
-  color: #fff;
-}
+// .navbar-nav {
+//   color: #fff;
+// }
 
-.navbar-light .navbar-nav .show > .nav-link, .navbar-light .navbar-nav .active > .nav-link, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .nav-link.active {
-  color:#6495ED;
-  font-size: 15px;
-  font-weight: 900 !important;
-  border: 5px solid #6495ED;
+// .navbar-light .navbar-nav .show > .nav-link, .navbar-light .navbar-nav .active > .nav-link, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .nav-link.active {
+//   color:#6495ED;
+//   font-size: 15px;
+//   font-weight: 600 !important;
+// }
 
+.mb-5, .my-5 {
+  margin-bottom: 0 !important;
 }
 
 .navbar-dark .navbar-toggler-icon {
@@ -70,6 +72,7 @@ li {
 li {
   color: #95A8B8, 100%;
   font-size: 15px;
+  margin-right: 20px;
   // text-align: center;
   // text-justify: distribute;
   font-weight: 500;

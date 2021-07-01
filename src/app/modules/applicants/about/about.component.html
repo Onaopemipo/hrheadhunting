@@ -1,10 +1,10 @@
- <div class="container" style="background-color: #fff; color: #4C7ED8;">
-    <nav class="navbar navbar-expand-lg .navbar-fixed-top" style="color: #4C7ED8">
+ <!-- <div class="container" style="background-color: #fff; color: #4C7ED8;">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow p-3 mb-5 bg-white rounded" style="color: #4C7ED8">
       <button class="navbar-toggler"  ype="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <img src="assets/images/Logo.png" [routerLink]="['/applicants/dashboard']" alt=""style="width: 150px; height: 150px; margin-right: 200px; cursor: pointer;">
+      <img src="assets/images/Logo.png" [routerLink]="['/applicants/dashboard']" alt=""style="width: 100px; height: 100px; margin-right: 200px; cursor: pointer;">
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto" style="display: flex; flex-direction: row; justify-content: space-between; color: #fff;">
@@ -33,58 +33,70 @@
         <form class="form-inline my-2 my-lg-0">
           <ul class="navbar-nav mr-auto" style="color: #fff;">
             <li class="nav-item active">
-              <a class="nav-link" [routerLink]="['/auth/signup']"><i class="fa fa-user" style="padding: 6px;"></i>Sign Up</a>
+              <a class="nav-link" [routerLink]="['/auth/signup']">Sign Up</a>
             </li>
 
             <li class="nav-item active">
-              <a class="nav-link" [routerLink]="['/auth/login']"><i class="fa fa-user" style="padding: 6px;"></i>Login</a>
+              <a class="nav-link" [routerLink]="['/auth/login']">Login</a>
             </li>
           </ul>
           <button class="btn" [routerLink]="['/auth/login']" nbButton outline size="small" style="color: #6495ED; background-color: #fff; border: 1px solid #6495ED;">Post Job</button>
         </form>
       </div>
-      <!-- <div class="collapse navbar-collapse">
-        <ul class="navbar-nav mr-auto nav justify-content-center" style="color: #4C7ED8; font-size: 16px;">
+    </nav>
+ </div> -->
+
+ <!-- <div class="container"> -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow p-3 mb-5 bg-white rounded" style="color: #4C7ED8; width: 100%; ">
+    <button class="navbar-toggler"  ype="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <img src="assets/images/Logo.png" [routerLink]="['/applicants/dashboard']" alt=""style="width: 100px; height: 100px; margin-right: 300px; cursor: pointer; margin-left:50px;">
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto" style="display: flex; flex-direction: row; justify-content: space-between; color: #fff;">
+        <li class="nav-item active">
+          <a class="nav-link" [routerLink]="['/applicants/about']">About Us <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" [routerLink]="['/applicants/services']">Services <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" [routerLink]="['/applicants/blog']">Blog <span class="sr-only">(current)</span></a>
+        </li>
+
+        <li class="nav-item active">
+          <a class="nav-link"[routerLink]="['/applicants/boards']">Job Boards <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" [routerLink]="['/applicants/scorecv']">Score CV <span class="sr-only">(current)</span></a>
+        </li>
+
+        <li class="nav-item active">
+          <a class="nav-link"[routerLink]="['/applicants/pricing']">Pricing <span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
+
+      <form class="form-inline my-2 my-lg-0">
+        <ul class="navbar-nav mr-auto" style="color: #fff;">
           <li class="nav-item active">
-            <a class="nav-link" [routerLink]="['/applicants/about']">About Us <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" [routerLink]="['/applicants/services']">Services <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" [routerLink]="['/applicants/blog']">Blog <span class="sr-only">(current)</span></a>
+            <a class="nav-link" [routerLink]="['/auth/signup']">Sign Up</a>
           </li>
 
           <li class="nav-item active">
-            <a class="nav-link"[routerLink]="['/applicants/boards']">Job Boards <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" [routerLink]="['/applicants/scorecv']">Score CV <span class="sr-only">(current)</span></a>
-          </li>
-
-          <li class="nav-item active">
-            <a class="nav-link"[routerLink]="['/applicants/pricing']">Pricing <span class="sr-only">(current)</span></a>
+            <a class="nav-link" [routerLink]="['/auth/login']">Login</a>
           </li>
         </ul>
+        <button class="btn" [routerLink]="['/auth/login']" nbButton outline size="small" style="color: #6495ED; background-color: #fff; border: 1px solid #6495ED;">Post Job</button>
+      </form>
+    </div>
+  </nav>
 
-        <form class="form-inline my-2 my-lg-0">
-          <ul class="navbar-nav mr-auto" style="color: #fff;">
-            <li class="nav-item active">
-              <a class="nav-link" [routerLink]="['/auth/signup']"><i class="fa fa-user" style="padding: 6px;"></i>Sign Up</a>
-            </li>
+ <!-- </div> -->
 
-            <li class="nav-item active">
-              <a class="nav-link" [routerLink]="['/auth/login']"><i class="fa fa-user" style="padding: 6px;"></i>Login</a>
-            </li>
-          </ul>
-          <button class="btn" [routerLink]="['/auth/login']" nbButton outline size="small" style="color: #1F2566; background-color: #fff; border: 2px solid #4C7ED8;">Post Job</button>
-        </form>
-      </div> -->
-    </nav>
- </div>
-
- <div class="container" style="background-color: #fff;">
- <div class="row" style="display: flex; flex-direction: row; justify-content: space-between; ">
+ <!-- <div class="container" style=""> -->
+ <div class="row" style="display: flex; flex-direction: row; justify-content: space-between; background-color: #fff; padding: 50px;">
   <div class="col-sm-7">
     <div class="row" style="padding: 50px;">
       <h3>About Us</h3>
@@ -106,10 +118,10 @@
         <img src="assets/images/about.png" style="height: 544px; width: 435;" alt="">
       </div>
  </div>
-</div>
+<!-- </div> -->
 
-<div class="container" style="background-color: #eaecf0;">
-  <div class="row" style="display: flex; flex-direction: row; justify-content: space-between; ">
+<!-- <div class="container" style=""> -->
+  <div class="row" style="display: flex; flex-direction: row; justify-content: space-between; background-color: #eaecf0; padding: 50px;">
 
     <div class="col-sm-3">
       <img src="assets/images/lady_point.png" style="height: 100%; width: 100%;" alt="">
@@ -257,12 +269,12 @@
     </div>
   </div>
  </div>
-</div>
+<!-- </div> -->
 
-<div class="container">
-  <div class="row" style="display: flex; flex-direction: row; justify-content: space-between; ">
+<!-- <div class="container"> -->
+  <div class="row" style="display: flex; flex-direction: row; justify-content: space-between;">
 
-    <div class="col-sm-5" style="background-color: #6495ED2F; padding: 4%;">
+    <div class="col-sm-5" style="background-color: #6495ED2F; padding: 50px">
       <div class="text-center">
           <img src="assets/images/Mission.png" alt="" style="height: 230px; width: 205px;">
           <h6>Our Mission</h6>
@@ -273,7 +285,7 @@
       </div>
     </div>
 
-    <div class="col-sm-7" style="background-color: #FFFFFF; padding: 4%;">
+    <div class="col-sm-7" style="background-color: #FFFFFF; padding: 50px">
       <div class="text-center">
         <img src="assets/images/Vision.jpg" alt="" style="height: 230px; width: 205px;">
         <h6>Our Vision</h6>
@@ -283,32 +295,36 @@
       </div>
     </div>
   </div>
- </div>
+ <!-- </div> -->
 
- <div class="container" style="background-color: #E2E3E5;">
-  <div class="row" style="display: flex; flex-direction: row; justify-content: space-between; ">
+ <!-- <div class="container" style=""> -->
+  <div class="row" style="display: flex; flex-direction: row; justify-content: space-between; background-color: #E2E3E5;">
 
    <div class="col-sm-7" style="padding: 6%;">
     <h3>About Us</h3>
      <div class="row" class="shadow p-3 mb-5 bg-white rounded " style="padding: 10px; width: 60%;">
       <i class="fa fa-star" style="width: 40px; height: 30px; padding-right: 10px; color: #4C7ED8" aria-hidden="true"></i>
       <span>The use of AI to score resumes</span>
-     </div>
+     </div><div style="padding: 10px;"></div>
 
      <div class="row" class="shadow p-3 mb-5 bg-white rounded " style="padding: 10px; width: 70%;">
       <i class="fa fa-star" style="width: 40px; height: 30px; padding-right: 10px; color: #4C7ED8" aria-hidden="true"></i>
       <span>Affordable solutions and Job winning resumes</span>
    </div>
-
+   <div style="padding: 10px;"></div>
    <div class="row" class="shadow p-3 mb-5 bg-white rounded " style="padding: 10px; width: 80%;">
     <i class="fa fa-star" style="width: 40px; height: 30px; padding-right: 10px; color: #4C7ED8" aria-hidden="true"></i>
     <span>The video resumes available makes it easy to shortlist</span>
  </div>
 
+ <div style="padding: 10px;"></div>
+
  <div class="row" class="shadow p-3 mb-5 bg-white rounded " style="padding: 10px; width: 95%;">
   <i class="fa fa-star" style="width: 40px; height: 30px; padding-right: 10px; color: #4C7ED8" aria-hidden="true"></i>
   <span>Seamless incorporation of psychometric testing into candidate search</span>
 </div>
+
+<div style="padding: 10px;"></div>
 
 <div class="row" class="shadow p-3 mb-5 bg-white rounded " style="padding: 10px; width: 100%;">
   <!-- <img src="assets/icons/linkedin.png" style="width: 40px; height: 30px; padding-right: 10px;" alt="">
@@ -323,5 +339,5 @@
          <img src="assets/images/about.png" style="height: 544px; width: 435;" alt="">
        </div>
   </div>
- </div>
+ <!-- </div> -->
 
