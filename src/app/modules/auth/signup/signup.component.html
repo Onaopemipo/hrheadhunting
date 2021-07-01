@@ -302,7 +302,7 @@
                       <nb-checkbox *ngIf="!currentWork" (checkedChange)="toggleJob($event)">Are you still working here?</nb-checkbox>
 
                       <label *ngIf="currentWork" for="">End Date</label>
-                      <ngx-date *ngIf="currentWork">
+                      <ngx-date *ngIf="currentWork" [(ngModel)]="jobSeeker.workEndDate">
                       </ngx-date>
 
                     </div>
