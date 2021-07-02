@@ -2,32 +2,52 @@
   <img src="assets/images/Logo.png" alt=""  style="width: 150px; height: 150px;">
 </div>
 <div class="limiter" *ngIf="pageNo < 1">
-  <div style="background-color: #fff; padding: 1% 6%; text-align:center;">
+  <div style="background-color: #fff; padding: 3% 6%; text-align:center; margin: 0 3%;">
     <h6>Select an option to continue</h6><br>
     <span>You can sign up as a job seeker looking for opportunities or as an employer searching for the next talent</span>
     <div class="row" style="display: flex; flex-direction: row; justify-content: center;">
-      <nb-card class="col-sm-3 signup-option" style="margin: 50px; cursor: pointer;" (click)="selectedOption()">
-        <nb-card-body>
-          <img src="assets/images/Job_Seeker.png" style="width: 100px; height: 100px; text-align: center;"  alt="">
+      <button *ngIf="actPick == ''"  class="col-sm-4 signup-option" style="margin: 5%; height: 200px; cursor: pointer;" (click)="selectedOption($event.type)">
+        <div>
+          <img src="assets/images/Job_Seeker.png" style=" height: 50px; text-align: center;"  alt="">
         <h6>Job Seeker</h6>
         <span>
           Create a unique profile and let’s you get hired
         </span>
-        </nb-card-body>
-      </nb-card>
+      </div>
+    </button>
 
-      <nb-card class="col-sm-3 signup-option" style="margin: 50px; cursor: pointer;">
-        <nb-card-body>
-          <img src="assets/images/Employer.png" style="width: 100px; height: 100px; text-align: center;" alt="">
+    <button *ngIf="actPick == 'click'" class="col-sm-4 signup-option" style="margin: 5%; height: 200px; cursor: pointer; border: 2.5px solid #0066F4;" (click)="selectedOption($event.type)">
+      <div>
+        <img src="assets/images/Job_Seeker.png" style=" height: 50px; text-align: center;"  alt="">
+      <h6>Job Seeker</h6>
+      <span>
+        Create a unique profile and let’s you get hired
+      </span>
+    </div>
+  </button>
+
+      <button *ngIf="actPickEmployer == ''" class="col-sm-4 signup-option" style="margin: 5%; height: 200px; cursor: pointer;" (click)="selectedEmployer($event.type)">
+        <div>
+          <img src="assets/images/Employer.png" style=" height: 50px; text-align: center;" alt="">
         <h6>Employer</h6>
         <span>
           Get the best talents to work with by registering with us
         </span>
-        </nb-card-body>
-      </nb-card>
+        </div>
+      </button>
+
+      <button *ngIf="actPickEmployer == 'click'" class="col-sm-4 signup-option" style="margin: 5%; height: 200px; cursor: pointer; border: 2.5px solid #0066F4;" (click)="selectedEmployer($event.type)">
+        <div>
+          <img src="assets/images/Employer.png" style=" height: 50px; text-align: center;" alt="">
+        <h6>Employer</h6>
+        <span>
+          Get the best talents to work with by registering with us
+        </span>
+        </div>
+      </button>
     </div>
 
-    <button nbButton status="primary" size="medium" style="width: 12%;" (click)="nextPage()">Get Started</button>
+    <button nbButton status="primary" size="medium"  (click)="nextPage()">Get Started</button>
 
 
   </div>
@@ -51,9 +71,7 @@
 
 <div class="limiter" *ngIf="pageNo > 0">
   <div style="padding: 3% 6%; margin: -2% 7% 7% 7%; text-align:left;">
-    <h6 style="text-align: center; color: #1F2666;">One last step and you are good to go!</h6><br>
     <div class="row" style="display: flex; flex-direction: row; justify-content: left;">
-
       <div class="col">
         <nb-card>
           <nb-card-body *ngIf="jobSeekerStatus"  class="shadow-sm p-3 mb-5 bg-white rounded">
@@ -462,7 +480,7 @@
           <button nbButton outline status="primary" class="d-flex column" (click)="cancel()">Cancel</button>
          </div> -->
          <div modal-actions style="display: flex; flex-direction: row; justify-content: flex-end;">
-          <button nbButton status="primary" [routerLink]="['/applicants']" style="margin-right: 20px;">Proceed</button>
+          <button nbButton status="primary" (click)="registerApplicant()" style="margin-right: 20px;">Proceed</button>
           <button nbButton outline status="primary" (click)="cancel()" >Cancel</button>
          </div>
   </div>

@@ -47,15 +47,15 @@
  </div> -->
 
  <!-- <div class="container"> -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow p-3 mb-5 bg-white rounded" style="color: #4C7ED8; width: 100%; ">
-    <button class="navbar-toggler"  ype="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-dark shadow p-3 mb-5 bg-white rounded" style="color: #4C7ED8; width: 100%; font-family: 'Rubik';">
+    <button class="navbar-toggler"  type="button" data-toggle="collapse" data-target="#mainmenu" aria-controls="mainmenu" aria-expanded="false" aria-label="Main Menu">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <img src="assets/images/Logo.png" [routerLink]="['/applicants/dashboard']" alt=""style="width: 100px; height: 100px; margin-right: 300px; cursor: pointer; margin-left:50px;">
+    <img src="assets/images/Logo.png" class="navbar-brand" [routerLink]="['/applicants/dashboard']" alt="" style="width: 100px; height: 100px; margin-right: 200px; cursor: pointer;">
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto" style="display: flex; flex-direction: row; justify-content: space-between; color: #fff;">
+    <div class="collapse navbar-collapse" id="mainmenu">
+      <ul class="navbar-nav mr-auto" >
         <li class="nav-item active">
           <a class="nav-link" [routerLink]="['/applicants/about']">About Us <span class="sr-only">(current)</span></a>
         </li>
@@ -93,21 +93,22 @@
     </div>
   </nav>
 
+
  <!-- </div> -->
 
  <!-- <div class="container" style=""> -->
- <div class="row" style="display: flex; flex-direction: row; justify-content: space-between; background-color: #fff; padding: 50px;">
+ <div class="row" style="font-family: 'Rubik'; display: flex; flex-direction: row; justify-content: space-between; background-color: #fff; padding: 50px; margin-top: 8%;">
   <div class="col-sm-7">
     <div class="row" style="padding: 50px;">
-      <h3>About Us</h3>
-      <span style="text-align: justify; line-height: 2.6">We are Nigeria top job portal, that makes the recruiting process seamless for recruiters and job seekers alike.
+      <h3 style="font-family: 'Rubik';">About Us</h3>
+      <span style="text-align: justify; line-height: 2.6; font-family: 'Rubik';">We are Nigeria top job portal, that makes the recruiting process seamless for recruiters and job seekers alike.
      Job seekers can upload their video resumes and rate their resumes using Ai  to get the best positions.  Recruiters can upload psychometric and aptitude tests, filter key aspects of job seekers resumes, watch candidates video pitch; making short listing easy, cost and time saving. The portal has verified artisans in its offerings, making the  hiring of technicians much easier.
     Trainers can also take advantage of the high traffic on the portal to advertise their training programs
       </span>
     </div>
 
     <div class="row" style="background-color:#1F2566; margin: 20px 40px; border-radius: 7px;">
-      <span style="text-align: justify; color: #fff; padding: 30px; line-height: 2.6">
+      <span style="text-align: justify; color: #fff; padding: 30px; line-height: 2.6;font-family: 'Rubik'; ">
         We do not exclude artisans from our products. Today’s artisans are in high demand in Nigeria.
         We simply want to make the supply of manpower less demanding.
       </span>
@@ -127,7 +128,7 @@
       <img src="assets/images/lady_point.png" style="height: 100%; width: 100%;" alt="">
     </div>
 
-    <div class="col-sm-9">
+    <div class="col-sm-9" style="padding: 5%;">
       <!-- <div class="row" style="padding: 50px;">
         <h3>The Services we offer</h3>
         <div class="row" style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
@@ -188,11 +189,11 @@
     </div> -->
 
     <div style="margin: 5%;"></div>
-    <div class="row">
-      <div class="col-sm-3">
+    <div class="row" style="font-family: 'Rubik';">
+      <div class="col-sm-3" style="height: 170px;">
         <div class="card text-center">
-          <div class="card-body">
-            <h5 class="card-title"><img src="assets/images/Job_Board.jpg" style="width: 40px; height: 40px;"  alt=""></h5>
+          <div class="card-body" style="height: 170px;">
+            <h5 class="card-title"><img src="assets/images/Job_Board.jpg" style="width: 40px; height: 40px; "  alt=""></h5>
             <p class="card-text">Job Board</p>
 
           </div>
@@ -200,8 +201,8 @@
       </div>
       <div class="col-sm-3">
         <div class="card text-center">
-          <div class="card-body">
-            <h5 class="card-title"><img src="assets/images/Resume_Rewrite.svg" style="width: 40px; height: 40px;"  alt=""></h5>
+          <div class="card-body" style="height: 170px;">
+            <h5 class="card-title"><img src="assets/images/Resume_Rewrite.svg" style="width: 40px; height: 40px; font-family: 'Rubik';"  alt=""></h5>
             <p class="card-text">Training Board</p>
 
           </div>
@@ -210,8 +211,8 @@
 
       <div class="col-sm-3">
         <div class="card text-center">
-          <div class="card-body">
-            <h5 class="card-title"><img src="assets/images/Candidate.svg" style="width: 40px; height: 40px;"  alt=""></h5>
+          <div class="card-body" style="height: 170px;">
+            <h5 class="card-title"><img src="assets/images/Candidate.svg" style="width: 40px; height: 40px; font-family: 'Rubik';"  alt=""></h5>
             <p class="card-text">Candidate Screening Technology</p>
 
           </div>
@@ -219,7 +220,7 @@
       </div>
       <div class="col-sm-3">
         <div class="card text-center">
-          <div class="card-body">
+          <div class="card-body" style="height: 170px;">
             <h5 class="card-title"><img src="assets/images/Resume_Analysis.svg" style="width: 40px; height: 40px;"  alt=""></h5>
             <p class="card-text">Resume Analysis</p>
 
@@ -231,7 +232,7 @@
     <div class="row">
       <div class="col-sm-3">
         <div class="card text-center">
-          <div class="card-body">
+          <div class="card-body" style="height: 170px;">
             <h5 class="card-title"><img src="assets/images/Resume_Rewrite.svg" style="width: 40px; height: 40px;"  alt=""></h5>
             <p class="card-text">Resume Rewrite</p>
 
@@ -240,7 +241,7 @@
       </div>
       <div class="col-sm-3">
         <div class="card text-center">
-          <div class="card-body">
+          <div class="card-body" style="height: 170px;">
             <h5 class="card-title"><img src="assets/images/LinkedIn.jpg" style="width: 40px; height: 40px;"  alt=""></h5>
             <p class="card-text">LinkedIn Profile Optimisation</p>
 
@@ -250,7 +251,7 @@
 
       <div class="col-sm-3">
         <div class="card text-center">
-          <div class="card-body">
+          <div class="card-body" style="height: 170px;">
             <h5 class="card-title"><img src="assets/images/Artisans_Finder.jpg" style="width: 40px; height: 40px;"  alt=""></h5>
             <p class="card-text">Artisans Finder</p>
 
@@ -259,7 +260,7 @@
       </div>
       <div class="col-sm-3">
         <div class="card text-center">
-          <div class="card-body">
+          <div class="card-body" style="height: 170px; font-family: 'Rubik';">
             <h5 class="card-title"><img src="assets/images/Resume_Rewrite.svg" style="width: 40px; height: 40px;"  alt=""></h5>
             <p class="card-text">Seamless incorporation of pyschometric testing into candidate search</p>
 
@@ -272,24 +273,24 @@
 <!-- </div> -->
 
 <!-- <div class="container"> -->
-  <div class="row" style="display: flex; flex-direction: row; justify-content: space-between;">
+  <div class="row" style="display: flex; flex-direction: row; justify-content: space-between; font-family: 'Rubik';">
 
     <div class="col-sm-5" style="background-color: #6495ED2F; padding: 50px">
       <div class="text-center">
-          <img src="assets/images/Mission.png" alt="" style="height: 230px; width: 205px;">
+          <img src="assets/images/Mission.png" alt="" style="height: 230px; width: 205px; font-family: 'Rubik';">
           <h6>Our Mission</h6>
-          <span>
+          <span style="font-family: 'Rubik';">
             To use technology to address human capital needs from
             start to finish; making all levels of the recruitment process seamless
           </span>
       </div>
     </div>
 
-    <div class="col-sm-7" style="background-color: #FFFFFF; padding: 50px">
+    <div class="col-sm-7" style="background-color: #FFFFFF; padding: 50px;font-family: 'Rubik';">
       <div class="text-center">
         <img src="assets/images/Vision.jpg" alt="" style="height: 230px; width: 205px;">
         <h6>Our Vision</h6>
-        <span>
+        <span style="font-family: 'Rubik';">
           To use technology to solve all recruitment needs on time and to specification
         </span>
       </div>
@@ -298,10 +299,10 @@
  <!-- </div> -->
 
  <!-- <div class="container" style=""> -->
-  <div class="row" style="display: flex; flex-direction: row; justify-content: space-between; background-color: #E2E3E5;">
+  <div class="row" style="font-family: 'Rubik'; display: flex; flex-direction: row; justify-content: space-between; background-color: #E2E3E5; font-family: 'Rubik';">
 
    <div class="col-sm-7" style="padding: 6%;">
-    <h3>About Us</h3>
+    <h3 style="font-family: 'Rubik';">About Us</h3>
      <div class="row" class="shadow p-3 mb-5 bg-white rounded " style="padding: 10px; width: 60%;">
       <i class="fa fa-star" style="width: 40px; height: 30px; padding-right: 10px; color: #4C7ED8" aria-hidden="true"></i>
       <span>The use of AI to score resumes</span>

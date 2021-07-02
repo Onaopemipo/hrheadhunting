@@ -9,14 +9,12 @@
 
 }
 
-li {
-  margin-right: 10px;
-}
 .navbar-nav {
   color: #fff;
 }
 
-avbar-light .navbar-nav .show > .nav-link, .navbar-light .navbar-nav .active > .nav-link, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .nav-link.active {
+.navbar-light .navbar-nav .show > .nav-link, .navbar-light .navbar-nav .active > .nav-link,
+.navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .nav-link.active {
   color:#fff;
   font-size: 15px;
 }
@@ -65,8 +63,7 @@ p {
 li {
   color: #95A8B8, 100%;
   font-size: 12px;
-  text-justify: distribute;
-  font-weight: 400;
+  margin-right: 10px;
 }
 
 // header {

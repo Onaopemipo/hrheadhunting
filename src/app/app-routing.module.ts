@@ -8,12 +8,10 @@ export const routes: Routes = [
     loadChildren: () => import('./modules/applicants/applicants.module').then(m => m.ApplicantsModule)
   },
 
-
-
   // {
   //   path: '',
   //   loadChildren: () => import('./modules/modules.module').then(m => m.ModulesModule),
-  //   canLoad: [AuthGuard],
+  //   // canLoad: [AuthGuard],
   // },
 
   {

@@ -22,6 +22,10 @@ export class DashboardComponent implements OnInit {
   UpcomingLeave: [] = [];
   Announcement: [] = [];
   Request: [] = [];
+  totalConsultants: number = 0
+  totalApplicants: number = 0
+  totalEmployers: number = 0
+  jobPosted: number = 0
   dashboardData: DashboardDTO = new DashboardDTO();
   yearFilter = {
     year: 2021
@@ -419,6 +423,10 @@ export class DashboardComponent implements OnInit {
   async fetchDashboardData() {
     const data = await this.dashboard.fetchDashboardData(this.yearFilter.year).toPromise();
     this.dashboardData = data.value;
+    this.jobPosted = data.value.aggregateData.jobPosted;
+    this.totalEmployers = data.value.aggregateData.totalEmployers;
+    this.totalApplicants = data.value.aggregateData.totalApplicants;
+    this.totalConsultants = data.value.aggregateData.totalConsultants;
   }
 
 }

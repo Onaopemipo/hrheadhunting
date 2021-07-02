@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router} from '@angular/router';
 import { AlertserviceService } from 'app/_services/alertservice.service';
 import { OrdersChartData } from 'app/@core/data/orders-chart';
+import { ApplicantsComponent } from 'app/modules/applicants/applicants.component';
 @Component({
   selector: 'ngx-signup',
   templateUrl: './signup.component.html',
@@ -14,13 +15,15 @@ export class SignupComponent implements OnInit {
 
   // applicantForm = NgForm;
   // employerForm = NgForm;
+  actPick: string ='';
+  actPickEmployer: string ='';
   jobSeekerStatus: boolean = true;
   employersStatus: boolean = false;
   show: boolean = false;
   emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$';
   btnprocessing: boolean = false;
   errorMsg: string = '';
-  pageNo: number = 1;
+  pageNo: number = 0;
   psychoTest: boolean = false;
   btnProcessing: boolean = false;
   servicePayment: boolean = false;
@@ -93,6 +96,32 @@ export class SignupComponent implements OnInit {
   }
 
   registerApplicant(){
+    let applicant: ManageJobSeekerRegDTO = new ManageJobSeekerRegDTO();
+    applicant.titleId = this.jobSeeker.titleId;
+    applicant.firstName = this.jobSeeker.firstName;
+    applicant.lastname = this.jobSeeker.lastname;
+    applicant.nationalityId = this.jobSeeker.nationalityId;
+    applicant.genderId = this.jobSeeker.genderId;
+    applicant.gradeId = this.jobSeeker.gradeId;
+    applicant.institutionId = this.jobSeeker.institutionId;
+    applicant.isPresentEmployment = this.jobSeeker.isPresentEmployment;
+    applicant.phoneNumber = this.jobSeeker.phoneNumber;
+    applicant.stateOfInterestId = this.jobSeeker.stateOfInterestId;
+    applicant.yearOfExperience = this.jobSeeker.yearOfExperience;
+    applicant.workStartDate = this.jobSeeker.workStartDate;
+    applicant.workEndDate = this.jobSeeker.workEndDate;
+    applicant.availabilityDuration = this.jobSeeker.availabilityDuration;
+    applicant.briefDescription = this.jobSeeker.briefDescription;
+    applicant.videoResume = this.jobSeeker.videoResume;
+    applicant.resume = this.jobSeeker.resume;
+    applicant.password = this.jobSeeker.password;
+    applicant.residentialStateId = this.jobSeeker.residentialStateId;
+    applicant.institutionName = this.jobSeeker.institutionName;
+    applicant.qualificationId = this.jobSeeker.qualificationId;
+    applicant.qualificationStartDate = this.jobSeeker.qualificationStartDate;
+    applicant.qualificationEndDate = this.jobSeeker.qualificationEndDate;
+    applicant.fieldOfInterestId = this.jobSeeker.fieldOfInterestId;
+
     this.account.applicantSignUp(this.jobSeeker).subscribe(data => {
       if(!data.hasError){
         this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, '', 'OK')
@@ -176,8 +205,15 @@ export class SignupComponent implements OnInit {
 
   }
 
-  selectedOption(){
+  selectedOption(e){
+    this.actPick = e;
+    this.actPickEmployer = '';
+    console.log(e)
+  }
 
+  selectedEmployer(e){
+    this.actPickEmployer = e
+    this.actPick = ''
   }
 
   proceed(){

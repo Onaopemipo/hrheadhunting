@@ -58,10 +58,6 @@ p {
   font-weight: 400;
 }
 
-li {
-  margin-right: 10px;
-}
-
 .my-button {
   color: #ffffff;
   text-transform: capitalize;
@@ -71,11 +67,16 @@ li {
 
 li {
   color: #95A8B8, 100%;
+  font-family: 'Rubik';
   font-size: 15px;
-  margin-right: 20px;
+  margin-right: 10px;
   // text-align: center;
   // text-justify: distribute;
   font-weight: 500;
+}
+
+.card-text {
+  font-family: 'Rubik' !important;
 }
 
 // header {
