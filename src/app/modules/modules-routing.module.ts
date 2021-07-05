@@ -54,6 +54,12 @@ const routes: Routes = [{
       component: ApplicantquizComponent
     },
 
+    {
+      path: 'training',
+      component: ApplicantquizComponent
+    },
+
+
 
     {
       path: 'jobdetails/:id',

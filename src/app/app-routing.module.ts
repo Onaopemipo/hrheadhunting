@@ -4,15 +4,15 @@ import { AuthGuardService as AuthGuard } from './_services/auth-guard.service';
 
 export const routes: Routes = [
   {
-    path: '',
+    path: 'applicants',
     loadChildren: () => import('./modules/applicants/applicants.module').then(m => m.ApplicantsModule)
   },
 
-  // {
-  //   path: '',
-  //   loadChildren: () => import('./modules/modules.module').then(m => m.ModulesModule),
-  //   // canLoad: [AuthGuard],
-  // },
+  {
+    path: '',
+    loadChildren: () => import('./modules/modules.module').then(m => m.ModulesModule),
+    // canLoad: [AuthGuard],
+  },
 
   {
     path: 'auth',
