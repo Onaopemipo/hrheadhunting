@@ -7,6 +7,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { AngularFireAuth } from 'angularfire2/auth';
+import * as firebase from 'firebase/app';
 
 @Injectable()
 export class AuthService {
@@ -14,7 +16,7 @@ export class AuthService {
   main_id = 0;
   user: User = {};
   authstatus: boolean = false;
-  constructor(public authServ: AuthenticationService,
+  constructor(public authServ: AuthenticationService, public afAuth: AngularFireAuth,
     public http: HttpClient, public navCtrl: Router) { }
 
   public async isAuthenticated() {
@@ -58,4 +60,35 @@ export class AuthService {
       return of(error);
     };
   }
+
+
+  doGoogleLogin(){
+    return new Promise<any>((resolve, reject) => {
+      let provider = new firebase.auth.GoogleAuthProvider();
+      provider.addScope('profile');
+      provider.addScope('email');
+      this.afAuth.auth
+      .signInWithPopup(provider)
+      .then(res => {
+        resolve(res);
+      })
+    })
+  }
+
+
+  doFacebookLogin(){
+    return new Promise<any>((resolve, reject) => {
+      let provider = new firebase.auth.FacebookAuthProvider();
+      this.afAuth.auth
+      .signInWithPopup(provider)
+      .then(res => {
+        resolve(res);
+      }, err => {
+        console.log(err);
+        reject(err);
+      })
+    })
+ }
+
+
 }

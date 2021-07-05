@@ -586,6 +586,118 @@ export class ActivityLogServiceProxy {
 }
 
 @Injectable()
+export class ApplicationsServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruitmentapi.azurewebsites.net";
+    }
+
+    /**
+     * @param id (optional) 
+     * @param recruitmentStageId (optional) 
+     * @param searchText (optional) 
+     * @param dateFrom (optional) 
+     * @param dateTo (optional) 
+     * @param pageSize (optional) 
+     * @param pageNumber (optional) 
+     * @return Success
+     */
+    fetchAllApplications(id: number | undefined, recruitmentStageId: number | undefined, searchText: string | null | undefined, dateFrom: Date | null | undefined, dateTo: Date | null | undefined, pageSize: number | undefined, pageNumber: number | undefined): Observable<JobApplicationDTOIListOdataResult> {
+        let url_ = this.baseUrl + "/api/Applications/FetchAllApplications?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        if (recruitmentStageId === null)
+            throw new Error("The parameter 'recruitmentStageId' cannot be null.");
+        else if (recruitmentStageId !== undefined)
+            url_ += "RecruitmentStageId=" + encodeURIComponent("" + recruitmentStageId) + "&";
+        if (searchText !== undefined && searchText !== null)
+            url_ += "SearchText=" + encodeURIComponent("" + searchText) + "&";
+        if (dateFrom !== undefined && dateFrom !== null)
+            url_ += "DateFrom=" + encodeURIComponent(dateFrom ? "" + dateFrom.toJSON() : "") + "&";
+        if (dateTo !== undefined && dateTo !== null)
+            url_ += "DateTo=" + encodeURIComponent(dateTo ? "" + dateTo.toJSON() : "") + "&";
+        if (pageSize === null)
+            throw new Error("The parameter 'pageSize' cannot be null.");
+        else if (pageSize !== undefined)
+            url_ += "pageSize=" + encodeURIComponent("" + pageSize) + "&";
+        if (pageNumber === null)
+            throw new Error("The parameter 'pageNumber' cannot be null.");
+        else if (pageNumber !== undefined)
+            url_ += "pageNumber=" + encodeURIComponent("" + pageNumber) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processFetchAllApplications(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processFetchAllApplications(<any>response_);
+                } catch (e) {
+                    return <Observable<JobApplicationDTOIListOdataResult>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<JobApplicationDTOIListOdataResult>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processFetchAllApplications(response: HttpResponseBase): Observable<JobApplicationDTOIListOdataResult> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = JobApplicationDTOIListOdataResult.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData400) {
+                result400 = {} as any;
+                for (let key in resultData400) {
+                    if (resultData400.hasOwnProperty(key))
+                        (<any>result400)![key] = resultData400[key];
+                }
+            }
+            else {
+                result400 = <any>null;
+            }
+            return throwException("Bad Request", status, _responseText, _headers, result400);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Server Error", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<JobApplicationDTOIListOdataResult>(<any>null);
+    }
+}
+
+@Injectable()
 export class CertificationServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -8101,6 +8213,288 @@ export interface IActivityLogIListApiResult {
     result: ActivityLog[] | undefined;
     totalCount: number;
     totalRecord: number;
+}
+
+export class JobApplicationDTO implements IJobApplicationDTO {
+    id!: number;
+    jobId!: number;
+    position!: string | undefined;
+    firstName!: string | undefined;
+    lastName!: string | undefined;
+    otherName!: string | undefined;
+    skillArea!: string | undefined;
+    jobType!: string | undefined;
+    state!: string | undefined;
+    nationality!: string | undefined;
+    mobile!: string | undefined;
+    applicantLocation!: string | undefined;
+    age!: number;
+    gender!: number;
+    birthDate!: Date;
+    skillAreaId!: number;
+    jobTypeId!: number;
+    stateId!: number;
+    recruitmentStageId!: number;
+    requireTest!: boolean;
+    testDuration!: number | undefined;
+    testPassCode!: string | undefined;
+    totalQuestion!: number;
+    hashedJobId!: string | undefined;
+    applicantCode!: string | undefined;
+    registeredUserId!: number;
+    applicantEmail!: string | undefined;
+    applicantFullName!: string | undefined;
+    dateApplied!: Date;
+    alertSent!: boolean;
+    coverLetter!: string | undefined;
+    cvPath!: string | undefined;
+    cvName!: string | undefined;
+    photoName!: string | undefined;
+    jobLocation!: string | undefined;
+    testUrl!: string | undefined;
+    videoUrl!: string | undefined;
+    companyId!: number;
+    company!: string | undefined;
+    companyContactPerson!: string | undefined;
+    companyEmail!: string | undefined;
+    lastUpdate!: Date | undefined;
+    readonly genderName!: string | undefined;
+    readonly recruitmentStage!: string | undefined;
+
+    constructor(data?: IJobApplicationDTO) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.jobId = _data["jobId"];
+            this.position = _data["position"];
+            this.firstName = _data["firstName"];
+            this.lastName = _data["lastName"];
+            this.otherName = _data["otherName"];
+            this.skillArea = _data["skillArea"];
+            this.jobType = _data["jobType"];
+            this.state = _data["state"];
+            this.nationality = _data["nationality"];
+            this.mobile = _data["mobile"];
+            this.applicantLocation = _data["applicantLocation"];
+            this.age = _data["age"];
+            this.gender = _data["gender"];
+            this.birthDate = _data["birthDate"] ? new Date(_data["birthDate"].toString()) : <any>undefined;
+            this.skillAreaId = _data["skillAreaId"];
+            this.jobTypeId = _data["jobTypeId"];
+            this.stateId = _data["stateId"];
+            this.recruitmentStageId = _data["recruitmentStageId"];
+            this.requireTest = _data["requireTest"];
+            this.testDuration = _data["testDuration"];
+            this.testPassCode = _data["testPassCode"];
+            this.totalQuestion = _data["totalQuestion"];
+            this.hashedJobId = _data["hashedJobId"];
+            this.applicantCode = _data["applicantCode"];
+            this.registeredUserId = _data["registeredUserId"];
+            this.applicantEmail = _data["applicantEmail"];
+            this.applicantFullName = _data["applicantFullName"];
+            this.dateApplied = _data["dateApplied"] ? new Date(_data["dateApplied"].toString()) : <any>undefined;
+            this.alertSent = _data["alertSent"];
+            this.coverLetter = _data["coverLetter"];
+            this.cvPath = _data["cvPath"];
+            this.cvName = _data["cvName"];
+            this.photoName = _data["photoName"];
+            this.jobLocation = _data["jobLocation"];
+            this.testUrl = _data["testUrl"];
+            this.videoUrl = _data["videoUrl"];
+            this.companyId = _data["companyId"];
+            this.company = _data["company"];
+            this.companyContactPerson = _data["companyContactPerson"];
+            this.companyEmail = _data["companyEmail"];
+            this.lastUpdate = _data["lastUpdate"] ? new Date(_data["lastUpdate"].toString()) : <any>undefined;
+            (<any>this).genderName = _data["genderName"];
+            (<any>this).recruitmentStage = _data["recruitmentStage"];
+        }
+    }
+
+    static fromJS(data: any): JobApplicationDTO {
+        data = typeof data === 'object' ? data : {};
+        let result = new JobApplicationDTO();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["jobId"] = this.jobId;
+        data["position"] = this.position;
+        data["firstName"] = this.firstName;
+        data["lastName"] = this.lastName;
+        data["otherName"] = this.otherName;
+        data["skillArea"] = this.skillArea;
+        data["jobType"] = this.jobType;
+        data["state"] = this.state;
+        data["nationality"] = this.nationality;
+        data["mobile"] = this.mobile;
+        data["applicantLocation"] = this.applicantLocation;
+        data["age"] = this.age;
+        data["gender"] = this.gender;
+        data["birthDate"] = this.birthDate ? this.birthDate.toISOString() : <any>undefined;
+        data["skillAreaId"] = this.skillAreaId;
+        data["jobTypeId"] = this.jobTypeId;
+        data["stateId"] = this.stateId;
+        data["recruitmentStageId"] = this.recruitmentStageId;
+        data["requireTest"] = this.requireTest;
+        data["testDuration"] = this.testDuration;
+        data["testPassCode"] = this.testPassCode;
+        data["totalQuestion"] = this.totalQuestion;
+        data["hashedJobId"] = this.hashedJobId;
+        data["applicantCode"] = this.applicantCode;
+        data["registeredUserId"] = this.registeredUserId;
+        data["applicantEmail"] = this.applicantEmail;
+        data["applicantFullName"] = this.applicantFullName;
+        data["dateApplied"] = this.dateApplied ? this.dateApplied.toISOString() : <any>undefined;
+        data["alertSent"] = this.alertSent;
+        data["coverLetter"] = this.coverLetter;
+        data["cvPath"] = this.cvPath;
+        data["cvName"] = this.cvName;
+        data["photoName"] = this.photoName;
+        data["jobLocation"] = this.jobLocation;
+        data["testUrl"] = this.testUrl;
+        data["videoUrl"] = this.videoUrl;
+        data["companyId"] = this.companyId;
+        data["company"] = this.company;
+        data["companyContactPerson"] = this.companyContactPerson;
+        data["companyEmail"] = this.companyEmail;
+        data["lastUpdate"] = this.lastUpdate ? this.lastUpdate.toISOString() : <any>undefined;
+        data["genderName"] = this.genderName;
+        data["recruitmentStage"] = this.recruitmentStage;
+        return data; 
+    }
+
+    clone(): JobApplicationDTO {
+        const json = this.toJSON();
+        let result = new JobApplicationDTO();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IJobApplicationDTO {
+    id: number;
+    jobId: number;
+    position: string | undefined;
+    firstName: string | undefined;
+    lastName: string | undefined;
+    otherName: string | undefined;
+    skillArea: string | undefined;
+    jobType: string | undefined;
+    state: string | undefined;
+    nationality: string | undefined;
+    mobile: string | undefined;
+    applicantLocation: string | undefined;
+    age: number;
+    gender: number;
+    birthDate: Date;
+    skillAreaId: number;
+    jobTypeId: number;
+    stateId: number;
+    recruitmentStageId: number;
+    requireTest: boolean;
+    testDuration: number | undefined;
+    testPassCode: string | undefined;
+    totalQuestion: number;
+    hashedJobId: string | undefined;
+    applicantCode: string | undefined;
+    registeredUserId: number;
+    applicantEmail: string | undefined;
+    applicantFullName: string | undefined;
+    dateApplied: Date;
+    alertSent: boolean;
+    coverLetter: string | undefined;
+    cvPath: string | undefined;
+    cvName: string | undefined;
+    photoName: string | undefined;
+    jobLocation: string | undefined;
+    testUrl: string | undefined;
+    videoUrl: string | undefined;
+    companyId: number;
+    company: string | undefined;
+    companyContactPerson: string | undefined;
+    companyEmail: string | undefined;
+    lastUpdate: Date | undefined;
+    genderName: string | undefined;
+    recruitmentStage: string | undefined;
+}
+
+export class JobApplicationDTOIListOdataResult implements IJobApplicationDTOIListOdataResult {
+    id!: number;
+    hasError!: boolean;
+    message!: string | undefined;
+    odataContext!: string | undefined;
+    value!: JobApplicationDTO[] | undefined;
+
+    constructor(data?: IJobApplicationDTOIListOdataResult) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.hasError = _data["hasError"];
+            this.message = _data["message"];
+            this.odataContext = _data["odataContext"];
+            if (Array.isArray(_data["value"])) {
+                this.value = [] as any;
+                for (let item of _data["value"])
+                    this.value!.push(JobApplicationDTO.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): JobApplicationDTOIListOdataResult {
+        data = typeof data === 'object' ? data : {};
+        let result = new JobApplicationDTOIListOdataResult();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["hasError"] = this.hasError;
+        data["message"] = this.message;
+        data["odataContext"] = this.odataContext;
+        if (Array.isArray(this.value)) {
+            data["value"] = [];
+            for (let item of this.value)
+                data["value"].push(item.toJSON());
+        }
+        return data; 
+    }
+
+    clone(): JobApplicationDTOIListOdataResult {
+        const json = this.toJSON();
+        let result = new JobApplicationDTOIListOdataResult();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IJobApplicationDTOIListOdataResult {
+    id: number;
+    hasError: boolean;
+    message: string | undefined;
+    odataContext: string | undefined;
+    value: JobApplicationDTO[] | undefined;
 }
 
 export class ManageCertificationDTO implements IManageCertificationDTO {

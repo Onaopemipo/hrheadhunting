@@ -6,6 +6,7 @@ import { Router} from '@angular/router';
 import { AlertserviceService } from 'app/_services/alertservice.service';
 import { OrdersChartData } from 'app/@core/data/orders-chart';
 import { ApplicantsComponent } from 'app/modules/applicants/applicants.component';
+import { AuthService } from 'app/_services/auth.service';
 @Component({
   selector: 'ngx-signup',
   templateUrl: './signup.component.html',
@@ -45,6 +46,7 @@ export class SignupComponent implements OnInit {
     private institution: InstitutionServiceProxy, private country:CountriesServiceProxy, private title: TitlesServiceProxy,
     private course: CourseServiceProxy, private qualification: QualificationServiceProxy, private employment: EmployerTypesServiceProxy,
     private state: StatesServiceProxy, private sector: SectorsServiceProxy, private skill: SkillAreasServiceProxy,
+    private social: AuthService,
     private grade: GradesServiceProxy ) { }
   gotoSetup() {
     this.route.navigate(['/onboarding/accountsetup']);
@@ -77,11 +79,19 @@ export class SignupComponent implements OnInit {
 
   }
 
-  // async fetchGender(){
-  //   const data = await this.institution.fetchInstitutions().toPromise();
-  //   this.genderData = data.value;
-  //   console.log(data)
-  // }
+login(){
+  // this.social.doGoogleLogin()
+  // this.social.doRegister(value)
+  // .then(res => {
+  //   console.log(res);
+  //   this.errorMessage = "";
+  //   this.successMessage = "Your account has been created";
+  // }, err => {
+  //   console.log(err);
+  //   this.errorMessage = err.message;
+  //   this.successMessage = "";
+  // })
+}
 
   async fetchTitle(){
     const data = await this.title.fetchTitles().toPromise();

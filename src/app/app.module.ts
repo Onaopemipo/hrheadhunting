@@ -16,6 +16,10 @@ import { ThemeModule } from './@theme/theme.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DecimalPipe } from '@angular/common';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { environment } from '../environments/environment';
 import {
   NbChatModule,
   NbDatepickerModule,
@@ -80,6 +84,9 @@ FullCalendarModule.registerPlugins([
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule, // imports firebase/firestore, only needed for database features
+    AngularFireAuthModule, // imports firebase/auth, only needed for auth features
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
@@ -132,6 +139,8 @@ FullCalendarModule.registerPlugins([
     NbLayoutModule,
     NgxChartsModule,
     NbDatepickerModule.forRoot(),
+
+    // AngularFireModule.initializeApp(environment.firebase),
   ],
   bootstrap: [AppComponent],
   providers: [

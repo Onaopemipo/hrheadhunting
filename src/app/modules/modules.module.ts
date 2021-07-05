@@ -1,3 +1,4 @@
+import { ApplicantquizComponent } from './applicantquiz/applicantquiz.component';
 import { DashboardServiceProxy } from './../_services/service-proxies';
 import { ApplicantselectionComponent } from './applicantselection/applicantselection.component';
 import { SettingsComponent } from './settings/settings.component';
@@ -23,12 +24,13 @@ import { JobsComponent } from './jobs/jobs.component';
 import { ApplicantsComponent } from './applicants/applicants.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { JobServiceProxy, CommonServiceProxy } from 'app/_services/service-proxies';
+import { ApplicantProfileComponent } from './applicant-profile/applicant-profile.component';
 
 
 
 
 @NgModule({
-  declarations: [ModulesComponent, JobsComponent, DashboardComponent, QuizComponent, ReportsComponent, ApplicantsComponent, NewquizComponent, NewjobComponent, SettingsComponent, ApplicantselectionComponent],
+  declarations: [ModulesComponent, JobsComponent, ApplicantProfileComponent, ApplicantquizComponent, DashboardComponent, QuizComponent, ReportsComponent, ApplicantsComponent, NewquizComponent, NewjobComponent, SettingsComponent, ApplicantselectionComponent],
   imports: [
     CommonModule,
     ComponentsModule,

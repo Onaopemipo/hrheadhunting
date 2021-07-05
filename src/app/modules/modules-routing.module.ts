@@ -1,3 +1,4 @@
+import { ApplicantquizComponent } from './applicantquiz/applicantquiz.component';
 import { SettingsComponent } from './settings/settings.component';
 import { ApplicantselectionComponent } from './applicantselection/applicantselection.component';
 import { NewjobComponent } from './newjob/newjob.component';
@@ -12,6 +13,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { JobsComponent } from './jobs/jobs.component';
 import { JobDetailsComponent } from './job-details/job-details.component';
 import { ApplicantsComponent } from './applicants/applicants.component';
+import { ApplicantProfileComponent } from './applicant-profile/applicant-profile.component';
 const routes: Routes = [{
   path: '',
   component: ModulesComponent,
@@ -40,6 +42,16 @@ const routes: Routes = [{
     {
       path: 'settings',
       component: SettingsComponent
+    },
+
+    {
+      path: 'profile',
+      component: ApplicantProfileComponent
+    },
+
+    {
+      path: 'quiz',
+      component: ApplicantquizComponent
     },
 
 
