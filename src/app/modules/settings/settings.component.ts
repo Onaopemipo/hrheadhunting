@@ -1,5 +1,5 @@
 import { AlertserviceService } from 'app/_services/alertservice.service';
-import { CommunicationServiceProxy, MailTemplateDTO, CommonServiceProxy, EmailSetting } from 'app/_services/service-proxies';
+import { CommunicationServiceProxy, MailTemplateDTO, CommonServiceProxy, EmailSetting, IDTextViewModel } from 'app/_services/service-proxies';
 // import { AlertserviceService } from './../../../../_services/alertservice.service';
 // import { RecruitmentSettingServiceProxy, ManageHireStageDTO, HireStageDTO, ManageRecruitmentScoreCardDTO, ScoreCardQuestion, SubHireStageDTO, QuestionDTO, QuestionOptionDTO, RecruitmentScoreCard, ScoringType, ManageSubHireStageDTO } from './../../../../_services/service-proxies';
 import { NbTabComponent } from '@nebular/theme';
@@ -48,7 +48,7 @@ export class SettingsComponent implements OnInit {
   // scoreCardModel: ManageRecruitmentScoreCardDTO = new ManageRecruitmentScoreCardDTO;
   // questionModel: ScoreCardQuestion = new ScoreCardQuestion();
   // questionBank: ScoreCardQuestion [] = [];
-  // hiringStages: HireStageDTO [] = [];
+  hiringStages: IDTextViewModel [] = [];
   // hireStage: HireStageDTO = new HireStageDTO();
   // subHireStage: SubHireStageDTO = new SubHireStageDTO();
   // allSubHireStages: SubHireStageDTO [] = [];
@@ -80,15 +80,15 @@ export class SettingsComponent implements OnInit {
     // this.fetchScoringType();
   }
 
-  // selectPanel(hiringlist, i) {
-  //   this.selectedPanel = hiringlist;
+  selectPanel(hiringlist, i) {
+    this.selectedPanel = hiringlist;
 
-  //   this.hiringChecklist.forEach(value => {
-  //     value.status = 'Inactive';
-  //   });
-  //   this.hiringChecklist[i].status = 'Active';
-  //   this.selectedCase = this.hiringChecklist[i].title;
-  // }
+    this.hiringChecklist.forEach(value => {
+      value.status = 'Inactive';
+    });
+    this.hiringChecklist[i].status = 'Active';
+    this.selectedCase = this.hiringChecklist[i].title;
+  }
 
   // createNewStage(){
   //   this.createStage = !this.createStage;
@@ -258,13 +258,12 @@ export class SettingsComponent implements OnInit {
     }
   }
 
-  // async getHireStages(){
-  //   const data = await this.settings.getAllHireStages().toPromise();
-  //   if(!data.hasError){
-  //     this.hiringStages = data.result;
-  //     this.hiringStageCounter = data.totalRecord;
-  //   }
-  // }
+  async getHireStages(){
+    const data = await this.commonService.fetchRecruitmentStages().toPromise();
+    if(!data.hasError){
+      this.hiringStages = data.value;
+    }
+  }
 
   // async getSingleHireStage(){
   //   const data = await this.settings.getHireStage(1).toPromise();

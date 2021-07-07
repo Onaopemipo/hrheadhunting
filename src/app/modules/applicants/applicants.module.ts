@@ -12,6 +12,7 @@ import { ScorecvComponent } from './scorecv/scorecv.component';
 import { PricingComponent } from './pricing/pricing.component';
 import { NbTableModule, NbCardModule, NbTabsetModule, NbCheckboxModule } from '@nebular/theme';
 import { TrainingComponent } from './training/training.component';
+import { CommunicationServiceProxy, JobServiceProxy } from 'app/_services/service-proxies';
 
 
 @NgModule({
@@ -30,6 +31,8 @@ import { TrainingComponent } from './training/training.component';
   providers: [
     // NbMenuService,
     // NbMenuInternalService,
+    CommunicationServiceProxy,
+    JobServiceProxy
   ]
 })
 export class ApplicantsModule { }

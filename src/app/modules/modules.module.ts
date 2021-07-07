@@ -1,5 +1,5 @@
 import { ApplicantquizComponent } from './applicantquiz/applicantquiz.component';
-import { DashboardServiceProxy } from './../_services/service-proxies';
+import { ApplicationsServiceProxy, DashboardServiceProxy } from './../_services/service-proxies';
 import { ApplicantselectionComponent } from './applicantselection/applicantselection.component';
 import { SettingsComponent } from './settings/settings.component';
 import { ApiServiceProxy, AccountServiceProxy, InstitutionServiceProxy, CourseServiceProxy, SectorsServiceProxy, SkillAreasServiceProxy, StatesServiceProxy, EmployerTypesServiceProxy, CountriesServiceProxy, GradesServiceProxy, QualificationServiceProxy, JobTypesServiceProxy, CurrenciesServiceProxy } from '../_services/service-proxies';
@@ -64,6 +64,7 @@ import { TrainingComponent } from './training/training.component';
     CommonServiceProxy,
     DashboardServiceProxy,
     CommunicationServiceProxy,
+    ApplicationsServiceProxy
   ]
 })
 export class ModulesModule { }

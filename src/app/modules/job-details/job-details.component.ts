@@ -56,16 +56,4 @@ export class JobDetailsComponent implements OnInit {
   //   })
   // }
 
-  // applyForJob(){
-  //   this.application.applicantId = this.applicantId;
-  //   this.application.jobId = this.jobId;
-  //   this.apply.applyForJob(this.application).subscribe(data => {
-  //     if(!data.hasError){
-  //       this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'Successful', 'Go to Job Portal').subscribe(res => {
-  //         this.router.navigateByUrl('')
-  //       })
-  //     }
-  //   })
-  // }
-
 }

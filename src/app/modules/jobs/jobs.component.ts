@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AlertserviceService } from 'app/_services/alertservice.service';
 import { Component, OnInit } from '@angular/core';
 import { IStatus, MyColor } from 'app/components/status/models';
-import { CountriesServiceProxy, GradesServiceProxy, IDTextViewModel, JobServiceProxy, JobTypesServiceProxy, QualificationServiceProxy, SectorsServiceProxy, SkillAreasServiceProxy, StatesServiceProxy } from 'app/_services/service-proxies';
+import { CountriesServiceProxy, GradesServiceProxy, IDTextViewModel, JobServiceProxy, JobTypesServiceProxy, QualificationServiceProxy, SectorsServiceProxy, SkillAreasServiceProxy, StatesServiceProxy, CommonServiceProxy } from 'app/_services/service-proxies';
 
 enum TP  {
 VIEW ='1',DELETE = '2'
@@ -86,6 +86,7 @@ export class JobsComponent implements OnInit {
   skillData: IDTextViewModel [] = [];
   employerTypeData: IDTextViewModel [] = [];
   gradeData: IDTextViewModel [] = [];
+  recruiterData: IDTextViewModel [] = [];
 
   rButton = [
     {name: 'a', label: 'Add New', icon: 'plus'},
@@ -227,7 +228,7 @@ draftTableActions: TableAction [] = [
     private jobtype: JobTypesServiceProxy, private country:CountriesServiceProxy,
     private qualification: QualificationServiceProxy, private curreny: CurrenciesServiceProxy,
     private state: StatesServiceProxy, private sector: SectorsServiceProxy, private skill: SkillAreasServiceProxy,
-    private grade: GradesServiceProxy ) {
+    private grade: GradesServiceProxy, private common: CommonServiceProxy ) {
    }
 
   ngOnInit(): void {
@@ -401,6 +402,10 @@ async fetchStates(){
     this.skillData = data.value;
   }
 
+  async fetchRecruiters(){
+    const data = await this.common.fetchAllEmployers().toPromise();
+    this.recruiterData = data.value;
+  }
    getSelectedEmployee(event,selectType) {
      if(selectType == 'employee'){
       this.newJobModel.reviewers = event[0].employeeNumber;
