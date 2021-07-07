@@ -107,16 +107,16 @@ login(){
 
   registerApplicant(){
     let applicant: ManageJobSeekerRegDTO = new ManageJobSeekerRegDTO();
-    applicant.titleId = this.jobSeeker.titleId;
+    applicant.titleId = Number(this.jobSeeker.titleId);
     applicant.firstName = this.jobSeeker.firstName;
     applicant.lastname = this.jobSeeker.lastname;
-    applicant.nationalityId = this.jobSeeker.nationalityId;
-    applicant.genderId = this.jobSeeker.genderId;
+    applicant.nationalityId = Number(this.jobSeeker.nationalityId);
+    applicant.genderId = Number(this.jobSeeker.genderId);
     applicant.gradeId = this.jobSeeker.gradeId;
-    applicant.institutionId = this.jobSeeker.institutionId;
+    applicant.institutionId = Number(this.jobSeeker.institutionId);
     applicant.isPresentEmployment = this.jobSeeker.isPresentEmployment;
     applicant.phoneNumber = this.jobSeeker.phoneNumber;
-    applicant.stateOfInterestId = this.jobSeeker.stateOfInterestId;
+    applicant.stateOfInterestId = Number(this.jobSeeker.stateOfInterestId);
     applicant.yearOfExperience = this.jobSeeker.yearOfExperience;
     applicant.workStartDate = this.jobSeeker.workStartDate;
     applicant.workEndDate = this.jobSeeker.workEndDate;
@@ -125,13 +125,13 @@ login(){
     applicant.videoResume = this.jobSeeker.videoResume;
     applicant.resume = this.jobSeeker.resume;
     applicant.password = this.jobSeeker.password;
-    applicant.residentialStateId = this.jobSeeker.residentialStateId;
+    applicant.residentialStateId =  Number(this.jobSeeker.residentialStateId);
     applicant.institutionName = this.jobSeeker.institutionName;
-    applicant.qualificationId = this.jobSeeker.qualificationId;
+    applicant.qualificationId =  Number(this.jobSeeker.qualificationId);
     applicant.qualificationStartDate = this.jobSeeker.qualificationStartDate;
     applicant.qualificationEndDate = this.jobSeeker.qualificationEndDate;
     applicant.fieldOfInterestId = this.jobSeeker.fieldOfInterestId;
-
+    console.log(applicant);
     this.account.applicantSignUp(this.jobSeeker).subscribe(data => {
       if(!data.hasError){
         this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, '', 'OK')

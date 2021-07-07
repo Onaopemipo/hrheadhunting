@@ -5,11 +5,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./one-column.layout.scss'],
   template: `
     <nb-layout windowMode>
-    <nb-layout-header fixed>
+    <nb-layout-header subheader>
     <ngx-header></ngx-header>
    </nb-layout-header>
 
       <nb-sidebar class="menu-sidebar" tag="menu-sidebar" responsive>
+      <div class="logo-container">
+      <a class="logo" href="#">  <img
+        style="height: 6.5rem;"
+        src="assets/images/logo_2.png"
+    /></a>
+    </div>
         <ng-content select="nb-menu"></ng-content>
       </nb-sidebar>
 

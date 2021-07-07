@@ -3,7 +3,6 @@
 </ngx-customizable-column-layout> -->
 
 <ngx-componentsheader pageName='Aptitude Test'></ngx-componentsheader>
-
   <nb-card *ngFor="let question of questionData" style="background-color: #ffffff;">
     <nb-card-body *ngIf="!nextQuestion">
       <div class="row" style="display: flex; justify-content:space-around;">
@@ -48,10 +47,10 @@
     </nb-card-body>
 
     <div class="row" style="justify-content: flex-end;">
-      <!-- <div class="col-md-8">
+    <div class="col-md-8">
 
-      </div> -->
-      <div class="col-md-4">
+      </div>
+       <div class="col-md-4">
         <nb-card-footer>
           <nb-progress-bar [value]="50" status="success" size="tiny" displayValue="50%"></nb-progress-bar>
         </nb-card-footer>

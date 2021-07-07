@@ -1,4 +1,4 @@
-import { CurrenciesServiceProxy, Job } from './../../_services/service-proxies';
+import { CurrenciesServiceProxy, Job, JobDTO } from './../../_services/service-proxies';
 import { ColumnTypes, TableAction, TableActionEvent, TableColumn } from 'app/components/tablecomponent/models';
 import { Router } from '@angular/router';
 import { AlertserviceService } from 'app/_services/alertservice.service';
@@ -64,19 +64,15 @@ export class JobsComponent implements OnInit {
   availability: string = 'Physical';
   employmentType: string = 'Full Time';
   newJob: boolean = false;
-  allJobs:  []= [];
+  allJobs: Job []= [];
   allDraftJobs:  []= [];
   jobsCounter: number = 0;
   allDepartments:  [] = [];
   certificationData:  [] = [];
-  employmentTypes:  []= [];
   jobAvailability:  []= [];
-  allCountries:  [] = [];
-  allStates: [] = [];
   allJobRoles:  [] = [];
-  singleJob: Job = new Job().clone();
+  singleJob: JobDTO = new JobDTO().clone();
   tableData: string = '';
-  allCurrencies:  [] = [];
   awaitingJobsCounter: number = 0;
   draftCounter: number = 0;
   allQuizes:  [] = [];
@@ -207,10 +203,15 @@ draftTableActions: TableAction [] = [
   }
 
   jobFilter = {
-    IsDraft: undefined,
-    IsScheduled: undefined,
-    PageNumber:1,
-    PageSize:10
+    SkillAreaId:0,
+    SectorId:0,
+    CountryId:0,
+    StateId:0,
+    IsNewlyAdded: false,
+    IsPopular: false,
+    PageSize:10,
+    PageNumber:1
+
   }
 
   selectedTab = TABS.postedJobs;
@@ -230,7 +231,7 @@ draftTableActions: TableAction [] = [
    }
 
   ngOnInit(): void {
-    // this.fetchAllJobs();
+    this.fetchAllJobs();
     // this.fetchEmploymentTypes();
     // this.fetchAllDraft();
     // this.fetchAllDepartments();
@@ -336,33 +337,26 @@ draftTableActions: TableAction [] = [
   //   }
   // }
 
+  async fetchSingleJob(){
+    const data = await this.job.getJobById(1).toPromise()
+      if(!data.hasError){
+        this.singleJob = data.value;
+      }
+  }
 
-
-  // async fetchAllDepartments(){
-  //   const data = await this.department.getAllDepartments(10,1).toPromise();
-  //   if(!data.hasError){
-  //     this.allDepartments = data.result;
-  //     console.log('All Departments:',this.allDepartments)
-  //   }
-  // }
-
-  // async fetchSingleJob(){
-  //   const data = await this.job.getJob(1).toPromise()
-  //     if(!data.hasError){
-  //       this.singleJob = data.result;
-  //     }
-  // }
-
-  // async fetchAllJobs(){
-  //   this.loading = true;
-  //  const data = await this.job.getAllJobs(this.jobFilter.IsDraft, this.jobFilter.IsScheduled, this.jobFilter.PageNumber,this.jobFilter.PageSize).toPromise();
-  //  this.loading = false;
-  //   if(!data.hasError){
-  //     this.allJobs = data.result.map(x => new JobWithStatus(x));
-  //     this.jobsCounter = data.totalRecord;
-  //     console.log('My Jobs:',this.allJobs)
-  //  }
-  // }
+  async fetchAllJobs(){
+    this.loading = true;
+   const data = await this.job.fetchAllJobs(this.jobFilter.SkillAreaId, this.jobFilter.SectorId,
+    this.jobFilter.CountryId, this.jobFilter.StateId, this.jobFilter.IsNewlyAdded,
+    this.jobFilter.IsPopular,this.jobFilter.PageSize, this.jobFilter.PageNumber).toPromise();
+   this.loading = false;
+    if(!data.hasError){
+      this.allJobs = data.value;
+      // this.allJobs = data.result.map(x => new JobWithStatus(x));
+      // this.jobsCounter = data.totalRecord;
+      console.log('My Jobs:',this.allJobs)
+   }
+  }
 
   actionClicked(event: TableActionEvent){
     if (event.name === TP.VIEW){
@@ -377,24 +371,6 @@ draftTableActions: TableAction [] = [
   showMasterSearchModal(){
     this.showModal = true
   }
-
-
-  //  async fetchAllQuizes(){
-  //   const data = await this.quiz.getAllQuizzes().toPromise();
-  //   if(!data.hasError){
-  //     this.allQuizes = data.result;
-  //   }
-  // }
-
-  // fetchStates(countryId){
-  // this.dataService.getStateByCountryId(countryId).subscribe(data => {
-  //   if(!data.hasError){
-  //     this.allStates = data.result;
-  //   }
-  // });
-
-  // }
-
 
   async fetchCountries(){
     this.country.fetchCountries().subscribe(data => {

@@ -33,7 +33,7 @@ export class ApplicantProfileComponent implements OnInit {
   // allowmultipleselection: boolean = true;
   // selectionHeader: string = "Select Employee";
   // addbtnText: string = "Add Interviewer";
-  // pageTitle: string = 'Profile';
+  pageTitle: string = 'Profile';
   // title: string = 'Set up your account';
   // src: string = 'assets/icons/camera.jpg';
   // selectedPanel: string = '';
@@ -86,7 +86,7 @@ export class ApplicantProfileComponent implements OnInit {
   // interviewModel: ScheduleJobInterviewDto = new ScheduleJobInterviewDto();
 
   constructor(iconsLibrary: NbIconLibraries, private alertMe: AlertserviceService, private route: ActivatedRoute,
-    private router: Router, y) {
+    private router: Router,) {
     iconsLibrary.registerFontPack('ion', { iconClassPrefix: 'ion' });
     iconsLibrary.registerFontPack('fa', { packClass: 'fa', iconClassPrefix: 'fa' });
     iconsLibrary.registerFontPack('far', { packClass: 'far', iconClassPrefix: 'fa' });

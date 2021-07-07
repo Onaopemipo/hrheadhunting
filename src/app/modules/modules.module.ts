@@ -23,7 +23,7 @@ import { ComponentsModule } from 'app/components/components.module';
 import { JobsComponent } from './jobs/jobs.component';
 import { ApplicantsComponent } from './applicants/applicants.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { JobServiceProxy, CommonServiceProxy } from 'app/_services/service-proxies';
+import { JobServiceProxy, CommonServiceProxy, CommunicationServiceProxy } from 'app/_services/service-proxies';
 import { ApplicantProfileComponent } from './applicant-profile/applicant-profile.component';
 import { TrainingComponent } from './training/training.component';
 
@@ -63,6 +63,7 @@ import { TrainingComponent } from './training/training.component';
     CurrenciesServiceProxy,
     CommonServiceProxy,
     DashboardServiceProxy,
+    CommunicationServiceProxy,
   ]
 })
 export class ModulesModule { }

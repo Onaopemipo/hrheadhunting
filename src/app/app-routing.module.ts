@@ -3,10 +3,10 @@ import { NgModule } from '@angular/core';
 import { AuthGuardService as AuthGuard } from './_services/auth-guard.service';
 
 export const routes: Routes = [
-  {
-    path: 'applicants',
-    loadChildren: () => import('./modules/applicants/applicants.module').then(m => m.ApplicantsModule)
-  },
+  // {
+  //   path: '',
+  //   loadChildren: () => import('./modules/applicants/applicants.module').then(m => m.ApplicantsModule)
+  // },
 
   {
     path: '',

@@ -50,6 +50,7 @@ export class LoginComponent implements OnInit {
     }, error => {
       this.clearerror();
         this.errorMsg = 'Oops! Something went wrong, we are fixing it';
+        this.btnprocessing = false;
 
     });
   }

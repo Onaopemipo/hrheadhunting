@@ -40,7 +40,7 @@ nb-layout-footer{
 
 .fc .fc-daygrid-day.fc-day-today {
   background-color: #6B9BF21A !important;
-  border-top: 3px solid #6B9BF2;
+  border-top: 3px solid #6495ED;
 }
 .black{
   color: #080730;
@@ -318,7 +318,7 @@ opacity: 1;
   line-height: 22px !important;
   font-family: 'Rubik',Rubik !important;
 letter-spacing: 0px;
-color:  #6B9BF2;
+color:  #6495ED;
 opacity: 1;
 }
 
@@ -331,7 +331,7 @@ line-height: 128% !important;
 
 text-decoration-line: none !important;
 
-color: #6B9BF2 !important;
+color: #6495ED !important;
 }
 
 .a-small-normal{
@@ -343,7 +343,7 @@ line-height: 22px !important;
 
 text-decoration-line: none !important;
 
-color: #6B9BF2 !important;
+color: #6495ED !important;
 }
 
 button{
@@ -351,7 +351,7 @@ button{
   //min-width: 144px !important;
 }
 .cbadge{
-  color:#6B9BF2;
+  color:#6495ED;
   padding: 6px 12px 6px 12px;
   min-height: 30px;
   min-width: 33px;
@@ -365,7 +365,7 @@ button{
   height: 4rem;
   overflow: hidden;
   border-radius: 50%;
-  border: 0.5px solid #6B9BF2;
+  border: 0.5px solid #6495ED;
 }
 
 .circular-avatar img {
@@ -379,7 +379,7 @@ button{
   height: 7.9375rem;
   overflow: hidden;
   border-radius: 50%;
-  // border: 0.5px solid #6B9BF2;
+  // border: 0.5px solid #6495ED;
 }
 
 .employee-avatar img {
@@ -410,7 +410,7 @@ opacity: 1;
   font-size: 16px !important;
   line-height: 22px !important;
   letter-spacing: 0px;
-  color: #6B9BF2 !important;
+  color: #6495ED !important;
   opacity: 1;
   }
 .wizardlistactive{
@@ -418,7 +418,7 @@ opacity: 1;
   &::before{
   content: '';
   height: 2.5rem;
-  border: 3px solid #6B9BF2;
+  border: 3px solid #6495ED;
   display: block;
   }
 }
@@ -460,7 +460,7 @@ opacity: 1;
 .underlined-button{
   text-decoration: underline;
   font: normal normal normal 16px/22px Rubik;
-  color: #6B9BF2;
+  color: #6495ED;
   padding: 0px;
   text-align: left;
   width: fit-content;
@@ -513,4 +513,8 @@ opacity: 1;
   max-width: 1920px;
   margin: 0 auto;
   background-color: #fff;
+}
+
+nb-theme-smartace nb-layout .layout .layout-container nb-sidebar.fixed, .nb-theme-smartace nb-layout .layout .layout-container nb-sidebar .main-container-fixed {
+  top: 0;
 }

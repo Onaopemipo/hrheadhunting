@@ -3,6 +3,7 @@ import { AlertserviceService } from 'app/_services/alertservice.service';
 import { ActivatedRoute } from '@angular/router';
 // import { RecruitmentJobServiceProxy, JobDTO, RecruitmentJobApplicationServiceProxy, ApplyForJobDto } from './../../../_services/service-proxies';
 import { Component, OnInit } from '@angular/core';
+import { JobDTO, JobServiceProxy } from 'app/_services/service-proxies';
 
 @Component({
   selector: 'ngx-job-details',
@@ -14,21 +15,30 @@ export class JobDetailsComponent implements OnInit {
   jobId: number = 0;
   applicantId: number = 1;
   checkStatus: boolean = false;
-  // jobDetails: JobDTO = new JobDTO().clone();
+  jobDetails: JobDTO = new JobDTO().clone();
   // applicationDetails: JobDTO = new JobDTO();
   // application: ApplyForJobDto = new ApplyForJobDto();
-  // constructor(private job: RecruitmentJobServiceProxy, private apply: RecruitmentJobApplicationServiceProxy,
-  //    private route: ActivatedRoute, private alertMe: AlertserviceService, private router: Router) { }
+  constructor(private job: JobServiceProxy, private route: ActivatedRoute, private alertMe: AlertserviceService,
+    private router: Router) { }
 
   ngOnInit(): void {
-    // this.job.getJob(this.jobId = Number(this.route.snapshot.paramMap.get("id"))).subscribe(data => {
-    //   if(!data.hasError){
-    //     this.jobDetails = data.result;
-    //   }
-    // })
+    this.job.getJobById(this.jobId = Number(this.route.snapshot.paramMap.get("id"))).subscribe(data => {
+      if(!data.hasError){
+        this.jobDetails = data.value;
+      }
+    })
   }
 
-  applyForJob(){}
+  applyForJob(){
+    this.job.applyJob(1).subscribe(data => {
+      if(!data.hasError){
+        this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, '', 'Ok')
+      }
+    })
+  }
+
+
+
 
   // fetchJobDetails(){
   //   this.job.getJob(this.jobId).subscribe(data => {
@@ -44,10 +54,6 @@ export class JobDetailsComponent implements OnInit {
   //       this.applicationDetails = data.result;
   //     }
   //   })
-  // }
-
-  // getAuthuser(){
-
   // }
 
   // applyForJob(){

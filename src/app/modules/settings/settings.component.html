@@ -1,4 +1,4 @@
-<!-- <ngx-componentsheader pageName='Settings' *ngIf="selectedCase == ''"></ngx-componentsheader>
+<ngx-componentsheader pageName='Settings' *ngIf="selectedCase == ''"></ngx-componentsheader>
 <ngx-componentsheader *ngIf="selectedCase =='Hiring_Stages'" pageName='Settings' [requiredButton]="[{name:'newStage', label:'Add New Stage', icon: 'plus'}]" (buttonClick)="addStage()"></ngx-componentsheader>
 <ngx-componentsheader *ngIf="selectedCase =='EmailSms_Templates'" pageName='Settings' [requiredButton]="[{name:'newTemplate', label:'Add New Template', icon: 'plus'}]" (buttonClick)=" toggleNewTemplate()"></ngx-componentsheader>
 <ngx-componentsheader *ngIf="selectedCase =='Evaluation'" pageName='Settings' [requiredButton]="[{name:'newScorescard', label:'Add Scorecard', icon: 'plus'}]" (buttonClick)="toggleScorecard()"></ngx-componentsheader>
@@ -135,7 +135,7 @@
 
 </div>
 
-
+<!---
 <ngx-side-modal [(show)]="newStage">
   <div modal-header>Add New Stage</div>
   <div modal-body>

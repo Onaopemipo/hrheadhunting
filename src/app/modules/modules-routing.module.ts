@@ -1,3 +1,4 @@
+import { TrainingComponent } from './training/training.component';
 import { ApplicantquizComponent } from './applicantquiz/applicantquiz.component';
 import { SettingsComponent } from './settings/settings.component';
 import { ApplicantselectionComponent } from './applicantselection/applicantselection.component';
@@ -56,7 +57,7 @@ const routes: Routes = [{
 
     {
       path: 'training',
-      component: ApplicantquizComponent
+      component: TrainingComponent
     },
 
 
@@ -69,6 +70,11 @@ const routes: Routes = [{
     {
       path: 'quiz',
       component: QuizComponent
+    },
+
+      {
+      path: 'applicants',
+      component: ApplicantselectionComponent
     },
 
     {

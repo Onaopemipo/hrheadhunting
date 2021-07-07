@@ -1,5 +1,5 @@
 import { AlertserviceService } from 'app/_services/alertservice.service';
-import { CommunicationServiceProxy, MailTemplateDTO, CommonServiceProxy } from 'app/_services/service-proxies';
+import { CommunicationServiceProxy, MailTemplateDTO, CommonServiceProxy, EmailSetting } from 'app/_services/service-proxies';
 // import { AlertserviceService } from './../../../../_services/alertservice.service';
 // import { RecruitmentSettingServiceProxy, ManageHireStageDTO, HireStageDTO, ManageRecruitmentScoreCardDTO, ScoreCardQuestion, SubHireStageDTO, QuestionDTO, QuestionOptionDTO, RecruitmentScoreCard, ScoringType, ManageSubHireStageDTO } from './../../../../_services/service-proxies';
 import { NbTabComponent } from '@nebular/theme';
@@ -43,6 +43,7 @@ export class SettingsComponent implements OnInit {
   allowmultipleselection: boolean = false;
   selectionHeader: string = "Select Employee";
   addbtnText: string = "Add Employee";
+
   // stagesModel: ManageHireStageDTO = new ManageHireStageDTO;
   // scoreCardModel: ManageRecruitmentScoreCardDTO = new ManageRecruitmentScoreCardDTO;
   // questionModel: ScoreCardQuestion = new ScoreCardQuestion();
@@ -52,7 +53,8 @@ export class SettingsComponent implements OnInit {
   // subHireStage: SubHireStageDTO = new SubHireStageDTO();
   // allSubHireStages: SubHireStageDTO [] = [];
   // allScorecards: RecruitmentScoreCard [] = [];
-  // allTemplates: MailTemplateDTO [] = [];
+  allTemplates: MailTemplateDTO [] = [];
+  singleTemplate: MailTemplateDTO = new MailTemplateDTO();
   // scoringTypes: ScoringType [] = [];
   scorecardCounter: number = 0
   templateCounter: number = 0;
@@ -61,12 +63,15 @@ export class SettingsComponent implements OnInit {
   btnProcessing: boolean = false;
   newSubStage: boolean = false;
   hirestageId: number = 0;
+  allEmails: EmailSetting [] = [];
+  singleEmail: EmailSetting = new EmailSetting();
+  emailCounter: number = 0;
   // substageModel: ManageSubHireStageDTO = new ManageSubHireStageDTO();
 
 
 
   constructor(private alertMe: AlertserviceService,
-    private template: CommunicationServiceProxy, private commonService: CommonServiceProxy) { }
+    private settings: CommunicationServiceProxy, private commonService: CommonServiceProxy) { }
 
   ngOnInit(): void {
     // this.getHireStages();
@@ -222,13 +227,36 @@ export class SettingsComponent implements OnInit {
 
   // }
 
-  // async getAllTemplates(){
-  //   const data = await this.template.getAllEmailTemplates().toPromise();
-  //   if(!data.hasError){
-  //     this.allTemplates = data.result;
-  //     this.templateCounter = data.totalRecord;
-  //   }
-  // }
+  async getAllTemplates(){
+    const data = await this.settings.getAllEmailTemplates().toPromise();
+    if(!data.hasError){
+      this.allTemplates = data.result;
+      this.templateCounter = data.totalRecord;
+    }
+  }
+
+  async getSingleTemplates(){
+    const data = await this.settings.getEmailTemplateById(0).toPromise();
+    if(!data.hasError){
+      this.singleTemplate = data.result;
+      this.templateCounter = data.totalRecord;
+    }
+  }
+
+  async getEmailSettings(){
+    const data = await this.settings.getAllEmailSettings().toPromise();
+    if(!data.hasError){
+      this.allEmails = data.result;
+      this.emailCounter = data.totalRecord;
+    }
+  }
+
+  async getSingleEmailSettings(){
+    const data = await this.settings.getEmailSettingById(0).toPromise();
+    if(!data.hasError){
+      this.singleEmail = data.result;
+    }
+  }
 
   // async getHireStages(){
   //   const data = await this.settings.getAllHireStages().toPromise();
@@ -238,13 +266,13 @@ export class SettingsComponent implements OnInit {
   //   }
   // }
 
-//   async getSingleHireStage(){
-//     const data = await this.settings.getHireStage(1).toPromise();
-//     if(!data.hasError){
-//       this.hireStage = data.result;
-//       this.allSubHireStages = data.result.subStages;
-//     }
-//   }
+  // async getSingleHireStage(){
+  //   const data = await this.settings.getHireStage(1).toPromise();
+  //   if(!data.hasError){
+  //     this.hireStage = data.result;
+  //     this.allSubHireStages = data.result.subStages;
+  //   }
+  // }
 
 //   async getSingleSubHireStage(){
 //     const data = await this.settings.getSubHireStage(1).toPromise();

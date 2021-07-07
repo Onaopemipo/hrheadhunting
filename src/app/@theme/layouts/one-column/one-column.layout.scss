@@ -7,3 +7,16 @@
     padding-top: nb-theme(layout-padding-top);
   }
 }
+
+.logo-container {
+  display: flex;
+  align-items: left;
+  background-color: #1F2566;
+  width: calc(#{nb-theme(sidebar-width)} - #{nb-theme(header-padding)});
+}
+
+.logo {
+  height: 6.5rem !important;
+  margin-top: -50px;
+}
+

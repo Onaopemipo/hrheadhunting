@@ -7,9 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./applicantquiz.component.scss']
 })
 export class ApplicantquizComponent implements OnInit {
-  // nextQuestion: boolean = false;
+  nextQuestion: boolean = false;
   // allQuizes: QuizDTO = new QuizDTO();
-  // questionData: QuestionDTO [] = []
+  questionData: [] = []
 
   constructor(private navCtrl: Location, ) { }
 
@@ -17,9 +17,9 @@ export class ApplicantquizComponent implements OnInit {
     // this.fetchQuiz();
   }
 
-  // gotoNextQuestion() {
-  //   this.nextQuestion = !this.nextQuestion;
-  // }
+  gotoNextQuestion() {
+    this.nextQuestion = !this.nextQuestion;
+  }
 
   goback() {
     this.navCtrl.back();

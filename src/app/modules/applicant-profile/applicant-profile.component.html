@@ -3,7 +3,7 @@
     <ngx-componentsheader [pageName]="pageTitle"></ngx-componentsheader>
 
     <!-- Main Card -->
-    <nb-card>
+    <!-- <nb-card>
       <nb-card-header>
         <div style="display: flex;flex-direction: row;justify-self: center;">
           <div style="flex: auto;"><span style="text-transform: uppercase;">Personal Information</span></div>
@@ -68,12 +68,12 @@
           </div>
         </div>
       </div>
-    </nb-card>
+    </nb-card> -->
 
 
     <!-- Work Experience -->
 
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-md-8 col-xxl-8">
         <nb-card>
           <nb-card-body>
@@ -240,7 +240,7 @@
 
 
       <!-- Evaluation Score Panel -->
-      <div class="col-md-4 col-xxl-4">
+      <!-- <div class="col-md-4 col-xxl-4">
         <div class="row">
           <div class="col-md-12 col-xxl-12">
             <nb-card>
@@ -259,12 +259,10 @@
                 <div>
                   <div
                     style="display: flex; flex-direction: column; justify-content: center; padding: 20px; background: rgba(72, 71, 224, 0.04);">
-                    <!-- <div style="align-self: center; align-items: center; justify-content: center; padding: 20px;"> -->
                     <span
                       style="font-size: 72px; padding-top: 30px; font-weight: 700; align-self: center;">64%</span><br>
                     <span
                       style="text-align: center; padding-bottom: 20px; align-self: center; font-size: 18px; color:#27AE60">Excellent</span>
-                    <!-- </div> -->
                   </div>
                 </div>
               </nb-card-body>
@@ -273,7 +271,7 @@
         </div>
 
 
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-md-12 col-xxl-12">
             <nb-card>
               <nb-card-body>
@@ -332,8 +330,8 @@
               </nb-card-body>
             </nb-card>
           </div>
-        </div>
-
+        </div> -->
+<!--
         <div class="row">
           <div class="col-md-12 col-xxl-12">
             <nb-card>
@@ -394,21 +392,21 @@
             </nb-card>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <!-- Education Panel -->
-      <div class="col-md-8 col-xxl-8">
+      <!-- <div class="col-md-8 col-xxl-8">
 
-      </div>
+      </div> -->
 
       <!-- Document Panel -->
-      <div class="col-md-8 col-xxl-8">
+      <!-- <div class="col-md-8 col-xxl-8">
 
-      </div>
+      </div> -->
 
       <!-- References Panel -->
 
-      <div class="col-md-8 col-xxl-8">
+      <!-- <div class="col-md-8 col-xxl-8">
         <nb-card>
           <nb-card-body>
             <div>
@@ -443,13 +441,13 @@
 
           </nb-card-body>
         </nb-card>
-      </div>
+      </div> -->
 
     </div>
 
   </div>
 
-  <ngx-side-modal [(show)]="newWork" style="margin-top: -75px;">
+  <!-- <ngx-side-modal [(show)]="newWork" style="margin-top: -75px;">
     <div modal-header>Add Work Experience</div>
     <div modal-body>
       <form>
@@ -506,9 +504,9 @@
         </form>
           </div>
 
-  </ngx-side-modal>
+  </ngx-side-modal> -->
 
-
+<!--
   <ngx-side-modal [(show)]="updateProfile" style="margin-top: -75px;">
     <div modal-header>Personal Information</div>
     <div modal-body>
@@ -601,10 +599,10 @@
         </form>
           </div>
 
-  </ngx-side-modal>
+  </ngx-side-modal> -->
 
 
-  <ngx-side-modal [(show)]="addReferences" style="margin-top: -75px;">
+  <!-- <ngx-side-modal [(show)]="addReferences" style="margin-top: -75px;">
     <div modal-header>Add References</div>
     <div modal-body>
       <form>
@@ -668,9 +666,9 @@
         </form>
           </div>
 
-  </ngx-side-modal>
+  </ngx-side-modal> -->
 
-  <ngx-side-modal [(show)]="addSkiils" style="margin-top: -75px;">
+  <!-- <ngx-side-modal [(show)]="addSkiils" style="margin-top: -75px;">
     <div modal-header>Add Skills</div>
     <div modal-body>
       <form>
@@ -690,9 +688,9 @@
           </div>
         </form>
           </div>
-  </ngx-side-modal>
+  </ngx-side-modal> -->
 
-  <ngx-side-modal [(show)]="share" style="margin-top: -75px;">
+  <!-- <ngx-side-modal [(show)]="share" style="margin-top: -75px;">
     <div modal-header>Schedule for Interview</div>
     <div modal-body>
       <form>
@@ -706,7 +704,6 @@
         <div class="form-group row mydiv">
           <div class="col">
             <label>Interview Time</label>
-            <!-- <input type="time" class="form-control" [(ngModel)]="interviewModel.interviewTime" name="interviewTime" #interviewTime="ngModel" min="09:00" max="18:00" required> -->
             <input type="datetime" class="form-control" [(ngModel)]="interviewModel.interviewTime" name="interviewTime" #interviewTime="ngModel">
           </div>
         </div>
@@ -745,8 +742,8 @@
           </div>
         </form>
           </div>
-  </ngx-side-modal>
-
+  </ngx-side-modal> -->
+<!--
   <ngx-side-modal [(show)]="addEducation" style="margin-top: -75px;">
     <div modal-header>Add Education</div>
     <div modal-body>
@@ -834,8 +831,8 @@
         </form>
           </div>
 
-  </ngx-side-modal>
-
+  </ngx-side-modal> -->
+<!--
   <ngx-side-modal [(show)]="jobPreference" style="margin-top: -75px;">
     <div modal-header>Add Job Preference</div>
     <div modal-body>
@@ -890,9 +887,9 @@
           </div>
         </div>
 
-      <!-- <button nbButton status='primary' outline style="background: transparent;" (click)="addNewJobPref()">Add New Preference</button> -->
+      <button nbButton status='primary' outline style="background: transparent;" (click)="addNewJobPref()">Add New Preference</button> -->
 
-          <div class="form-group row">
+          <!-- <div class="form-group row">
             <div class="col">
               <button *ngIf="!btnprocessing" nbButton status="primary" (click)="addPreference()">Save</button>
               <button *ngIf="btnprocessing" type="button" nbButton status="primary">Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button>
@@ -901,6 +898,6 @@
             </div>
           </div>
         </form>
-          </div>
+          </div> -->
 
-  </ngx-side-modal>
+  <!-- </ngx-side-modal> --> -->

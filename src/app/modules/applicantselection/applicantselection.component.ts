@@ -16,7 +16,7 @@ export class ApplicantselectionComponent implements OnInit {
 
   showModal = false
   showCvModal;
-  // allJobRoles: JobApplication [] = [];
+  allJobRoles: [] = [];
 
   myApplicantTable: TableColumn [] = [
     {name: 'name', title: 'Name', type: ColumnTypes.Text},
@@ -37,7 +37,7 @@ export class ApplicantselectionComponent implements OnInit {
   }
 
   // applicantProfile: JobApplication [] = [];
-  // allApplications: JobApplication [] = [];
+  allApplications:  [] = [];
   applicationCounter: number = 0;
   constructor() { }
 
@@ -50,18 +50,18 @@ export class ApplicantselectionComponent implements OnInit {
     // this.fetchAllApplications();
   }
 
-  // tableActionClick(actionData: TableActionEvent){
-  //   if(actionData.name === ACTIONS.VIEW_PROFILE){
-  //     this.showModal = true
-  //     this.jobService.viewJobApplicationProfileById(0).subscribe(data => {
-  //       if(!data.hasError){
-  //       }
-  //     })
-  //   }
-  //   if(actionData.name === ACTIONS.VIEW_CV){
-  //   this.showCvModal = true
-  //   }
-  // }
+  tableActionClick(actionData: TableActionEvent){
+    // if(actionData.name === ACTIONS.VIEW_PROFILE){
+    //   this.showModal = true
+    //   this.jobService.viewJobApplicationProfileById(0).subscribe(data => {
+    //     if(!data.hasError){
+    //     }
+    //   })
+    // }
+    // if(actionData.name === ACTIONS.VIEW_CV){
+    // this.showCvModal = true
+    // }
+  }
 
   // async fetchJobRoles(){
   //   const data = await this.jobService.fetchJobApplicationByRole(this.filter.jobRole, this.filter.pageNumber, this.filter.pageSize).toPromise();
