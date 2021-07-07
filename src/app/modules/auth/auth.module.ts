@@ -17,11 +17,12 @@ import {
 } from '@nebular/theme';
 import { FormsModule as ngFormsModule } from '@angular/forms';
 import { SignupComponent } from './signup/signup.component';
+import { ResetComponent } from './reset/reset.component';
 
 
 
 @NgModule({
-  declarations: [AuthComponent, LoginComponent, SignupComponent],
+  declarations: [AuthComponent, LoginComponent, SignupComponent, ResetComponent],
   imports: [
     ThemeModule,
     CommonModule,
