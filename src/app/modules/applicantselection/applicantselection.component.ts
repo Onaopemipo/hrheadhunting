@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApplicationsServiceProxy, JobApplicationDTO } from 'app/_services/service-proxies';
 
 enum ACTIONS {
-  VIEW_PROFILE='1', VIEW_CV='2'
+  VIEW_PROFILE='1', VIEW_CV='2', PROCESS = '3'
 }
 @Component({
   selector: 'ngx-applicantselection',
@@ -15,9 +15,13 @@ enum ACTIONS {
 })
 export class ApplicantselectionComponent implements OnInit {
 
-  showModal = false
+  showModal:boolean = false
   showCvModal;
   allJobRoles: [] = [];
+  loading:boolean = false;
+
+  myPlanHeader:string = "Nothing here";
+  myPlanDesc: string = "You don't have any application yet"
 
   myApplicantTable: TableColumn [] = [
     {name: 'name', title: 'Name', type: ColumnTypes.Text},
@@ -25,14 +29,15 @@ export class ApplicantselectionComponent implements OnInit {
     {name: 'role', title: 'Role'},
     {name: 'dateApplied', title: 'Date Applied', type: ColumnTypes.Date},
     {name: ACTIONS.VIEW_PROFILE, title: '', type: ColumnTypes.Link, link_name: 'View Profile'},
-    {name: ACTIONS.VIEW_CV, title: '', type: ColumnTypes.Link, link_name: 'View CV'}
+    {name: ACTIONS.VIEW_CV, title: '', type: ColumnTypes.Link, link_name: 'View CV'},
+    {name: ACTIONS.PROCESS, title: '', type: ColumnTypes.Link, link_name: 'Process'}
   ];
   data = [
     {id:0, name: 'Name', email: 'Email', role:'Job Title',dateApplied : '02/03/2021'}
   ]
 
   applicationFilter = {
-    id:0,
+    id: undefined,
     recruitmentStageId:0,
     searchText:'',
     dateFrom: null,
@@ -68,25 +73,12 @@ export class ApplicantselectionComponent implements OnInit {
     // }
   }
 
-  // async fetchJobRoles(){
-  //   const data = await this.jobService.fetchJobApplicationByRole(this.filter.jobRole, this.filter.pageNumber, this.filter.pageSize).toPromise();
-  //   if(!data.hasError){
+ fetchAllApplications(){
+    this.jobService.fetchAllApplications(this.applicationFilter.id, this.applicationFilter.recruitmentStageId, this.applicationFilter.searchText,this.applicationFilter.dateFrom,this.applicationFilter.dateTo, this.applicationFilter.pageSize, this.applicationFilter.pageNumber).subscribe(data => {
+      if(!data.hasError){
+        this.allApplications = data.value;
+      }
+    });
 
-  //   }
-  // }
-
-  // async fetchApplicants(){
-  //   const data = await this.jobService.fetchJobInterviewerListByApplicationId(0).toPromise();
-  //   if(!data.hasError){
-  //   }
-
-
-  // }
-
-  async fetchAllApplications(){
-    const data = await this.jobService.fetchAllApplications(this.applicationFilter.id, this.applicationFilter.recruitmentStageId, this.applicationFilter.searchText,this.applicationFilter.dateFrom,this.applicationFilter.dateTo, this.applicationFilter.pageSize, this.applicationFilter.pageNumber).toPromise();
-    if(!data.hasError){
-      this.allApplications = data.value;
-    }
   }
 }

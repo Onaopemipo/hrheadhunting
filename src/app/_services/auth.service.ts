@@ -9,6 +9,7 @@ import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
+import "firebase/auth";
 
 @Injectable()
 export class AuthService {
@@ -70,11 +71,43 @@ export class AuthService {
       this.afAuth.auth
       .signInWithPopup(provider)
       .then(res => {
-        resolve(res);
+        resolve(res.user);
       })
     })
   }
 
+
+doTwitterLogin(){
+  return new Promise<any>((resolve, reject) => {
+    let provider = new firebase.auth.TwitterAuthProvider();
+    firebase
+    .auth()
+    .signInWithPopup(provider)
+    .then((result) => {
+      /** @type {firebase.auth.OAuthCredential} */
+      var credential = result.credential;
+      resolve(result.user);
+      // This gives you a the Twitter OAuth 1.0 Access Token and Secret.
+      // You can use these server side with your app's credentials to access the Twitter API.
+      // var token = credential.accessToken;
+      // var secret = credential.secret;
+
+      // The signed-in user info.
+      var user = result.user;
+      // ...
+    }).catch((error) => {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // The email of the user's account used.
+      var email = error.email;
+      // The firebase.auth.AuthCredential type that was used.
+      var credential = error.credential;
+      // ...
+    });
+  })
+
+}
 
   doFacebookLogin(){
     return new Promise<any>((resolve, reject) => {
@@ -82,7 +115,7 @@ export class AuthService {
       this.afAuth.auth
       .signInWithPopup(provider)
       .then(res => {
-        resolve(res);
+        resolve(res.user);
       }, err => {
         console.log(err);
         reject(err);

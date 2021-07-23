@@ -1,3 +1,4 @@
+import { SkillAreasServiceProxy, StatesServiceProxy, SectorsServiceProxy } from '../../_services/service-proxies';
 import { ComponentsModule } from 'app/components/components.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -12,7 +13,7 @@ import { ScorecvComponent } from './scorecv/scorecv.component';
 import { PricingComponent } from './pricing/pricing.component';
 import { NbTableModule, NbCardModule, NbTabsetModule, NbCheckboxModule } from '@nebular/theme';
 import { TrainingComponent } from './training/training.component';
-import { CommunicationServiceProxy, JobServiceProxy } from 'app/_services/service-proxies';
+import { CommonServiceProxy, CommunicationServiceProxy, EmployerServiceProxy, JobServiceProxy, ReportServiceProxy, SubscriptionsServiceProxy } from 'app/_services/service-proxies';
 
 
 @NgModule({
@@ -32,7 +33,14 @@ import { CommunicationServiceProxy, JobServiceProxy } from 'app/_services/servic
     // NbMenuService,
     // NbMenuInternalService,
     CommunicationServiceProxy,
-    JobServiceProxy
+    JobServiceProxy,
+    ReportServiceProxy,
+    EmployerServiceProxy,
+    CommonServiceProxy,
+    SkillAreasServiceProxy,
+    StatesServiceProxy,
+    SectorsServiceProxy,
+    SubscriptionsServiceProxy
   ]
 })
 export class ApplicantsModule { }

@@ -1,3 +1,4 @@
+import { SubscriptionsServiceProxy } from '../../../_services/service-proxies';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -9,7 +10,7 @@ export class PricingComponent implements OnInit {
   recruiterStatus: boolean = true;
   CvStatus: boolean = false;
 
-  constructor() { }
+  constructor(private sub: SubscriptionsServiceProxy) { }
 
   ngOnInit(): void {
   }
@@ -24,6 +25,10 @@ export class PricingComponent implements OnInit {
     this.CvStatus = true;
     this.recruiterStatus = false;
 
+  }
+
+  async fetchSubscription(){
+    // const data = this.sub.
   }
 
 }

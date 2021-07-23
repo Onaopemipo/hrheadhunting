@@ -67,13 +67,25 @@ label{
 
 .signup-option {
   background-color: #ffffff;
-  height: auto;
-  width: 25%;
+  // height: auto;
+  // width: 25%;
   text-align: center;
   padding: 20px;
   margin: 1%;
   border: 1px solid #788290;
   border-radius: 5px;
+}
+
+.seeker, .employer, .consultant {
+  border: 2.5px solid #6495ED;
+}
+
+.divBtn {
+  background-color: #ffffff;
+  height: 100%;
+  width:100%;
+  text-align: center;
+  border: none;
 }
 
 div > .signup-option:active :hover {
@@ -88,6 +100,14 @@ div > .signup-option:active :hover {
   transform: translate(-50%, -50%);
   position: absolute;
   padding: 25px;
+}
+
+.jobSeeker, .employer, .consultant{
+  margin-left: 3px;
+  // color: #70706F;
+  color: #ffffff !important;
+  background-color: #6495ED !important;
+  border: none;
 }
 
 .inactive {

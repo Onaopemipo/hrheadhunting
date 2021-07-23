@@ -1,0 +1,107 @@
+<ngx-componentsheader pageName='Artisans' [requiredButton]="[{name:'newArtisan', label:'Add New Artsian', icon: 'plus'}]" (buttonClick)="toggleArtisan()"></ngx-componentsheader>
+<div *ngIf="artisanCounter < 1" style="background-color: #ffffff;">
+  <nb-card>
+    <nb-card-body>
+        <ngx-default-content pageHeader={{myPlanHeader}} pageDescription="{{myPlanDesc}}" [loading]="loading" buttonValue={{myButton}} (buttonClick)="toggleArtisan()"></ngx-default-content>
+    </nb-card-body>
+  </nb-card>
+</div>
+
+<div *ngIf="artisanCounter > 0">
+  <nb-card>
+    <ngx-tablecomponent
+    [tableColum]="myApplicantTable"
+    [userData]='allApplications'
+    (actionClick)='tableActionClick($event)'
+    (filterChange)="filterUpdated($event)"
+    [showActions]="false"
+    [showFilter]="true">
+  </ngx-tablecomponent>
+  </nb-card>
+</div>
+
+<ngx-side-modal [(show)]="artisanModal" style="width: 600px;" position='Center'>
+  <div modal-header>Add Artisan</div>
+
+  <div modal-body>
+    <nb-card>
+      <nb-card-body>
+        <form>
+          <div class="form-group row mydiv">
+            <label for="Title" >Name</label>
+              <input type="text" class="form-control" name="fullName" #fullName="ngModel" [(ngModel)]="artisanModel.name" placeholder="Full Name">
+              <div *ngIf="fullName.invalid && (fullName.dirty || fullName.touched)" class="error">
+                <div *ngIf="fullName.errors.required">Name is required</div>
+              </div>
+          </div>
+
+          <div class="form-group row ">
+            <label for="Department" >Email</label>
+              <input type="email" class="custom-select" name="email" #email="ngModel" [(ngModel)]="artisanModel.email" required>
+              <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error">
+                <div *ngIf="email.errors.required">Email is required</div>
+              </div>
+          </div>
+
+          <div class="form-group row mydiv">
+            <label for="Country" >State</label>
+              <select class="custom-select" name="state" #state="ngModel" [(ngModel)]="artisanModel.locationId" class="custom-select" required>
+                <option value="">--Select State--</option>
+                <option *ngFor="let mystate of stateData" [value]="mystate.id">{{mystate.text}}</option>
+              </select>
+              <div *ngIf="state.invalid && (state.dirty || state.touched)" class="error">
+                <div *ngIf="state.errors.required">State is required</div>
+              </div>
+          </div>
+
+          <div class="form-group row mydiv">
+            <label>Phone Number</label>
+            <input type="tel" class="form-control" name="phone" #phone="ngModel" [(ngModel)]="artisanModel.mobile" required>
+              <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="error">
+                <div *ngIf="phone.errors.required">Phone is required</div>
+              </div>
+          </div>
+
+          <div class="form-group row mydiv">
+            <label for="Specialty">Specialty</label>
+              <input type="text"  class="form-control" name="specialty" #specialty="ngModel" [(ngModel)]="artisanModel.specialty" placeholder="Enter Speialty" required>
+              <div *ngIf="specialty.invalid && (specialty.dirty || specialty.touched)" class="error">
+                <div *ngIf="specialty.errors.required">Specialty is required</div>
+              </div>
+          </div>
+
+          <div class="form-group row mydiv">
+            <label for="Experience">Experience (in years)</label>
+             <input type="number" class="form-control" name="experience" #experience="ngModel" [(ngModel)]="artisanModel.yearOfExperience" required>
+             <div *ngIf="experience.invalid && (experience.dirty || experience.touched)" class="error">
+              <div *ngIf="experience.errors.required">Experience is required</div>
+            </div>
+          </div>
+
+          <div class="form-group row mydiv">
+            <label for="Descripion">Descripion</label>
+              <textarea name="description" #description="ngModel" [(ngModel)]="artisanModel.description" cols="30" rows="10" style="width: 100%;"></textarea>
+              <div *ngIf="description.invalid && (description.dirty || description.touched)" class="error">
+                <div *ngIf="description.errors.required">Descripion is required</div>
+              </div>
+          </div>
+
+          <div class="form-group row mydiv">
+            <label for="Descripion">Artisan Photo</label>
+            <input type="file" class="form-control-file" name="photo" id="" (change)="handleFileSelect($event)">
+             <!-- <ngx-file-upload class="form-control" style="border: none;"></ngx-file-upload>    -->
+          </div>
+
+
+          <div class="form-group row">
+            <label for="specialization" style="font-weight: bold;"></label>
+              <button *ngIf="!btnProcessing" nbButton status="primary" (click)="addArtisan()">Save</button>
+              <button *ngIf="btnProcessing" nbButton status="primary">Now Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button>
+              <span style="padding: 8px;"></span>
+          </div>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+
+</ngx-side-modal>

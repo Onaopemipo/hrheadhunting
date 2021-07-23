@@ -1,8 +1,9 @@
+import { AlertserviceService } from 'app/_services/alertservice.service';
 import { ApplicantquizComponent } from './applicantquiz/applicantquiz.component';
-import { ApplicationsServiceProxy, DashboardServiceProxy } from './../_services/service-proxies';
+import { ApplicationsServiceProxy, DashboardServiceProxy, ArtisanServiceProxy } from '../_services/service-proxies';
 import { ApplicantselectionComponent } from './applicantselection/applicantselection.component';
 import { SettingsComponent } from './settings/settings.component';
-import { ApiServiceProxy, AccountServiceProxy, InstitutionServiceProxy, CourseServiceProxy, SectorsServiceProxy, SkillAreasServiceProxy, StatesServiceProxy, EmployerTypesServiceProxy, CountriesServiceProxy, GradesServiceProxy, QualificationServiceProxy, JobTypesServiceProxy, CurrenciesServiceProxy } from '../_services/service-proxies';
+import { AccountServiceProxy, InstitutionServiceProxy, CourseServiceProxy, SectorsServiceProxy, SkillAreasServiceProxy, StatesServiceProxy, EmployerTypesServiceProxy, CountriesServiceProxy, GradesServiceProxy, QualificationServiceProxy, JobTypesServiceProxy, CurrenciesServiceProxy } from '../_services/service-proxies';
 import { NewjobComponent } from './newjob/newjob.component';
 import { NewquizComponent } from './newquiz/newquiz.component';
 import { ReportsComponent } from './reports/reports.component';
@@ -26,12 +27,14 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { JobServiceProxy, CommonServiceProxy, CommunicationServiceProxy } from 'app/_services/service-proxies';
 import { ApplicantProfileComponent } from './applicant-profile/applicant-profile.component';
 import { TrainingComponent } from './training/training.component';
+import { ArtisansComponent } from './artisans/artisans.component';
+import { ConsultantsComponent } from './consultants/consultants.component';
 
 
 
 
 @NgModule({
-  declarations: [ModulesComponent, JobsComponent, ApplicantProfileComponent, ApplicantquizComponent, DashboardComponent, QuizComponent, ReportsComponent, ApplicantsComponent, NewquizComponent, NewjobComponent, SettingsComponent, ApplicantselectionComponent, TrainingComponent],
+  declarations: [ModulesComponent, JobsComponent, ApplicantProfileComponent, ApplicantquizComponent, DashboardComponent, QuizComponent, ReportsComponent, ApplicantsComponent, NewquizComponent, NewjobComponent, SettingsComponent, ApplicantselectionComponent, TrainingComponent, ArtisansComponent, ConsultantsComponent],
   imports: [
     CommonModule,
     ComponentsModule,
@@ -47,7 +50,6 @@ import { TrainingComponent } from './training/training.component';
   ],
 
   providers: [
-    ApiServiceProxy,
     AccountServiceProxy,
     InstitutionServiceProxy,
     CourseServiceProxy,
@@ -64,7 +66,9 @@ import { TrainingComponent } from './training/training.component';
     CommonServiceProxy,
     DashboardServiceProxy,
     CommunicationServiceProxy,
-    ApplicationsServiceProxy
+    ApplicationsServiceProxy,
+    ArtisanServiceProxy,
+    AlertserviceService
   ]
 })
 export class ModulesModule { }

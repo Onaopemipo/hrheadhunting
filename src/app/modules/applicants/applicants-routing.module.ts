@@ -10,6 +10,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SignupComponent } from '../auth/signup/signup.component';
 import { JobboardsComponent } from './jobboards/jobboards.component';
+import { AuthGuardService as AuthGuard } from '../../_services/auth-guard.service';
 
 const routes: Routes = [
   {
@@ -17,12 +18,12 @@ const routes: Routes = [
     component: ApplicantsComponent,
     children: [
       {
-        path: 'dashboard',
+        path: '',
         component: DashboardComponent
       },
 
       {
-        path: 'applicants/boards',
+        path: 'applicants/boards/:id',
         component: JobboardsComponent
       },
 
@@ -33,7 +34,8 @@ const routes: Routes = [
 
       {
         path: 'applicants/scorecv',
-        component:ScorecvComponent
+        component:ScorecvComponent,
+        canLoad: [AuthGuard],
       },
 
       {

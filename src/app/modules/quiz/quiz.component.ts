@@ -11,6 +11,10 @@ import { AlertserviceService } from 'app/_services/alertservice.service';
 })
 export class QuizComponent implements OnInit {
 
+  myPlanHeader:string = "Nothing here";
+  myPlanDesc: string = "You don't have any consultant yet";
+  // emptyButton: string = 'Add Quiz';
+
   optionTypes = [
     {id: 0, label: 'Multiple Choice'},
     {id: 1, label: 'True/False'},
@@ -35,9 +39,9 @@ export class QuizComponent implements OnInit {
   allQuestions:  [] = [];
   questionModel;
   questionOptionModel;
-  myOptionType: number;
+  myOptionType: number = 0;
   loading: boolean = false;
-
+  quizCounter: number = 0;
   constructor( private alertMe: AlertserviceService, private router: Router) { }
 
   ngOnInit(): void {

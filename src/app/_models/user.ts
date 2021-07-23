@@ -21,7 +21,7 @@ export class UserClass {
 
 
 export interface User {
-  token?: string | undefined;
+  jwt_token?: string | undefined;
   userId?: string | undefined;
   userType?: any;
   isProfileComplete?: boolean | undefined;

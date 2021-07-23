@@ -64,7 +64,8 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { AuthService } from './_services/auth.service';
 import { AuthGuardService } from './_services/auth-guard.service';
 import { AuthenticationService } from './_services/authentication.service';
-import { JwtInterceptor } from './_services/jwt.interceptor';
+// import { JwtInterceptor } from './_services/jwt.interceptor';
+
 
 
 
@@ -75,6 +76,9 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import listPlugin from '@fullcalendar/list';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { JwtInterceptor } from './_services/jwt.interceptor';
+import { ReactiveFormsModule } from '@angular/forms';
+import { Angular4PaystackModule } from 'angular4-paystack';
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
   interactionPlugin,
@@ -91,7 +95,9 @@ FullCalendarModule.registerPlugins([
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
-    FullCalendarModule ,
+    FullCalendarModule,
+    ReactiveFormsModule,
+    Angular4PaystackModule,
     // NbSidebarModule.forRoot(),
     // NbMenuModule.forRoot(),
     // NbDatepickerModule.forRoot(),

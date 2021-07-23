@@ -1,4 +1,4 @@
-import { CurrenciesServiceProxy, Job, JobDTO } from './../../_services/service-proxies';
+import { CurrenciesServiceProxy, Job, JobDTO } from '../../_services/service-proxies';
 import { ColumnTypes, TableAction, TableActionEvent, TableColumn } from 'app/components/tablecomponent/models';
 import { Router } from '@angular/router';
 import { AlertserviceService } from 'app/_services/alertservice.service';
@@ -93,12 +93,12 @@ export class JobsComponent implements OnInit {
   ]
 
   postedJobsTable: TableColumn [] = [
-    {name: 'jobTitle', title: 'Job Title'},
-    {name: 'department', title: 'Department'},
-    {name: 'availability', title: 'Availability'},
-    {name: 'experience', title: 'Experience(Months)'},
-    {name: 'postValidityTo', title: 'Valid To', type: ColumnTypes.Date},
-    {name: 'isActive', title: 'Job Status', type: ColumnTypes.Status},
+    {name: 'position', title: 'Job Title'},
+    {name: 'datePosted', title: 'Start Date', type: ColumnTypes.Date},
+    {name: 'recruiter', title: 'Recruiter ID'},
+    {name: 'minExpRequired', title: 'Min. Experience(Years)'},
+    {name: 'endDate', title: 'Valid To', type: ColumnTypes.Date},
+    // {name: 'isActive', title: 'Job Status', type: ColumnTypes.Status},
   ];
 
   scheduledJobsTable: TableColumn [] = [
@@ -123,36 +123,36 @@ draftTableActions: TableAction [] = [
   {name: draftEnum.DELETE, label: 'Delete'},
 ]
 
-// tableActionClicked(event: TableActionEvent){
-//   if(event.name==TP.VIEW){
-//     this.showJob = true;
-//     this.job.getJob(event.data.id).subscribe(data => {
-//       if(!data.hasError){
-//         this.singleJob = data.result;
-//       }
-//     })
-//     }
+tableActionClicked(event: TableActionEvent){
+  if(event.name==TP.VIEW){
+    this.showJob = true;
+    this.job.getJobById(event.data.id).subscribe(data => {
+      if(!data.hasError){
+        this.singleJob = data.value;
+      }
+    })
+    }
 
-//     else if(event.name==TP.DELETE){
-//     this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.CONFIRM, '','Yes').subscribe(dataAction => {
-//       if(dataAction){
-//         this.job.deleteJob(event.data.id).subscribe(data => {
-//           if(!data.hasError){
-//             this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'Successfully Deleted', 'Dismiss').subscribe(res => {
-//               this.fetchAllJobs();
-//               this.router.navigateByUrl('/recruitmentadmin/jobs');
-//             })
-//           }
-//         })
-//       }
-//     }, (error) => {
+    // else if(event.name==TP.DELETE){
+    // this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.CONFIRM, '','Yes').subscribe(dataAction => {
+    //   if(dataAction){
+    //     this.job.(event.data.id).subscribe(data => {
+    //       if(!data.hasError){
+    //         this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'Successfully Deleted', 'Dismiss').subscribe(res => {
+    //           this.fetchAllJobs();
+    //           this.router.navigateByUrl('/recruitmentadmin/jobs');
+    //         })
+    //       }
+    //     })
+    //   }
+    // }, (error) => {
 
-//       if (error.status == 400) {
-//         this.alertMe.openCatchErrorModal(this.alertMe.ALERT_TYPES.FAILED, error.title, "OK", error.errors);
-//       }
-//     })
-//       }
-// }
+    //   if (error.status == 400) {
+    //     this.alertMe.openCatchErrorModal(this.alertMe.ALERT_TYPES.FAILED, error.title, "OK", error.errors);
+    //   }
+    // })
+    //   }
+}
 
 // draftTableActionClicked(event: TableActionEvent){
 //   if(event.name==draftEnum.EDIT){
@@ -203,6 +203,10 @@ draftTableActions: TableAction [] = [
     }
   }
 
+  titleFilter: {
+    searchText: ''
+  }
+
   jobFilter = {
     SkillAreaId:0,
     SectorId:0,
@@ -218,10 +222,12 @@ draftTableActions: TableAction [] = [
   selectedTab = TABS.postedJobs;
 
   selectedOption;
-  loading: boolean;
+  btnProcessing: boolean = false;
+  loading: boolean = false;
   showJob: boolean = false;
   jobtypeData: IDTextViewModel [] = [];
   currencyData: IDTextViewModel [] = [];
+  jobTitleData: IDTextViewModel [] = [];
   newJobModel: Job = new Job();
 
   constructor( private alertMe: AlertserviceService, private router: Router, private job: JobServiceProxy,
@@ -243,7 +249,16 @@ draftTableActions: TableAction [] = [
     // this.fetchJobRoles();
     // this.fetchJobAvailabilty();
     // this.fetchScoreCards();
-    // this.fetchCurrency();
+    this.fetchCurrency();
+    this.fetchJobType();
+    this.fetchSkillAreas();
+    this.fetchStates();
+    this.fetchJobType();
+    this.fetchRecruiters();
+    this.fetchCountries();
+    this.fetchQualifications();
+    this.fetchJobTitles();
+
   }
 
   selectTab(tab: TABS) {
@@ -254,8 +269,17 @@ draftTableActions: TableAction [] = [
     this.router.navigateByUrl('newjob');
   }
 
+  filterUpdated(filter: any) {
+    this.jobFilter = {...this.jobFilter, ...filter};
+    this.fetchAllJobs();
+  }
+
+  postNewDraft(){
+
+  }
+
   updateJob() {
-    this.loading = true;
+    this.btnProcessing = true;
     this.newJobModel.id = this.singleJob.id;
     this.newJobModel.recruiter = this.singleJob.recruiter;
     this.newJobModel.maxQualificationId = this.singleJob.maxQualificationId;
@@ -270,12 +294,12 @@ draftTableActions: TableAction [] = [
     this.newJobModel.stateId = this.singleJob.stateId;
     this.newJobModel.countryId = this.singleJob.countryId;
     this.job.postJob(this.newJobModel).subscribe(data => {
-    if(5){
-      this.loading = false;
+    if(!data.hasError){
+      this.btnProcessing = false;
       this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'Success', 'Dismiss').subscribe(res => {
         if(res){
-          // this.router.navigateByUrl('/recruitmentadmin/jobs');
-          // this.fetchAllJobs();
+          // this.router.navigateByUrl('jobs');
+          this.fetchAllJobs();
         }
       })
     }
@@ -323,6 +347,12 @@ draftTableActions: TableAction [] = [
       this.currencyData = data.value;
     }
 
+  async fetchJobTitles(){
+    const data = await this.common.fetchAllJobTitles(this.titleFilter.searchText).toPromise();
+    this.jobTitleData = data.value;
+  }
+
+
  // async fetchJobAvailabilty(){
   //   const data = await this.employment.getJobAvailabilities().toPromise();
   //   if(!data.hasError){
@@ -345,18 +375,20 @@ draftTableActions: TableAction [] = [
       }
   }
 
-  async fetchAllJobs(){
+  fetchAllJobs(){
     this.loading = true;
-   const data = await this.job.fetchAllJobs(this.jobFilter.SkillAreaId, this.jobFilter.SectorId,
+   this.job.fetchAllJobs(this.jobFilter.SkillAreaId, this.jobFilter.SectorId,
     this.jobFilter.CountryId, this.jobFilter.StateId, this.jobFilter.IsNewlyAdded,
-    this.jobFilter.IsPopular,this.jobFilter.PageSize, this.jobFilter.PageNumber).toPromise();
-   this.loading = false;
-    if(!data.hasError){
-      this.allJobs = data.value;
-      // this.allJobs = data.result.map(x => new JobWithStatus(x));
-      // this.jobsCounter = data.totalRecord;
-      console.log('My Jobs:',this.allJobs)
-   }
+    this.jobFilter.IsPopular,this.jobFilter.PageSize, this.jobFilter.PageNumber).subscribe(data => {
+      this.loading = false;
+      if(!data.hasError){
+        this.allJobs = data.value;
+        // this.allJobs = data.value.map(x => new JobWithStatus(x));
+        this.jobsCounter = data.totalCount;
+        console.log('My Jobs:',this.allJobs)
+     }
+    });
+
   }
 
   actionClicked(event: TableActionEvent){
@@ -411,7 +443,6 @@ async fetchStates(){
       this.newJobModel.reviewers = event[0].employeeNumber;
      }
   }
-
 
   }
 

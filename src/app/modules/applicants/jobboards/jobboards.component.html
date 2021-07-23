@@ -81,7 +81,6 @@
      </div>
    </div>
 
-
   </div> -->
   <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-light  bg-transparent" style="color: #fff;">
@@ -103,9 +102,9 @@
             <a class="nav-link" [routerLink]="['/applicants/blog']">Blog <span class="sr-only">(current)</span></a>
           </li>
 
-          <li class="nav-item active">
+          <!-- <li class="nav-item active">
             <a class="nav-link"[routerLink]="['/applicants/boards']">Job Boards <span class="sr-only">(current)</span></a>
-          </li>
+          </li> -->
           <li class="nav-item active">
             <a class="nav-link" [routerLink]="['/applicants/scorecv']">Score CV <span class="sr-only">(current)</span></a>
           </li>
@@ -342,10 +341,10 @@
                 <img src="assets/images/jobs.png" style="width:5rem;">
               </div>
               <div class="col-sm-8">
-                  <span style="font-weight: 600; padding-right:5px;">UI/UX Designer</span><br>
+                  <span style="font-weight: 600; padding-right:5px;">{{singleJob.position}}</span><br>
                   <div style="padding-top: 5px;"></div>
-                  <span>Amplifire Digital Agency</span><br>
-                  <span>Lekki, Lagos | Full-time</span><br>
+                  <span>{{singleJob.recruiter}}</span><br>
+                  <span>{{singleJob.stateName}} | {{singleJob.jobTypeName}}</span><br>
                   <span>Closes in 5 days</span><br>
               </div>
             </div>
@@ -353,7 +352,7 @@
           <div class="row">
             <div class="col-sm-6" style="padding-top: 10px;">
               <span style="font-weight: 700; padding-bottom: 20px;"> Salary Range </span><br><div style="padding:5px"></div>
-              <span> #100,000 to #250,000</span>
+              <span> &#8358;{{singleJob.minSalary}}  to &#8358;{{singleJob.maxSalary}} </span>
           </div>
           <div class="col-sm-6" style="display: flex; flex-direction: row; justify-content: space-between; padding: 20px;">
             <div style="padding:5px"></div>
@@ -368,10 +367,7 @@
           <div class="row" style="padding-top: 10px;">
            <div class="col">
             <span style="font-weight: 700; padding-bottom: 20px;">Job Description</span><br><div style="padding:5px"></div>
-            <span style="text-align: justify; line-height: 1.6;">We are in need of a UI/UX Designer to turn our software into
-              easy-to-use products for our clients. The would-be candidate must be
-               able to create both functional and appealing
-              features that address our clients’ needs and help us grow our customer base.</span>
+            <span style="text-align: justify; line-height: 1.6;">{{singleJob.details}}</span>
            </div>
           </div>
 
@@ -380,12 +376,12 @@
              <span style="font-weight: 700; padding-bottom: 20px;">Minimum Qualification</span><br>
              <div style="padding:5px"></div>
              <div>
-              <span><i class="fa fa-check-circle" aria-hidden="true" style="padding-right: 5px; line-height: 1.6;"></i>Proven work experience as a UI/UX Designer or similar role</span><br>
-              <span><i class="fa fa-check-circle" aria-hidden="true" style="padding-right: 5px; line-height: 1.6;"></i>Proven work experience as a UI/UX Designer or similar role</span><br>
+              <span><i class="fa fa-check-circle" aria-hidden="true" style="padding-right: 5px; line-height: 1.6;"></i>{{singleJob.requirements}}</span><br>
+              <!-- <span><i class="fa fa-check-circle" aria-hidden="true" style="padding-right: 5px; line-height: 1.6;"></i>Proven work experience as a UI/UX Designer or similar role</span><br>
               <span><i class="fa fa-check-circle" aria-hidden="true" style="padding-right: 5px; line-height: 1.6;"></i>Proven work experience as a UI/UX Designer or similar role</span><br>
               <span><i class="fa fa-check-circle" aria-hidden="true" style="padding-right: 5px; line-height: 1.6;"></i>Proven work experience as a UI/UX Designer or similar role</span><br>
                <span><i class="fa fa-check-circle" aria-hidden="true" style="padding-right: 5px; line-height: 1.6;"></i>Proven work experience as a UI/UX Designer or similar role</span><br>
-               <span><i class="fa fa-check-circle" aria-hidden="true" style="padding-right: 5px; line-height: 1.6;"></i>Proven work experience as a UI/UX Designer or similar role</span><br>
+               <span><i class="fa fa-check-circle" aria-hidden="true" style="padding-right: 5px; line-height: 1.6;"></i>Proven work experience as a UI/UX Designer or similar role</span><br> -->
              </div>
             </div>
            </div>
@@ -400,7 +396,8 @@
 
            <div class="row" style="padding-top: 10px;">
             <div class="col">
-              <button type="button" class="btn btn-primary" nbButton status="primary">Apply Now</button>
+              <button *ngIf="!btnProcessing" type="button" class="btn btn-primary" (click)="jobApplication()" nbButton status="primary">Apply Now</button>
+              <button *ngIf="btnProcessing" nbButton status="primary">Now Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button>
             </div>
            </div>
 

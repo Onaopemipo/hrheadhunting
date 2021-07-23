@@ -74,9 +74,9 @@ export class SettingsComponent implements OnInit {
     private settings: CommunicationServiceProxy, private commonService: CommonServiceProxy) { }
 
   ngOnInit(): void {
-    // this.getHireStages();
+    this.getHireStages();
     // this.fetchAllScorecards();
-    // this.getAllTemplates();
+    this.getAllTemplates();
     // this.fetchScoringType();
   }
 
@@ -90,18 +90,18 @@ export class SettingsComponent implements OnInit {
     this.selectedCase = this.hiringChecklist[i].title;
   }
 
-  // createNewStage(){
-  //   this.createStage = !this.createStage;
-  //   this.createTemplate = !this.createTemplate;
-  // }
+  createNewStage(){
+    this.createStage = !this.createStage;
+    this.createTemplate = !this.createTemplate;
+  }
 
   // toggleScorecard(){
   //   this.scorecard = true;
   // }
 
-  // toggleNewTemplate(){
-  //   this.newTemplate = true;
-  // }
+  toggleNewTemplate(){
+    this.newTemplate = true;
+  }
 
   // addNewStage(){
   //   this.btnProcessing = true;
@@ -150,46 +150,6 @@ export class SettingsComponent implements OnInit {
   //   })
   //  }
 
-  // addScoreCard(){
-  //   this.btnProcessing = true;
-  //   this.settings.addUpdateScoreCard(this.scoreCardModel).subscribe(data => {
-  //     this.btnProcessing = false;
-  //     if(!data.hasError){
-  //       this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'Scorecard Added!','Dismiss').subscribe(res => {
-  //         if(res){
-  //           this.fetchAllScorecards();
-  //           this.scorecard = false;
-  //         }
-  //       })
-  //     }
-  //   })
-  // }
-
-  // async fetchAllScorecards(){
-  //   const data = await this.settings.getRecruitmentScoreCards().toPromise();
-  //   if(!data.hasError){
-  //     this.allScorecards = data.result;
-  //     this.scorecardCounter = data.totalRecord;
-  //   }
-  // }
-
-  // deleteScorecard(id){
-  //   alert(id)
-  //   this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.CONFIRM, 'Are you sure', 'Yes').subscribe(res =>{
-  //     if(res){
-  //       this.settings.deleteScoreCard(id).subscribe(data => {
-  //         if(!data.hasError){
-  //           this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'Deleted', 'Dismiss').subscribe(newres => {
-  //             if(newres){
-  //               this.fetchAllScorecards();
-  //             }
-  //           })
-  //         }
-  //       })
-  //     }
-  //   })
-  // }
-
   // async fetchScoringType(){
   //   const data = await this.commonService.getScoringType().toPromise();
   //   if(!data.hasError){
@@ -197,23 +157,16 @@ export class SettingsComponent implements OnInit {
   //   }
   // }
 
-  // createNewTemplate() {
-  //   this.createStage = !this.createStage;
-  //   this.createTemplate = !this.createTemplate;
-  // }
+  createNewTemplate() {
+    this.createStage = !this.createStage;
+    this.createTemplate = !this.createTemplate;
+  }
 
   // toggleCard(panelTitle) {
   //   this.cardClick = panelTitle;
   //   console.log(panelTitle);
   // }
 
-  // autoEmail(){
-
-  // }
-
-  // toggleScoreCard(event) {
-  //   this.scoreCardClick = !this.scoreCardClick;
-  // }
 
   // ggdg(tab: NbTabComponent) {
   //   console.log(tab);
@@ -231,7 +184,9 @@ export class SettingsComponent implements OnInit {
     const data = await this.settings.getAllEmailTemplates().toPromise();
     if(!data.hasError){
       this.allTemplates = data.result;
+      console.log(this.allTemplates)
       this.templateCounter = data.totalRecord;
+
     }
   }
 
@@ -265,13 +220,13 @@ export class SettingsComponent implements OnInit {
     }
   }
 
-  // async getSingleHireStage(){
-  //   const data = await this.settings.getHireStage(1).toPromise();
-  //   if(!data.hasError){
-  //     this.hireStage = data.result;
-  //     this.allSubHireStages = data.result.subStages;
-  //   }
-  // }
+//   async getSingleHireStage(){
+//     const data = await this.settings.getHireStage(1).toPromise();
+//     if(!data.hasError){
+//       this.hireStage = data.result;
+//       this.allSubHireStages = data.result.subStages;
+//     }
+//   }
 
 //   async getSingleSubHireStage(){
 //     const data = await this.settings.getSubHireStage(1).toPromise();

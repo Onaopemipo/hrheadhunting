@@ -41,7 +41,7 @@
         <span class="navbar-toggler-icon" style="color: #ffffff;"></span>
       </button>
 
-      <img src="assets/images/logo_2.png" alt="" [routerLink]="['/applicants/dashboard']" style="width: 150px; height: 150px; margin-right: 200px; cursor: pointer;">
+      <img src="assets/images/logo_2.png" alt="Home" [routerLink]="['/applicants/dashboard']" style="width: 150px; height: 150px; margin-right: 200px; cursor: pointer;">
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
@@ -55,9 +55,9 @@
             <a class="nav-link" [routerLink]="['/applicants/blog']">Blog <span class="sr-only">(current)</span></a>
           </li>
 
-          <li class="nav-item active">
+          <!-- <li class="nav-item active">
             <a class="nav-link"[routerLink]="['/applicants/boards']">Job Boards <span class="sr-only">(current)</span></a>
-          </li>
+          </li> -->
           <li class="nav-item active">
             <a class="nav-link" [routerLink]="['/applicants/scorecv']">Score CV <span class="sr-only">(current)</span></a>
           </li>
@@ -91,8 +91,8 @@
     <div class="row" style="display: flex; flex-direction: row; justify-content: stretch; align-items:stretch; align-self: center; padding-top: 3%;">
       <div class="form-group" style="width: 28%; margin-right: 2%;">
          <select class="custom-select" name="">
-           <option value="">Search by Locations</option>
-           <option value="">1</option>
+           <option value="">Search by Job Functions</option>
+           <option *ngFor="let skill of skillData" [value]="skill.id">{{skill.text}}</option>
          </select>
        </div>
 
@@ -100,20 +100,20 @@
        <div class="form-group" style="width: 28%;  margin-right: 2%">
          <select class="custom-select" name="">
            <option value="">Search by Locations</option>
-           <option value="">1</option>
+           <option *ngFor="let state of stateData" [value]="state.id">{{state.text}}</option>
          </select>
        </div>
 
        <div class="form-group" style="width: 28%;  margin-right: 1%">
          <select class="custom-select" name="">
-           <option value="">Search by Locations</option>
-           <option value="">1</option>
+           <option value="">Search by Industries</option>
+           <option *ngFor="let sec of sectorData" [value]="sec.id">{{sec.text}}</option>
          </select>
        </div>
 
 
        <div style="width: 7%;">
-        <button type="submit" class="btn btn-primary" size="small" fullWidth  nbButton status="primary" style="border:2px solid #fff;">Search</button>
+        <button type="submit" class="btn btn-primary" size="small" fullWidth (click)="filterUpdated($event)" nbButton status="primary" style="border:2px solid #fff;">Search</button>
        </div>
      </div>
    </div>
@@ -127,193 +127,41 @@
 <div class="container" style="margin-top: 2%; background-color: transparent;">
   <div class="row row-cols-2">
     <div class="col-sm-8">
-      <nb-card style="background-color: transparent;">
-        <nb-card-header style="font-weight:900;">
+      <nb-card *ngIf="jobsCounter < 1">
+        <nb-card-header  style="font-weight:900;">
+          No Jobs
+        </nb-card-header>
+        <nb-card-body>
+          <ngx-default-content pageHeader={{myPlanHeader}} pageDescription="{{myPlanDesc}}" [loading]="loading"></ngx-default-content>
+        </nb-card-body>
+      </nb-card>
+      <nb-card *ngIf="jobsCounter > 0" style="background-color: transparent;">
+        <nb-card-header *ngIf="jobsCounter > 0" style="font-weight:900;">
           Top Jobs
         </nb-card-header>
         <nb-card-body>
-
           <nb-tabset>
             <nb-tab tabTitle="All">
               <div class="row">
-                <div class="col-sm-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
+                <div *ngFor="let job of allJobs" class="col-sm-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
                   <div class="col-sm-4">
                     <img src="assets/images/jobs.png" style="width:5rem;">
                   </div>
                   <div class="col-sm-8">
-                      <span style="font-weight: 600; padding-right:25px;">UI/UX Designer</span><br>
+                      <span style="font-weight: 600; padding-right:25px;">{{job.position}}</span><br>
                       <div style="padding-top: 5px;"></div>
                       <span>Amplifire Digital Agency</span><br>
-                      <span>Lekki, Lagos | Full-time</span><br>
-                      <span>Closes in 5 days</span><br>
+                      <span>{{job.location}} | Full-time</span><br>
+                      <!-- ({{job.endDate.ge}} - {{job.datePosted}}/(1000 * 3600 * 24)) -->
+                      <span style="margin-right: 4px;">Closes in 5 days</span><a [routerLink]="['applicants/boards', job.id]">View Details</a><br>
                   </div>
                 </div>
 
-                <div class="col-sm-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
-                  <div class="col-sm-4">
-                    <img src="assets/images/jobs.png" style="width:5rem;">
-                  </div>
-                  <div class="col-sm-8">
-                      <span style="font-weight: 600; padding-right:25px;">UI/UX Designer</span><br>
-                      <div style="padding-top: 5px;"></div>
-                      <span>Amplifire Digital Agency</span><br>
-                      <span>Lekki, Lagos | Full-time</span><br>
-                      <span>Closes in 5 days</span><br>
-                  </div>
-                </div>
-              </div>
-
-              <hr>
-              <div style="padding: 10px;"></div>
-              <div class="row">
-                <div class="col-sm-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
-                  <div class="col-sm-4">
-                    <img src="assets/images/jobs.png" style="width:5rem;">
-                  </div>
-                  <div class="col-sm-8">
-                      <span style="font-weight: 600; padding-right:25px;">UI/UX Designer</span><br>
-                      <div style="padding-top: 5px;"></div>
-                      <span>Amplifire Digital Agency</span><br>
-                      <span>Lekki, Lagos | Full-time</span><br>
-                      <span>Closes in 5 days</span><br>
-                  </div>
-                </div>
-
-                <div class="col-sm-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
-                  <div class="col-sm-4">
-                    <img src="assets/images/jobs.png" style="width:5rem;">
-                  </div>
-                  <div class="col-sm-8">
-                      <span style="font-weight: 600; padding-right:25px;">UI/UX Designer</span><br>
-                      <div style="padding-top: 5px;"></div>
-                      <span>Amplifire Digital Agency</span><br>
-                      <span>Lekki, Lagos | Full-time</span><br>
-                      <span>Closes in 5 days</span><br>
-                  </div>
-                </div>
               </div>
 
               <hr>
               <div style="padding: 10px;"></div>
 
-              <div class="row">
-                <div class="col-sm-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
-                  <div class="col-sm-4">
-                    <img src="assets/images/jobs.png" style="width:5rem;">
-                  </div>
-                  <div class="col-sm-8">
-                      <span style="font-weight: 600; padding-right:25px;">UI/UX Designer</span><br>
-                      <div style="padding-top: 5px;"></div>
-                      <span>Amplifire Digital Agency</span><br>
-                      <span>Lekki, Lagos | Full-time</span><br>
-                      <span>Closes in 5 days</span><br>
-                  </div>
-                </div>
-
-                <div class="col-sm-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
-                  <div class="col-sm-4">
-                    <img src="assets/images/jobs.png" style="width:5rem;">
-                  </div>
-                  <div class="col-sm-8">
-                      <span style="font-weight: 600; padding-right:25px;">UI/UX Designer</span><br>
-                      <div style="padding-top: 5px;"></div>
-                      <span>Amplifire Digital Agency</span><br>
-                      <span>Lekki, Lagos | Full-time</span><br>
-                      <span>Closes in 5 days</span><br>
-                  </div>
-                </div>
-              </div>
-
-              <hr>
-              <div style="padding: 10px;"></div>
-
-              <div class="row">
-                <div class="col-sm-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
-                  <div class="col-sm-4">
-                    <img src="assets/images/jobs.png" style="width:5rem;">
-                  </div>
-                  <div class="col-sm-8">
-                      <span style="font-weight: 600; padding-right:25px;">UI/UX Designer</span><br>
-                      <div style="padding-top: 5px;"></div>
-                      <span>Amplifire Digital Agency</span><br>
-                      <span>Lekki, Lagos | Full-time</span><br>
-                      <span>Closes in 5 days</span><br>
-                  </div>
-                </div>
-
-                <div class="col-sm-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
-                  <div class="col-sm-4">
-                    <img src="assets/images/jobs.png" style="width:5rem;">
-                  </div>
-                  <div class="col-sm-8">
-                      <span style="font-weight: 600; padding-right:25px;">UI/UX Designer</span><br>
-                      <div style="padding-top: 5px;"></div>
-                      <span>Amplifire Digital Agency</span><br>
-                      <span>Lekki, Lagos | Full-time</span><br>
-                      <span>Closes in 5 days</span><br>
-                  </div>
-                </div>
-              </div>
-
-              <hr>
-              <div style="padding: 10px;"></div>
-
-              <div class="row">
-                <div class="col-sm-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
-                  <div class="col-sm-4">
-                    <img src="assets/images/jobs.png" style="width:5rem;">
-                  </div>
-                  <div class="col-sm-8">
-                      <span style="font-weight: 600; padding-right:25px;">UI/UX Designer</span><br>
-                      <div style="padding-top: 5px;"></div>
-                      <span>Amplifire Digital Agency</span><br>
-                      <span>Lekki, Lagos | Full-time</span><br>
-                      <span>Closes in 5 days</span><br>
-                  </div>
-                </div>
-
-                <div class="col-sm-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
-                  <div class="col-sm-4">
-                    <img src="assets/images/jobs.png" style="width:5rem;">
-                  </div>
-                  <div class="col-sm-8">
-                      <span style="font-weight: 600; padding-right:25px;">UI/UX Designer</span><br>
-                      <div style="padding-top: 5px;"></div>
-                      <span>Amplifire Digital Agency</span><br>
-                      <span>Lekki, Lagos | Full-time</span><br>
-                      <span>Closes in 5 days</span><br>
-                  </div>
-                </div>
-              </div>
-              <hr>
-              <div style="padding: 10px;"></div>
-              <div class="row">
-                <div class="col-sm-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
-                  <div class="col-sm-4">
-                    <img src="assets/images/jobs.png" style="width:5rem;">
-                  </div>
-                  <div class="col-sm-8">
-                      <span style="font-weight: 600; padding-right:25px;">UI/UX Designer</span><br>
-                      <div style="padding-top: 5px;"></div>
-                      <span>Amplifire Digital Agency</span><br>
-                      <span>Lekki, Lagos | Full-time</span><br>
-                      <span>Closes in 5 days</span><br>
-                  </div>
-                </div>
-
-                <div class="col-sm-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
-                  <div class="col-sm-4">
-                    <img src="assets/images/jobs.png" style="width:5rem;">
-                  </div>
-                  <div class="col-sm-8">
-                      <span style="font-weight: 600; padding-right:25px;">UI/UX Designer</span><br>
-                      <div style="padding-top: 5px;"></div>
-                      <span>Amplifire Digital Agency</span><br>
-                      <span>Lekki, Lagos | Full-time</span><br>
-                      <span>Closes in 5 days</span><br>
-                  </div>
-                </div>
-              </div>
             </nb-tab>
             <nb-tab tabTitle="Featured Jobs">
               <div class="row">
@@ -403,7 +251,6 @@
               </div>
             </nb-tab>
           </nb-tabset>
-
         </nb-card-body>
       </nb-card>
     </div>

@@ -1,4 +1,5 @@
-import { Job } from './../../_services/service-proxies';
+import { title } from 'process';
+import { Job } from '../../_services/service-proxies';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AlertserviceService } from 'app/_services/alertservice.service';
@@ -47,6 +48,9 @@ export class NewjobComponent implements OnInit {
   recruiterData: IDTextViewModel [] = [];
   jobTitleData: IDTextViewModel [] = [];
   newJobModel: Job = new Job();
+  titleFilter: {
+    searchText: ''
+  }
 
 
   constructor(private alertMe: AlertserviceService, private router: Router, private job: JobServiceProxy,
@@ -60,7 +64,6 @@ export class NewjobComponent implements OnInit {
     this.fetchCountries();
     this.fetchQualifications();
     // this.fetchAllQuizes();
-    // this.fetchJobRoles();
     // this.fetchJobAvailabilty();
     // this.fetchScoreCards();
     this.fetchCurrency();
@@ -70,6 +73,7 @@ export class NewjobComponent implements OnInit {
     this.fetchStates();
     this.fetchJobType();
     this.fetchRecruiters();
+    this.fetchJobTitles();
   }
 
   postNewDraft(){}
@@ -80,20 +84,40 @@ export class NewjobComponent implements OnInit {
   // }
 
   addNewJob() {
-   this.loading = true;
+   this.btnProcessing = true;
+   console.log(this.newJobModel)
    let jobModel: Job = new Job();
-
-   this.job.postJob(this.newJobModel).subscribe(data => {
-      this.loading = false;
+   jobModel.position = this.newJobModel.position;
+   jobModel.jobTypeId = Number(this.newJobModel.jobTypeId);
+   jobModel.recruiter = this.newJobModel.recruiter;
+   jobModel.requirements = this.newJobModel.requirements;
+   jobModel.details = this.newJobModel.details;
+   jobModel.location = this.newJobModel.location;
+   jobModel.stateId = Number(this.newJobModel.stateId);
+   jobModel.countryId = Number(this.newJobModel.countryId);
+   jobModel.minExpRequired = this.newJobModel.minExpRequired;
+   jobModel.maxExpRequired = this.newJobModel.maxExpRequired;
+   jobModel.minQualificationId = Number(this.newJobModel.minQualificationId);
+   jobModel.maxQualificationId = Number(this.newJobModel.maxQualificationId);
+   jobModel.endDate = this.newJobModel.endDate;
+   jobModel.currencyId = Number(this.newJobModel.currencyId);
+   jobModel.quizId = Number(this.newJobModel.quizId);
+   jobModel.minSalary = this.newJobModel.minSalary;
+   jobModel.maxSalary = this.newJobModel.maxSalary;
+   jobModel.skillAreaId = Number(this.newJobModel.skillAreaId);
+   jobModel.reviewers = this.newJobModel.reviewers;
+   this.job.postJob(jobModel).subscribe(data => {
+      this.btnProcessing = false;
       this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'Success', 'Dismiss').subscribe(res => {
         if(res){
           this.router.navigateByUrl('/recruitmentadmin/jobs/');
-          this.fetchAllJobs();
+          this.newJobModel = new Job();
         }
       })
    }, (error) => {
 
     if (error.status == 400) {
+      this.btnProcessing = false;
       this.alertMe.openCatchErrorModal(this.alertMe.ALERT_TYPES.FAILED, error.title, "OK", error.errors);
     }
   })
@@ -108,23 +132,6 @@ export class NewjobComponent implements OnInit {
   // }
 
 
-
-
-  // async fetchSingleJob(){
-  //   const data = await this.job.getJob(1).toPromise()
-  //     if(!data.hasError){
-  //       this.singleJob = data.result;
-  //     }
-  // }
-
-  fetchAllJobs() {
-    // this.job.getAllJobs(this.jobFilter).subscribe(data => {
-    //   if(!data.hasError){
-    //     this.allJobs = data.result;
-    //     this.jobsCounter = data.totalRecord;
-    //   }
-    // })
-  }
 
   async fetchCurrency(){
     const data = await this.curreny.fetchCurrencies().toPromise()
@@ -166,7 +173,7 @@ export class NewjobComponent implements OnInit {
     }
 
     async fetchJobTitles(){
-      const data = await this.common.fetchAllJobTitles('').toPromise();
+      const data = await this.common.fetchAllJobTitles(this.titleFilter.searchText).toPromise();
       this.jobTitleData = data.value;
     }
 

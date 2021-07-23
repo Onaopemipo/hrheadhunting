@@ -1,4 +1,6 @@
-import { ApiServiceProxy, AccountServiceProxy, InstitutionServiceProxy, CourseServiceProxy, SectorsServiceProxy, SkillAreasServiceProxy, StatesServiceProxy, EmployerTypesServiceProxy, CountriesServiceProxy, GradesServiceProxy, QualificationServiceProxy, TitlesServiceProxy } from './../../_services/service-proxies';
+import { environment } from '../../environment';
+import { AlertserviceService } from 'app/_services/alertservice.service';
+import { AccountServiceProxy, InstitutionServiceProxy, CourseServiceProxy, SectorsServiceProxy, SkillAreasServiceProxy, StatesServiceProxy, EmployerTypesServiceProxy, CountriesServiceProxy, GradesServiceProxy, QualificationServiceProxy, TitlesServiceProxy, SubscriptionsServiceProxy, CommonServiceProxy } from '../../_services/service-proxies';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ThemeModule } from '../../@theme/theme.module';
@@ -13,11 +15,13 @@ import {
   NbIconModule,
   NbInputModule,
   NbAlertModule,
-  NbRadioModule
+  NbRadioModule,
+  NbStepperModule
 } from '@nebular/theme';
 import { FormsModule as ngFormsModule } from '@angular/forms';
 import { SignupComponent } from './signup/signup.component';
 import { ResetComponent } from './reset/reset.component';
+import { Angular4PaystackModule } from 'angular4-paystack';
 
 
 
@@ -35,11 +39,12 @@ import { ResetComponent } from './reset/reset.component';
     NbIconModule,
     ComponentsModule,
     NbAlertModule,
-    NbRadioModule
+    NbRadioModule,
+    NbStepperModule,
+    Angular4PaystackModule.forRoot(environment.paystackToken),
   ],
 
   providers: [
-    ApiServiceProxy,
     AccountServiceProxy,
     InstitutionServiceProxy,
     CourseServiceProxy,
@@ -50,7 +55,10 @@ import { ResetComponent } from './reset/reset.component';
     CountriesServiceProxy,
     GradesServiceProxy,
     QualificationServiceProxy,
-    TitlesServiceProxy
+    TitlesServiceProxy,
+    SubscriptionsServiceProxy,
+    AlertserviceService,
+    CommonServiceProxy
   ]
 
 })

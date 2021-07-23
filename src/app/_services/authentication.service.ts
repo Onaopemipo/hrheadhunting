@@ -8,7 +8,7 @@ import { Observable, of, BehaviorSubject } from 'rxjs';
 
 
 @Injectable()
-export class AuthenticationService {
+export class  AuthenticationService {
     main_id = 0;
     user: User;
     users: User[] = [];

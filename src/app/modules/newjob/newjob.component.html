@@ -195,12 +195,12 @@
 
           <hr style="margin: 40px 0px;">
 
-          <!-- <div class="form-group row mydiv">
+          <div class="form-group row mydiv">
             <label for="currency" class="col-sm-3 col-form-label mylabel">Post Validity</label>
             <div class="col-sm-5 col-md-5 col-lg-5">
-              <ngx-date-range [(start)]="newJobModel.postValidityFrom" [(end)]="newJobModel.postValidityTo" required></ngx-date-range>
+              <ngx-date [(value)]="newJobModel.endDate"></ngx-date>
             </div>
-          </div> -->
+          </div>
 
           <!-- <div class="form-group row">
             <label for="Beneficiary" class="col-sm-3 col-form-label">Reviewers</label>
@@ -236,8 +236,8 @@
           <div class="form-group row">
             <label for="specialization" class="col-sm-3 col-form-label" style="font-weight: bold;"></label>
             <div class="col-sm-5">
-              <button *ngIf="!loading" nbButton status="primary" (click)="addNewJob()">Post Now</button>
-              <button *ngIf="loading" nbButton status="primary">Now Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button>
+              <button *ngIf="!btnProcessing" nbButton status="primary" (click)="addNewJob()">Post Now</button>
+              <button *ngIf="btnProcessing" nbButton status="primary">Now Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button>
               <span style="padding: 8px;"></span>
               <button nbButton (click)="postNewDraft()">Save as Draft</button>
 

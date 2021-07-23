@@ -4,14 +4,13 @@ import { AuthGuardService as AuthGuard } from './_services/auth-guard.service';
 
 export const routes: Routes = [
 
-  {
-    path: '',
-    loadChildren: () => import('./modules/modules.module').then(m => m.ModulesModule),
-    // canLoad: [AuthGuard],
-  },
+  //  {
+  //   path: 'applicants',
+  //   loadChildren: () => import('./modules/applicants/applicants.module').then(m => m.ApplicantsModule)
+  // },
 
   {
-    path: 'applicants',
+    path: '',
     loadChildren: () => import('./modules/applicants/applicants.module').then(m => m.ApplicantsModule)
   },
 
@@ -20,12 +19,16 @@ export const routes: Routes = [
     loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule),
   },
 
+  {
+    path: 'modules',
+    loadChildren: () => import('./modules/modules.module').then(m => m.ModulesModule),
+    canLoad: [AuthGuard],
+  },
+
   // {
   //   path: 'recruitment',
   //   loadChildren: () => import('./modules/recruitment/recruitment.module').then(m => m.RecruitmentModule)
   // },
-
-
 
    { path: '', redirectTo: 'auth', pathMatch: 'full' },
   { path: '**', redirectTo: 'auth' },

@@ -1,5 +1,13 @@
 <ngx-componentsheader pageName='Reports'></ngx-componentsheader>
-<div>
+
+<div *ngIf="reportCounter < 1" style="background-color: #ffffff;">
+  <nb-card>
+    <nb-card-body>
+        <ngx-default-content pageHeader={{myPlanHeader}} pageDescription="{{myPlanDesc}}" [loading]="loading" [buttonValue]="emptyButton" (buttonClick)="addConsultant()"></ngx-default-content>
+    </nb-card-body>
+  </nb-card>
+</div>
+<div *ngIf="reportCounter > 0">
   <nb-card>
     <ngx-tableheader></ngx-tableheader>
     <ngx-tablecomponent  [tableColum]="reportTable" [userData]="allJobsApplication"></ngx-tablecomponent>

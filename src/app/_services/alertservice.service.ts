@@ -2,14 +2,14 @@ import { Injectable, Component, OnInit } from '@angular/core';
 import { NbDialogService } from '@nebular/theme';
 import { NbDialogRef } from '@nebular/theme';
 import { Observable, Subject } from 'rxjs';
-
+import { MessageOutApiResult } from './service-proxies';
 
 export enum ALERT_TYPES {
   SUCCESS = 'success',
   FAILED = 'danger',
   COPIED = 'copied',
   CONFIRM = 'confirm',
-  ANYCONFIRM= 'anyconfirm'
+  ANYCONFIRM="anyconfirm"
 }
 @Component({
   selector: 'ngx-alertModalComponent',
@@ -85,11 +85,11 @@ export class alertmodalComponent implements OnInit {
     this.alertMessage = this.alertController.alertMessage;
     this.alertButtonMessage = this.alertController.alertButtonMessage;
     this.catchErrorAlert = this.alertController.catchErrorAlert;
-    let initialerr = this.alertController.alerterrors;
+    var initialerr = this.alertController.alerterrors;
     if (initialerr) {
       Object.entries(initialerr).forEach(([key, value], index) => {
-        this.alerterrors.push(value[0]);
-      });
+        this.alerterrors.push(value[0])
+      })
 
     }
 
@@ -110,7 +110,7 @@ export class AlertserviceService {
   alerterrors: Array<any>[] = [];
   constructor(private dialogService: NbDialogService) { }
 
-  showResponseMessage(res: any) {
+  showResponseMessage(res: MessageOutApiResult){
     return this.openModalAlert(res.hasError ? this.ALERT_TYPES.FAILED : this.ALERT_TYPES.SUCCESS, res.message, 'Okay');
   }
 
@@ -128,7 +128,7 @@ export class AlertserviceService {
     return newSubjectResponse;
   }
 
-  openCatchErrorModal(alertType, alertMessage, alertButtonMessage, errors): Observable<any> {
+  openCatchErrorModal(alertType, alertMessage, alertButtonMessage,errors): Observable<any>{
     this.catchErrorAlert = true;
     this.alertType = alertType;
     this.alertMessage = alertMessage;

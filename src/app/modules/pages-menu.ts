@@ -7,8 +7,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
     title: 'Dashboard',
     icon: '/assets/icons/home.jpg',
     link: '/dashboard',
-
-
   },
 
   {
@@ -32,13 +30,13 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Artisans',
     icon: '/assets/icons/Manpower.jpg',
-    link: '/jobs',
+    link: '/artisans',
   },
 
   {
-    title: 'Consultant',
+    title: 'Consultants',
     icon: '/assets/icons/Training.jpg',
-    link: '/jobs',
+    link: '/consultants',
   },
 
   {

@@ -1,4 +1,4 @@
-import { DashboardServiceProxy, DashboardDTO } from './../../_services/service-proxies';
+import { DashboardServiceProxy, DashboardDTO, IDTextViewModel, StatesServiceProxy, SectorsServiceProxy, SkillAreasServiceProxy } from '../../_services/service-proxies';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NbThemeService } from '@nebular/theme';
 
@@ -25,10 +25,13 @@ export class DashboardComponent implements OnInit {
   totalConsultants: number = 0
   totalApplicants: number = 0
   totalEmployers: number = 0
-  jobPosted: number = 0
+  jobPosted: number = 0;
+  skillData: IDTextViewModel [] = [];
+  stateData: IDTextViewModel [] = [];
+  sectorData: IDTextViewModel [] = [];
   dashboardData: DashboardDTO = new DashboardDTO();
   yearFilter = {
-    year: 2021
+    year: undefined
   }
 
   single = [
@@ -95,7 +98,7 @@ export class DashboardComponent implements OnInit {
   ];
   customizePieOption: any = {};
   customizedlineoptions: any = {};
-  constructor(private theme: NbThemeService, private dashboard: DashboardServiceProxy) {
+  constructor(private theme: NbThemeService, private dashboard: DashboardServiceProxy, ) {
     this.colorScheme = {
       domain: ['#FF90A4', '#2E9CDA', '#2CD8C5', '#E2D136', '#5655CA'],
     };
@@ -428,5 +431,6 @@ export class DashboardComponent implements OnInit {
     this.totalApplicants = data.value.aggregateData.totalApplicants;
     this.totalConsultants = data.value.aggregateData.totalConsultants;
   }
+
 
 }

@@ -29,6 +29,7 @@ export class JobDetailsComponent implements OnInit {
     })
   }
 
+
   applyForJob(){
     this.job.applyJob(1).subscribe(data => {
       if(!data.hasError){

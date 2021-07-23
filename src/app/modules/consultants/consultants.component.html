@@ -1,0 +1,146 @@
+<ngx-componentsheader pageName='Consultants'>
+  <div headerButton>
+    <div style="display: flex; flex-direction: row; justify-content: space-between;">
+      <div style="margin-right: 5px;">
+        <button [outline]="true"   (click)="toggleConsultant()" nbButton status="primary" >
+          Add Consultant
+         </button>
+      </div>
+      <div>
+        <button (click)="toggleTraining()" nbButton status="primary">
+          Post Training
+          </button>
+      </div>
+    </div>
+  </div>
+
+</ngx-componentsheader>
+<div *ngIf="consultantCounter < 1" style="background-color: #ffffff;">
+  <nb-card>
+    <nb-card-body>
+        <ngx-default-content pageHeader={{myPlanHeader}} pageDescription="{{myPlanDesc}}" [loading]="loading" [buttonValue]="emptyButton" (buttonClick)="addConsultant()"></ngx-default-content>
+    </nb-card-body>
+  </nb-card>
+</div>
+
+<div *ngIf="consultantCounter > 0">
+  <nb-card>
+    <ngx-tablecomponent
+    [tableColum]="myApplicantTable"
+    [userData]='allApplications'
+    (actionClick)='tableActionClick($event)'
+    (filterChange)="filterUpdated($event)"
+    [showActions]="false"
+    [showFilter]="true">
+  </ngx-tablecomponent>
+  </nb-card>
+</div>
+
+
+<ngx-side-modal [(show)]="consultantModal" style="width: 600px;" position='Center'>
+  <div modal-header>Add Consultant</div>
+
+  <div modal-body>
+    <nb-card>
+      <nb-card-body>
+        <form>
+          <div class="form-group row mydiv">
+            <label for="First Name" >First Name</label>
+              <input type="text" class="form-control" name="firstName" #firstName="ngModel" [(ngModel)]="consultantModel.firstName" placeholder="First Name">
+              <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="error">
+                <div *ngIf="firstName.errors.required">First Name is required</div>
+              </div>
+          </div>
+
+          <div class="form-group row mydiv">
+            <label for="Last Name" >Last Name</label>
+              <input type="text" class="form-control" name="lastName" #lastName="ngModel" [(ngModel)]="consultantModel.lastName" placeholder="Last Name">
+              <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="error">
+                <div *ngIf="lastName.errors.required">Last Name is required</div>
+              </div>
+          </div>
+
+          <div class="form-group row ">
+            <label for="Department" >Email</label>
+              <input type="email" class="custom-select" name="email" #email="ngModel" [(ngModel)]="consultantModel.email" required>
+              <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error">
+                <div *ngIf="email.errors.required">Email is required</div>
+              </div>
+          </div>
+
+
+          <div class="form-group row mydiv">
+            <label>Phone Number</label>
+            <input type="tel" class="form-control" name="phone" #phone="ngModel" [(ngModel)]="consultantModel.mobile" required>
+              <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="error">
+                <div *ngIf="phone.errors.required">Phone is required</div>
+              </div>
+          </div>
+
+          <div class="form-group row mydiv">
+            <label for="Specialty">Constact Person</label>
+            <input type="text" class="form-control" name="contactPerson" #contactPerson="ngModel" [(ngModel)]="consultantModel.contactPerson" placeholder="Company Name">
+            <div *ngIf="contactPerson.invalid && (contactPerson.dirty || contactPerson.touched)" class="error">
+                <div *ngIf="contactPerson.errors.required">Constact Persone is required</div>
+              </div>
+          </div>
+
+          <div class="form-group row mydiv">
+            <label for="Specialty">Company Name</label>
+            <input type="text" class="form-control" name="companyName" #companyName="ngModel" [(ngModel)]="consultantModel.name" placeholder="Contact Person">
+            <div *ngIf="companyName.invalid && (companyName.dirty || companyName.touched)" class="error">
+              <div *ngIf="companyName.errors.required">Company Name is required</div>
+            </div>
+          </div>
+
+          <div class="form-group row mydiv">
+            <label for="Experience">Sector</label>
+            <select class="custom-select" name="sector" #sector="ngModel" [(ngModel)]="consultantModel.sectorId">
+              <option value="">Select</option>
+              <option *ngFor="let sec of sectorData" [value]="sec.id">{{sec.text}}</option>
+            </select>
+            <div *ngIf="sector.invalid && (sector.dirty || sector.touched)" class="error">
+              <div *ngIf="sector.errors.required">Sector is required</div>
+            </div>
+          </div>
+
+          <div class="form-group row mydiv">
+            <label for="Descripion">Address</label>
+            <textarea name="address" #address="ngModel" [(ngModel)]="consultantModel.address" cols="30" rows="10" style="width: 100%;"></textarea>
+            <div *ngIf="address.invalid && (address.dirty || address.touched)" class="error">
+                <div *ngIf="address.errors.required">Address is required</div>
+              </div>
+          </div>
+
+          <div class="form-group">
+            <label class="row">Password</label>
+            <div style="display: flex;border: 0.800000011920929px solid #CED4DA;border-radius: 3px;background-color: #f7f9fc;padding: 5px;">
+              <input [type]="show ? 'text' : 'password'" nbInput fullWidth placeholder="Password" name="password" #password="ngModel" [(ngModel)]="consultantModel.password" required style="border: none;">
+              <nb-icon  (click)="viewpassword()" *ngIf="!show"  icon="eye-off-outline" style="font-size: 32px;color: #95A8B8;cursor: pointer;"></nb-icon>
+              <nb-icon  (click)="viewpassword()" *ngIf="show"  icon="eye-outline" style="font-size: 32px;color: #95A8B8;cursor: pointer;"></nb-icon>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="row">Confirm Password</label><br>
+            <div style="display: flex;border: 0.800000011920929px solid #CED4DA;border-radius: 3px;background-color: #f7f9fc;padding: 5px;">
+             <input [type]="show ? 'text' : 'password'" nbInput fullWidth placeholder="Confirm Password" name="conPassword" #conPassword="ngModel" [(ngModel)]="consultantModel.confirmPassword" required style="border: none;">
+             <nb-icon  (click)="viewpassword()" *ngIf="!show"  icon="eye-off-outline" style="font-size: 32px;color: #95A8B8;cursor: pointer;"></nb-icon>
+             <nb-icon  (click)="viewpassword()" *ngIf="show"  icon="eye-outline" style="font-size: 32px;color: #95A8B8;cursor: pointer;"></nb-icon>
+           </div>
+          </div>
+
+
+          <div class="form-group row">
+            <label for="specialization" style="font-weight: bold;"></label>
+              <button *ngIf="!btnProcessing" nbButton status="primary" (click)="registerConsultant()">Save</button>
+              <button *ngIf="btnProcessing" nbButton status="primary">Now Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button>
+              <span style="padding: 8px;"></span>
+          </div>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+
+</ngx-side-modal> -->
+

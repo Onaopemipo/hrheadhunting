@@ -18,6 +18,11 @@ export class ReportsComponent implements OnInit {
     {name: 'status', title: 'Status'},
   ];
 
+  myPlanHeader:string = "Nothing here";
+  myPlanDesc: string = "You don't have any report yet";
+  reportCounter:number = 0;
+  loading:boolean = false;
+
   allJobsApplication:  [] = [];
   constructor() { }
 

@@ -1,7 +1,7 @@
 
 <div class="limiter" style="font-family: Rubik !important; margin: 0 10%;">
   <div style="margin-left: 6%;">
-    <img src="assets/images/Logo.png" alt="" style="width: 150px; height: 150px;">
+    <img src="assets/images/Logo.png" [routerLink]="['/']"  alt="" style="width: 150px; cursor: pointer; height: 150px;">
   </div>
   <div class="container-login" >
     <div class="col-sm-4" style="background-color: #6495ED; height: 500px; padding: 30px;">
@@ -15,13 +15,8 @@
       <form name="loginForm" id="loginForm" #loginForm="ngForm" style="color: #71727B;">
         <div class="form-group row">
           <div class="col">
-            <label for="exampleInputEmail1" class="label">Email</label>
+            <label class="label">Email</label>
           <input type="email" nbInput fullWidth placeholder="Email" name="email" #email='ngModel' [(ngModel)]="userlogin.email" [pattern]="emailPattern" required>
-          <!-- <div *ngIf="email.invalid && (email.dirty || email.touched) " class="error">
-            <div *ngIf="(email.errors.required || email.errors)">
-              Valid email is required
-            </div>
-        </div> -->
           </div>
         </div>
         <div style="padding: 15px;"></div>
@@ -33,11 +28,6 @@
             <nb-icon  (click)="viewpassword()" *ngIf="!show"  icon="eye-off-outline" style="font-size: 32px;color: #95A8B8;cursor: pointer;"></nb-icon>
             <nb-icon  (click)="viewpassword()" *ngIf="show"  icon="eye-outline" style="font-size: 32px;color: #95A8B8;cursor: pointer;"></nb-icon>
           </div>
-          <!-- <div *ngIf="password.invalid && (password.dirty || password.touched)" class="error">
-            <div *ngIf="password.errors.required">
-              Password is required
-            </div>
-        </div> -->
          </div>
         </div>
 
@@ -47,8 +37,6 @@
         <button *ngIf="btnprocessing" type="button" nbButton fullWidth status="primary">Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button>
         <div style="padding: 5px;"></div>
       </form>
-      <p style="text-align: center;font-size: .9rem;color: #71727B;font-weight: 400; font-family: Rubik;">Forgot your password? <a routerLink="/auth/reset" style="font-weight: 700;">Reset</a></p>
-      <!-- <div style="padding: 2px;"></div> -->
       <p style="text-align: center;font-size: .9rem;color: #71727B;font-weight: 400; font-family: Rubik;">I don't have an account? <a routerLink="/auth/signup" style="font-weight: 700;">Sign Up</a></p>
     </div>
   </div>
