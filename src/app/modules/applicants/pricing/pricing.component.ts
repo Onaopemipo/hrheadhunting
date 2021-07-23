@@ -1,3 +1,4 @@
+import { SubscriptionFeatureDTO } from './../../../_services/service-proxies';
 import { SubscriptionsServiceProxy } from '../../../_services/service-proxies';
 import { Component, OnInit } from '@angular/core';
 
@@ -9,6 +10,9 @@ import { Component, OnInit } from '@angular/core';
 export class PricingComponent implements OnInit {
   recruiterStatus: boolean = true;
   CvStatus: boolean = false;
+  cvPlan: SubscriptionFeatureDTO [] = [];
+  recruiterPlan: SubscriptionFeatureDTO [] = [];
+
 
   constructor(private sub: SubscriptionsServiceProxy) { }
 
@@ -27,8 +31,18 @@ export class PricingComponent implements OnInit {
 
   }
 
-  async fetchSubscription(){
-    // const data = this.sub.
+  async fetchRecruiterSub(){
+    const data = await this.sub.fetchRecruiterPlanFeatures().toPromise()
+    if(!data.hasError){
+      this.recruiterPlan = data.value;
+    }
+  }
+
+  async fetchCVPlan(){
+    const data = await this.sub.fetchCvRewritePlanFeatures().toPromise()
+    if(!data.hasError){
+      this.cvPlan = data.value;
+    }
   }
 
 }

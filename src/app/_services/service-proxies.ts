@@ -27,7 +27,7 @@ export class AccountServiceProxy {
 
     /**
      * API for signing up Applicant/Job Seeker
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     applicantSignUp(body: ManageJobSeekerRegDTO | undefined): Observable<MessageOutApiResult> {
@@ -99,12 +99,12 @@ export class AccountServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<MessageOutApiResult>(<any[]>null);
+        return _observableOf<MessageOutApiResult>(<any>null);
     }
 
     /**
      * API for signing up Employer/Recruiter
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     employerSignUp(body: ManageEmployerDTO | undefined): Observable<MessageOutApiResult> {
@@ -176,12 +176,12 @@ export class AccountServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<MessageOutApiResult>(<any[]>null);
+        return _observableOf<MessageOutApiResult>(<any>null);
     }
 
     /**
      * API for signing up Consultant
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     consultantSignUp(body: ManageConsultantDTO | undefined): Observable<MessageOutApiResult> {
@@ -253,11 +253,11 @@ export class AccountServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<MessageOutApiResult>(<any[]>null);
+        return _observableOf<MessageOutApiResult>(<any>null);
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     getToken(body: UserLoginDTO | undefined): Observable<VwUserObjApiResult> {
@@ -329,11 +329,11 @@ export class AccountServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<VwUserObjApiResult>(<any[]>null);
+        return _observableOf<VwUserObjApiResult>(<any>null);
     }
 
     /**
-     * @param email (optional) 
+     * @param email (optional)
      * @return Success
      */
     forgotPassword(email: string | null | undefined): Observable<MessageOutApiResult> {
@@ -403,11 +403,11 @@ export class AccountServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<MessageOutApiResult>(<any[]>null);
+        return _observableOf<MessageOutApiResult>(<any>null);
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     resetPassword(body: ResestPasswordDTO | undefined): Observable<MessageOutApiResult> {
@@ -479,12 +479,12 @@ export class AccountServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<MessageOutApiResult>(<any[]>null);
+        return _observableOf<MessageOutApiResult>(<any>null);
     }
 
     /**
-     * @param userId (optional) 
-     * @param token (optional) 
+     * @param userId (optional)
+     * @param token (optional)
      * @return Success
      */
     confirmEmail(userId: string | null | undefined, token: string | null | undefined): Observable<VwUserObjApiResult> {
@@ -556,7 +556,7 @@ export class AccountServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<VwUserObjApiResult>(<any[]>null);
+        return _observableOf<VwUserObjApiResult>(<any>null);
     }
 }
 
@@ -572,11 +572,11 @@ export class ActivityLogServiceProxy {
     }
 
     /**
-     * @param id (optional) 
-     * @param moduleName (optional) 
-     * @param operationType (optional) 
-     * @param pageNumber (optional) 
-     * @param pageSize (optional) 
+     * @param id (optional)
+     * @param moduleName (optional)
+     * @param operationType (optional)
+     * @param pageNumber (optional)
+     * @param pageSize (optional)
      * @return Success
      */
     fetchActivityLog(id: number | undefined, moduleName: string | null | undefined, operationType: string | null | undefined, pageNumber: number | undefined, pageSize: number | undefined): Observable<ActivityLogIListApiResult> {
@@ -660,7 +660,7 @@ export class ActivityLogServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<ActivityLogIListApiResult>(<any[]>null);
+        return _observableOf<ActivityLogIListApiResult>(<any>null);
     }
 }
 
@@ -678,11 +678,11 @@ export class ApplicationsServiceProxy {
     /**
      * API for getting All Job's Listing for a particular Employer with filter but optional
     SearchText cover the followings; (Position, Job Location (State/Country), and Skill area)
-     * @param searchText (optional) 
-     * @param dateFrom (optional) 
-     * @param dateTo (optional) 
-     * @param pageSize (optional) 
-     * @param pageNumber (optional) 
+     * @param searchText (optional)
+     * @param dateFrom (optional)
+     * @param dateTo (optional)
+     * @param pageSize (optional)
+     * @param pageNumber (optional)
      * @return Success
      */
     fetchEmployerJobs(searchText: string | null | undefined, dateFrom: Date | null | undefined, dateTo: Date | null | undefined, pageSize: number | undefined, pageNumber: number | undefined): Observable<JobDTOIListOdataResult> {
@@ -764,19 +764,19 @@ export class ApplicationsServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<JobDTOIListOdataResult>(<any[]>null);
+        return _observableOf<JobDTOIListOdataResult>(<any>null);
     }
 
     /**
      * API for getting All Job's Application Listing for a particular Job with by JobId and optional filters
     SearchText cover the followings; (Job Location (State/Country), Applicant Age, Applicant Title(Mr,Mrs,Ms etc), Gender (Male/Female))
-     * @param jobId (optional) 
-     * @param recruitmentStageId (optional) 
-     * @param searchText (optional) 
-     * @param dateFrom (optional) 
-     * @param dateTo (optional) 
-     * @param pageSize (optional) 
-     * @param pageNumber (optional) 
+     * @param jobId (optional)
+     * @param recruitmentStageId (optional)
+     * @param searchText (optional)
+     * @param dateFrom (optional)
+     * @param dateTo (optional)
+     * @param pageSize (optional)
+     * @param pageNumber (optional)
      * @return Success
      */
     fetchJobApplications(jobId: number | undefined, recruitmentStageId: number | undefined, searchText: string | null | undefined, dateFrom: Date | null | undefined, dateTo: Date | null | undefined, pageSize: number | undefined, pageNumber: number | undefined): Observable<JobApplicationDTOIListOdataResult> {
@@ -866,12 +866,12 @@ export class ApplicationsServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<JobApplicationDTOIListOdataResult>(<any[]>null);
+        return _observableOf<JobApplicationDTOIListOdataResult>(<any>null);
     }
 
     /**
      * API to get Job Application details (Applicant, Job, Application etc) by ApplicationId and can be used for update, details etc
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     getJobApplicantById(id: number | undefined): Observable<JobSeekerDTOOdataResult> {
@@ -943,11 +943,11 @@ export class ApplicationsServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<JobSeekerDTOOdataResult>(<any[]>null);
+        return _observableOf<JobSeekerDTOOdataResult>(<any>null);
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     processApplication(body: ProcessApplicationDTO | undefined): Observable<MessageOutApiResult> {
@@ -1019,19 +1019,19 @@ export class ApplicationsServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<MessageOutApiResult>(<any[]>null);
+        return _observableOf<MessageOutApiResult>(<any>null);
     }
 
     /**
      * API for getting All Job's Application Listing with filter but optional
     SearchText cover the followings; (Job Location (State/Country), Applicant Age, Applicant Title(Mr,Mrs,Ms etc), Gender (Male/Female))
-     * @param jobId (optional) 
-     * @param recruitmentStageId (optional) 
-     * @param searchText (optional) 
-     * @param dateFrom (optional) 
-     * @param dateTo (optional) 
-     * @param pageSize (optional) 
-     * @param pageNumber (optional) 
+     * @param jobId (optional)
+     * @param recruitmentStageId (optional)
+     * @param searchText (optional)
+     * @param dateFrom (optional)
+     * @param dateTo (optional)
+     * @param pageSize (optional)
+     * @param pageNumber (optional)
      * @return Success
      */
     fetchAllApplications(jobId: number | undefined, recruitmentStageId: number | undefined, searchText: string | null | undefined, dateFrom: Date | null | undefined, dateTo: Date | null | undefined, pageSize: number | undefined, pageNumber: number | undefined): Observable<JobApplicationDTOIListOdataResult> {
@@ -1121,7 +1121,7 @@ export class ApplicationsServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<JobApplicationDTOIListOdataResult>(<any[]>null);
+        return _observableOf<JobApplicationDTOIListOdataResult>(<any>null);
     }
 }
 
@@ -1138,7 +1138,7 @@ export class ArtisanServiceProxy {
 
     /**
      * API to create/update an Artisan on the Portal by Admin
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     addUpdateArtisan(body: ManageArtisanDTO | undefined): Observable<MessageOutApiResult> {
@@ -1210,16 +1210,16 @@ export class ArtisanServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<MessageOutApiResult>(<any[]>null);
+        return _observableOf<MessageOutApiResult>(<any>null);
     }
 
     /**
      * API for getting All Artisans Listing with filter but optional
-     * @param searchText (optional) 
-     * @param dateFrom (optional) 
-     * @param dateTo (optional) 
-     * @param pageSize (optional) 
-     * @param pageNumber (optional) 
+     * @param searchText (optional)
+     * @param dateFrom (optional)
+     * @param dateTo (optional)
+     * @param pageSize (optional)
+     * @param pageNumber (optional)
      * @return Success
      */
     fetchAllArtisans(searchText: string | null | undefined, dateFrom: Date | null | undefined, dateTo: Date | null | undefined, pageSize: number | undefined, pageNumber: number | undefined): Observable<ArtisanDTOIListOdataResult> {
@@ -1301,12 +1301,12 @@ export class ArtisanServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<ArtisanDTOIListOdataResult>(<any[]>null);
+        return _observableOf<ArtisanDTOIListOdataResult>(<any>null);
     }
 
     /**
      * API to get Artisan by id and can be used for update, details etc
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     getArtisanById(id: number | undefined): Observable<ArtisanDTOOdataResult> {
@@ -1378,11 +1378,11 @@ export class ArtisanServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<ArtisanDTOOdataResult>(<any[]>null);
+        return _observableOf<ArtisanDTOOdataResult>(<any>null);
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     deleteArtisan(id: number | undefined): Observable<void> {
@@ -1430,7 +1430,7 @@ export class ArtisanServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any[]>null);
+        return _observableOf<void>(<any>null);
     }
 }
 
@@ -1447,7 +1447,7 @@ export class CertificationServiceProxy {
 
     /**
      * API for adding/updating Certification
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     addUpdateCertification(body: ManageCertificationDTO | undefined): Observable<MessageOutApiResult> {
@@ -1519,15 +1519,15 @@ export class CertificationServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<MessageOutApiResult>(<any[]>null);
+        return _observableOf<MessageOutApiResult>(<any>null);
     }
 
     /**
      * API to Fetch Certifications.
     Note: all filter are optional
-     * @param pageSize (optional) 
-     * @param pageNumber (optional) 
-     * @param professionalBodyId (optional) 
+     * @param pageSize (optional)
+     * @param pageNumber (optional)
+     * @param professionalBodyId (optional)
      * @return Success
      */
     getAllCertifications(pageSize: number | undefined, pageNumber: number | undefined, professionalBodyId: number | undefined): Observable<CertificationDTOListApiResult> {
@@ -1607,12 +1607,12 @@ export class CertificationServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<CertificationDTOListApiResult>(<any[]>null);
+        return _observableOf<CertificationDTOListApiResult>(<any>null);
     }
 
     /**
      * API to get Certification by id and can be used for update, details etc
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     getCertificationById(id: number | undefined): Observable<CertificationDTOApiResult> {
@@ -1684,7 +1684,7 @@ export class CertificationServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<CertificationDTOApiResult>(<any[]>null);
+        return _observableOf<CertificationDTOApiResult>(<any>null);
     }
 }
 
@@ -1768,7 +1768,7 @@ export class CommonServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<IDTextViewModelIListOdataResult>(<any[]>null);
+        return _observableOf<IDTextViewModelIListOdataResult>(<any>null);
     }
 
     /**
@@ -1840,7 +1840,7 @@ export class CommonServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<IDTextViewModelIListOdataResult>(<any[]>null);
+        return _observableOf<IDTextViewModelIListOdataResult>(<any>null);
     }
 
     /**
@@ -1912,7 +1912,7 @@ export class CommonServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<IDTextViewModelIListOdataResult>(<any[]>null);
+        return _observableOf<IDTextViewModelIListOdataResult>(<any>null);
     }
 
     /**
@@ -1984,12 +1984,12 @@ export class CommonServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<IDTextViewModelIListOdataResult>(<any[]>null);
+        return _observableOf<IDTextViewModelIListOdataResult>(<any>null);
     }
 
     /**
      * API for getting All Job Titles (Positions) under specific Employer for easy lookup while Posting Job
-     * @param searchText (optional) 
+     * @param searchText (optional)
      * @return Success
      */
     fetchAllJobTitles(searchText: string | null | undefined): Observable<IDTextViewModelIListOdataResult> {
@@ -2059,7 +2059,7 @@ export class CommonServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<IDTextViewModelIListOdataResult>(<any[]>null);
+        return _observableOf<IDTextViewModelIListOdataResult>(<any>null);
     }
 }
 
@@ -2144,12 +2144,12 @@ export class CommunicationServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<EmailSettingListApiResult>(<any[]>null);
+        return _observableOf<EmailSettingListApiResult>(<any>null);
     }
 
     /**
      * API to get EmailSetting by id and can be used for update, details etc
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     getEmailSettingById(id: number | undefined): Observable<EmailSettingApiResult> {
@@ -2221,12 +2221,12 @@ export class CommunicationServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<EmailSettingApiResult>(<any[]>null);
+        return _observableOf<EmailSettingApiResult>(<any>null);
     }
 
     /**
      * API for adding/updating EmailSettings
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     addUpdateEmailSetting(body: EmailSetting | undefined): Observable<MessageOutApiResult> {
@@ -2298,7 +2298,7 @@ export class CommunicationServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<MessageOutApiResult>(<any[]>null);
+        return _observableOf<MessageOutApiResult>(<any>null);
     }
 
     /**
@@ -2371,12 +2371,12 @@ export class CommunicationServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<IDTextViewModelListApiResult>(<any[]>null);
+        return _observableOf<IDTextViewModelListApiResult>(<any>null);
     }
 
     /**
      * API for adding/updating EmailTemplate
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     addUpdateEmailTemplate(body: ManageMailTemplateDTO | undefined): Observable<MessageOutApiResult> {
@@ -2448,7 +2448,7 @@ export class CommunicationServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<MessageOutApiResult>(<any[]>null);
+        return _observableOf<MessageOutApiResult>(<any>null);
     }
 
     /**
@@ -2521,12 +2521,12 @@ export class CommunicationServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<MailTemplateDTOListApiResult>(<any[]>null);
+        return _observableOf<MailTemplateDTOListApiResult>(<any>null);
     }
 
     /**
      * API to get EmailTemplate by id and can be used for update, details etc
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     getEmailTemplateById(id: number | undefined): Observable<MailTemplateDTOApiResult> {
@@ -2598,15 +2598,15 @@ export class CommunicationServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<MailTemplateDTOApiResult>(<any[]>null);
+        return _observableOf<MailTemplateDTOApiResult>(<any>null);
     }
 
     /**
      * API for retrieving all Email Logs by email log filtering parameter
-     * @param startDate (optional) 
-     * @param endDate (optional) 
-     * @param emailTo (optional) 
-     * @param pageSize (optional) 
+     * @param startDate (optional)
+     * @param endDate (optional)
+     * @param emailTo (optional)
+     * @param pageSize (optional)
      * @return Success
      */
     fetchEmailLogs(startDate: Date | null | undefined, endDate: Date | null | undefined, emailTo: string | null | undefined, pageSize: number | undefined): Observable<EmailLogDTOIListApiResult> {
@@ -2684,12 +2684,12 @@ export class CommunicationServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<EmailLogDTOIListApiResult>(<any[]>null);
+        return _observableOf<EmailLogDTOIListApiResult>(<any>null);
     }
 
     /**
      * API for getting Single EmailLog Details by id for CRUD Operation
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     fetchEmailLogById(id: number | undefined): Observable<EmailLogDTOApiResult> {
@@ -2761,7 +2761,7 @@ export class CommunicationServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<EmailLogDTOApiResult>(<any[]>null);
+        return _observableOf<EmailLogDTOApiResult>(<any>null);
     }
 }
 
@@ -2778,7 +2778,7 @@ export class ConsultantServiceProxy {
 
     /**
      * API for posting Training either by Consultant, Recruiter or Admin after logged in
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     postTraining(body: ManageTrainingDTO | undefined): Observable<MessageOutApiResult> {
@@ -2850,7 +2850,7 @@ export class ConsultantServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<MessageOutApiResult>(<any[]>null);
+        return _observableOf<MessageOutApiResult>(<any>null);
     }
 }
 
@@ -2867,11 +2867,11 @@ export class CountriesServiceProxy {
 
     /**
      * API for getting All Countries for Table Listings
-     * @param id (optional) 
-     * @param searchType (optional) 
-     * @param searchText (optional) 
-     * @param pageSize (optional) 
-     * @param pageNumber (optional) 
+     * @param id (optional)
+     * @param searchType (optional)
+     * @param searchText (optional)
+     * @param pageSize (optional)
+     * @param pageNumber (optional)
      * @return Success
      */
     fetchAllCountries(id: number | undefined, searchType: string | null | undefined, searchText: string | null | undefined, pageSize: number | undefined, pageNumber: number | undefined): Observable<CountryIListOdataResult> {
@@ -2955,7 +2955,7 @@ export class CountriesServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<CountryIListOdataResult>(<any[]>null);
+        return _observableOf<CountryIListOdataResult>(<any>null);
     }
 
     /**
@@ -3027,11 +3027,11 @@ export class CountriesServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<IDTextViewModelIListOdataResult>(<any[]>null);
+        return _observableOf<IDTextViewModelIListOdataResult>(<any>null);
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     createCountry(body: Country | undefined): Observable<void> {
@@ -3079,11 +3079,11 @@ export class CountriesServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any[]>null);
+        return _observableOf<void>(<any>null);
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     deleteCountry(id: number | undefined): Observable<void> {
@@ -3131,7 +3131,7 @@ export class CountriesServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any[]>null);
+        return _observableOf<void>(<any>null);
     }
 }
 
@@ -3148,11 +3148,11 @@ export class CourseServiceProxy {
 
     /**
      * API for getting All Courses for Table Listings
-     * @param id (optional) 
-     * @param searchType (optional) 
-     * @param searchText (optional) 
-     * @param pageSize (optional) 
-     * @param pageNumber (optional) 
+     * @param id (optional)
+     * @param searchType (optional)
+     * @param searchText (optional)
+     * @param pageSize (optional)
+     * @param pageNumber (optional)
      * @return Success
      */
     fetchAllCourses(id: number | undefined, searchType: string | null | undefined, searchText: string | null | undefined, pageSize: number | undefined, pageNumber: number | undefined): Observable<CourseIListOdataResult> {
@@ -3236,7 +3236,7 @@ export class CourseServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<CourseIListOdataResult>(<any[]>null);
+        return _observableOf<CourseIListOdataResult>(<any>null);
     }
 
     /**
@@ -3308,11 +3308,11 @@ export class CourseServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<IDTextViewModelIListOdataResult>(<any[]>null);
+        return _observableOf<IDTextViewModelIListOdataResult>(<any>null);
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     createCourse(body: Course | undefined): Observable<void> {
@@ -3360,11 +3360,11 @@ export class CourseServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any[]>null);
+        return _observableOf<void>(<any>null);
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     deleteCourse(id: number | undefined): Observable<void> {
@@ -3412,7 +3412,7 @@ export class CourseServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any[]>null);
+        return _observableOf<void>(<any>null);
     }
 }
 
@@ -3429,11 +3429,11 @@ export class CurrenciesServiceProxy {
 
     /**
      * API for getting All Currencies for Table Listings
-     * @param id (optional) 
-     * @param searchType (optional) 
-     * @param searchText (optional) 
-     * @param pageSize (optional) 
-     * @param pageNumber (optional) 
+     * @param id (optional)
+     * @param searchType (optional)
+     * @param searchText (optional)
+     * @param pageSize (optional)
+     * @param pageNumber (optional)
      * @return Success
      */
     fetchAllCurrencies(id: number | undefined, searchType: string | null | undefined, searchText: string | null | undefined, pageSize: number | undefined, pageNumber: number | undefined): Observable<CurrencyIListOdataResult> {
@@ -3517,7 +3517,7 @@ export class CurrenciesServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<CurrencyIListOdataResult>(<any[]>null);
+        return _observableOf<CurrencyIListOdataResult>(<any>null);
     }
 
     /**
@@ -3589,11 +3589,11 @@ export class CurrenciesServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<IDTextViewModelIListOdataResult>(<any[]>null);
+        return _observableOf<IDTextViewModelIListOdataResult>(<any>null);
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     createCurrency(body: Currency | undefined): Observable<void> {
@@ -3641,11 +3641,11 @@ export class CurrenciesServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any[]>null);
+        return _observableOf<void>(<any>null);
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     deleteCurrency(id: number | undefined): Observable<void> {
@@ -3693,7 +3693,7 @@ export class CurrenciesServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any[]>null);
+        return _observableOf<void>(<any>null);
     }
 }
 
@@ -3710,7 +3710,7 @@ export class DashboardServiceProxy {
 
     /**
      * API for fetching admin dashboard
-     * @param year (optional) 
+     * @param year (optional)
      * @return Success
      */
     fetchDashboardData(year: number | undefined): Observable<DashboardDTOOdataResult> {
@@ -3782,7 +3782,7 @@ export class DashboardServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<DashboardDTOOdataResult>(<any[]>null);
+        return _observableOf<DashboardDTOOdataResult>(<any>null);
     }
 }
 
@@ -3799,13 +3799,13 @@ export class EmployerServiceProxy {
 
     /**
      * API for getting All Employer Listing with filter but optional
-     * @param sectorId (optional) 
-     * @param stateId (optional) 
-     * @param isNewlyAdded (optional) 
-     * @param isPopular (optional) 
-     * @param searchText (optional) 
-     * @param pageSize (optional) 
-     * @param pageNumber (optional) 
+     * @param sectorId (optional)
+     * @param stateId (optional)
+     * @param isNewlyAdded (optional)
+     * @param isPopular (optional)
+     * @param searchText (optional)
+     * @param pageSize (optional)
+     * @param pageNumber (optional)
      * @return Success
      */
     fetchAllEmployers(sectorId: number | undefined, stateId: number | undefined, isNewlyAdded: boolean | undefined, isPopular: boolean | undefined, searchText: string | null | undefined, pageSize: number | undefined, pageNumber: number | undefined): Observable<EmployerDTOIListOdataResult> {
@@ -3899,12 +3899,12 @@ export class EmployerServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<EmployerDTOIListOdataResult>(<any[]>null);
+        return _observableOf<EmployerDTOIListOdataResult>(<any>null);
     }
 
     /**
      * API to get Employer by id and can be used for update, details etc
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     getEmployerById(id: number | undefined): Observable<EmployerDTOOdataResult> {
@@ -3976,7 +3976,7 @@ export class EmployerServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<EmployerDTOOdataResult>(<any[]>null);
+        return _observableOf<EmployerDTOOdataResult>(<any>null);
     }
 }
 
@@ -3993,11 +3993,11 @@ export class EmployerTypesServiceProxy {
 
     /**
      * API for getting All EmployerTypes for Table Listings
-     * @param id (optional) 
-     * @param searchType (optional) 
-     * @param searchText (optional) 
-     * @param pageSize (optional) 
-     * @param pageNumber (optional) 
+     * @param id (optional)
+     * @param searchType (optional)
+     * @param searchText (optional)
+     * @param pageSize (optional)
+     * @param pageNumber (optional)
      * @return Success
      */
     fetchAllEmployerTypes(id: number | undefined, searchType: string | null | undefined, searchText: string | null | undefined, pageSize: number | undefined, pageNumber: number | undefined): Observable<EmployerTypeIListOdataResult> {
@@ -4081,7 +4081,7 @@ export class EmployerTypesServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<EmployerTypeIListOdataResult>(<any[]>null);
+        return _observableOf<EmployerTypeIListOdataResult>(<any>null);
     }
 
     /**
@@ -4153,11 +4153,11 @@ export class EmployerTypesServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<IDTextViewModelIListOdataResult>(<any[]>null);
+        return _observableOf<IDTextViewModelIListOdataResult>(<any>null);
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     createEmployerType(body: EmployerType | undefined): Observable<void> {
@@ -4205,11 +4205,11 @@ export class EmployerTypesServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any[]>null);
+        return _observableOf<void>(<any>null);
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     deleteEmployerType(id: number | undefined): Observable<void> {
@@ -4257,7 +4257,7 @@ export class EmployerTypesServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any[]>null);
+        return _observableOf<void>(<any>null);
     }
 }
 
@@ -4274,11 +4274,11 @@ export class GradesServiceProxy {
 
     /**
      * API for getting All Grades for Table Listings
-     * @param id (optional) 
-     * @param searchType (optional) 
-     * @param searchText (optional) 
-     * @param pageSize (optional) 
-     * @param pageNumber (optional) 
+     * @param id (optional)
+     * @param searchType (optional)
+     * @param searchText (optional)
+     * @param pageSize (optional)
+     * @param pageNumber (optional)
      * @return Success
      */
     fetchAllGrades(id: number | undefined, searchType: string | null | undefined, searchText: string | null | undefined, pageSize: number | undefined, pageNumber: number | undefined): Observable<GradeIListOdataResult> {
@@ -4362,7 +4362,7 @@ export class GradesServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<GradeIListOdataResult>(<any[]>null);
+        return _observableOf<GradeIListOdataResult>(<any>null);
     }
 
     /**
@@ -4434,11 +4434,11 @@ export class GradesServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<IDTextViewModelIListOdataResult>(<any[]>null);
+        return _observableOf<IDTextViewModelIListOdataResult>(<any>null);
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     createGrade(body: Grade | undefined): Observable<void> {
@@ -4486,11 +4486,11 @@ export class GradesServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any[]>null);
+        return _observableOf<void>(<any>null);
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     deleteGrade(id: number | undefined): Observable<void> {
@@ -4538,7 +4538,7 @@ export class GradesServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any[]>null);
+        return _observableOf<void>(<any>null);
     }
 }
 
@@ -4555,11 +4555,11 @@ export class InstitutionServiceProxy {
 
     /**
      * API for getting All Institutions for Table Listings
-     * @param id (optional) 
-     * @param searchType (optional) 
-     * @param searchText (optional) 
-     * @param pageSize (optional) 
-     * @param pageNumber (optional) 
+     * @param id (optional)
+     * @param searchType (optional)
+     * @param searchText (optional)
+     * @param pageSize (optional)
+     * @param pageNumber (optional)
      * @return Success
      */
     fetchAllInstitutions(id: number | undefined, searchType: string | null | undefined, searchText: string | null | undefined, pageSize: number | undefined, pageNumber: number | undefined): Observable<InstitutionIListOdataResult> {
@@ -4643,7 +4643,7 @@ export class InstitutionServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<InstitutionIListOdataResult>(<any[]>null);
+        return _observableOf<InstitutionIListOdataResult>(<any>null);
     }
 
     /**
@@ -4715,11 +4715,11 @@ export class InstitutionServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<IDTextViewModelIListOdataResult>(<any[]>null);
+        return _observableOf<IDTextViewModelIListOdataResult>(<any>null);
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     createInstitution(body: Institution | undefined): Observable<void> {
@@ -4767,11 +4767,11 @@ export class InstitutionServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any[]>null);
+        return _observableOf<void>(<any>null);
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     deleteInstitution(id: number | undefined): Observable<void> {
@@ -4819,7 +4819,7 @@ export class InstitutionServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any[]>null);
+        return _observableOf<void>(<any>null);
     }
 }
 
@@ -4835,7 +4835,7 @@ export class JobServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     postJob(body: Job | undefined): Observable<MessageOutApiResult> {
@@ -4907,19 +4907,19 @@ export class JobServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<MessageOutApiResult>(<any[]>null);
+        return _observableOf<MessageOutApiResult>(<any>null);
     }
 
     /**
      * API for getting All Jobs Listing with filter but optional
-     * @param skillAreaId (optional) 
-     * @param sectorId (optional) 
-     * @param countryId (optional) 
-     * @param stateId (optional) 
-     * @param isNewlyAdded (optional) 
-     * @param isPopular (optional) 
-     * @param pageSize (optional) 
-     * @param pageNumber (optional) 
+     * @param skillAreaId (optional)
+     * @param sectorId (optional)
+     * @param countryId (optional)
+     * @param stateId (optional)
+     * @param isNewlyAdded (optional)
+     * @param isPopular (optional)
+     * @param pageSize (optional)
+     * @param pageNumber (optional)
      * @return Success
      */
     fetchJobs(skillAreaId: number | undefined, sectorId: number | undefined, countryId: number | undefined, stateId: number | undefined, isNewlyAdded: boolean | undefined, isPopular: boolean | undefined, pageSize: number | undefined, pageNumber: number | undefined): Observable<JobDTOIListOdataResult> {
@@ -5019,19 +5019,19 @@ export class JobServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<JobDTOIListOdataResult>(<any[]>null);
+        return _observableOf<JobDTOIListOdataResult>(<any>null);
     }
 
     /**
      * API for getting All Jobs Listing with filter but optional
-     * @param skillAreaId (optional) 
-     * @param sectorId (optional) 
-     * @param countryId (optional) 
-     * @param stateId (optional) 
-     * @param isNewlyAdded (optional) 
-     * @param isPopular (optional) 
-     * @param pageSize (optional) 
-     * @param pageNumber (optional) 
+     * @param skillAreaId (optional)
+     * @param sectorId (optional)
+     * @param countryId (optional)
+     * @param stateId (optional)
+     * @param isNewlyAdded (optional)
+     * @param isPopular (optional)
+     * @param pageSize (optional)
+     * @param pageNumber (optional)
      * @return Success
      */
     fetchAllJobs(skillAreaId: number | undefined, sectorId: number | undefined, countryId: number | undefined, stateId: number | undefined, isNewlyAdded: boolean | undefined, isPopular: boolean | undefined, pageSize: number | undefined, pageNumber: number | undefined): Observable<JobIListOdataResult> {
@@ -5131,12 +5131,12 @@ export class JobServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<JobIListOdataResult>(<any[]>null);
+        return _observableOf<JobIListOdataResult>(<any>null);
     }
 
     /**
      * API to get Job by id and can be used for update, details etc
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     getJobById(id: number | undefined): Observable<JobDTOOdataResult> {
@@ -5208,12 +5208,12 @@ export class JobServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<JobDTOOdataResult>(<any[]>null);
+        return _observableOf<JobDTOOdataResult>(<any>null);
     }
 
     /**
      * API for updating Job Views Counts (i.e. it count the no. of View per Job whenever user click Job to see the details).
-     * @param jobId (optional) 
+     * @param jobId (optional)
      * @return Success
      */
     jobClicks(jobId: number | undefined): Observable<void> {
@@ -5281,12 +5281,12 @@ export class JobServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any[]>null);
+        return _observableOf<void>(<any>null);
     }
 
     /**
      * API for Job Application by Logged-In Users
-     * @param jobId (optional) 
+     * @param jobId (optional)
      * @return Success
      */
     applyJob(jobId: number | undefined): Observable<MessageOutApiResult> {
@@ -5358,7 +5358,7 @@ export class JobServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<MessageOutApiResult>(<any[]>null);
+        return _observableOf<MessageOutApiResult>(<any>null);
     }
 }
 
@@ -5375,11 +5375,11 @@ export class JobTypesServiceProxy {
 
     /**
      * API for getting All JobTypes for Table Listings
-     * @param id (optional) 
-     * @param searchType (optional) 
-     * @param searchText (optional) 
-     * @param pageSize (optional) 
-     * @param pageNumber (optional) 
+     * @param id (optional)
+     * @param searchType (optional)
+     * @param searchText (optional)
+     * @param pageSize (optional)
+     * @param pageNumber (optional)
      * @return Success
      */
     fetchAllJobTypes(id: number | undefined, searchType: string | null | undefined, searchText: string | null | undefined, pageSize: number | undefined, pageNumber: number | undefined): Observable<JobTypeIListOdataResult> {
@@ -5463,7 +5463,7 @@ export class JobTypesServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<JobTypeIListOdataResult>(<any[]>null);
+        return _observableOf<JobTypeIListOdataResult>(<any>null);
     }
 
     /**
@@ -5535,11 +5535,11 @@ export class JobTypesServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<IDTextViewModelIListOdataResult>(<any[]>null);
+        return _observableOf<IDTextViewModelIListOdataResult>(<any>null);
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     createJobType(body: JobType | undefined): Observable<void> {
@@ -5587,11 +5587,11 @@ export class JobTypesServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any[]>null);
+        return _observableOf<void>(<any>null);
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     deleteJobType(id: number | undefined): Observable<void> {
@@ -5639,7 +5639,7 @@ export class JobTypesServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any[]>null);
+        return _observableOf<void>(<any>null);
     }
 }
 
@@ -5656,8 +5656,8 @@ export class PaymentServiceProxy {
 
     /**
      * API to verify Employer Subscription plan payment while setting up their account
-     * @param reference (optional) 
-     * @param userId (optional) 
+     * @param reference (optional)
+     * @param userId (optional)
      * @return Success
      */
     verifyEmployerPayment(reference: string | null | undefined, userId: string | null | undefined): Observable<MessageOutApiResult> {
@@ -5729,13 +5729,13 @@ export class PaymentServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<MessageOutApiResult>(<any[]>null);
+        return _observableOf<MessageOutApiResult>(<any>null);
     }
 
     /**
      * API to verify Training Posting payment by whoever posted Training
-     * @param reference (optional) 
-     * @param trainingId (optional) 
+     * @param reference (optional)
+     * @param trainingId (optional)
      * @return Success
      */
     verifyTrainingPayment(reference: string | null | undefined, trainingId: string | null | undefined): Observable<MessageOutApiResult> {
@@ -5807,7 +5807,7 @@ export class PaymentServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<MessageOutApiResult>(<any[]>null);
+        return _observableOf<MessageOutApiResult>(<any>null);
     }
 }
 
@@ -5824,7 +5824,7 @@ export class ProfessionalBodyServiceProxy {
 
     /**
      * API for adding/updating Professional Body
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     addUpdateProfessionalBody(body: ManageProfessionalBodyDTO | undefined): Observable<MessageOutApiResult> {
@@ -5896,15 +5896,15 @@ export class ProfessionalBodyServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<MessageOutApiResult>(<any[]>null);
+        return _observableOf<MessageOutApiResult>(<any>null);
     }
 
     /**
      * API to Fetch Professional Bodies.
     Note: all filter are optional
-     * @param pageSize (optional) 
-     * @param pageNumber (optional) 
-     * @param sectorId (optional) 
+     * @param pageSize (optional)
+     * @param pageNumber (optional)
+     * @param sectorId (optional)
      * @return Success
      */
     getAllProfessionalBodies(pageSize: number | undefined, pageNumber: number | undefined, sectorId: number | undefined): Observable<ProfessionalBodyDTOListApiResult> {
@@ -5984,12 +5984,12 @@ export class ProfessionalBodyServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<ProfessionalBodyDTOListApiResult>(<any[]>null);
+        return _observableOf<ProfessionalBodyDTOListApiResult>(<any>null);
     }
 
     /**
      * API to get Professional Body by id and can be used for update, details etc
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     getProfessionalBodyById(id: number | undefined): Observable<ProfessionalBodyDTOApiResult> {
@@ -6061,7 +6061,7 @@ export class ProfessionalBodyServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<ProfessionalBodyDTOApiResult>(<any[]>null);
+        return _observableOf<ProfessionalBodyDTOApiResult>(<any>null);
     }
 }
 
@@ -6078,11 +6078,11 @@ export class QualificationServiceProxy {
 
     /**
      * API for getting All Qualifications for Table Listings
-     * @param id (optional) 
-     * @param searchType (optional) 
-     * @param searchText (optional) 
-     * @param pageSize (optional) 
-     * @param pageNumber (optional) 
+     * @param id (optional)
+     * @param searchType (optional)
+     * @param searchText (optional)
+     * @param pageSize (optional)
+     * @param pageNumber (optional)
      * @return Success
      */
     fetchAllQualifications(id: number | undefined, searchType: string | null | undefined, searchText: string | null | undefined, pageSize: number | undefined, pageNumber: number | undefined): Observable<QualificationIListOdataResult> {
@@ -6166,7 +6166,7 @@ export class QualificationServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<QualificationIListOdataResult>(<any[]>null);
+        return _observableOf<QualificationIListOdataResult>(<any>null);
     }
 
     /**
@@ -6238,11 +6238,11 @@ export class QualificationServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<IDTextViewModelIListOdataResult>(<any[]>null);
+        return _observableOf<IDTextViewModelIListOdataResult>(<any>null);
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     createQualification(body: Qualification | undefined): Observable<void> {
@@ -6290,11 +6290,11 @@ export class QualificationServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any[]>null);
+        return _observableOf<void>(<any>null);
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     deleteQualification(id: number | undefined): Observable<void> {
@@ -6342,7 +6342,7 @@ export class QualificationServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any[]>null);
+        return _observableOf<void>(<any>null);
     }
 }
 
@@ -6359,11 +6359,11 @@ export class ReportServiceProxy {
 
     /**
      * Reports: API for fetching All Employers Listing with filter but optional
-     * @param searchText (optional) 
-     * @param dateFrom (optional) 
-     * @param dateTo (optional) 
-     * @param pageSize (optional) 
-     * @param pageNumber (optional) 
+     * @param searchText (optional)
+     * @param dateFrom (optional)
+     * @param dateTo (optional)
+     * @param pageSize (optional)
+     * @param pageNumber (optional)
      * @return Success
      */
     fetchAllEmployers(searchText: string | null | undefined, dateFrom: Date | null | undefined, dateTo: Date | null | undefined, pageSize: number | undefined, pageNumber: number | undefined): Observable<EmployerDTOIListOdataResult> {
@@ -6445,7 +6445,7 @@ export class ReportServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<EmployerDTOIListOdataResult>(<any[]>null);
+        return _observableOf<EmployerDTOIListOdataResult>(<any>null);
     }
 }
 
@@ -6529,13 +6529,13 @@ export class RoleServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<ApplicationRoleDTOOdataResult>(<any[]>null);
+        return _observableOf<ApplicationRoleDTOOdataResult>(<any>null);
     }
 
     /**
      * API for Adding/Updating Roles as a Super Admin that possesses
     'Role Management' Privilege
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     createRole(body: ApplicationRoleDTO | undefined): Observable<MessageOutApiResult> {
@@ -6607,7 +6607,7 @@ export class RoleServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<MessageOutApiResult>(<any[]>null);
+        return _observableOf<MessageOutApiResult>(<any>null);
     }
 }
 
@@ -6690,11 +6690,11 @@ export class RolePermissionServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<RolePermissionDTOIListApiResult>(<any[]>null);
+        return _observableOf<RolePermissionDTOIListApiResult>(<any>null);
     }
 
     /**
-     * @param roleId (optional) 
+     * @param roleId (optional)
      * @return Success
      */
     fetchRolePermission(roleId: number | undefined): Observable<RolePermissionDTOApiResult> {
@@ -6766,11 +6766,11 @@ export class RolePermissionServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<RolePermissionDTOApiResult>(<any[]>null);
+        return _observableOf<RolePermissionDTOApiResult>(<any>null);
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     rolePermissionMapping(body: RolePermissionMappingDTO | undefined): Observable<MessageOutApiResult> {
@@ -6842,7 +6842,7 @@ export class RolePermissionServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<MessageOutApiResult>(<any[]>null);
+        return _observableOf<MessageOutApiResult>(<any>null);
     }
 }
 
@@ -6859,11 +6859,11 @@ export class SectorsServiceProxy {
 
     /**
      * API for getting All Sectors for Table Listings
-     * @param id (optional) 
-     * @param searchType (optional) 
-     * @param searchText (optional) 
-     * @param pageSize (optional) 
-     * @param pageNumber (optional) 
+     * @param id (optional)
+     * @param searchType (optional)
+     * @param searchText (optional)
+     * @param pageSize (optional)
+     * @param pageNumber (optional)
      * @return Success
      */
     fetchAllSectors(id: number | undefined, searchType: string | null | undefined, searchText: string | null | undefined, pageSize: number | undefined, pageNumber: number | undefined): Observable<SectorIListOdataResult> {
@@ -6947,7 +6947,7 @@ export class SectorsServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<SectorIListOdataResult>(<any[]>null);
+        return _observableOf<SectorIListOdataResult>(<any>null);
     }
 
     /**
@@ -7019,11 +7019,11 @@ export class SectorsServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<IDTextViewModelIListOdataResult>(<any[]>null);
+        return _observableOf<IDTextViewModelIListOdataResult>(<any>null);
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     createSector(body: Sector | undefined): Observable<void> {
@@ -7071,11 +7071,11 @@ export class SectorsServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any[]>null);
+        return _observableOf<void>(<any>null);
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     deleteSector(id: number | undefined): Observable<void> {
@@ -7123,7 +7123,7 @@ export class SectorsServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any[]>null);
+        return _observableOf<void>(<any>null);
     }
 }
 
@@ -7140,7 +7140,7 @@ export class SkillServiceProxy {
 
     /**
      * API for adding Skill
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     addSkills(body: ManageSkillDTO | undefined): Observable<MessageOutApiResult> {
@@ -7212,15 +7212,15 @@ export class SkillServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<MessageOutApiResult>(<any[]>null);
+        return _observableOf<MessageOutApiResult>(<any>null);
     }
 
     /**
      * API to Fetch Skills.
     Note: all filter are optional
-     * @param pageSize (optional) 
-     * @param pageNumber (optional) 
-     * @param categoryId (optional) 
+     * @param pageSize (optional)
+     * @param pageNumber (optional)
+     * @param categoryId (optional)
      * @return Success
      */
     getAllSkills(pageSize: number | undefined, pageNumber: number | undefined, categoryId: number | undefined): Observable<SkillListApiResult> {
@@ -7300,12 +7300,12 @@ export class SkillServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<SkillListApiResult>(<any[]>null);
+        return _observableOf<SkillListApiResult>(<any>null);
     }
 
     /**
      * API to get Skill by id and can be used for update, details etc
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     getSkillById(id: number | undefined): Observable<SkillApiResult> {
@@ -7377,7 +7377,7 @@ export class SkillServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<SkillApiResult>(<any[]>null);
+        return _observableOf<SkillApiResult>(<any>null);
     }
 }
 
@@ -7394,11 +7394,11 @@ export class SkillAreasServiceProxy {
 
     /**
      * API for getting All SkillAreas for Table Listings
-     * @param id (optional) 
-     * @param searchType (optional) 
-     * @param searchText (optional) 
-     * @param pageSize (optional) 
-     * @param pageNumber (optional) 
+     * @param id (optional)
+     * @param searchType (optional)
+     * @param searchText (optional)
+     * @param pageSize (optional)
+     * @param pageNumber (optional)
      * @return Success
      */
     fetchAllSkillAreas(id: number | undefined, searchType: string | null | undefined, searchText: string | null | undefined, pageSize: number | undefined, pageNumber: number | undefined): Observable<SkillAreaIListOdataResult> {
@@ -7482,7 +7482,7 @@ export class SkillAreasServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<SkillAreaIListOdataResult>(<any[]>null);
+        return _observableOf<SkillAreaIListOdataResult>(<any>null);
     }
 
     /**
@@ -7554,11 +7554,11 @@ export class SkillAreasServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<IDTextViewModelIListOdataResult>(<any[]>null);
+        return _observableOf<IDTextViewModelIListOdataResult>(<any>null);
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     createSkillArea(body: SkillArea | undefined): Observable<void> {
@@ -7606,11 +7606,11 @@ export class SkillAreasServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any[]>null);
+        return _observableOf<void>(<any>null);
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     deleteSkillArea(id: number | undefined): Observable<void> {
@@ -7658,7 +7658,7 @@ export class SkillAreasServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any[]>null);
+        return _observableOf<void>(<any>null);
     }
 }
 
@@ -7675,11 +7675,11 @@ export class StatesServiceProxy {
 
     /**
      * API for getting All States for Table Listings
-     * @param id (optional) 
-     * @param searchType (optional) 
-     * @param searchText (optional) 
-     * @param pageSize (optional) 
-     * @param pageNumber (optional) 
+     * @param id (optional)
+     * @param searchType (optional)
+     * @param searchText (optional)
+     * @param pageSize (optional)
+     * @param pageNumber (optional)
      * @return Success
      */
     fetchAllStates(id: number | undefined, searchType: string | null | undefined, searchText: string | null | undefined, pageSize: number | undefined, pageNumber: number | undefined): Observable<StateIListOdataResult> {
@@ -7763,12 +7763,12 @@ export class StatesServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<StateIListOdataResult>(<any[]>null);
+        return _observableOf<StateIListOdataResult>(<any>null);
     }
 
     /**
      * API for getting the list of all State by CountryId
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     fetchAllStateByCountry(id: number | undefined): Observable<StateIListOdataResult> {
@@ -7840,7 +7840,7 @@ export class StatesServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<StateIListOdataResult>(<any[]>null);
+        return _observableOf<StateIListOdataResult>(<any>null);
     }
 
     /**
@@ -7912,11 +7912,11 @@ export class StatesServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<IDTextViewModelIListOdataResult>(<any[]>null);
+        return _observableOf<IDTextViewModelIListOdataResult>(<any>null);
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     createState(body: State | undefined): Observable<void> {
@@ -7964,11 +7964,11 @@ export class StatesServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any[]>null);
+        return _observableOf<void>(<any>null);
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     deleteState(id: number | undefined): Observable<void> {
@@ -8016,7 +8016,7 @@ export class StatesServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any[]>null);
+        return _observableOf<void>(<any>null);
     }
 }
 
@@ -8100,7 +8100,7 @@ export class SubscriptionsServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<SubscriptionFeatureDTOIListOdataResult>(<any[]>null);
+        return _observableOf<SubscriptionFeatureDTOIListOdataResult>(<any>null);
     }
 
     /**
@@ -8172,16 +8172,16 @@ export class SubscriptionsServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<SubscriptionFeatureDTOIListOdataResult>(<any[]>null);
+        return _observableOf<SubscriptionFeatureDTOIListOdataResult>(<any>null);
     }
 
     /**
      * API for getting All Subscriptions for Table Listings
-     * @param id (optional) 
-     * @param searchType (optional) 
-     * @param searchText (optional) 
-     * @param pageSize (optional) 
-     * @param pageNumber (optional) 
+     * @param id (optional)
+     * @param searchType (optional)
+     * @param searchText (optional)
+     * @param pageSize (optional)
+     * @param pageNumber (optional)
      * @return Success
      */
     fetchAllSubscriptions(id: number | undefined, searchType: string | null | undefined, searchText: string | null | undefined, pageSize: number | undefined, pageNumber: number | undefined): Observable<SubscriptionIListOdataResult> {
@@ -8265,7 +8265,7 @@ export class SubscriptionsServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<SubscriptionIListOdataResult>(<any[]>null);
+        return _observableOf<SubscriptionIListOdataResult>(<any>null);
     }
 
     /**
@@ -8337,11 +8337,11 @@ export class SubscriptionsServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<IDTextViewModelIListOdataResult>(<any[]>null);
+        return _observableOf<IDTextViewModelIListOdataResult>(<any>null);
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     createSubscription(body: ManageSubscriptionDTO | undefined): Observable<void> {
@@ -8389,11 +8389,11 @@ export class SubscriptionsServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any[]>null);
+        return _observableOf<void>(<any>null);
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     deleteSubscription(id: number | undefined): Observable<void> {
@@ -8441,7 +8441,7 @@ export class SubscriptionsServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any[]>null);
+        return _observableOf<void>(<any>null);
     }
 }
 
@@ -8458,11 +8458,11 @@ export class TitlesServiceProxy {
 
     /**
      * API for getting All Titles for Table Listings
-     * @param id (optional) 
-     * @param searchType (optional) 
-     * @param searchText (optional) 
-     * @param pageSize (optional) 
-     * @param pageNumber (optional) 
+     * @param id (optional)
+     * @param searchType (optional)
+     * @param searchText (optional)
+     * @param pageSize (optional)
+     * @param pageNumber (optional)
      * @return Success
      */
     fetchAllTitles(id: number | undefined, searchType: string | null | undefined, searchText: string | null | undefined, pageSize: number | undefined, pageNumber: number | undefined): Observable<TitleIListOdataResult> {
@@ -8546,7 +8546,7 @@ export class TitlesServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<TitleIListOdataResult>(<any[]>null);
+        return _observableOf<TitleIListOdataResult>(<any>null);
     }
 
     /**
@@ -8618,11 +8618,11 @@ export class TitlesServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<IDTextViewModelIListOdataResult>(<any[]>null);
+        return _observableOf<IDTextViewModelIListOdataResult>(<any>null);
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     createTitle(body: Title | undefined): Observable<void> {
@@ -8670,11 +8670,11 @@ export class TitlesServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any[]>null);
+        return _observableOf<void>(<any>null);
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     deleteTitle(id: number | undefined): Observable<void> {
@@ -8722,7 +8722,7 @@ export class TitlesServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any[]>null);
+        return _observableOf<void>(<any>null);
     }
 }
 
@@ -8738,7 +8738,7 @@ export class UserManagementServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     registerUser(body: RegisterUserDTO | undefined): Observable<void> {
@@ -8786,11 +8786,11 @@ export class UserManagementServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any[]>null);
+        return _observableOf<void>(<any>null);
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     updateUser(body: RegisterUserDTO | undefined): Observable<void> {
@@ -8838,7 +8838,7 @@ export class UserManagementServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any[]>null);
+        return _observableOf<void>(<any>null);
     }
 
     /**
@@ -8889,7 +8889,7 @@ export class UserManagementServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<ApplicationUserDTOIListApiResult>(<any[]>null);
+        return _observableOf<ApplicationUserDTOIListApiResult>(<any>null);
     }
 }
 
@@ -9017,7 +9017,7 @@ export class ManageJobSeekerRegDTO implements IManageJobSeekerRegDTO {
         data["briefDescription"] = this.briefDescription;
         data["title"] = this.title;
         data["sex"] = this.sex;
-        return data; 
+        return data;
     }
 
     clone(): ManageJobSeekerRegDTO {
@@ -9118,7 +9118,7 @@ export class MessageOut implements IMessageOut {
             for (let item of this.errors)
                 data["errors"].push(item);
         }
-        return data; 
+        return data;
     }
 
     clone(): MessageOut {
@@ -9179,7 +9179,7 @@ export class MessageOutApiResult implements IMessageOutApiResult {
         data["result"] = this.result ? this.result.toJSON() : <any>undefined;
         data["totalCount"] = this.totalCount;
         data["totalRecord"] = this.totalRecord;
-        return data; 
+        return data;
     }
 
     clone(): MessageOutApiResult {
@@ -9277,7 +9277,7 @@ export class ManageEmployerDTO implements IManageEmployerDTO {
         data["logo"] = this.logo;
         data["employerTypeId"] = this.employerTypeId;
         data["referenceNumber"] = this.referenceNumber;
-        return data; 
+        return data;
     }
 
     clone(): ManageEmployerDTO {
@@ -9373,7 +9373,7 @@ export class ManageConsultantDTO implements IManageConsultantDTO {
         data["mobile"] = this.mobile;
         data["sectorId"] = this.sectorId;
         data["subscriptionPlanId"] = this.subscriptionPlanId;
-        return data; 
+        return data;
     }
 
     clone(): ManageConsultantDTO {
@@ -9440,7 +9440,7 @@ export class UserLoginDTO implements IUserLoginDTO {
         data["firstName"] = this.firstName;
         data["lastName"] = this.lastName;
         data["isSocial"] = this.isSocial;
-        return data; 
+        return data;
     }
 
     clone(): UserLoginDTO {
@@ -9562,7 +9562,7 @@ export class CompanyUserCache implements ICompanyUserCache {
         data["isPlanActivated"] = this.isPlanActivated;
         data["hasPostedJob"] = this.hasPostedJob;
         data["hasActivePremiumJob"] = this.hasActivePremiumJob;
-        return data; 
+        return data;
     }
 
     clone(): CompanyUserCache {
@@ -9724,7 +9724,7 @@ export class VwUserObj implements IVwUserObj {
             for (let item of this.errors)
                 data["errors"].push(item);
         }
-        return data; 
+        return data;
     }
 
     clone(): VwUserObj {
@@ -9805,7 +9805,7 @@ export class VwUserObjApiResult implements IVwUserObjApiResult {
         data["result"] = this.result ? this.result.toJSON() : <any>undefined;
         data["totalCount"] = this.totalCount;
         data["totalRecord"] = this.totalRecord;
-        return data; 
+        return data;
     }
 
     clone(): VwUserObjApiResult {
@@ -9861,7 +9861,7 @@ export class ResestPasswordDTO implements IResestPasswordDTO {
         data["email"] = this.email;
         data["password"] = this.password;
         data["confirmPassword"] = this.confirmPassword;
-        return data; 
+        return data;
     }
 
     clone(): ResestPasswordDTO {
@@ -9955,7 +9955,7 @@ export class ActivityLog implements IActivityLog {
         data["createdById"] = this.createdById;
         data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
         data["modifiedById"] = this.modifiedById;
-        return data; 
+        return data;
     }
 
     clone(): ActivityLog {
@@ -10034,7 +10034,7 @@ export class ActivityLogIListApiResult implements IActivityLogIListApiResult {
         }
         data["totalCount"] = this.totalCount;
         data["totalRecord"] = this.totalRecord;
-        return data; 
+        return data;
     }
 
     clone(): ActivityLogIListApiResult {
@@ -10198,7 +10198,7 @@ export class JobDTO implements IJobDTO {
         data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
         data["modifiedById"] = this.modifiedById;
         data["aboutCompany"] = this.aboutCompany;
-        return data; 
+        return data;
     }
 
     clone(): JobDTO {
@@ -10300,7 +10300,7 @@ export class JobDTOIListOdataResult implements IJobDTOIListOdataResult {
                 data["value"].push(item.toJSON());
         }
         data["totalCount"] = this.totalCount;
-        return data; 
+        return data;
     }
 
     clone(): JobDTOIListOdataResult {
@@ -10476,7 +10476,7 @@ export class JobApplicationDTO implements IJobApplicationDTO {
         data["lastUpdate"] = this.lastUpdate ? this.lastUpdate.toISOString() : <any>undefined;
         data["genderName"] = this.genderName;
         data["recruitmentStage"] = this.recruitmentStage;
-        return data; 
+        return data;
     }
 
     clone(): JobApplicationDTO {
@@ -10582,7 +10582,7 @@ export class JobApplicationDTOIListOdataResult implements IJobApplicationDTOILis
                 data["value"].push(item.toJSON());
         }
         data["totalCount"] = this.totalCount;
-        return data; 
+        return data;
     }
 
     clone(): JobApplicationDTOIListOdataResult {
@@ -10635,7 +10635,7 @@ export class JobApplicationStage implements IJobApplicationStage {
         data["id"] = this.id;
         data["recruitmentStageId"] = this.recruitmentStageId;
         data["recruitmentStageName"] = this.recruitmentStageName;
-        return data; 
+        return data;
     }
 
     clone(): JobApplicationStage {
@@ -10713,7 +10713,7 @@ export class JobSeekerEducation implements IJobSeekerEducation {
         data["gradeId"] = this.gradeId;
         data["institutionId"] = this.institutionId;
         data["courseId"] = this.courseId;
-        return data; 
+        return data;
     }
 
     clone(): JobSeekerEducation {
@@ -10788,7 +10788,7 @@ export class JobSeekerExperience implements IJobSeekerExperience {
         data["position"] = this.position;
         data["company"] = this.company;
         data["isPresentEmployment"] = this.isPresentEmployment;
-        return data; 
+        return data;
     }
 
     clone(): JobSeekerExperience {
@@ -10847,7 +10847,7 @@ export class JobSeekerResume implements IJobSeekerResume {
         data["registeredUserId"] = this.registeredUserId;
         data["cvResume"] = this.cvResume;
         data["videoResume"] = this.videoResume;
-        return data; 
+        return data;
     }
 
     clone(): JobSeekerResume {
@@ -11018,7 +11018,7 @@ export class JobSeekerDTO implements IJobSeekerDTO {
         data["briefDescription"] = this.briefDescription;
         data["title"] = this.title;
         data["sex"] = this.sex;
-        return data; 
+        return data;
     }
 
     clone(): JobSeekerDTO {
@@ -11104,7 +11104,7 @@ export class JobSeekerDTOOdataResult implements IJobSeekerDTOOdataResult {
         data["message"] = this.message;
         data["value"] = this.value ? this.value.toJSON() : <any>undefined;
         data["totalCount"] = this.totalCount;
-        return data; 
+        return data;
     }
 
     clone(): JobSeekerDTOOdataResult {
@@ -11157,7 +11157,7 @@ export class ProcessApplicationDTO implements IProcessApplicationDTO {
         data["jobId"] = this.jobId;
         data["stageId"] = this.stageId;
         data["selectedApplicantIds"] = this.selectedApplicantIds;
-        return data; 
+        return data;
     }
 
     clone(): ProcessApplicationDTO {
@@ -11226,7 +11226,7 @@ export class ManageArtisanDTO implements IManageArtisanDTO {
         data["yearOfExperience"] = this.yearOfExperience;
         data["description"] = this.description;
         data["brandLogo"] = this.brandLogo;
-        return data; 
+        return data;
     }
 
     clone(): ManageArtisanDTO {
@@ -11325,7 +11325,7 @@ export class ArtisanDTO implements IArtisanDTO {
         data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
         data["modifiedById"] = this.modifiedById;
         data["brandLogo"] = this.brandLogo;
-        return data; 
+        return data;
     }
 
     clone(): ArtisanDTO {
@@ -11404,7 +11404,7 @@ export class ArtisanDTOIListOdataResult implements IArtisanDTOIListOdataResult {
                 data["value"].push(item.toJSON());
         }
         data["totalCount"] = this.totalCount;
-        return data; 
+        return data;
     }
 
     clone(): ArtisanDTOIListOdataResult {
@@ -11463,7 +11463,7 @@ export class ArtisanDTOOdataResult implements IArtisanDTOOdataResult {
         data["message"] = this.message;
         data["value"] = this.value ? this.value.toJSON() : <any>undefined;
         data["totalCount"] = this.totalCount;
-        return data; 
+        return data;
     }
 
     clone(): ArtisanDTOOdataResult {
@@ -11522,7 +11522,7 @@ export class ManageCertificationDTO implements IManageCertificationDTO {
         data["name"] = this.name;
         data["code"] = this.code;
         data["point"] = this.point;
-        return data; 
+        return data;
     }
 
     clone(): ManageCertificationDTO {
@@ -11608,7 +11608,7 @@ export class CertificationDTO implements ICertificationDTO {
         data["createdById"] = this.createdById;
         data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
         data["modifiedById"] = this.modifiedById;
-        return data; 
+        return data;
     }
 
     clone(): CertificationDTO {
@@ -11684,7 +11684,7 @@ export class CertificationDTOListApiResult implements ICertificationDTOListApiRe
         }
         data["totalCount"] = this.totalCount;
         data["totalRecord"] = this.totalRecord;
-        return data; 
+        return data;
     }
 
     clone(): CertificationDTOListApiResult {
@@ -11743,7 +11743,7 @@ export class CertificationDTOApiResult implements ICertificationDTOApiResult {
         data["result"] = this.result ? this.result.toJSON() : <any>undefined;
         data["totalCount"] = this.totalCount;
         data["totalRecord"] = this.totalRecord;
-        return data; 
+        return data;
     }
 
     clone(): CertificationDTOApiResult {
@@ -11793,7 +11793,7 @@ export class IDTextViewModel implements IIDTextViewModel {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["text"] = this.text;
-        return data; 
+        return data;
     }
 
     clone(): IDTextViewModel {
@@ -11857,7 +11857,7 @@ export class IDTextViewModelIListOdataResult implements IIDTextViewModelIListOda
                 data["value"].push(item.toJSON());
         }
         data["totalCount"] = this.totalCount;
-        return data; 
+        return data;
     }
 
     clone(): IDTextViewModelIListOdataResult {
@@ -11946,7 +11946,7 @@ export class EmailSetting implements IEmailSetting {
         data["createdById"] = this.createdById;
         data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
         data["modifiedById"] = this.modifiedById;
-        return data; 
+        return data;
     }
 
     clone(): EmailSetting {
@@ -12023,7 +12023,7 @@ export class EmailSettingListApiResult implements IEmailSettingListApiResult {
         }
         data["totalCount"] = this.totalCount;
         data["totalRecord"] = this.totalRecord;
-        return data; 
+        return data;
     }
 
     clone(): EmailSettingListApiResult {
@@ -12082,7 +12082,7 @@ export class EmailSettingApiResult implements IEmailSettingApiResult {
         data["result"] = this.result ? this.result.toJSON() : <any>undefined;
         data["totalCount"] = this.totalCount;
         data["totalRecord"] = this.totalRecord;
-        return data; 
+        return data;
     }
 
     clone(): EmailSettingApiResult {
@@ -12149,7 +12149,7 @@ export class IDTextViewModelListApiResult implements IIDTextViewModelListApiResu
         }
         data["totalCount"] = this.totalCount;
         data["totalRecord"] = this.totalRecord;
-        return data; 
+        return data;
     }
 
     clone(): IDTextViewModelListApiResult {
@@ -12208,7 +12208,7 @@ export class ManageMailTemplateDTO implements IManageMailTemplateDTO {
         data["name"] = this.name;
         data["subject"] = this.subject;
         data["body"] = this.body;
-        return data; 
+        return data;
     }
 
     clone(): ManageMailTemplateDTO {
@@ -12294,7 +12294,7 @@ export class MailTemplateDTO implements IMailTemplateDTO {
         data["createdById"] = this.createdById;
         data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
         data["modifiedById"] = this.modifiedById;
-        return data; 
+        return data;
     }
 
     clone(): MailTemplateDTO {
@@ -12370,7 +12370,7 @@ export class MailTemplateDTOListApiResult implements IMailTemplateDTOListApiResu
         }
         data["totalCount"] = this.totalCount;
         data["totalRecord"] = this.totalRecord;
-        return data; 
+        return data;
     }
 
     clone(): MailTemplateDTOListApiResult {
@@ -12429,7 +12429,7 @@ export class MailTemplateDTOApiResult implements IMailTemplateDTOApiResult {
         data["result"] = this.result ? this.result.toJSON() : <any>undefined;
         data["totalCount"] = this.totalCount;
         data["totalRecord"] = this.totalRecord;
-        return data; 
+        return data;
     }
 
     clone(): MailTemplateDTOApiResult {
@@ -12544,7 +12544,7 @@ export class EmailLog implements IEmailLog {
         data["createdById"] = this.createdById;
         data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
         data["modifiedById"] = this.modifiedById;
-        return data; 
+        return data;
     }
 
     clone(): EmailLog {
@@ -12625,7 +12625,7 @@ export class EmailLogAttachment implements IEmailLogAttachment {
         data["fileNameOnServer"] = this.fileNameOnServer;
         data["emailFileName"] = this.emailFileName;
         data["dateCreated"] = this.dateCreated ? this.dateCreated.toISOString() : <any>undefined;
-        return data; 
+        return data;
     }
 
     clone(): EmailLogAttachment {
@@ -12742,7 +12742,7 @@ export class EmailLogDTO implements IEmailLogDTO {
             for (let item of this.emailAttachments)
                 data["emailAttachments"].push(item.toJSON());
         }
-        return data; 
+        return data;
     }
 
     clone(): EmailLogDTO {
@@ -12825,7 +12825,7 @@ export class EmailLogDTOIListApiResult implements IEmailLogDTOIListApiResult {
         }
         data["totalCount"] = this.totalCount;
         data["totalRecord"] = this.totalRecord;
-        return data; 
+        return data;
     }
 
     clone(): EmailLogDTOIListApiResult {
@@ -12884,7 +12884,7 @@ export class EmailLogDTOApiResult implements IEmailLogDTOApiResult {
         data["result"] = this.result ? this.result.toJSON() : <any>undefined;
         data["totalCount"] = this.totalCount;
         data["totalRecord"] = this.totalRecord;
-        return data; 
+        return data;
     }
 
     clone(): EmailLogDTOApiResult {
@@ -12964,7 +12964,7 @@ export class ManageTrainingDTO implements IManageTrainingDTO {
         data["startDate"] = this.startDate ? this.startDate.toISOString() : <any>undefined;
         data["endDate"] = this.endDate ? this.endDate.toISOString() : <any>undefined;
         data["referenceNumber"] = this.referenceNumber;
-        return data; 
+        return data;
     }
 
     clone(): ManageTrainingDTO {
@@ -13056,7 +13056,7 @@ export class Alertmode implements IAlertmode {
         data["createdById"] = this.createdById;
         data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
         data["modifiedById"] = this.modifiedById;
-        return data; 
+        return data;
     }
 
     clone(): Alertmode {
@@ -13199,7 +13199,7 @@ export class Job implements IJob {
         data["createdById"] = this.createdById;
         data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
         data["modifiedById"] = this.modifiedById;
-        return data; 
+        return data;
     }
 
     clone(): Job {
@@ -13308,7 +13308,7 @@ export class AppliedApplicantStage implements IAppliedApplicantStage {
         data["createdById"] = this.createdById;
         data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
         data["modifiedById"] = this.modifiedById;
-        return data; 
+        return data;
     }
 
     clone(): AppliedApplicantStage {
@@ -13434,7 +13434,7 @@ export class AppliedApplicant implements IAppliedApplicant {
         data["createdById"] = this.createdById;
         data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
         data["modifiedById"] = this.modifiedById;
-        return data; 
+        return data;
     }
 
     clone(): AppliedApplicant {
@@ -13534,7 +13534,7 @@ export class JobCourse implements IJobCourse {
         data["createdById"] = this.createdById;
         data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
         data["modifiedById"] = this.modifiedById;
-        return data; 
+        return data;
     }
 
     clone(): JobCourse {
@@ -13627,7 +13627,7 @@ export class Course implements ICourse {
         data["createdById"] = this.createdById;
         data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
         data["modifiedById"] = this.modifiedById;
-        return data; 
+        return data;
     }
 
     clone(): Course {
@@ -13716,7 +13716,7 @@ export class Qualification implements IQualification {
         data["createdById"] = this.createdById;
         data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
         data["modifiedById"] = this.modifiedById;
-        return data; 
+        return data;
     }
 
     clone(): Qualification {
@@ -13798,7 +13798,7 @@ export class Institution implements IInstitution {
         data["createdById"] = this.createdById;
         data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
         data["modifiedById"] = this.modifiedById;
-        return data; 
+        return data;
     }
 
     clone(): Institution {
@@ -13913,7 +13913,7 @@ export class Education implements IEducation {
         data["createdById"] = this.createdById;
         data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
         data["modifiedById"] = this.modifiedById;
-        return data; 
+        return data;
     }
 
     clone(): Education {
@@ -14010,7 +14010,7 @@ export class RegisteredUserResume implements IRegisteredUserResume {
         data["createdById"] = this.createdById;
         data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
         data["modifiedById"] = this.modifiedById;
-        return data; 
+        return data;
     }
 
     clone(): RegisteredUserResume {
@@ -14156,7 +14156,7 @@ export class Company implements ICompany {
             for (let item of this.jobs)
                 data["jobs"].push(item.toJSON());
         }
-        return data; 
+        return data;
     }
 
     clone(): Company {
@@ -14257,7 +14257,7 @@ export class CompanyGroup implements ICompanyGroup {
         data["createdById"] = this.createdById;
         data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
         data["modifiedById"] = this.modifiedById;
-        return data; 
+        return data;
     }
 
     clone(): CompanyGroup {
@@ -14346,7 +14346,7 @@ export class GroupApplicant implements IGroupApplicant {
         data["createdById"] = this.createdById;
         data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
         data["modifiedById"] = this.modifiedById;
-        return data; 
+        return data;
     }
 
     clone(): GroupApplicant {
@@ -14448,7 +14448,7 @@ export class ProfessionalBody implements IProfessionalBody {
         data["createdById"] = this.createdById;
         data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
         data["modifiedById"] = this.modifiedById;
-        return data; 
+        return data;
     }
 
     clone(): ProfessionalBody {
@@ -14546,7 +14546,7 @@ export class ApplicantCertification implements IApplicantCertification {
         data["createdById"] = this.createdById;
         data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
         data["modifiedById"] = this.modifiedById;
-        return data; 
+        return data;
     }
 
     clone(): ApplicantCertification {
@@ -14653,7 +14653,7 @@ export class Certification implements ICertification {
         data["createdById"] = this.createdById;
         data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
         data["modifiedById"] = this.modifiedById;
-        return data; 
+        return data;
     }
 
     clone(): Certification {
@@ -14746,7 +14746,7 @@ export class CoverLetter implements ICoverLetter {
         data["createdById"] = this.createdById;
         data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
         data["modifiedById"] = this.modifiedById;
-        return data; 
+        return data;
     }
 
     clone(): CoverLetter {
@@ -14828,7 +14828,7 @@ export class SkillArea implements ISkillArea {
         data["createdById"] = this.createdById;
         data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
         data["modifiedById"] = this.modifiedById;
-        return data; 
+        return data;
     }
 
     clone(): SkillArea {
@@ -14916,7 +14916,7 @@ export class DesiredFunctionalArea implements IDesiredFunctionalArea {
         data["createdById"] = this.createdById;
         data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
         data["modifiedById"] = this.modifiedById;
-        return data; 
+        return data;
     }
 
     clone(): DesiredFunctionalArea {
@@ -15004,7 +15004,7 @@ export class State implements IState {
         data["createdById"] = this.createdById;
         data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
         data["modifiedById"] = this.modifiedById;
-        return data; 
+        return data;
     }
 
     clone(): State {
@@ -15094,7 +15094,7 @@ export class DesiredJobLocation implements IDesiredJobLocation {
         data["createdById"] = this.createdById;
         data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
         data["modifiedById"] = this.modifiedById;
-        return data; 
+        return data;
     }
 
     clone(): DesiredJobLocation {
@@ -15175,7 +15175,7 @@ export class JobType implements IJobType {
             for (let item of this.jobs)
                 data["jobs"].push(item.toJSON());
         }
-        return data; 
+        return data;
     }
 
     clone(): JobType {
@@ -15260,7 +15260,7 @@ export class DesiredJobType implements IDesiredJobType {
         data["createdById"] = this.createdById;
         data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
         data["modifiedById"] = this.modifiedById;
-        return data; 
+        return data;
     }
 
     clone(): DesiredJobType {
@@ -15353,7 +15353,7 @@ export class VisibilityMode implements IVisibilityMode {
         data["createdById"] = this.createdById;
         data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
         data["modifiedById"] = this.modifiedById;
-        return data; 
+        return data;
     }
 
     clone(): VisibilityMode {
@@ -15439,7 +15439,7 @@ export class WarehouseSection implements IWarehouseSection {
         data["createdById"] = this.createdById;
         data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
         data["modifiedById"] = this.modifiedById;
-        return data; 
+        return data;
     }
 
     clone(): WarehouseSection {
@@ -15529,7 +15529,7 @@ export class UserWarehouseSection implements IUserWarehouseSection {
         data["createdById"] = this.createdById;
         data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
         data["modifiedById"] = this.modifiedById;
-        return data; 
+        return data;
     }
 
     clone(): UserWarehouseSection {
@@ -15638,7 +15638,7 @@ export class WorkExprience implements IWorkExprience {
         data["createdById"] = this.createdById;
         data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
         data["modifiedById"] = this.modifiedById;
-        return data; 
+        return data;
     }
 
     clone(): WorkExprience {
@@ -15988,7 +15988,7 @@ export class RegisteredUser implements IRegisteredUser {
         data["createdById"] = this.createdById;
         data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
         data["modifiedById"] = this.modifiedById;
-        return data; 
+        return data;
     }
 
     clone(): RegisteredUser {
@@ -16142,7 +16142,7 @@ export class Country implements ICountry {
         data["createdById"] = this.createdById;
         data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
         data["modifiedById"] = this.modifiedById;
-        return data; 
+        return data;
     }
 
     clone(): Country {
@@ -16217,7 +16217,7 @@ export class CountryIListOdataResult implements ICountryIListOdataResult {
                 data["value"].push(item.toJSON());
         }
         data["totalCount"] = this.totalCount;
-        return data; 
+        return data;
     }
 
     clone(): CountryIListOdataResult {
@@ -16284,7 +16284,7 @@ export class CourseIListOdataResult implements ICourseIListOdataResult {
                 data["value"].push(item.toJSON());
         }
         data["totalCount"] = this.totalCount;
-        return data; 
+        return data;
     }
 
     clone(): CourseIListOdataResult {
@@ -16358,7 +16358,7 @@ export class Currency implements ICurrency {
         data["createdById"] = this.createdById;
         data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
         data["modifiedById"] = this.modifiedById;
-        return data; 
+        return data;
     }
 
     clone(): Currency {
@@ -16430,7 +16430,7 @@ export class CurrencyIListOdataResult implements ICurrencyIListOdataResult {
                 data["value"].push(item.toJSON());
         }
         data["totalCount"] = this.totalCount;
-        return data; 
+        return data;
     }
 
     clone(): CurrencyIListOdataResult {
@@ -16486,7 +16486,7 @@ export class VwDashboard implements IVwDashboard {
         data["totalApplicants"] = this.totalApplicants;
         data["totalEmployers"] = this.totalEmployers;
         data["totalConsultants"] = this.totalConsultants;
-        return data; 
+        return data;
     }
 
     clone(): VwDashboard {
@@ -16538,7 +16538,7 @@ export class DashboardData implements IDashboardData {
         data["category"] = this.category;
         data["name"] = this.name;
         data["value"] = this.value;
-        return data; 
+        return data;
     }
 
     clone(): DashboardData {
@@ -16616,7 +16616,7 @@ export class DashboardDTO implements IDashboardDTO {
             for (let item of this.lstRecruitmentOverTimeData)
                 data["lstRecruitmentOverTimeData"].push(item.toJSON());
         }
-        return data; 
+        return data;
     }
 
     clone(): DashboardDTO {
@@ -16674,7 +16674,7 @@ export class DashboardDTOOdataResult implements IDashboardDTOOdataResult {
         data["message"] = this.message;
         data["value"] = this.value ? this.value.toJSON() : <any>undefined;
         data["totalCount"] = this.totalCount;
-        return data; 
+        return data;
     }
 
     clone(): DashboardDTOOdataResult {
@@ -16814,7 +16814,7 @@ export class EmployerDTO implements IEmployerDTO {
         data["isActive"] = this.isActive;
         data["totalJobs"] = this.totalJobs;
         data["aboutCompany"] = this.aboutCompany;
-        return data; 
+        return data;
     }
 
     clone(): EmployerDTO {
@@ -16908,7 +16908,7 @@ export class EmployerDTOIListOdataResult implements IEmployerDTOIListOdataResult
                 data["value"].push(item.toJSON());
         }
         data["totalCount"] = this.totalCount;
-        return data; 
+        return data;
     }
 
     clone(): EmployerDTOIListOdataResult {
@@ -16967,7 +16967,7 @@ export class EmployerDTOOdataResult implements IEmployerDTOOdataResult {
         data["message"] = this.message;
         data["value"] = this.value ? this.value.toJSON() : <any>undefined;
         data["totalCount"] = this.totalCount;
-        return data; 
+        return data;
     }
 
     clone(): EmployerDTOOdataResult {
@@ -17041,7 +17041,7 @@ export class EmployerType implements IEmployerType {
         data["createdById"] = this.createdById;
         data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
         data["modifiedById"] = this.modifiedById;
-        return data; 
+        return data;
     }
 
     clone(): EmployerType {
@@ -17113,7 +17113,7 @@ export class EmployerTypeIListOdataResult implements IEmployerTypeIListOdataResu
                 data["value"].push(item.toJSON());
         }
         data["totalCount"] = this.totalCount;
-        return data; 
+        return data;
     }
 
     clone(): EmployerTypeIListOdataResult {
@@ -17187,7 +17187,7 @@ export class Grade implements IGrade {
         data["createdById"] = this.createdById;
         data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
         data["modifiedById"] = this.modifiedById;
-        return data; 
+        return data;
     }
 
     clone(): Grade {
@@ -17259,7 +17259,7 @@ export class GradeIListOdataResult implements IGradeIListOdataResult {
                 data["value"].push(item.toJSON());
         }
         data["totalCount"] = this.totalCount;
-        return data; 
+        return data;
     }
 
     clone(): GradeIListOdataResult {
@@ -17326,7 +17326,7 @@ export class InstitutionIListOdataResult implements IInstitutionIListOdataResult
                 data["value"].push(item.toJSON());
         }
         data["totalCount"] = this.totalCount;
-        return data; 
+        return data;
     }
 
     clone(): InstitutionIListOdataResult {
@@ -17393,7 +17393,7 @@ export class JobIListOdataResult implements IJobIListOdataResult {
                 data["value"].push(item.toJSON());
         }
         data["totalCount"] = this.totalCount;
-        return data; 
+        return data;
     }
 
     clone(): JobIListOdataResult {
@@ -17452,7 +17452,7 @@ export class JobDTOOdataResult implements IJobDTOOdataResult {
         data["message"] = this.message;
         data["value"] = this.value ? this.value.toJSON() : <any>undefined;
         data["totalCount"] = this.totalCount;
-        return data; 
+        return data;
     }
 
     clone(): JobDTOOdataResult {
@@ -17519,7 +17519,7 @@ export class JobTypeIListOdataResult implements IJobTypeIListOdataResult {
                 data["value"].push(item.toJSON());
         }
         data["totalCount"] = this.totalCount;
-        return data; 
+        return data;
     }
 
     clone(): JobTypeIListOdataResult {
@@ -17578,7 +17578,7 @@ export class ManageProfessionalBodyDTO implements IManageProfessionalBodyDTO {
         data["name"] = this.name;
         data["code"] = this.code;
         data["website"] = this.website;
-        return data; 
+        return data;
     }
 
     clone(): ManageProfessionalBodyDTO {
@@ -17664,7 +17664,7 @@ export class ProfessionalBodyDTO implements IProfessionalBodyDTO {
         data["createdById"] = this.createdById;
         data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
         data["modifiedById"] = this.modifiedById;
-        return data; 
+        return data;
     }
 
     clone(): ProfessionalBodyDTO {
@@ -17740,7 +17740,7 @@ export class ProfessionalBodyDTOListApiResult implements IProfessionalBodyDTOLis
         }
         data["totalCount"] = this.totalCount;
         data["totalRecord"] = this.totalRecord;
-        return data; 
+        return data;
     }
 
     clone(): ProfessionalBodyDTOListApiResult {
@@ -17799,7 +17799,7 @@ export class ProfessionalBodyDTOApiResult implements IProfessionalBodyDTOApiResu
         data["result"] = this.result ? this.result.toJSON() : <any>undefined;
         data["totalCount"] = this.totalCount;
         data["totalRecord"] = this.totalRecord;
-        return data; 
+        return data;
     }
 
     clone(): ProfessionalBodyDTOApiResult {
@@ -17866,7 +17866,7 @@ export class QualificationIListOdataResult implements IQualificationIListOdataRe
                 data["value"].push(item.toJSON());
         }
         data["totalCount"] = this.totalCount;
-        return data; 
+        return data;
     }
 
     clone(): QualificationIListOdataResult {
@@ -17922,7 +17922,7 @@ export class ApplicationRoleDTO implements IApplicationRoleDTO {
         data["name"] = this.name;
         data["description"] = this.description;
         data["isSystemRole"] = this.isSystemRole;
-        return data; 
+        return data;
     }
 
     clone(): ApplicationRoleDTO {
@@ -17980,7 +17980,7 @@ export class ApplicationRoleDTOOdataResult implements IApplicationRoleDTOOdataRe
         data["message"] = this.message;
         data["value"] = this.value ? this.value.toJSON() : <any>undefined;
         data["totalCount"] = this.totalCount;
-        return data; 
+        return data;
     }
 
     clone(): ApplicationRoleDTOOdataResult {
@@ -18036,7 +18036,7 @@ export class PermissionDTO implements IPermissionDTO {
         data["name"] = this.name;
         data["applicationName"] = this.applicationName;
         data["code"] = this.code;
-        return data; 
+        return data;
     }
 
     clone(): PermissionDTO {
@@ -18096,7 +18096,7 @@ export class RolePermissionDTO implements IRolePermissionDTO {
             for (let item of this.permissions)
                 data["permissions"].push(item.toJSON());
         }
-        return data; 
+        return data;
     }
 
     clone(): RolePermissionDTO {
@@ -18161,7 +18161,7 @@ export class RolePermissionDTOIListApiResult implements IRolePermissionDTOIListA
         }
         data["totalCount"] = this.totalCount;
         data["totalRecord"] = this.totalRecord;
-        return data; 
+        return data;
     }
 
     clone(): RolePermissionDTOIListApiResult {
@@ -18220,7 +18220,7 @@ export class RolePermissionDTOApiResult implements IRolePermissionDTOApiResult {
         data["result"] = this.result ? this.result.toJSON() : <any>undefined;
         data["totalCount"] = this.totalCount;
         data["totalRecord"] = this.totalRecord;
-        return data; 
+        return data;
     }
 
     clone(): RolePermissionDTOApiResult {
@@ -18281,7 +18281,7 @@ export class RolePermissionMappingDTO implements IRolePermissionMappingDTO {
             for (let item of this.permissionIds)
                 data["permissionIds"].push(item);
         }
-        return data; 
+        return data;
     }
 
     clone(): RolePermissionMappingDTO {
@@ -18352,7 +18352,7 @@ export class Sector implements ISector {
         data["createdById"] = this.createdById;
         data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
         data["modifiedById"] = this.modifiedById;
-        return data; 
+        return data;
     }
 
     clone(): Sector {
@@ -18424,7 +18424,7 @@ export class SectorIListOdataResult implements ISectorIListOdataResult {
                 data["value"].push(item.toJSON());
         }
         data["totalCount"] = this.totalCount;
-        return data; 
+        return data;
     }
 
     clone(): SectorIListOdataResult {
@@ -18480,7 +18480,7 @@ export class ManageSkillDTO implements IManageSkillDTO {
         data["categoryId"] = this.categoryId;
         data["category"] = this.category;
         data["skills"] = this.skills;
-        return data; 
+        return data;
     }
 
     clone(): ManageSkillDTO {
@@ -18562,7 +18562,7 @@ export class Skill implements ISkill {
         data["createdById"] = this.createdById;
         data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
         data["modifiedById"] = this.modifiedById;
-        return data; 
+        return data;
     }
 
     clone(): Skill {
@@ -18637,7 +18637,7 @@ export class SkillListApiResult implements ISkillListApiResult {
         }
         data["totalCount"] = this.totalCount;
         data["totalRecord"] = this.totalRecord;
-        return data; 
+        return data;
     }
 
     clone(): SkillListApiResult {
@@ -18696,7 +18696,7 @@ export class SkillApiResult implements ISkillApiResult {
         data["result"] = this.result ? this.result.toJSON() : <any>undefined;
         data["totalCount"] = this.totalCount;
         data["totalRecord"] = this.totalRecord;
-        return data; 
+        return data;
     }
 
     clone(): SkillApiResult {
@@ -18763,7 +18763,7 @@ export class SkillAreaIListOdataResult implements ISkillAreaIListOdataResult {
                 data["value"].push(item.toJSON());
         }
         data["totalCount"] = this.totalCount;
-        return data; 
+        return data;
     }
 
     clone(): SkillAreaIListOdataResult {
@@ -18830,7 +18830,7 @@ export class StateIListOdataResult implements IStateIListOdataResult {
                 data["value"].push(item.toJSON());
         }
         data["totalCount"] = this.totalCount;
-        return data; 
+        return data;
     }
 
     clone(): StateIListOdataResult {
@@ -18886,7 +18886,7 @@ export class SubscriptionPlanFeatureDTO implements ISubscriptionPlanFeatureDTO {
         data["planName"] = this.planName;
         data["amount"] = this.amount;
         data["isCheck"] = this.isCheck;
-        return data; 
+        return data;
     }
 
     clone(): SubscriptionPlanFeatureDTO {
@@ -18946,7 +18946,7 @@ export class SubscriptionFeatureDTO implements ISubscriptionFeatureDTO {
             for (let item of this.plans)
                 data["plans"].push(item.toJSON());
         }
-        return data; 
+        return data;
     }
 
     clone(): SubscriptionFeatureDTO {
@@ -19011,7 +19011,7 @@ export class SubscriptionFeatureDTOIListOdataResult implements ISubscriptionFeat
                 data["value"].push(item.toJSON());
         }
         data["totalCount"] = this.totalCount;
-        return data; 
+        return data;
     }
 
     clone(): SubscriptionFeatureDTOIListOdataResult {
@@ -19103,7 +19103,7 @@ export class ClientTempOrder implements IClientTempOrder {
         data["createdById"] = this.createdById;
         data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
         data["modifiedById"] = this.modifiedById;
-        return data; 
+        return data;
     }
 
     clone(): ClientTempOrder {
@@ -19257,7 +19257,7 @@ export class PaymentLog implements IPaymentLog {
         data["dateCreated"] = this.dateCreated ? this.dateCreated.toISOString() : <any>undefined;
         data["isDeleted"] = this.isDeleted;
         data["isActive"] = this.isActive;
-        return data; 
+        return data;
     }
 
     clone(): PaymentLog {
@@ -19404,7 +19404,7 @@ export class SubscriptionPayment implements ISubscriptionPayment {
         data["createdById"] = this.createdById;
         data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
         data["modifiedById"] = this.modifiedById;
-        return data; 
+        return data;
     }
 
     clone(): SubscriptionPayment {
@@ -19553,7 +19553,7 @@ export class Subscription implements ISubscription {
             for (let item of this.subscriptionPayments)
                 data["subscriptionPayments"].push(item.toJSON());
         }
-        return data; 
+        return data;
     }
 
     clone(): Subscription {
@@ -19638,7 +19638,7 @@ export class SubscriptionIListOdataResult implements ISubscriptionIListOdataResu
                 data["value"].push(item.toJSON());
         }
         data["totalCount"] = this.totalCount;
-        return data; 
+        return data;
     }
 
     clone(): SubscriptionIListOdataResult {
@@ -19714,7 +19714,7 @@ export class ManageSubscriptionDTO implements IManageSubscriptionDTO {
             for (let item of this.selectedFeatures)
                 data["selectedFeatures"].push(item);
         }
-        return data; 
+        return data;
     }
 
     clone(): ManageSubscriptionDTO {
@@ -19778,7 +19778,7 @@ export class Title implements ITitle {
         data["modified"] = this.modified ? this.modified.toISOString() : <any>undefined;
         data["isDeleted"] = this.isDeleted;
         data["isActive"] = this.isActive;
-        return data; 
+        return data;
     }
 
     clone(): Title {
@@ -19846,7 +19846,7 @@ export class TitleIListOdataResult implements ITitleIListOdataResult {
                 data["value"].push(item.toJSON());
         }
         data["totalCount"] = this.totalCount;
-        return data; 
+        return data;
     }
 
     clone(): TitleIListOdataResult {
@@ -19913,7 +19913,7 @@ export class ApplicationPermission implements IApplicationPermission {
             for (let item of this.applicationRolePermissions)
                 data["applicationRolePermissions"].push(item.toJSON());
         }
-        return data; 
+        return data;
     }
 
     clone(): ApplicationPermission {
@@ -19975,7 +19975,7 @@ export class ApplicationRolePermission implements IApplicationRolePermission {
         data["applicationPermissionId"] = this.applicationPermissionId;
         data["applicationRole"] = this.applicationRole ? this.applicationRole.toJSON() : <any>undefined;
         data["applicationPermission"] = this.applicationPermission ? this.applicationPermission.toJSON() : <any>undefined;
-        return data; 
+        return data;
     }
 
     clone(): ApplicationRolePermission {
@@ -20049,7 +20049,7 @@ export class ApplicationRole implements IApplicationRole {
         data["name"] = this.name;
         data["normalizedName"] = this.normalizedName;
         data["concurrencyStamp"] = this.concurrencyStamp;
-        return data; 
+        return data;
     }
 
     clone(): ApplicationRole {
@@ -20162,7 +20162,7 @@ export class RegisterUserDTO implements IRegisterUserDTO {
         data["createdById"] = this.createdById;
         data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
         data["modifiedById"] = this.modifiedById;
-        return data; 
+        return data;
     }
 
     clone(): RegisterUserDTO {
@@ -20259,7 +20259,7 @@ export class ApplicationUserDTO implements IApplicationUserDTO {
         data["token"] = this.token;
         data["apiSessionId"] = this.apiSessionId;
         data["lastComputerName"] = this.lastComputerName;
-        return data; 
+        return data;
     }
 
     clone(): ApplicationUserDTO {
@@ -20335,7 +20335,7 @@ export class ApplicationUserDTOIListApiResult implements IApplicationUserDTOILis
         }
         data["totalCount"] = this.totalCount;
         data["totalRecord"] = this.totalRecord;
-        return data; 
+        return data;
     }
 
     clone(): ApplicationUserDTOIListApiResult {
