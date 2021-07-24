@@ -10,6 +10,8 @@ import { Component, OnInit } from '@angular/core';
 export class PricingComponent implements OnInit {
   recruiterStatus: boolean = true;
   CvStatus: boolean = false;
+  activePlan: boolean = false;
+  activePlanB: boolean = false;
   cvPlan: SubscriptionFeatureDTO [] = [];
   recruiterPlan: SubscriptionFeatureDTO [] = [];
 
@@ -35,6 +37,7 @@ export class PricingComponent implements OnInit {
     const data = await this.sub.fetchRecruiterPlanFeatures().toPromise()
     if(!data.hasError){
       this.recruiterPlan = data.value;
+      console.log(this.recruiterPlan)
     }
   }
 
@@ -42,6 +45,7 @@ export class PricingComponent implements OnInit {
     const data = await this.sub.fetchCvRewritePlanFeatures().toPromise()
     if(!data.hasError){
       this.cvPlan = data.value;
+      console.log(this.cvPlan)
     }
   }
 

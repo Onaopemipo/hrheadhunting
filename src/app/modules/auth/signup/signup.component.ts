@@ -1,3 +1,4 @@
+import { SubscriptionFeatureDTO, SubscriptionPlanFeatureDTO } from './../../../_services/service-proxies';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { CommonServiceProxy, GradesServiceProxy, IDTextViewModel, ManageConsultantDTO, SubscriptionsServiceProxy, TitlesServiceProxy, UserLoginDTO } from 'app/_services/service-proxies';
 import { AccountServiceProxy, ManageJobSeekerRegDTO,ManageEmployerDTO,InstitutionServiceProxy, CourseServiceProxy, QualificationServiceProxy,
@@ -10,6 +11,7 @@ import { ApplicantsComponent } from 'app/modules/applicants/applicants.component
 import { AuthService } from 'app/_services/auth.service';
 import { PaystackOptions } from 'angular4-paystack';
 import * as firebase from 'firebase';
+import { AuthenticationService } from 'app/_services/authentication.service';
 @Component({
   selector: 'ngx-signup',
   templateUrl: './signup.component.html',
@@ -19,9 +21,6 @@ export class SignupComponent implements OnInit {
 
   // applicantForm = NgForm;
   selectedAccount: number = 0;
-  seekerForm: boolean = false;
-  empForm: boolean = false;
-  consForm: boolean = false;
   isSeeker: boolean = false;
   isEmployer: boolean = false;
   isConsultant: boolean = false;
@@ -60,19 +59,23 @@ export class SignupComponent implements OnInit {
   googleData: any;
   facebookData: any [] = [];
   linkedInData: any [] = [];
-  twitterData: any [] = [];
+  twitterData: any;
   subscriptionPlanId:number = 0;
   reference:string = '';
   tempRef: string = '';
   paymentLoading:boolean = false;
   socialSignup: UserLoginDTO = new UserLoginDTO();
+  cvPlan: SubscriptionFeatureDTO [] = [];
+  recruiterPlan: SubscriptionFeatureDTO [] = [];
+  allPlans: SubscriptionPlanFeatureDTO [] = [];
+  planFeatures
 
   constructor(private route: Router, private account: AccountServiceProxy, private alertMe: AlertserviceService,
     private institution: InstitutionServiceProxy, private country:CountriesServiceProxy, private title: TitlesServiceProxy,
     private course: CourseServiceProxy, private qualification: QualificationServiceProxy, private employment: EmployerTypesServiceProxy,
     private state: StatesServiceProxy, private sector: SectorsServiceProxy, private skill: SkillAreasServiceProxy,
     private social: AuthService, private sub: SubscriptionsServiceProxy, private http: HttpClient, private router: ActivatedRoute,
-    private grade: GradesServiceProxy, private common: CommonServiceProxy ) { }
+    private grade: GradesServiceProxy, private common: CommonServiceProxy, private AuthenService: AuthenticationService,) { }
   gotoSetup() {
     this.route.navigate(['/onboarding/accountsetup']);
   }
@@ -91,8 +94,9 @@ export class SignupComponent implements OnInit {
     this.fetchTitle();
     this.fetchSubscriptions();
     this.fetchGenders();
+    this.fetchRecruiterSub();
+    this.fetchCVPlan();
   }
-
 
    paymentInit() {
     this.paymentLoading = true;
@@ -124,9 +128,6 @@ export class SignupComponent implements OnInit {
   proceedNow(e){
     this.employersStatus = false;
     this.subPlan = true;
-    this.seekerForm = false;
-    this.consForm = false;
-    this.empForm = true;
     this.jobSeekerStatus = false;
     this.consultantStatus = false;
     // alert(e);
@@ -166,9 +167,6 @@ export class SignupComponent implements OnInit {
           console.log(btoa(binaryString));
   }
   toggleJobSeekers(){
-    this.consForm = false;
-    this.empForm = false;
-    this.seekerForm = true;
     this.employersStatus = false;
     this.consultantStatus = false;
     this.jobSeekerStatus = true;
@@ -177,9 +175,6 @@ export class SignupComponent implements OnInit {
   }
 
   toggleEmpoyers(){
-    this.seekerForm = false;
-    this.consForm = false;
-    this.empForm = true;
     this.jobSeekerStatus = false;
     this.consultantStatus = false;
     this.employersStatus = true;
@@ -187,9 +182,6 @@ export class SignupComponent implements OnInit {
   }
 
   toggleConsultants(){
-    this.empForm = false;
-    this.seekerForm = false;
-    this.consForm = true;
     this.employersStatus = false;
     this.subPlan = false;
     this.jobSeekerStatus = false;
@@ -202,24 +194,23 @@ export class SignupComponent implements OnInit {
     console.log(this.subscriptionData)
   }
 
-login(){
+doGoogle(){
   this.social.doGoogleLogin().then(data => {
     this.googleData = data;
     // let name = this.googleData[0].displayName;
-
-    console.log('You are', this.googleData)
+    // console.log('You are', this.googleData);
     this.socialSignup.isSocial = true;
     this.socialSignup.email = this.googleData.email;
     this.socialSignup.firstName = this.googleData.displayName;
-    // this.socialSignup.lastname = this.googleData.displayName;
-    this.socialSignup.password = this.googleData.uid;
     this.account.getToken(this.socialSignup).subscribe(data => {
       if(!data.hasError){
-        this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, '', 'OK').subscribe(res => {
+        console.log(data);
+        this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'You are authenticated', 'OK').subscribe(res => {
           if(res){
-            this.route.navigateByUrl('applicants/dashbaord/')
+            this.route.navigateByUrl('/')
           }
         })
+        this.AuthenService.addUser(data.result);
       }
     })
   });
@@ -227,40 +218,83 @@ login(){
 
 doFacebook(){
   this.social.doFacebookLogin().then(data => {
-    this.facebookData = data;
+    this.facebookData = data.user;
     console.log('See your Facebook data',this.facebookData.values);
     this.socialSignup.isSocial = true;
     // this.socialSignup.firstName = this.facebookData.displayName;
     // this.socialSignup.lastName = this.facebookData.displayName;
-    this.socialSignup.password = this.googleData.uid;
+    // this.socialSignup.password = this.googleData.uid;
     // socialSignup.email = this.facebookData.
     this.account.getToken(this.socialSignup).subscribe(data => {
       if(!data.hasError){
         this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, '', 'OK').subscribe(res => {
           if(res){
-            this.route.navigateByUrl('applicants/dashbaord/')
+            this.route.navigateByUrl('/')
           }
         })
+        this.AuthenService.addUser(data.result);
+      } else {
+        this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.FAILED, data.message, 'OK')
       }
     })
   });
 }
 
+async fetchRecruiterSub(){
+  const data = await this.sub.fetchRecruiterPlanFeatures().toPromise()
+  if(!data.hasError){
+    this.recruiterPlan = data.value;
+    this.allPlans = data.value[0].plans;
+    this.planFeatures = data.value.map(x => x.plans)
+    console.log('My Plans', this.allPlans)
+    console.log('My Plans features', this.recruiterPlan)
+  }
+}
+
+async fetchCVPlan(){
+  const data = await this.sub.fetchCvRewritePlanFeatures().toPromise()
+  if(!data.hasError){
+    this.cvPlan = data.value;
+    console.log('My CV Plans', this.cvPlan)
+  }
+}
+
 doLinkedIn(){
- let configUrl = "https://www.linkedin.com/oauth/v2/authorization";
+ let configUrl = "https://www.linkedin.com/oauth/v2/authorization?client_id=78yijd3zifrl4b&redirect_uri=https://headhunting-79281.firebaseapp.com/__/auth/handler&scope=r_liteprofile%20r_emailaddress&response_type=code";
+// let configUrl = "https://api.linkedin.com/v2/me";
  let paramsData = new HttpParams().set("client_id",'78yijd3zifrl4b')
- .set("redirect_uri", 'https://headhunting-79281.firebaseapp.com/__/auth/handler')
- .set("scope", '@N^^^#@622jbdfjhdfhjdfh')
- let configData = "https://api.linkedin.com/v2/me";
- this.http.get(configUrl, {params: paramsData}).subscribe(data => {
+ .set("redirect_uri", 'http://localhost:5000/')
+ .set("scope", 'r_liteprofile r_emailaddress')
+ .set("response_type", 'code')
+ this.http.get(configUrl).subscribe(data => {
    console.log('LinkedIn data is here',data);
+  // this.http.post()
  })
 }
+
+
+
 
 doTwitter(){
   this.social.doTwitterLogin().then(data => {
     this.twitterData = data;
     console.log('Here is you Twitter', this.twitterData);
+    this.socialSignup.isSocial = true;
+    this.socialSignup.firstName = this.twitterData.displayName;
+    this.socialSignup.email = this.twitterData.email;
+    console.log('Your name is:', this.socialSignup.firstName, this.socialSignup.email)
+    if(this.socialSignup.email.length > 0){
+      this.account.getToken(this.socialSignup).subscribe(data => {
+        if(!data.hasError){
+          this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, '', 'OK').subscribe(res => {
+            if(res){
+              this.route.navigateByUrl('/')
+            }
+          })
+          this.AuthenService.addUser(data.result);
+        }
+      })
+    }
   })
 }
 
@@ -344,7 +378,7 @@ doTwitter(){
     employerVal.sectorId = Number(this.employer.sectorId);
     employerVal.stateId = Number(this.employer.stateId);
     employerVal.subscriptionPlanId = this.subscriptionPlanId;
-    console.log('Sub plan:', employerVal.subscriptionPlanId);
+    employerVal.referenceNumber = this.reference;
     this.account.employerSignUp(employerVal).subscribe(data => {
       this.btnProcessing = false;
       if(!data.hasError){
@@ -454,7 +488,6 @@ doTwitter(){
 
   selectedOption(){
     this.isSeeker = true;
-    this.seekerForm = true;
     this.jobSeekerStatus = true;
     this.isConsultant = false;
     this.isEmployer = false;
@@ -463,14 +496,12 @@ doTwitter(){
 
   selectedOption1(){
     this.isEmployer = true;
-    this.empForm = true;
     this.employersStatus = true;
     this.isSeeker = false;
     this.isConsultant = false;
     this.pageNo = this.pageNo + 1;
   }
   selectedOption2(){
-    this.consForm = true;
     this.isConsultant = true;
     this.consultantStatus = true;
     this.isSeeker = false;

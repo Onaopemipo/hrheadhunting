@@ -9,17 +9,19 @@ import { IDTextViewModel, Job, JobServiceProxy } from 'app/_services/service-pro
 })
 export class DashboardComponent implements OnInit {
 
+  loggedIn:boolean = false;
   myPlanHeader:string = "Nothing here";
   myPlanDesc: string = "No vacancy yet";
+
   jobFilter = {
-    SkillAreaId:0,
-    SectorId:0,
-    CountryId:0,
-    StateId:0,
-    IsNewlyAdded: false,
-    IsPopular: false,
-    PageSize:10,
-    PageNumber:1
+    skillAreaId:0,
+    sectorId:0,
+    countryId:0,
+    stateId:0,
+    isNewlyAdded: false,
+    isPopular: false,
+    pageSize:10,
+    pageNumber:1
 
   }
 
@@ -66,15 +68,17 @@ searchFilter: {
   }
 
   filterUpdated(filter: any) {
-    this.searchFilter = {...this.searchFilter, ...filter};
+
+    this.jobFilter = {...this.jobFilter, ...filter};
+    console.log('Updated filter', this.jobFilter)
     this.fetchAllJobs();
   }
 
   fetchAllJobs(){
     this.loading = true;
-   this.job.fetchAllJobs(this.jobFilter.SkillAreaId, this.jobFilter.SectorId,
-    this.jobFilter.CountryId, this.jobFilter.StateId, this.jobFilter.IsNewlyAdded,
-    this.jobFilter.IsPopular,this.jobFilter.PageSize, this.jobFilter.PageNumber).subscribe(data => {
+   this.job.fetchAllJobs(this.jobFilter.skillAreaId, this.jobFilter.sectorId,
+    this.jobFilter.countryId, this.jobFilter.stateId, this.jobFilter.isNewlyAdded,
+    this.jobFilter.isPopular,this.jobFilter.pageSize, this.jobFilter.pageNumber).subscribe(data => {
       this.loading = false;
       if(!data.hasError){
         this.allJobs = data.value;

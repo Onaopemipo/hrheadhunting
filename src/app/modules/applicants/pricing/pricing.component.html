@@ -93,8 +93,8 @@
       <div style=" padding: 1% 6%; text-align:left;">
     <div class="row" style="display: flex; flex-direction: row; justify-content: space-around; align-items: flex-end; ">
         <div class="col-sm-4" style="display: flex; flex-direction: row; justify-content: center; padding: 4px 1px; width: unset; border: none;">
-          <button (click)="toggleRecruiter()" type="button"  style="background-color: #6495ED; " class="btn btn-primary" nbButton status="primary">Recruiter Plans</button>
-          <button (click)="toggleCv()" type="button" class="btn btn-primary inactive" nbButton status="primary" style="margin-left: 5px; border: none;">CV Rewrite Service</button>
+          <button (click)="toggleRecruiter()" type="button" [class.recruiter]="recruiterStatus" class="btn btn-primary" style="border: none;" class="btn btn-primary" nbButton>Recruiter Plans</button>
+          <button (click)="toggleCv()" type="button" [class.cvRewrite]="CvStatus" nbButton  class="btn btn-primary" style="margin-left: 5px; border: none;">CV Rewrite Service</button>
         </div>
     </div>
     </div>
@@ -106,10 +106,9 @@
 
 </div>
 
-  <div style="background-color: #fff; padding: 2% 6%; margin: 1% 6%; text-align:left; font-family: 'Rubik';">
+  <div class="shadow p-3 mb-5 bg-white rounded" style="background-color: #fff; padding: 2% 6%; margin: 1% 6%; text-align:left; font-family: 'Rubik';">
     <div class="row" style="display: flex; flex-direction: row; justify-content: left; font-family: 'Rubik';">
-
-      <div class="col-sm-12">
+      <div class="col-sm-12" >
           <div *ngIf="recruiterStatus">
             <table class="table table-striped text-center" style="font-family: 'Rubik';">
               <thead>

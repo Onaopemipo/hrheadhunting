@@ -6347,6 +6347,467 @@ export class QualificationServiceProxy {
 }
 
 @Injectable()
+export class QuizServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruitmentapi.azurewebsites.net";
+    }
+
+    /**
+     * API for getting Quiz Types i.e.
+    {Interest, Personality, and  Aptitude Tests}
+     * @return Success
+     */
+    fetchQuizTypes(): Observable<IDTextViewModelIListApiResult> {
+        let url_ = this.baseUrl + "/api/Quiz/FetchQuizTypes";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processFetchQuizTypes(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processFetchQuizTypes(<any>response_);
+                } catch (e) {
+                    return <Observable<IDTextViewModelIListApiResult>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<IDTextViewModelIListApiResult>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processFetchQuizTypes(response: HttpResponseBase): Observable<IDTextViewModelIListApiResult> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = IDTextViewModelIListApiResult.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData400) {
+                result400 = {} as any;
+                for (let key in resultData400) {
+                    if (resultData400.hasOwnProperty(key))
+                        (<any>result400)![key] = resultData400[key];
+                }
+            }
+            else {
+                result400 = <any>null;
+            }
+            return throwException("Bad Request", status, _responseText, _headers, result400);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Server Error", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<IDTextViewModelIListApiResult>(<any>null);
+    }
+
+    /**
+     * API for getting Question Types i.e.
+    {'Multiple Choice, True/False, Multiple Answers, Fill-in-the-Blank'}
+     * @return Success
+     */
+    fetchQuestionTypes(): Observable<IDTextViewModelIListApiResult> {
+        let url_ = this.baseUrl + "/api/Quiz/FetchQuestionTypes";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processFetchQuestionTypes(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processFetchQuestionTypes(<any>response_);
+                } catch (e) {
+                    return <Observable<IDTextViewModelIListApiResult>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<IDTextViewModelIListApiResult>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processFetchQuestionTypes(response: HttpResponseBase): Observable<IDTextViewModelIListApiResult> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = IDTextViewModelIListApiResult.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData400) {
+                result400 = {} as any;
+                for (let key in resultData400) {
+                    if (resultData400.hasOwnProperty(key))
+                        (<any>result400)![key] = resultData400[key];
+                }
+            }
+            else {
+                result400 = <any>null;
+            }
+            return throwException("Bad Request", status, _responseText, _headers, result400);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Server Error", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<IDTextViewModelIListApiResult>(<any>null);
+    }
+
+    /**
+     * API for adding/updating Quiz
+     * @param body (optional)
+     * @return Success
+     */
+    addUpdateQuiz(body: ManageQuizDTO | undefined): Observable<MessageOutApiResult> {
+        let url_ = this.baseUrl + "/api/Quiz/AddUpdateQuiz";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processAddUpdateQuiz(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processAddUpdateQuiz(<any>response_);
+                } catch (e) {
+                    return <Observable<MessageOutApiResult>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<MessageOutApiResult>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processAddUpdateQuiz(response: HttpResponseBase): Observable<MessageOutApiResult> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = MessageOutApiResult.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData400) {
+                result400 = {} as any;
+                for (let key in resultData400) {
+                    if (resultData400.hasOwnProperty(key))
+                        (<any>result400)![key] = resultData400[key];
+                }
+            }
+            else {
+                result400 = <any>null;
+            }
+            return throwException("Bad Request", status, _responseText, _headers, result400);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Server Error", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<MessageOutApiResult>(<any>null);
+    }
+
+    /**
+     * API to Fetch Quizzes.
+     * @return Success
+     */
+    getAllQuizzes(): Observable<QuizDTOListApiResult> {
+        let url_ = this.baseUrl + "/api/Quiz/GetAllQuizzes";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllQuizzes(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllQuizzes(<any>response_);
+                } catch (e) {
+                    return <Observable<QuizDTOListApiResult>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<QuizDTOListApiResult>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllQuizzes(response: HttpResponseBase): Observable<QuizDTOListApiResult> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = QuizDTOListApiResult.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData400) {
+                result400 = {} as any;
+                for (let key in resultData400) {
+                    if (resultData400.hasOwnProperty(key))
+                        (<any>result400)![key] = resultData400[key];
+                }
+            }
+            else {
+                result400 = <any>null;
+            }
+            return throwException("Bad Request", status, _responseText, _headers, result400);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Server Error", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<QuizDTOListApiResult>(<any>null);
+    }
+
+    /**
+     * API to get Quiz by id and can be used for update, details etc
+     * @param id (optional)
+     * @return Success
+     */
+    getQuizById(id: number | undefined): Observable<QuizDTOApiResult> {
+        let url_ = this.baseUrl + "/api/Quiz/GetQuizById?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetQuizById(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetQuizById(<any>response_);
+                } catch (e) {
+                    return <Observable<QuizDTOApiResult>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<QuizDTOApiResult>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetQuizById(response: HttpResponseBase): Observable<QuizDTOApiResult> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = QuizDTOApiResult.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData400) {
+                result400 = {} as any;
+                for (let key in resultData400) {
+                    if (resultData400.hasOwnProperty(key))
+                        (<any>result400)![key] = resultData400[key];
+                }
+            }
+            else {
+                result400 = <any>null;
+            }
+            return throwException("Bad Request", status, _responseText, _headers, result400);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Server Error", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<QuizDTOApiResult>(<any>null);
+    }
+
+    /**
+     * API to delete all quiz by ID
+     * @param id (optional)
+     * @return Success
+     */
+    deleteQuiz(id: number | undefined): Observable<MessageOutApiResult> {
+        let url_ = this.baseUrl + "/api/Quiz/DeleteQuiz?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeleteQuiz(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeleteQuiz(<any>response_);
+                } catch (e) {
+                    return <Observable<MessageOutApiResult>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<MessageOutApiResult>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeleteQuiz(response: HttpResponseBase): Observable<MessageOutApiResult> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = MessageOutApiResult.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData400) {
+                result400 = {} as any;
+                for (let key in resultData400) {
+                    if (resultData400.hasOwnProperty(key))
+                        (<any>result400)![key] = resultData400[key];
+                }
+            }
+            else {
+                result400 = <any>null;
+            }
+            return throwException("Bad Request", status, _responseText, _headers, result400);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Server Error", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<MessageOutApiResult>(<any>null);
+    }
+}
+
+@Injectable()
 export class ReportServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -17883,6 +18344,495 @@ export interface IQualificationIListOdataResult {
     message: string | undefined;
     value: Qualification[] | undefined;
     totalCount: number;
+}
+
+export class IDTextViewModelIListApiResult implements IIDTextViewModelIListApiResult {
+    hasError!: boolean;
+    message!: string | undefined;
+    result!: IDTextViewModel[] | undefined;
+    totalCount!: number;
+    readonly totalRecord!: number;
+
+    constructor(data?: IIDTextViewModelIListApiResult) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.hasError = _data["hasError"];
+            this.message = _data["message"];
+            if (Array.isArray(_data["result"])) {
+                this.result = [] as any;
+                for (let item of _data["result"])
+                    this.result!.push(IDTextViewModel.fromJS(item));
+            }
+            this.totalCount = _data["totalCount"];
+            (<any>this).totalRecord = _data["totalRecord"];
+        }
+    }
+
+    static fromJS(data: any): IDTextViewModelIListApiResult {
+        data = typeof data === 'object' ? data : {};
+        let result = new IDTextViewModelIListApiResult();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["hasError"] = this.hasError;
+        data["message"] = this.message;
+        if (Array.isArray(this.result)) {
+            data["result"] = [];
+            for (let item of this.result)
+                data["result"].push(item.toJSON());
+        }
+        data["totalCount"] = this.totalCount;
+        data["totalRecord"] = this.totalRecord;
+        return data;
+    }
+
+    clone(): IDTextViewModelIListApiResult {
+        const json = this.toJSON();
+        let result = new IDTextViewModelIListApiResult();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IIDTextViewModelIListApiResult {
+    hasError: boolean;
+    message: string | undefined;
+    result: IDTextViewModel[] | undefined;
+    totalCount: number;
+    totalRecord: number;
+}
+
+export class ManageQuizDTO implements IManageQuizDTO {
+    id!: number;
+    name!: string | undefined;
+    typeId!: number;
+    questions!: string | undefined;
+
+    constructor(data?: IManageQuizDTO) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"];
+            this.typeId = _data["typeId"];
+            this.questions = _data["questions"];
+        }
+    }
+
+    static fromJS(data: any): ManageQuizDTO {
+        data = typeof data === 'object' ? data : {};
+        let result = new ManageQuizDTO();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["typeId"] = this.typeId;
+        data["questions"] = this.questions;
+        return data;
+    }
+
+    clone(): ManageQuizDTO {
+        const json = this.toJSON();
+        let result = new ManageQuizDTO();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IManageQuizDTO {
+    id: number;
+    name: string | undefined;
+    typeId: number;
+    questions: string | undefined;
+}
+
+export class QuestionOptionDTO implements IQuestionOptionDTO {
+    id!: number;
+    questionId!: number;
+    question!: string | undefined;
+    value!: string | undefined;
+    isAnswer!: boolean;
+
+    constructor(data?: IQuestionOptionDTO) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.questionId = _data["questionId"];
+            this.question = _data["question"];
+            this.value = _data["value"];
+            this.isAnswer = _data["isAnswer"];
+        }
+    }
+
+    static fromJS(data: any): QuestionOptionDTO {
+        data = typeof data === 'object' ? data : {};
+        let result = new QuestionOptionDTO();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["questionId"] = this.questionId;
+        data["question"] = this.question;
+        data["value"] = this.value;
+        data["isAnswer"] = this.isAnswer;
+        return data;
+    }
+
+    clone(): QuestionOptionDTO {
+        const json = this.toJSON();
+        let result = new QuestionOptionDTO();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IQuestionOptionDTO {
+    id: number;
+    questionId: number;
+    question: string | undefined;
+    value: string | undefined;
+    isAnswer: boolean;
+}
+
+export class QuestionDTO implements IQuestionDTO {
+    id!: number;
+    questionText!: string | undefined;
+    typeId!: number;
+    type!: string | undefined;
+    quizId!: number;
+    quizName!: string | undefined;
+    questionOptions!: QuestionOptionDTO[] | undefined;
+    readonly totalAnswers!: number;
+
+    constructor(data?: IQuestionDTO) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.questionText = _data["questionText"];
+            this.typeId = _data["typeId"];
+            this.type = _data["type"];
+            this.quizId = _data["quizId"];
+            this.quizName = _data["quizName"];
+            if (Array.isArray(_data["questionOptions"])) {
+                this.questionOptions = [] as any;
+                for (let item of _data["questionOptions"])
+                    this.questionOptions!.push(QuestionOptionDTO.fromJS(item));
+            }
+            (<any>this).totalAnswers = _data["totalAnswers"];
+        }
+    }
+
+    static fromJS(data: any): QuestionDTO {
+        data = typeof data === 'object' ? data : {};
+        let result = new QuestionDTO();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["questionText"] = this.questionText;
+        data["typeId"] = this.typeId;
+        data["type"] = this.type;
+        data["quizId"] = this.quizId;
+        data["quizName"] = this.quizName;
+        if (Array.isArray(this.questionOptions)) {
+            data["questionOptions"] = [];
+            for (let item of this.questionOptions)
+                data["questionOptions"].push(item.toJSON());
+        }
+        data["totalAnswers"] = this.totalAnswers;
+        return data;
+    }
+
+    clone(): QuestionDTO {
+        const json = this.toJSON();
+        let result = new QuestionDTO();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IQuestionDTO {
+    id: number;
+    questionText: string | undefined;
+    typeId: number;
+    type: string | undefined;
+    quizId: number;
+    quizName: string | undefined;
+    questionOptions: QuestionOptionDTO[] | undefined;
+    totalAnswers: number;
+}
+
+export class QuizDTO implements IQuizDTO {
+    id!: number;
+    name!: string | undefined;
+    type!: string | undefined;
+    typeId!: number;
+    companyID!: number;
+    subID!: number;
+    questions!: QuestionDTO[] | undefined;
+    readonly totalQuestions!: number;
+    isActive!: boolean;
+    isDeleted!: boolean;
+    dateCreated!: Date;
+    createdById!: number;
+    dateModified!: Date | undefined;
+    modifiedById!: number | undefined;
+
+    constructor(data?: IQuizDTO) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"];
+            this.type = _data["type"];
+            this.typeId = _data["typeId"];
+            this.companyID = _data["companyID"];
+            this.subID = _data["subID"];
+            if (Array.isArray(_data["questions"])) {
+                this.questions = [] as any;
+                for (let item of _data["questions"])
+                    this.questions!.push(QuestionDTO.fromJS(item));
+            }
+            (<any>this).totalQuestions = _data["totalQuestions"];
+            this.isActive = _data["isActive"];
+            this.isDeleted = _data["isDeleted"];
+            this.dateCreated = _data["dateCreated"] ? new Date(_data["dateCreated"].toString()) : <any>undefined;
+            this.createdById = _data["createdById"];
+            this.dateModified = _data["dateModified"] ? new Date(_data["dateModified"].toString()) : <any>undefined;
+            this.modifiedById = _data["modifiedById"];
+        }
+    }
+
+    static fromJS(data: any): QuizDTO {
+        data = typeof data === 'object' ? data : {};
+        let result = new QuizDTO();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["type"] = this.type;
+        data["typeId"] = this.typeId;
+        data["companyID"] = this.companyID;
+        data["subID"] = this.subID;
+        if (Array.isArray(this.questions)) {
+            data["questions"] = [];
+            for (let item of this.questions)
+                data["questions"].push(item.toJSON());
+        }
+        data["totalQuestions"] = this.totalQuestions;
+        data["isActive"] = this.isActive;
+        data["isDeleted"] = this.isDeleted;
+        data["dateCreated"] = this.dateCreated ? this.dateCreated.toISOString() : <any>undefined;
+        data["createdById"] = this.createdById;
+        data["dateModified"] = this.dateModified ? this.dateModified.toISOString() : <any>undefined;
+        data["modifiedById"] = this.modifiedById;
+        return data;
+    }
+
+    clone(): QuizDTO {
+        const json = this.toJSON();
+        let result = new QuizDTO();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IQuizDTO {
+    id: number;
+    name: string | undefined;
+    type: string | undefined;
+    typeId: number;
+    companyID: number;
+    subID: number;
+    questions: QuestionDTO[] | undefined;
+    totalQuestions: number;
+    isActive: boolean;
+    isDeleted: boolean;
+    dateCreated: Date;
+    createdById: number;
+    dateModified: Date | undefined;
+    modifiedById: number | undefined;
+}
+
+export class QuizDTOListApiResult implements IQuizDTOListApiResult {
+    hasError!: boolean;
+    message!: string | undefined;
+    result!: QuizDTO[] | undefined;
+    totalCount!: number;
+    readonly totalRecord!: number;
+
+    constructor(data?: IQuizDTOListApiResult) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.hasError = _data["hasError"];
+            this.message = _data["message"];
+            if (Array.isArray(_data["result"])) {
+                this.result = [] as any;
+                for (let item of _data["result"])
+                    this.result!.push(QuizDTO.fromJS(item));
+            }
+            this.totalCount = _data["totalCount"];
+            (<any>this).totalRecord = _data["totalRecord"];
+        }
+    }
+
+    static fromJS(data: any): QuizDTOListApiResult {
+        data = typeof data === 'object' ? data : {};
+        let result = new QuizDTOListApiResult();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["hasError"] = this.hasError;
+        data["message"] = this.message;
+        if (Array.isArray(this.result)) {
+            data["result"] = [];
+            for (let item of this.result)
+                data["result"].push(item.toJSON());
+        }
+        data["totalCount"] = this.totalCount;
+        data["totalRecord"] = this.totalRecord;
+        return data;
+    }
+
+    clone(): QuizDTOListApiResult {
+        const json = this.toJSON();
+        let result = new QuizDTOListApiResult();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IQuizDTOListApiResult {
+    hasError: boolean;
+    message: string | undefined;
+    result: QuizDTO[] | undefined;
+    totalCount: number;
+    totalRecord: number;
+}
+
+export class QuizDTOApiResult implements IQuizDTOApiResult {
+    hasError!: boolean;
+    message!: string | undefined;
+    result!: QuizDTO;
+    totalCount!: number;
+    readonly totalRecord!: number;
+
+    constructor(data?: IQuizDTOApiResult) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.hasError = _data["hasError"];
+            this.message = _data["message"];
+            this.result = _data["result"] ? QuizDTO.fromJS(_data["result"]) : <any>undefined;
+            this.totalCount = _data["totalCount"];
+            (<any>this).totalRecord = _data["totalRecord"];
+        }
+    }
+
+    static fromJS(data: any): QuizDTOApiResult {
+        data = typeof data === 'object' ? data : {};
+        let result = new QuizDTOApiResult();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["hasError"] = this.hasError;
+        data["message"] = this.message;
+        data["result"] = this.result ? this.result.toJSON() : <any>undefined;
+        data["totalCount"] = this.totalCount;
+        data["totalRecord"] = this.totalRecord;
+        return data;
+    }
+
+    clone(): QuizDTOApiResult {
+        const json = this.toJSON();
+        let result = new QuizDTOApiResult();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IQuizDTOApiResult {
+    hasError: boolean;
+    message: string | undefined;
+    result: QuizDTO;
+    totalCount: number;
+    totalRecord: number;
 }
 
 export class ApplicationRoleDTO implements IApplicationRoleDTO {

@@ -3,6 +3,7 @@ import { AlertserviceService } from 'app/_services/alertservice.service';
 // import { IDTextViewModel } from 'app/_services/service-proxies';
 // import { RecruitmentQuizServiceProxy, ManageQuizDTO, QuestionDTO, QuestionOptionDTO } from './../../../../_services/service-proxies';
 import { Component, OnInit } from '@angular/core';
+import { IDTextViewModel, ManageQuizDTO, QuestionDTO, QuestionOptionDTO, QuizServiceProxy } from 'app/_services/service-proxies';
 
 @Component({
   selector: 'ngx-newquiz',
@@ -17,7 +18,7 @@ export class NewquizComponent implements OnInit {
     {id: 2, label: 'Long Text'},
     {id: 3, label: 'Description'},
   ];
-  multiChoice: [] = [];
+  multiChoice: QuestionOptionDTO [] = [];
   booleanChoice = [
     { id: 0, label: 'A', value: 'True'},
     { id: 1, label: 'B', value: 'False'},
@@ -27,24 +28,24 @@ export class NewquizComponent implements OnInit {
 myOptionType: number;
 
   pagetitle: string = 'Add Quiz';
-  newQuizModel;
-  allQuizTypes:  [] = [];
-  allQuestionTypes:  [] = [];
-  allQuestions:  [] = [];
-  questionModel;
-  questionOptionModel;
+  newQuizModel: ManageQuizDTO = new ManageQuizDTO();;
+  allQuizTypes: IDTextViewModel [] = [];
+  allQuestionTypes: IDTextViewModel [] = [];
+  allQuestions: QuestionDTO [] = [];
+  questionModel: QuestionDTO = new QuestionDTO();
+  questionOptionModel: QuestionOptionDTO = new QuestionOptionDTO();
   newOption = '';
   loading: boolean = false;
 
-  constructor(private alertMe: AlertserviceService, private router: Router) { }
+  constructor(private alertMe: AlertserviceService, private router: Router, private quiz: QuizServiceProxy) { }
 
   defaultQuestion() {
-    // return new QuestionDTO();
+    return new QuestionDTO();
   }
 
   ngOnInit(): void {
-    // this.fetchQuestionTypes;
-    // this.fetchQuizTypes;
+    this.fetchQuestionTypes();
+    this.fetchQuizTypes();
     // this.allQuestions = [
     //   this.defaultQuestion()
     // ]
@@ -55,75 +56,73 @@ myOptionType: number;
   }
 
   cancelUpdate() {}
-  addNewQuiz() {}
-  addNewQuestion() {}
   toggleNewQuiz() {}
 
-  // addNewQuestion(){
-  //   this.questionModel.questionOptions = this.multiChoice;
-  //   this.allQuestions.push(this.questionModel);
-  //   this.questionModel = new QuestionDTO();
-  //   this.multiChoice = [];
-  // }
+  addNewQuestion(){
+    this.questionModel.questionOptions = this.multiChoice;
+    this.allQuestions.push(this.questionModel);
+    this.questionModel = new QuestionDTO();
+    this.multiChoice = [];
+  }
 
-  // addOption(newOption: string){
-  //   var DuplicateChk = this.multiChoice.find(x=>x.value == newOption);
-  //   if(DuplicateChk){
-  //     this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.FAILED, 'Option exist already', 'Dismiss')
-  //   }else{
-  //     const option = new QuestionOptionDTO();
-  //     option.value = newOption;
-  //     this.multiChoice.push(option);
-  //   }
-  // }
+  addOption(newOption: string){
+    var DuplicateChk = this.multiChoice.find(x=>x.value == newOption);
+    if(DuplicateChk){
+      this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.FAILED, 'Option exist already', 'Dismiss')
+    }else{
+      const option = new QuestionOptionDTO();
+      option.value = newOption;
+      this.multiChoice.push(option);
+    }
+  }
 
-  // addNewQuiz() {
-  //   this.loading = true;
-  //   this.newQuizModel.questions = JSON.stringify(this.allQuestions);
-  //   this.newQuizModel.typeId = 1;
-  //   this.quiz.addUpdateQuiz(this.newQuizModel).subscribe(data => {
-  //   this.loading = false;
-  //     if(!data.hasError){
-  //       this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'Quiz Added!', 'Dismiss').subscribe(res => {
-  //         if(res){
-  //           this.router.navigateByUrl('recruitment/quiz')
-  //         }
-  //       });
-  //     }
-  //   }, (error) => {
+  addNewQuiz() {
+    this.loading = true;
+    this.newQuizModel.questions = JSON.stringify(this.allQuestions);
+    this.newQuizModel.typeId = 1;
+    this.quiz.addUpdateQuiz(this.newQuizModel).subscribe(data => {
+    this.loading = false;
+      if(!data.hasError){
+        this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'Quiz Added!', 'Dismiss').subscribe(res => {
+          if(res){
+            this.router.navigateByUrl('recruitment/quiz')
+          }
+        });
+      }
+    }, (error) => {
 
-  //     if (error.status == 400) {
-  //       this.alertMe.openCatchErrorModal(this.alertMe.ALERT_TYPES.FAILED, error.title, "OK", error.errors);
-  //     }
-  //   });
-  // }
+      if (error.status == 400) {
+        this.alertMe.openCatchErrorModal(this.alertMe.ALERT_TYPES.FAILED, error.title, "OK", error.errors);
+      }
+    });
+  }
 
-  // async fetchQuizTypes(){
-  //   const data = await this.quiz.getQuizTypes().toPromise();
-  //   if(!data.hasError){
-  //     this.allQuizTypes = data.result;
-  //   }
-  // }
+  async fetchQuizTypes(){
+    const data = await this.quiz.fetchQuizTypes().toPromise();
+    if(!data.hasError){
+      this.allQuizTypes = data.result;
+    }
+  }
 
-  // removeOption(moption){
-  //  this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.CONFIRM, '', 'Yes').subscribe(res => {
-  //    if(res){
-  //     for( var i = 0; i < this.multiChoice.length; i++){
-  //       if (this.multiChoice[i] === moption) {
-  //         this.multiChoice.splice(i, 1);
-  //           i--;
-  //       }
-  //   }
-  //    }
-  //  })
-  // }
+  removeOption(moption){
+   this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.CONFIRM, '', 'Yes').subscribe(res => {
+     if(res){
+      for( var i = 0; i < this.multiChoice.length; i++){
+        if (this.multiChoice[i] === moption) {
+          this.multiChoice.splice(i, 1);
+            i--;
+        }
+    }
+     }
+   })
+  }
 
-  // async fetchQuestionTypes(){
-  //   const data = await this.quiz.getQuestionTypes().toPromise();
-  //   if(!data.hasError){
-  //     this.allQuestionTypes = data.result;
-  //   }
-  // }
+  async fetchQuestionTypes(){
+    const data = await this.quiz.fetchQuestionTypes().toPromise();
+    if(!data.hasError){
+      this.allQuestionTypes = data.result;
+    }
+  }
 
 
 }

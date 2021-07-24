@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 // import { RecruitmentQuizServiceProxy, QuizDTO, ManageQuizDTO, QuestionDTO, QuestionOptionDTO } from './../../../../_services/service-proxies';
 import { Component, OnInit } from '@angular/core';
 import { AlertserviceService } from 'app/_services/alertservice.service';
+import { IDTextViewModel, QuestionDTO, QuizDTO, QuizServiceProxy } from 'app/_services/service-proxies';
 
 @Component({
   selector: 'ngx-quiz',
@@ -29,20 +30,20 @@ export class QuizComponent implements OnInit {
 ];
 
   pagetitle: string = 'Quiz';
-  allQuizTypes:  [] = [];
-  allQuestionTypes:  [] = [];
-  allQuizes:  [] = [];
+  allQuizTypes: IDTextViewModel [] = [];
+  allQuestionTypes: IDTextViewModel [] = [];
+  allQuizes: QuizDTO [] = [];
   quizId: number = 0;
   updateQuiz: boolean = false;
   myQuiz;
   newQuizModel;
-  allQuestions:  [] = [];
+  allQuestions: QuestionDTO [] = [];
   questionModel;
   questionOptionModel;
   myOptionType: number = 0;
   loading: boolean = false;
   quizCounter: number = 0;
-  constructor( private alertMe: AlertserviceService, private router: Router) { }
+  constructor( private alertMe: AlertserviceService, private router: Router, private quiz: QuizServiceProxy) { }
 
   ngOnInit(): void {
     // this.fetchQuestionTypes();
@@ -92,39 +93,39 @@ export class QuizComponent implements OnInit {
   //   this.router.navigateByUrl('/recruitmentadmin/newquiz');
   // }
 
-  // async fetchQuizTypes(){
-  //   const data = await this.quiz.getQuizTypes().toPromise();
-  //   if(!data.hasError){
-  //     this.allQuizTypes = data.result;
-  //   }
-  // }
+  async fetchQuizTypes(){
+    const data = await this.quiz.fetchQuizTypes().toPromise();
+    if(!data.hasError){
+      this.allQuizTypes = data.result;
+    }
+  }
 
-  // async fetchQuestionTypes(){
-  //   const data = await this.quiz.getQuestionTypes().toPromise();
-  //   if(!data.hasError){
-  //     this.allQuestionTypes = data.result;
-  //   }
-  // }
+  async fetchQuestionTypes(){
+    const data = await this.quiz.fetchQuestionTypes().toPromise();
+    if(!data.hasError){
+      this.allQuestionTypes = data.result;
+    }
+  }
 
-  // async fetchAllQuizes(){
-  //   const data = await this.quiz.getAllQuizzes().toPromise();
-  //   if(!data.hasError){
-  //     this.allQuizes = data.result;
-  //   }
-  // }
+  async fetchAllQuizes(){
+    const data = await this.quiz.getAllQuizzes().toPromise();
+    if(!data.hasError){
+      this.allQuizes = data.result;
+    }
+  }
 
   // cancelUpdate(){
 
   // }
 
-  // fetchSingleQuiz(id){
-  // this.updateQuiz = true;
-  //  this.quiz.getQuiz(id).subscribe( data => {
-  //   if(!data.hasError){
-  //     this.myQuiz = data.result;
-  //     this.allQuestions = data.result.questions;
-  //   }
-  //  });
-  // }
+  fetchSingleQuiz(id){
+  this.updateQuiz = true;
+   this.quiz.getQuizById(id).subscribe( data => {
+    if(!data.hasError){
+      this.myQuiz = data.result;
+      this.allQuestions = data.result.questions;
+    }
+   });
+  }
 
 }
