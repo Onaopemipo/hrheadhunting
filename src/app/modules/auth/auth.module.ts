@@ -1,6 +1,6 @@
 import { environment } from '../../environment';
 import { AlertserviceService } from 'app/_services/alertservice.service';
-import { AccountServiceProxy, InstitutionServiceProxy, CourseServiceProxy, SectorsServiceProxy, SkillAreasServiceProxy, StatesServiceProxy, EmployerTypesServiceProxy, CountriesServiceProxy, GradesServiceProxy, QualificationServiceProxy, TitlesServiceProxy, SubscriptionsServiceProxy, CommonServiceProxy } from '../../_services/service-proxies';
+import { AccountServiceProxy, InstitutionServiceProxy, CourseServiceProxy, SectorsServiceProxy, SkillAreasServiceProxy, StatesServiceProxy, EmployerTypesServiceProxy, CountriesServiceProxy, GradesServiceProxy, QualificationServiceProxy, TitlesServiceProxy, SubscriptionsServiceProxy, CommonServiceProxy, PaymentServiceProxy } from '../../_services/service-proxies';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ThemeModule } from '../../@theme/theme.module';
@@ -42,6 +42,11 @@ import { Angular4PaystackModule } from 'angular4-paystack';
     NbRadioModule,
     NbStepperModule,
     Angular4PaystackModule.forRoot(environment.paystackToken),
+    // NbDateFnsDateModule.forRoot({
+    //   parseOptions: { useAdditionalWeekYearTokens: true, useAdditionalDayOfYearTokens: true },
+    //   formatOptions: { useAdditionalWeekYearTokens: true, useAdditionalDayOfYearTokens: true },
+    //   getWeekOptions:{useAdditionalWeekYearTokens: true, useAdditionalDayOfYearTokens: true }
+    // })
   ],
 
   providers: [
@@ -58,7 +63,8 @@ import { Angular4PaystackModule } from 'angular4-paystack';
     TitlesServiceProxy,
     SubscriptionsServiceProxy,
     AlertserviceService,
-    CommonServiceProxy
+    CommonServiceProxy,
+    PaymentServiceProxy
   ]
 
 })

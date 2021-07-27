@@ -1,6 +1,6 @@
 <div class="bg-img">
   <div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light  bg-transparent" style="color: #fff;">
+    <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light  bg-transparent" style="color: #fff;">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -43,7 +43,7 @@
           <button class="btn" [routerLink]="['/auth/login']" nbButton outline size="small" style="color: #6495ED; background-color: #fff; border: 1px solid #6495ED;">Post Job</button>
         </form>
       </div>
-      <!-- <div class="collapse navbar-collapse">
+      <div class="collapse navbar-collapse">
         <ul class="navbar-nav mr-auto" style="color: #fff;">
           <li class="nav-item active">
             <a class="nav-link" [routerLink]="['/applicants/about']">About Us <span class="sr-only">(current)</span></a>
@@ -79,10 +79,66 @@
           </ul>
           <button class="btn" [routerLink]="['/auth/login']" nbButton outline size="small" style="color: #1F2566; background-color: #fff;">Post Job</button>
         </form>
-      </div> -->
+      </div>
+    </nav> -->
+
+    <nav *ngFor="let i of [1,2]" [class]="{'fixed-Menu':i == 1}" class="navbar navbar-expand-lg navbar-light bg-light  bg-transparent" >
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" (click)="toggleMenu()" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon" style="color: #ffffff; display: none;"></span><i class="fa fa-bars" style="color: #ffffff;" aria-hidden="true"></i>
+      </button>
+
+      <img src="assets/images/logo_2.png" alt="Home" [routerLink]="['/']" style="width: 150px; height: 150px; margin-right: 200px; cursor: pointer;">
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent" [class]="{'d-flex':showMenu}">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" [routerLink]="['/applicants/about']">About Us <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" [routerLink]="['/applicants/services']">Services <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" [routerLink]="['/applicants/blog']">Blog <span class="sr-only">(current)</span></a>
+          </li>
+
+          <li class="nav-item active">
+            <a class="nav-link"[routerLink]="['/applicants/boards']">Job Boards <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" [routerLink]="['/applicants/scorecv']">Score CV <span class="sr-only">(current)</span></a>
+          </li>
+
+          <li class="nav-item active">
+            <a class="nav-link"[routerLink]="['/applicants/pricing']">Pricing <span class="sr-only">(current)</span></a>
+          </li>
+        </ul>
+
+        <form *ngIf="!loggedIn" class="form-inline my-2 my-lg-0">
+          <ul class="navbar-nav mr-auto" style="color: #fff;">
+            <li class="nav-item active">
+              <a class="nav-link" [routerLink]="['/auth/signup']">Sign Up</a>
+            </li>
+
+            <li class="nav-item active">
+              <a class="nav-link" [routerLink]="['/auth/login']">Login</a>
+            </li>
+          </ul>
+          <button class="btn" [routerLink]="['/auth/login']" nbButton outline size="small" style="color: #6495ED; background-color: #fff; border: 1px solid #6495ED;">Post Job</button>
+        </form>
+        <form *ngIf="loggedIn" class="form-inline my-2 my-lg-0">
+          <ul class="navbar-nav mr-auto" style="color: #fff;">
+            <li class="nav-item active">
+              <a class="nav-link" [routerLink]="['/auth/signup']">Update Profile</a>
+            </li>
+<!--
+            <li class="nav-item active">
+              <a class="nav-link" [routerLink]="['/auth/login']">Log out</a>
+            </li> -->
+          </ul>
+          <button class="btn" [routerLink]="['/auth/login']" nbButton outline size="small" style="color: #6495ED; background-color: #fff; border: 1px solid #6495ED;">Log out</button>
+        </form>
+      </div>
     </nav>
-
-
 
    <div class="container">
     <div style="padding-top: 30px;">

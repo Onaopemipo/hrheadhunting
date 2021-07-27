@@ -2,7 +2,7 @@
 <ngx-componentsheader *ngIf="selectedCase =='Hiring_Stages'" pageName='Settings' [requiredButton]="[{name:'newStage', label:'Add New Stage', icon: 'plus'}]" (buttonClick)="addStage()"></ngx-componentsheader>
 <ngx-componentsheader *ngIf="selectedCase =='EmailSms_Templates'" pageName='Settings' [requiredButton]="[{name:'newTemplate', label:'Add New Template', icon: 'plus'}]" (buttonClick)=" toggleNewTemplate()"></ngx-componentsheader>
 <ngx-componentsheader *ngIf="selectedCase =='Evaluation'" pageName='Settings' [requiredButton]="[{name:'newScorescard', label:'Add Scorecard', icon: 'plus'}]" (buttonClick)="toggleScorecard()"></ngx-componentsheader>
-<div *ngIf="scorecardCounter < 1" class="row" style="min-height: 75vh; display: flex; flex-direction: row; align-content: center; align-self: center; align-items: center; justify-content:center;">
+<div *ngIf="(templateCounter && hiringStageCounter) < 1" class="row" style="min-height: 75vh; display: flex; flex-direction: row; align-content: center; align-self: center; align-items: center; justify-content:center;">
   <div class="col-md-4">
     <div style="background-color: #ffffff; display: flex; flex-direction: column; justify-content: flex-start;">
       <img src="assets/icons/stages.jpg" style="margin: 20px; width:3rem;">
@@ -36,7 +36,7 @@
   </div>
 </div>
 
-<div *ngIf="scorecardCounter > 0" class="row">
+<div *ngIf="(templateCounter && hiringStageCounter) > 0" class="row">
   <div class="col-lg-4 col-md-4 col-xxl-4">
       <nb-card>
       <div>
@@ -60,25 +60,11 @@
               <nb-card *ngFor="let hstage of hiringStages" class="cardTitle" (click)="toggleCard('applied')" #applied>
                 <nb-card-header>
                   <div style="display: flex; flex-direction: row; justify-content: space-between;">
-                    <span>{{ hstage.name }}</span><span class="actions"><button nbButton style="color: #4847E0;" (click)="toggleSubStage(hstage.id)">Add Stage</button><button nbButton style="color: #4847E0;">Edit</button><button nbButton style="color: #EB5757;">Delete</button></span>
+                    <span>{{ hstage.text }}</span><span class="actions"><button nbButton style="color: #4847E0;" (click)="toggleSubStage(hstage.id)">Add Stage</button><button nbButton style="color: #4847E0;">Edit</button><button nbButton style="color: #EB5757;">Delete</button></span>
                   </div>
                 </nb-card-header>
                 <nb-card-body *ngFor="let substage of allSubHireStages">
-                  <h4>{{ substage.name }}</h4>
-                </nb-card-body>
-              </nb-card>
-
-              <nb-card class="cardTitle" (click)="toggleCard('interviewed')" #interviewed>
-              </nb-card>
-
-              <nb-card class="cardTitle" (click)="toggleCard('pending')" #pending>
-                <nb-card-header>
-                  <div style="display: flex; flex-direction: row; justify-content: space-between;">
-                    <span>Pending offer</span><span class="actions"><a href="">Edit</a><a style="padding: 10px; color:#EB5757;" href="">Delete</a></span>
-                  </div>
-                </nb-card-header>
-                <nb-card-body *ngIf="cardClick =='pending'">
-                  <h4>I am pending</h4>
+                  <h4>{{ substage.text }}</h4>
                 </nb-card-body>
               </nb-card>
           </div>
@@ -102,7 +88,7 @@
 
           </div>
 
-      <div class="fmContainer" *ngSwitchCase="'Evaluation'">
+      <!-- <div class="fmContainer" *ngSwitchCase="'Evaluation'">
         <nb-card *ngFor="let scorecard of allScorecards" class="scoreCardTitle" (click)="toggleScoreCard()">
           <nb-card-header>
             <div style="display: flex; flex-direction: row; justify-content: space-between;">
@@ -129,11 +115,44 @@
             </nb-card>
           </nb-card-body>
         </nb-card>
-      </div>
+      </div> -->
         </div>
   </div>
 
 </div>
+
+<nb-card>
+  <nb-card-body>
+
+    <nb-tabset fullWidth>
+      <nb-tab tabTitle="Hiring Stages" tabIcon="person-outline">
+        <nb-card *ngFor="let hstage of hiringStages" class="cardTitle" (click)="toggleCard('applied')" #applied>
+          <nb-card-header>
+            <div style="display: flex; flex-direction: row; justify-content: space-between;">
+              <span>{{ hstage.text }}</span><span class="actions"><button nbButton style="color: #4847E0;" (click)="toggleSubStage(hstage.id)">Add Stage</button><button nbButton style="color: #4847E0;">Edit</button><button nbButton style="color: #EB5757;">Delete</button></span>
+            </div>
+          </nb-card-header>
+          <nb-card-body *ngFor="let substage of allSubHireStages">
+            <h4>{{ substage.text }}</h4>
+          </nb-card-body>
+        </nb-card>
+      </nb-tab>
+      <nb-tab tabTitle="Email Templates" tabIcon="person-outline">
+        <nb-card *ngFor="let template of allTemplates" class="cardTitle" (click)="toggleCard(template.subject)" #template.subject>
+          <nb-card-header>
+            <div style="display: flex; flex-direction: row; justify-content: space-between;">
+              <span>{{ template.subject }}</span><span class="actions"><a href="">Edit</a><a style="padding: 10px; color:#EB5757;" href="">Delete</a></span>
+            </div>
+          </nb-card-header>
+          <nb-card-body *ngIf="cardClick == template.subject">
+
+          </nb-card-body>
+        </nb-card>
+      </nb-tab>
+    </nb-tabset>
+
+  </nb-card-body>
+</nb-card>
 
 
 <!-- <ngx-side-modal [(show)]="newStage">

@@ -5,7 +5,7 @@
         <div class="form-group row mydiv">
           <label class="col-sm-3 col-form-label" for="">Quiz Name</label>
         <div class="col-md-4">
-          <input type="text" class="form-control" name="quizName" >
+          <input type="text" class="form-control" name="quizName" #quizName="ngModel" [(ngModel)]="newQuizModel.name">
         </div>
       </div>
 
@@ -28,7 +28,7 @@
         <nb-card-body>
           <div class="form-group row mydiv">
             <div class="col-md-8">
-              <input type="text" class="form-control" name="question">
+              <input type="text" class="form-control" name="question" #question="ngModel" [(ngModel)]="questionModel.questionText">
             </div>
 
             <div class="col-md-4">
@@ -39,7 +39,7 @@
           </div>
 
           <div *ngIf="myOptionType == 0" class="form-group">
-            <div class="form-group row">
+            <div class="col">
               <nb-radio-group name="MultiOption">
                 <nb-radio *ngFor="let moption of multiChoice" [value]="moption.value" >{{ moption.value }} <i class="fa fa-times" (click)="removeOption(moption)" style="cursor: pointer;color: red;"></i></nb-radio>
               </nb-radio-group>
@@ -50,14 +50,14 @@
                 <input type="text" [(ngModel)]="newOption" name="newOption" class="form-control">
               </div>
               <div class="col-2">
-                <button nbButton status='primary' outline style="background: transparent;" (click)="addOption(newOption)">Add Option</button>
+                <button nbButton status='primary' outline style="background: transparent;" [disabled]="buttonStatus" (click)="addOption(newOption)">Add Option</button>
               </div>
             </div>
           </div>
 
           <div *ngIf="myOptionType == 1" class="form-group row mydiv">
             <div class="col">
-              <nb-radio-group name="BooleanOption" >
+              <nb-radio-group name="BooleanOption">
                 <nb-radio *ngFor="let option of booleanChoice" [value]="option.id" > {{ option.value }}</nb-radio>
               </nb-radio-group>
             </div>

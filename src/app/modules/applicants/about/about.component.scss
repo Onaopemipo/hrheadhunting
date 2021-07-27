@@ -19,6 +19,17 @@
 //   font-weight: 600 !important;
 // }
 
+.fixed-Menu {
+  color: #fff;
+  display: fixed;
+  position: fixed;
+  z-index: 10000;
+  opacity: 1;
+  top: 0;
+  left: 0;
+  background: url(/assets/images/landing_banner.png);
+}
+
 .mb-5, .my-5 {
   margin-bottom: 0 !important;
 }

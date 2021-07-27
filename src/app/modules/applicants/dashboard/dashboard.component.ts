@@ -1,6 +1,7 @@
 import { ReportServiceProxy, EmployerDTO, SkillAreasServiceProxy, SectorsServiceProxy, StatesServiceProxy } from '../../../_services/service-proxies';
 import { Component, OnInit } from '@angular/core';
 import { IDTextViewModel, Job, JobServiceProxy } from 'app/_services/service-proxies';
+import { AuthenticationService } from 'app/_services/authentication.service';
 
 @Component({
   selector: 'ngx-dashboard',
@@ -26,6 +27,7 @@ export class DashboardComponent implements OnInit {
   }
 
   allJobs: Job []= [];
+  showMenu:boolean = false;
   btnProcessing:boolean = false;
   recruiterData: IDTextViewModel [] = [];
   jobsCounter:number = 0;
@@ -44,6 +46,7 @@ export class DashboardComponent implements OnInit {
     pageSize: 10,
     pageNo: 1
   }
+
 searchFilter: {
     id:0,
     searchText: '',
@@ -56,15 +59,16 @@ searchFilter: {
 
 
   constructor(private job: JobServiceProxy, private employer: ReportServiceProxy, private skill: SkillAreasServiceProxy,
-    private state: StatesServiceProxy, private sector: SectorsServiceProxy,) { }
+    private state: StatesServiceProxy, private sector: SectorsServiceProxy, private AuthenService: AuthenticationService,) { }
 
   ngOnInit(): void {
     // this.fetchAllEmployers();
-    this.fetchAllJobs();
+    // this.fetchAllJobs();
     this.fetchSectors();
     this.fetchSkillAreas();
     this.fetchStates(154);
     this.fetchAllEmployers();
+    this.fetchUser();
   }
 
   filterUpdated(filter: any) {
@@ -72,6 +76,10 @@ searchFilter: {
     this.jobFilter = {...this.jobFilter, ...filter};
     console.log('Updated filter', this.jobFilter)
     this.fetchAllJobs();
+  }
+
+  toggleMenu(){
+    this.showMenu = !this.showMenu;
   }
 
   fetchAllJobs(){
@@ -116,4 +124,9 @@ searchFilter: {
         }
     })
   }
+
+  async fetchUser(){
+    this.loggedIn = await this.AuthenService.isAuthenticated();
+    console.log('See your user:',this.loggedIn)
+   }
 }

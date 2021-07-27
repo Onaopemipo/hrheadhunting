@@ -31,7 +31,6 @@ export class SettingsComponent implements OnInit {
   hiringChecklist = [
     { title: 'Hiring_Stages', label: 'Hiring Stages', status: 'Active' },
     { title: 'EmailSms_Templates', label: 'Email/SMS Templates', status: 'Inactive' },
-    { title: 'Evaluation', label: 'Evaluation', status: 'Inactive' }
 
   ];
 
@@ -130,32 +129,8 @@ export class SettingsComponent implements OnInit {
 
   // }
 
-  // addMoreQuestion(){
-  //   this.questionBank.push(this.questionModel);
-  //   console.log(this.questionModel);
-  //   this.questionModel = new ScoreCardQuestion().clone();
 
-  // }
 
-  // removeQuestion(question){
-  //   this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.CONFIRM, '', 'Yes').subscribe(res => {
-  //     if(res){
-  //      for( var i = 0; i < this.questionBank.length; i++){
-  //        if (this.questionBank[i] === question) {
-  //          this.questionBank.splice(i, 1);
-  //            i--;
-  //        }
-  //    }
-  //     }
-  //   })
-  //  }
-
-  // async fetchScoringType(){
-  //   const data = await this.commonService.getScoringType().toPromise();
-  //   if(!data.hasError){
-  //     this.scoringTypes = data.result;
-  //   }
-  // }
 
   createNewTemplate() {
     this.createStage = !this.createStage;
@@ -194,7 +169,6 @@ export class SettingsComponent implements OnInit {
     const data = await this.settings.getEmailTemplateById(0).toPromise();
     if(!data.hasError){
       this.singleTemplate = data.result;
-      this.templateCounter = data.totalRecord;
     }
   }
 
@@ -217,6 +191,7 @@ export class SettingsComponent implements OnInit {
     const data = await this.commonService.fetchRecruitmentStages().toPromise();
     if(!data.hasError){
       this.hiringStages = data.value;
+      this.hiringStageCounter = 12;
     }
   }
 

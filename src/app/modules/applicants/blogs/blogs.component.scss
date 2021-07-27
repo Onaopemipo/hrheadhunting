@@ -19,6 +19,17 @@
   font-size: 15px;
 }
 
+.fixed-Menu {
+  color: #fff;
+  display: fixed;
+  position: fixed;
+  z-index: 10000;
+  opacity: 1;
+  top: 0;
+  left: 0;
+  background: url(/assets/images/landing_banner.png);
+}
+
 .navbar-dark .navbar-toggler-icon {
   background-image: url("data:image/svg+xml;..");
 }

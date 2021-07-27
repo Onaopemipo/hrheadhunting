@@ -18,6 +18,7 @@ import { JobDetailsComponent } from './job-details/job-details.component';
 import { ApplicantsComponent } from './applicants/applicants.component';
 import { ApplicantProfileComponent } from './applicant-profile/applicant-profile.component';
 import { AuthGuardService as AuthGuard } from '../_services/auth-guard.service';
+import { NewquizComponent } from './newquiz/newquiz.component';
 const routes: Routes = [{
   path: '',
   component: ModulesComponent,
@@ -26,8 +27,8 @@ const routes: Routes = [{
 
     {
       path: 'dashboard',
-    component: DashboardComponent,
-    canLoad: [AuthGuard],
+      component: DashboardComponent,
+      canLoad: [AuthGuard],
     },
 
     {
@@ -59,6 +60,12 @@ const routes: Routes = [{
       path: 'quiz',
       component: QuizComponent
     },
+
+    {
+      path: 'newquiz',
+      component: NewquizComponent
+    },
+
 
     {
       path: 'training',

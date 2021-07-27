@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from 'app/_services/authentication.service';
 
 @Component({
   selector: 'ngx-services',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ServicesComponent implements OnInit {
 
-  constructor() { }
+  loggedIn:boolean = false;
+  constructor(private AuthenService: AuthenticationService,) { }
 
   ngOnInit(): void {
+    this.fetchUser();
   }
+
+  async fetchUser(){
+    this.loggedIn = await this.AuthenService.isAuthenticated();
+    console.log('See your user:',this.loggedIn);
+   }
 
 }

@@ -3,6 +3,11 @@ import { NgModule } from '@angular/core';
 import { AuthGuardService as AuthGuard } from './_services/auth-guard.service';
 
 export const routes: Routes = [
+  // {
+  //   path: '',
+  //   loadChildren: () => import('./modules/modules.module').then(m => m.ModulesModule),
+  //   canLoad: [AuthGuard],
+  // },
 
   //  {
   //   path: 'applicants',

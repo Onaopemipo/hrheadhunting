@@ -16,7 +16,7 @@ export class  AuthenticationService {
 
     constructor(private router: Router) { }
 
-    getuser() {
+    getuser():Promise<any[]> {
         this.users = [];
         return new Promise((resolve) => {
           this.users = JSON.parse(localStorage.getItem('user'));
@@ -29,6 +29,11 @@ export class  AuthenticationService {
         });
 
 
+    }
+
+    async isAuthenticated(){
+     const user = await this.getuser();
+     return user.length > 0;
     }
 
 

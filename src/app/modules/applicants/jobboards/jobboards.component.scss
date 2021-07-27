@@ -18,6 +18,17 @@ avbar-light .navbar-nav .show > .nav-link, .navbar-light .navbar-nav .active > .
   font-size: 15px;
 }
 
+.fixed-Menu {
+  color: #fff;
+  display: fixed;
+  position: fixed;
+  z-index: 10000;
+  opacity: 1;
+  top: 0;
+  left: 0;
+  background: url(/assets/images/landing_banner.png);
+}
+
 .icon {
   font-size: 12px;
   padding-right: 10px;

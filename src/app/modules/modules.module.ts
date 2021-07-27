@@ -1,6 +1,6 @@
 import { AlertserviceService } from 'app/_services/alertservice.service';
 import { ApplicantquizComponent } from './applicantquiz/applicantquiz.component';
-import { ApplicationsServiceProxy, DashboardServiceProxy, ArtisanServiceProxy } from '../_services/service-proxies';
+import { ApplicationsServiceProxy, DashboardServiceProxy, ArtisanServiceProxy, QuizServiceProxy } from '../_services/service-proxies';
 import { ApplicantselectionComponent } from './applicantselection/applicantselection.component';
 import { SettingsComponent } from './settings/settings.component';
 import { AccountServiceProxy, InstitutionServiceProxy, CourseServiceProxy, SectorsServiceProxy, SkillAreasServiceProxy, StatesServiceProxy, EmployerTypesServiceProxy, CountriesServiceProxy, GradesServiceProxy, QualificationServiceProxy, JobTypesServiceProxy, CurrenciesServiceProxy } from '../_services/service-proxies';
@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
 import { ModulesRoutingModule } from './modules-routing.module';
 import { ModulesComponent } from './modules.component';
 
-import { NbLayoutModule , NbCardModule, NbIconModule, NbSelectModule , NbCheckboxModule} from '@nebular/theme';
+import { NbLayoutModule , NbCardModule, NbIconModule, NbSelectModule , NbCheckboxModule, NbRadioModule} from '@nebular/theme';
 
 import { ThemeModule } from '../@theme/theme.module';
 
@@ -46,7 +46,8 @@ import { ConsultantsComponent } from './consultants/consultants.component';
     NgxEchartsModule,
     NbIconModule,
     NbSelectModule,
-    NbCheckboxModule
+    NbCheckboxModule,
+    NbRadioModule,
   ],
 
   providers: [
@@ -68,7 +69,8 @@ import { ConsultantsComponent } from './consultants/consultants.component';
     CommunicationServiceProxy,
     ApplicationsServiceProxy,
     ArtisanServiceProxy,
-    AlertserviceService
+    AlertserviceService,
+    QuizServiceProxy
   ]
 })
 export class ModulesModule { }

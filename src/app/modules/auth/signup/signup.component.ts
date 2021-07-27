@@ -1,4 +1,4 @@
-import { SubscriptionFeatureDTO, SubscriptionPlanFeatureDTO } from './../../../_services/service-proxies';
+import { SubscriptionFeatureDTO, SubscriptionPlanFeatureDTO, MessageOut, PaymentServiceProxy } from './../../../_services/service-proxies';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { CommonServiceProxy, GradesServiceProxy, IDTextViewModel, ManageConsultantDTO, SubscriptionsServiceProxy, TitlesServiceProxy, UserLoginDTO } from 'app/_services/service-proxies';
 import { AccountServiceProxy, ManageJobSeekerRegDTO,ManageEmployerDTO,InstitutionServiceProxy, CourseServiceProxy, QualificationServiceProxy,
@@ -69,13 +69,16 @@ export class SignupComponent implements OnInit {
   recruiterPlan: SubscriptionFeatureDTO [] = [];
   allPlans: SubscriptionPlanFeatureDTO [] = [];
   planFeatures
+  planAmount: number = 0;
+  employerEmail: string = '';
 
   constructor(private route: Router, private account: AccountServiceProxy, private alertMe: AlertserviceService,
     private institution: InstitutionServiceProxy, private country:CountriesServiceProxy, private title: TitlesServiceProxy,
     private course: CourseServiceProxy, private qualification: QualificationServiceProxy, private employment: EmployerTypesServiceProxy,
     private state: StatesServiceProxy, private sector: SectorsServiceProxy, private skill: SkillAreasServiceProxy,
     private social: AuthService, private sub: SubscriptionsServiceProxy, private http: HttpClient, private router: ActivatedRoute,
-    private grade: GradesServiceProxy, private common: CommonServiceProxy, private AuthenService: AuthenticationService,) { }
+    private grade: GradesServiceProxy, private common: CommonServiceProxy, private AuthenService: AuthenticationService,
+    private VerifySubscriptionPaymentService: PaymentServiceProxy) { }
   gotoSetup() {
     this.route.navigate(['/onboarding/accountsetup']);
   }
@@ -86,7 +89,7 @@ export class SignupComponent implements OnInit {
     this.fetchCountries();
     this.fetchCourses();
     this.fetchQualifications();
-    // this.fetchStates();
+    this.fetchStates();
     this.fetchSectors();
     this.fetchSkillAreas();
     this.fetchEmploymentTypes();
@@ -106,23 +109,28 @@ export class SignupComponent implements OnInit {
     console.log('cancel')
     this.paymentLoading = false;
   }
-  paymentDone(e) {
-    console.log('success', e)
-    // this.verifyPayment()
+  paymentDone(event) {
+    console.log('success', event)
+    this.verifyPayment()
   }
 
   verifyPayment() {
-  //   this.VerifySubscriptionPaymentService.verifySubscriptionPayment(this.reference,this.regUserId.toString()).subscribe(data => {
-  //     this.paymentLoading = false;
-  //     if (!data.hasError) {
-        this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'Success', 'OK');
-  //       this.proceedtomodules();
-  //       this.getPlanModulesbyPlanId();
-  //       this.activateModuleSelection = true;
-  //     } else {
+    this.VerifySubscriptionPaymentService.verifyEmployerPayment(this.reference,this.employerEmail.toString()).subscribe(data => {
+      this.paymentLoading = false;
+      if (!data.hasError) {
+        this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, data.message, 'Go to Dashboard').subscribe(res => {
+          if(res){
+            this.route.navigateByUrl('/')
+          }
+        });
+      } else {
         this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.FAILED, "Payment Failed, Please try again", 'OK');
-  //   }
-  // })
+    }
+  })
+}
+
+cancelPay() {
+  this.servicePayment = false;
 }
 
   proceedNow(e){
@@ -245,6 +253,7 @@ async fetchRecruiterSub(){
   if(!data.hasError){
     this.recruiterPlan = data.value;
     this.allPlans = data.value[0].plans;
+    // this.planPrice
     this.planFeatures = data.value.map(x => x.plans)
     console.log('My Plans', this.allPlans)
     console.log('My Plans features', this.recruiterPlan)
@@ -379,17 +388,23 @@ doTwitter(){
     employerVal.stateId = Number(this.employer.stateId);
     employerVal.subscriptionPlanId = this.subscriptionPlanId;
     employerVal.referenceNumber = this.reference;
+    this.employerEmail = this.employer.email;
     this.account.employerSignUp(employerVal).subscribe(data => {
       this.btnProcessing = false;
       if(!data.hasError){
         console.log(data)
-        this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, data.message, 'OK').subscribe(res => {
-          if(res){
-            this.employer = new ManageEmployerDTO();
-          // this.route.navigateByUrl('dashboard');
-          this.route.navigateByUrl('modules')
-          }
-        })
+        this.planAmount = data.result.amount;
+        if(this.planAmount > 0){
+          this.servicePayment = true;
+        } else {
+          this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, data.message, 'OK').subscribe(res => {
+            if(res){
+              this.employer = new ManageEmployerDTO();
+            this.route.navigateByUrl('modules')
+            }
+          })
+        }
+
       } else {
         this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.FAILED, data.message, 'OK')
       }
@@ -450,7 +465,7 @@ doTwitter(){
 
   }
 
-  async fetchStates(countryId){
+  async fetchStates(){
     const data = await this.state.fetchStates().toPromise();
     this.stateData = data.value;
     console.log('All states', this.stateData);

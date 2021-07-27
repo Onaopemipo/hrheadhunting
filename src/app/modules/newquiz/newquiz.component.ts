@@ -23,9 +23,9 @@ export class NewquizComponent implements OnInit {
     { id: 0, label: 'A', value: 'True'},
     { id: 1, label: 'B', value: 'False'},
 ];
-  // questions: QuestionDTO[] = [];
 
-myOptionType: number;
+  questions: QuestionDTO[] = [];
+  myOptionType: number = 0;
 
   pagetitle: string = 'Add Quiz';
   newQuizModel: ManageQuizDTO = new ManageQuizDTO();;
@@ -36,6 +36,7 @@ myOptionType: number;
   questionOptionModel: QuestionOptionDTO = new QuestionOptionDTO();
   newOption = '';
   loading: boolean = false;
+  buttonStatus: boolean = false;
 
   constructor(private alertMe: AlertserviceService, private router: Router, private quiz: QuizServiceProxy) { }
 
@@ -46,9 +47,9 @@ myOptionType: number;
   ngOnInit(): void {
     this.fetchQuestionTypes();
     this.fetchQuizTypes();
-    // this.allQuestions = [
-    //   this.defaultQuestion()
-    // ]
+    this.allQuestions = [
+      this.defaultQuestion()
+    ]
   }
 
   onChange(event) {
@@ -62,6 +63,7 @@ myOptionType: number;
     this.questionModel.questionOptions = this.multiChoice;
     this.allQuestions.push(this.questionModel);
     this.questionModel = new QuestionDTO();
+    console.log('Here is your question',this.allQuestions)
     this.multiChoice = [];
   }
 
@@ -70,16 +72,17 @@ myOptionType: number;
     if(DuplicateChk){
       this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.FAILED, 'Option exist already', 'Dismiss')
     }else{
-      const option = new QuestionOptionDTO();
+      let option = new QuestionOptionDTO();
       option.value = newOption;
       this.multiChoice.push(option);
+      option = new QuestionOptionDTO();
     }
   }
 
   addNewQuiz() {
     this.loading = true;
     this.newQuizModel.questions = JSON.stringify(this.allQuestions);
-    this.newQuizModel.typeId = 1;
+    // this.newQuizModel.typeId = 1;
     this.quiz.addUpdateQuiz(this.newQuizModel).subscribe(data => {
     this.loading = false;
       if(!data.hasError){

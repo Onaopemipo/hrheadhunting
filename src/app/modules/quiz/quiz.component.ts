@@ -13,7 +13,7 @@ import { IDTextViewModel, QuestionDTO, QuizDTO, QuizServiceProxy } from 'app/_se
 export class QuizComponent implements OnInit {
 
   myPlanHeader:string = "Nothing here";
-  myPlanDesc: string = "You don't have any consultant yet";
+  myPlanDesc: string = "You don't have any quiz yet";
   // emptyButton: string = 'Add Quiz';
 
   optionTypes = [
@@ -59,7 +59,6 @@ export class QuizComponent implements OnInit {
   cancelUpdate() {}
   addNewQuiz() {}
   addNewQuestion() {}
-  toggleNewQuiz() {}
 
 
   // addNewQuestion(){
@@ -89,9 +88,9 @@ export class QuizComponent implements OnInit {
   //   });
   // }
 
-  // toggleNewQuiz(){
-  //   this.router.navigateByUrl('/recruitmentadmin/newquiz');
-  // }
+  toggleNewQuiz(){
+    this.router.navigateByUrl('/newquiz');
+  }
 
   async fetchQuizTypes(){
     const data = await this.quiz.fetchQuizTypes().toPromise();

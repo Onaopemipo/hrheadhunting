@@ -20,6 +20,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
+import { NbDateFnsDateModule } from '@nebular/date-fns';
 import {
   NbChatModule,
   NbDatepickerModule,
@@ -144,7 +145,14 @@ FullCalendarModule.registerPlugins([
     NbListModule,
     NbLayoutModule,
     NgxChartsModule,
-    NbDatepickerModule.forRoot(),
+    NbDateFnsDateModule.forRoot({
+      parseOptions: { useAdditionalWeekYearTokens: true, useAdditionalDayOfYearTokens: true },
+      formatOptions: { useAdditionalWeekYearTokens: true, useAdditionalDayOfYearTokens: true },
+      getWeekOptions:{useAdditionalWeekYearTokens: true, useAdditionalDayOfYearTokens: true }
+    })
+
+    // NbDateFnsDateModule.forChild({ format: 'dd.MM.yyyy' })
+    // NbDatepickerModule.forRoot(),
 
     // AngularFireModule.initializeApp(environment.firebase),
   ],
