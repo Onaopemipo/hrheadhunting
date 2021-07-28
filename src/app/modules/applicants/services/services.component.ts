@@ -15,6 +15,13 @@ export class ServicesComponent implements OnInit {
     this.fetchUser();
   }
 
+  showMenu: boolean = false;
+
+
+  toggleMenu(){
+    this.showMenu = !this.showMenu;
+  }
+
   async fetchUser(){
     this.loggedIn = await this.AuthenService.isAuthenticated();
     console.log('See your user:',this.loggedIn);

@@ -23,7 +23,7 @@ const routes: Routes = [
       },
 
       {
-        path: 'applicants/boards/:id',
+        path: 'applicants/boards',
         component: JobboardsComponent
       },
 

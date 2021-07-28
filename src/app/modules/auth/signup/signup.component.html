@@ -496,7 +496,7 @@
                   <div style="padding: 10px;"></div>
 
                   <div>
-                    <label for="" style="padding-top: 5px;">How available are you to resume a new role?</label>
+                    <label for="" style="padding-top: 5px;">How available are you to resume a new role (Months)?</label>
                     <input type="number" class="form-control" name="availability" #availability="ngModel" [(ngModel)]="jobSeeker.availabilityDuration" required>
                     <div *ngIf="availability.invalid && (availability.dirty || availability.touched)" class="error">
                       <div *ngIf="availability.errors.required">Availability is required</div>

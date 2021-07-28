@@ -1,6 +1,7 @@
 import { DashboardServiceProxy, DashboardDTO, IDTextViewModel, StatesServiceProxy, SectorsServiceProxy, SkillAreasServiceProxy } from '../../_services/service-proxies';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NbThemeService } from '@nebular/theme';
+import { AuthenticationService } from 'app/_services/authentication.service';
 
 
 const no_of_ms_in_a_day = 24 * 60 * 60 * 1000;
@@ -98,7 +99,8 @@ export class DashboardComponent implements OnInit {
   ];
   customizePieOption: any = {};
   customizedlineoptions: any = {};
-  constructor(private theme: NbThemeService, private dashboard: DashboardServiceProxy, ) {
+  loggedInUser: any;
+  constructor(private theme: NbThemeService, private dashboard: DashboardServiceProxy, private auth: AuthenticationService) {
     this.colorScheme = {
       domain: ['#FF90A4', '#2E9CDA', '#2CD8C5', '#E2D136', '#5655CA'],
     };
@@ -110,6 +112,12 @@ export class DashboardComponent implements OnInit {
   }
 
   onInit() {
+
+  }
+
+  getUser(){
+    this.loggedInUser = this.auth.getuser();
+    console.log('See your user', this.loggedInUser);
 
   }
   @ViewChild ('pieChart') ctx: ElementRef;
@@ -375,7 +383,8 @@ export class DashboardComponent implements OnInit {
       days.push(day);
     }
     this.weekdays = days;
-    this.fetchDashboardData()
+    this.fetchDashboardData();
+    this.getUser();
   }
 
   openModal() {

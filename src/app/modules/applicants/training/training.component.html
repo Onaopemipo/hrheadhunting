@@ -1,1 +1,110 @@
-<p>training works!</p>
+<div class="bg-img">
+  <div class="container">
+<nav *ngFor="let i of [1,2]" [class]="{'fixed-Menu':i == 1}" class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%; padding: 0; background-color: #6495ED !important; margin: -40px 0 5px 0;">
+    <button class="navbar-toggler" type="button" (click)="toggleMenu()" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon" style="color: #ffffff; display: none;"></span><i class="fa fa-bars" style="color: #ffffff;" aria-hidden="true"></i>
+    </button>
+    <img src="assets/images/logo_2.png" alt="Home" class="navbar-brand" [routerLink]="['/']" style="width: 150px; height: 150px; cursor: pointer; ">
+
+  <div class="collapse navbar-collapse" [class]="{'d-flex':showMenu}" id="navbarTogglerDemo03">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item active">
+        <a class="nav-link" [routerLink]="['/applicants/about']">About Us </a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" [routerLink]="['/applicants/services']">Services </a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" [routerLink]="['/applicants/blog']">Blog </a>
+      </li>
+
+      <li class="nav-item active">
+        <a class="nav-link"[routerLink]="['/applicants/boards']">Job Boards </a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" [routerLink]="['/applicants/scorecv']">Score CV </a>
+      </li>
+
+      <li class="nav-item active">
+        <a class="nav-link"[routerLink]="['/applicants/pricing']">Pricing </a>
+      </li>
+    </ul>
+
+    <div class="form-inline my-2 my-lg-0">
+      <ul class="navbar-nav mr-auto" style="color: #fff;">
+        <li class="nav-item active">
+          <a class="nav-link" [routerLink]="['/auth/signup']">Sign Up</a>
+        </li>
+
+        <li class="nav-item active">
+          <a class="nav-link" [routerLink]="['/auth/login']">Login</a>
+        </li>
+
+        <li class="nav-item active">
+          <button class="btn" [routerLink]="['/auth/login']" nbButton outline size="small" style="color: #6495ED; background-color: #fff; border: 1px solid #6495ED;">Post Job</button>
+        </li>
+      </ul>
+
+
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div style="padding-top: 50px;">
+    <h6 style="text-align: center; color: #fff;">News around HR Headhunting</h6>
+  </div>
+ </div>
+</div>
+</div>
+
+
+<div class="row" style="background-color: #1F2566; font-size: small; color: #fff; padding: 10px; text-align: left;">
+  <div class="col-sm-12 col-md-6 col-lg-3">
+    <h6 style="color: #fff;">Quick Access</h6><br>
+    <span>Post a job</span><br>
+    <span>Create Profile</span><br>
+    <span>Login</span><br>
+  </div>
+  <div class="col-sm-12 col-md-6 col-lg-3"><h6 style="color: #fff;">Company</h6><br>
+    <span>About</span><br>
+    <span>Help Center</span><br>
+    <span>Services</span><br>
+    <span>Training</span><br>
+  </div>
+  <div class="col-sm-12 col-md-6 col-lg-3">
+    <button class="btn" nbButton [routerLink]="['/auth/login']" outline style="color: #6495ED; background-color: #fff; margin-right: 8px; width: 35%;">Log In</button>
+
+    <button type="submit" class="btn my-button" [routerLink]="['/auth/signup']" nbButton status="primary" style="width: 35%;">Register now</button>
+
+  </div>
+  <div class="col-sm-12 col-md-6 col-lg-3">
+    <div class="input-group" style="background-color: #ffffff;border: 5px solid #ffffff;">
+      <input type="email" class="form-control" placeholder="Enter your email" style="color: #000;">
+      <button class="btn btn-primary" type="submit" size="tiny"  nbButton outline style="background-color: #6495ED; color: #ffffff;">Subscribe<i class="fa fa-arrow-right" style="color: #ffffff; padding-left: 10px;" aria-hidden="true"></i></button>
+
+       </div>
+       <div style="display: block; padding-top: 20px;">
+        <p style="color: #ffffff; font-weight: 500;">Contact Us: 23 Hawley Street Lagos Island.</p>
+        <p style="color: #ffffff; font-weight: 500;">Email: Info@hrheadhunting.com</p>
+      </div>
+  </div>
+
+
+  <div class="container" style="display: flex; flex-direction: row; width: 100%; justify-content: space-between; background-color: #1F2566;">
+    <div class="col-sm-12 col-md-6 col-lg-3" style=" display: flex; flex-direction: row; justify-content: space-between; color: #ffffff;">
+      <img src="assets/images/logo_2.png" [routerLink]="['/']"  alt="" style="cursor: pointer; height: 100px;">
+    </div>
+
+    <div class="col-sm-12 col-md-6 col-lg-3" style="margin-top:2%; display: flex; flex-direction: row; justify-content: space-around; color: #ffffff;">
+        <p style="color: #D8FFEF;">Terms and Policy</p>
+        <div style="display: flex; flex-direction: row; justify-content: flex-start;">
+          <i class="fas fa-share-alt" style="margin-right: 15px;"></i>
+          <i class="fab fa-linkedin-in" style="margin-right: 15px;"></i>
+          <i class="fab fa-twitter" style="margin-right: 15px;"></i>
+          <i class="fas fa-link" ></i>
+        </div>
+
+    </div>
+  </div>
+</div>

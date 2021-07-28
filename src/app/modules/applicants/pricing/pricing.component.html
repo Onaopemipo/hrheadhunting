@@ -43,64 +43,55 @@
       </div>
     </nav> -->
 
-    <nav *ngFor="let i of [1,2]" [class]="{'fixed-Menu':i == 1}" class="navbar navbar-expand-lg navbar-light bg-light  bg-transparent" style="color: #fff; height: 80px; width: 100%; background: url(/assets/images/landing_banner.png);" >
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" (click)="toggleMenu()" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <nav *ngFor="let i of [1,2]" [class]="{'fixed-Menu':i == 1}" class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%; padding: 0; background-color: #6495ED !important;">
+      <button class="navbar-toggler" type="button" (click)="toggleMenu()" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon" style="color: #ffffff; display: none;"></span><i class="fa fa-bars" style="color: #ffffff;" aria-hidden="true"></i>
       </button>
+      <img src="assets/images/logo_2.png" alt="Home" class="navbar-brand" [routerLink]="['/']" style="width: 150px; height: 150px; cursor: pointer; margin: -40px 0 !important;">
 
-      <img src="assets/images/logo_2.png" alt="Home" [routerLink]="['/']" style="width: 150px; height: 150px; margin-right: 200px; cursor: pointer;">
+    <div class="collapse navbar-collapse" [class]="{'d-flex':showMenu}" id="navbarTogglerDemo03">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <li class="nav-item active">
+          <a class="nav-link" [routerLink]="['/applicants/about']">About Us </a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" [routerLink]="['/applicants/services']">Services </a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" [routerLink]="['/applicants/blog']">Blog </a>
+        </li>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent" [class]="{'d-flex':showMenu}">
-        <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link"[routerLink]="['/applicants/boards']">Job Boards </a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" [routerLink]="['/applicants/scorecv']">Score CV </a>
+        </li>
+
+        <li class="nav-item active">
+          <a class="nav-link"[routerLink]="['/applicants/pricing']">Pricing </a>
+        </li>
+      </ul>
+
+      <div class="form-inline my-2 my-lg-0">
+        <ul class="navbar-nav mr-auto" style="color: #fff;">
           <li class="nav-item active">
-            <a class="nav-link" [routerLink]="['/applicants/about']">About Us <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" [routerLink]="['/applicants/services']">Services <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" [routerLink]="['/applicants/blog']">Blog <span class="sr-only">(current)</span></a>
+            <a class="nav-link" [routerLink]="['/auth/signup']">Sign Up</a>
           </li>
 
           <li class="nav-item active">
-            <a class="nav-link"[routerLink]="['/applicants/boards']">Job Boards <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" [routerLink]="['/applicants/scorecv']">Score CV <span class="sr-only">(current)</span></a>
+            <a class="nav-link" [routerLink]="['/auth/login']">Login</a>
           </li>
 
           <li class="nav-item active">
-            <a class="nav-link"[routerLink]="['/applicants/pricing']">Pricing <span class="sr-only">(current)</span></a>
+            <button class="btn" [routerLink]="['/auth/login']" nbButton outline size="small" style="color: #6495ED; background-color: #fff; border: 1px solid #6495ED;">Post Job</button>
           </li>
         </ul>
 
-        <form *ngIf="!loggedIn" class="form-inline my-2 my-lg-0">
-          <ul class="navbar-nav mr-auto" style="color: #fff;">
-            <li class="nav-item active">
-              <a class="nav-link" [routerLink]="['/auth/signup']">Sign Up</a>
-            </li>
 
-            <li class="nav-item active">
-              <a class="nav-link" [routerLink]="['/auth/login']">Login</a>
-            </li>
-          </ul>
-          <button class="btn" [routerLink]="['/auth/login']" nbButton outline size="small" style="color: #6495ED; background-color: #fff; border: 1px solid #6495ED;">Post Job</button>
-        </form>
-        <form *ngIf="loggedIn" class="form-inline my-2 my-lg-0">
-          <ul class="navbar-nav mr-auto" style="color: #fff;">
-            <li class="nav-item active">
-              <a class="nav-link" [routerLink]="['/auth/signup']">Update Profile</a>
-            </li>
-<!--
-            <li class="nav-item active">
-              <a class="nav-link" [routerLink]="['/auth/login']">Log out</a>
-            </li> -->
-          </ul>
-          <button class="btn" [routerLink]="['/auth/login']" nbButton outline size="small" style="color: #6495ED; background-color: #fff; border: 1px solid #6495ED;">Log out</button>
-        </form>
       </div>
-    </nav>
-
+    </div>
+  </nav>
    <div class="limiter">
     <div style="padding-top: 30px;">
       <h6 style="text-align: center; color: #fff; font-family: 'Rubik';">Our Pricing Plan</h6>

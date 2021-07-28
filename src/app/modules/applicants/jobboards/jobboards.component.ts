@@ -1,5 +1,5 @@
 import { AlertserviceService } from 'app/_services/alertservice.service';
-import { EmployerServiceProxy, EmployerDTO } from '../../../_services/service-proxies';
+import { EmployerServiceProxy, EmployerDTO, SkillAreasServiceProxy, SectorsServiceProxy, StatesServiceProxy } from '../../../_services/service-proxies';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonServiceProxy, IDTextViewModel, Job, JobServiceProxy, JobDTO } from 'app/_services/service-proxies';
@@ -12,27 +12,33 @@ import { CommonServiceProxy, IDTextViewModel, Job, JobServiceProxy, JobDTO } fro
 export class JobboardsComponent implements OnInit {
 
   allJobs: Job []= [];
+  showMenu: boolean = false;
   loading:boolean = false;
   recruiterData: IDTextViewModel [] = [];
   jobsCounter:number = 0;
   singleJob: JobDTO = new JobDTO().clone();
   btnProcessing: boolean = false;
   employerData: EmployerDTO = new EmployerDTO().clone();
+  skillData: IDTextViewModel [] = [];
+  stateData: IDTextViewModel [] = [];
+  sectorData: IDTextViewModel [] = [];
 
   jobFilter = {
-    SkillAreaId:0,
-    SectorId:0,
-    CountryId:0,
-    StateId:0,
-    IsNewlyAdded: false,
-    IsPopular: false,
-    PageSize:10,
-    PageNumber:1
+    skillAreaId:0,
+    sectorId:0,
+    countryId:0,
+    stateId:0,
+    isNewlyAdded: false,
+    isPopular: false,
+    pageSize:10,
+    pageNumber:1
+
   }
 
   jobId:number = 0;
   constructor( private job: JobServiceProxy, private employer: EmployerServiceProxy, private common: CommonServiceProxy,
-    private alertMe:AlertserviceService, private router: ActivatedRoute) { }
+    private alertMe:AlertserviceService, private router: ActivatedRoute, private skill: SkillAreasServiceProxy,
+    private state: StatesServiceProxy, private sector: SectorsServiceProxy, ) { }
 
   ngOnInit(): void {
     this.job.getJobById(this.jobId = Number(this.router.snapshot.paramMap.get("id"))).subscribe(data => {
@@ -44,12 +50,24 @@ export class JobboardsComponent implements OnInit {
     })
   }
 
+  filterUpdated(filter: any) {
+
+    this.jobFilter = {...this.jobFilter, ...filter};
+    console.log('Updated filter', this.jobFilter)
+    this.fetchAllJobs();
+  }
+
+
+  toggleMenu(){
+    this.showMenu = !this.showMenu;
+  }
+
 
   async fetchAllJobs(){
     this.loading = true;
-   const data = await this.job.fetchAllJobs(this.jobFilter.SkillAreaId, this.jobFilter.SectorId,
-    this.jobFilter.CountryId, this.jobFilter.StateId, this.jobFilter.IsNewlyAdded,
-    this.jobFilter.IsPopular,this.jobFilter.PageSize, this.jobFilter.PageNumber).toPromise();
+   const data = await this.job.fetchAllJobs(this.jobFilter.skillAreaId, this.jobFilter.sectorId,
+    this.jobFilter.countryId, this.jobFilter.stateId, this.jobFilter.isNewlyAdded,
+    this.jobFilter.isPopular,this.jobFilter.pageSize, this.jobFilter.pageNumber).toPromise();
    this.loading = false;
     if(!data.hasError){
       this.allJobs = data.value;
@@ -75,6 +93,24 @@ export class JobboardsComponent implements OnInit {
         this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'Success', 'OK')
       }
     })
+  }
+
+  async fetchSectors(){
+    this.sector.fetchSectors().subscribe(data => {
+      this.sectorData = data.value;
+    });
+
+  }
+
+ async fetchStates(countryId){
+    const data = await this.state.fetchStates().toPromise();
+    this.stateData = data.value;
+    console.log('All states', this.stateData);
+  }
+
+ async fetchSkillAreas(){
+    const data = await this.skill.fetchSkillAreas().toPromise();
+    this.skillData = data.value;
   }
 
   // async fetchRecruiters(){

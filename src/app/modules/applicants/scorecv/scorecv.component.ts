@@ -8,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 export class ScorecvComponent implements OnInit {
 
   btnprocessing: boolean = false;
+  showMenu: boolean = false;
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  toggleMenu(){
+    this.showMenu = !this.showMenu;
   }
 
 }

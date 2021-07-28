@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TrainingComponent implements OnInit {
 
+  showMenu: boolean = false;
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  toggleMenu(){
+    this.showMenu = !this.showMenu;
   }
 
 }

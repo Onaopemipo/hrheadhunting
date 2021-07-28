@@ -4,6 +4,7 @@
   // position: relative;
   // top: 30%;
   height:50vh;
+  width: 100%;
   min-height:400px;
   background-size:cover;
 
@@ -13,16 +14,6 @@
   color: #fff;
 }
 
-.fixed-Menu {
-  color: #fff;
-  display: fixed;
-  position: fixed;
-  z-index: 10000;
-  opacity: 1;
-  top: 0;
-  left: 0;
-  background: url(/assets/images/landing_banner.png);
-}
 
 .navbar-light .navbar-nav .show > .nav-link, .navbar-light .navbar-nav .active > .nav-link, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .nav-link.active {
   color:#fff;
@@ -196,4 +187,40 @@ li {
 }
 .custom-select{
   font-size: 13px;
+}
+
+.fixed-Menu {
+  color: #fff;
+  display: fixed;
+  position: fixed;
+  z-index: 10000;
+  opacity: 1;
+  top: 0;
+  left: 0;
+  // background: url(/assets/images/landing_banner.png);
+  background-color: #6495ED !important;
+}
+
+@media (min-width: 1200px){
+  .form-inline .input-group {
+    width: 300px;
+    margin-left: 30px;
+  }
+}
+@media (max-width: 768px){
+  .navbar .dropdown-menu.form-wrapper {
+    width: 100%;
+    padding: 10px 15px;
+    background: transparent;
+    border: none;
+  }
+  .navbar .form-inline {
+    display: block;
+  }
+  .navbar .input-group {
+    width: 100%;
+  }
+  .navbar .nav .btn-primary, .navbar .nav .btn-primary:active {
+    display: block;
+  }
 }

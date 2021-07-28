@@ -14,13 +14,19 @@ export class PricingComponent implements OnInit {
   activePlanB: boolean = false;
   cvPlan: SubscriptionFeatureDTO [] = [];
   recruiterPlan: SubscriptionFeatureDTO [] = [];
+  showMenu: boolean = false;
 
 
   constructor(private sub: SubscriptionsServiceProxy) { }
 
+
+
   ngOnInit(): void {
   }
 
+  toggleMenu(){
+    this.showMenu = !this.showMenu;
+  }
 
   toggleRecruiter(){
     this.recruiterStatus = true;

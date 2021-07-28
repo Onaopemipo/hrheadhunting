@@ -111,7 +111,11 @@ export class SignupComponent implements OnInit {
   }
   paymentDone(event) {
     console.log('success', event)
-    this.verifyPayment()
+    if(event.status === 'success'){
+      this.servicePayment = false;
+      this.verifyPayment();
+    }
+
   }
 
   verifyPayment() {
@@ -428,6 +432,7 @@ doTwitter(){
     this.account.consultantSignUp(consultant).subscribe(data => {
       this.btnProcessing = false;
       if(!data.hasError){
+        this.consultantModel = new ManageConsultantDTO();
         this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, data.message, 'OK').subscribe(res => {
           if(res){
             // this.route.navigateByUrl('dashboard')

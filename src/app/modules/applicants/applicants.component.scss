@@ -16,3 +16,31 @@ input{
 //   border: none;
 //   background-color: transparent;
 // }
+
+@media (min-width: 1200px){
+  .form-inline .input-group {
+    width: 300px;
+    margin-left: 30px;
+  }
+}
+@media (max-width: 768px){
+  .navbar .dropdown-menu.form-wrapper {
+    width: 100%;
+    padding: 10px 15px;
+    background: transparent;
+    border: none;
+  }
+  .navbar .form-inline {
+    display: block;
+  }
+
+  .minfoot  {
+    margin-top: 30px;
+  }
+  .navbar .input-group {
+    width: 100%;
+  }
+  .navbar .nav .btn-primary, .navbar .nav .btn-primary:active {
+    display: block;
+  }
+}

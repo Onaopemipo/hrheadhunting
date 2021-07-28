@@ -13,6 +13,7 @@ export class DashboardComponent implements OnInit {
   loggedIn:boolean = false;
   myPlanHeader:string = "Nothing here";
   myPlanDesc: string = "No vacancy yet";
+  loggedInUser: any = [];
 
   jobFilter = {
     skillAreaId:0,
@@ -69,6 +70,15 @@ searchFilter: {
     this.fetchStates(154);
     this.fetchAllEmployers();
     this.fetchUser();
+  }
+
+  getUser(){
+    this.loggedInUser = this.AuthenService.getuser();
+    console.log('See your user', this.loggedInUser);
+    if(this.loggedInUser){
+
+    }
+
   }
 
   filterUpdated(filter: any) {
