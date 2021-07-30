@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from 'app/_services/authentication.service';
 
 @Component({
   selector: 'ngx-scorecv',
@@ -9,7 +10,7 @@ export class ScorecvComponent implements OnInit {
 
   btnprocessing: boolean = false;
   showMenu: boolean = false;
-  constructor() { }
+  constructor(public authenService: AuthenticationService) { }
 
   ngOnInit(): void {
   }

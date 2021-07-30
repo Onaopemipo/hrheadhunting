@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from 'app/_services/authentication.service';
 import { CLIENT_MENU_ITEMS } from '../pages-menu';
 
 @Component({
@@ -8,9 +9,15 @@ import { CLIENT_MENU_ITEMS } from '../pages-menu';
 })
 export class ApplicantsComponent implements OnInit {
   menu = CLIENT_MENU_ITEMS;
-  constructor() { }
+  loginStatus: boolean = false;
+  constructor(public auth: AuthenticationService) { }
 
   ngOnInit(): void {
+
+  }
+
+  async getStatus(){
+    this.loginStatus = await this.auth.isAuthenticated();
   }
 
 }

@@ -9,7 +9,7 @@ import { AuthenticationService } from 'app/_services/authentication.service';
 export class ServicesComponent implements OnInit {
 
   loggedIn:boolean = false;
-  constructor(private AuthenService: AuthenticationService,) { }
+  constructor(public authenService: AuthenticationService) { }
 
   ngOnInit(): void {
     this.fetchUser();
@@ -23,7 +23,7 @@ export class ServicesComponent implements OnInit {
   }
 
   async fetchUser(){
-    this.loggedIn = await this.AuthenService.isAuthenticated();
+    this.loggedIn = await this.authenService.isAuthenticated();
     console.log('See your user:',this.loggedIn);
    }
 

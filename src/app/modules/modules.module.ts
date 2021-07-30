@@ -29,12 +29,17 @@ import { ApplicantProfileComponent } from './applicant-profile/applicant-profile
 import { TrainingComponent } from './training/training.component';
 import { ArtisansComponent } from './artisans/artisans.component';
 import { ConsultantsComponent } from './consultants/consultants.component';
+import { ApplicantsDashboardComponent } from './applicants-dashboard/applicants-dashboard.component';
+import { EmployerDashboardComponent } from './employer-dashboard/employer-dashboard.component';
 
 
 
 
 @NgModule({
-  declarations: [ModulesComponent, JobsComponent, ApplicantProfileComponent, ApplicantquizComponent, DashboardComponent, QuizComponent, ReportsComponent, ApplicantsComponent, NewquizComponent, NewjobComponent, SettingsComponent, ApplicantselectionComponent, TrainingComponent, ArtisansComponent, ConsultantsComponent],
+  declarations: [ModulesComponent, JobsComponent, ApplicantProfileComponent, ApplicantquizComponent,
+    DashboardComponent, QuizComponent, ReportsComponent, ApplicantsComponent, NewquizComponent,
+    NewjobComponent, SettingsComponent, ApplicantselectionComponent, TrainingComponent,
+    ArtisansComponent, ConsultantsComponent, ApplicantsDashboardComponent, EmployerDashboardComponent,],
   imports: [
     CommonModule,
     ComponentsModule,

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from 'app/_services/authentication.service';
 
 @Component({
   selector: 'ngx-about',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class AboutComponent implements OnInit {
 
   showMenu: boolean = false;
-  constructor() { }
+  constructor(public authenService: AuthenticationService) { }
 
   ngOnInit(): void {
   }

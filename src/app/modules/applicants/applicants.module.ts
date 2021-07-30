@@ -1,3 +1,4 @@
+import { AlertserviceService } from 'app/_services/alertservice.service';
 import { SkillAreasServiceProxy, StatesServiceProxy, SectorsServiceProxy } from '../../_services/service-proxies';
 import { ComponentsModule } from 'app/components/components.module';
 import { NgModule } from '@angular/core';
@@ -14,10 +15,12 @@ import { PricingComponent } from './pricing/pricing.component';
 import { NbTableModule, NbCardModule, NbTabsetModule, NbCheckboxModule } from '@nebular/theme';
 import { TrainingComponent } from './training/training.component';
 import { CommonServiceProxy, CommunicationServiceProxy, EmployerServiceProxy, JobServiceProxy, ReportServiceProxy, SubscriptionsServiceProxy } from 'app/_services/service-proxies';
+import { AuthenticationService } from 'app/_services/authentication.service';
+import { JobdetailsComponent } from './jobdetails/jobdetails.component';
 
 
 @NgModule({
-  declarations: [DashboardComponent, ServicesComponent, BlogsComponent, AboutComponent, JobboardsComponent, ScorecvComponent, PricingComponent, TrainingComponent],
+  declarations: [DashboardComponent, ServicesComponent, BlogsComponent, AboutComponent, JobboardsComponent, ScorecvComponent, PricingComponent, TrainingComponent, JobdetailsComponent],
   imports: [
     CommonModule,
     ApplicantsRoutingModule,
@@ -32,6 +35,7 @@ import { CommonServiceProxy, CommunicationServiceProxy, EmployerServiceProxy, Jo
   providers: [
     // NbMenuService,
     // NbMenuInternalService,
+    AuthenticationService,
     CommunicationServiceProxy,
     JobServiceProxy,
     ReportServiceProxy,
@@ -40,7 +44,8 @@ import { CommonServiceProxy, CommunicationServiceProxy, EmployerServiceProxy, Jo
     SkillAreasServiceProxy,
     StatesServiceProxy,
     SectorsServiceProxy,
-    SubscriptionsServiceProxy
+    SubscriptionsServiceProxy,
+    AlertserviceService,
   ]
 })
 export class ApplicantsModule { }

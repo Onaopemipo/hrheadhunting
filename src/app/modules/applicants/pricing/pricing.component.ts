@@ -1,6 +1,7 @@
 import { SubscriptionFeatureDTO } from './../../../_services/service-proxies';
 import { SubscriptionsServiceProxy } from '../../../_services/service-proxies';
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from 'app/_services/authentication.service';
 
 @Component({
   selector: 'ngx-pricing',
@@ -17,7 +18,7 @@ export class PricingComponent implements OnInit {
   showMenu: boolean = false;
 
 
-  constructor(private sub: SubscriptionsServiceProxy) { }
+  constructor(private sub: SubscriptionsServiceProxy, public authenService: AuthenticationService) { }
 
 
 

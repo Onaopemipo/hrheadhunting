@@ -28,9 +28,11 @@ import { AuthenticationService } from 'app/_services/authentication.service';
   `],
 })
 export class NgxUserlistCardComponent {
-  userMenu = [{ title: 'Profile' }, { title: 'Log out' }];
+  // userMenu = [{ title: 'Profile' }, { title: 'Log out' }];
+  userMenu = [{ title: 'Log out' }];
   constructor(private AuthenService: AuthenticationService, ) { }
   btnAction(btnact) {
+    console.log('See your button',btnact)
     if (btnact == 'Log out') {
       this.AuthenService.clearusers();
     }

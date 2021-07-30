@@ -680,13 +680,12 @@
               </div>
             </div>
 
-              <div style="display: flex; flex-direction: row; justify-content: right; align-items: flex-end;">
-              <button *ngIf="!btnprocessing" (click)="toggleTest()" type="button" nbButton status="primary">Get Started</button>
-              <button *ngIf="btnprocessing" type="button" nbButton fullWidth status="primary">Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button>
+              <div class="form-group">
+              <button *ngIf="!btnprocessing" (click)="toggleTest()" type="button" nbButton status="primary" style="float: right;">Get Started</button>
+              <button *ngIf="btnprocessing" type="button" nbButton fullWidth status="primary" style="float: right;">Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button>
               <div style="padding: 5px;"></div>
               </div>
             </form>
-
       </nb-card-body>
 
       <nb-card-body *ngIf="employersStatus">
@@ -880,8 +879,8 @@
           </div>
         </form>
         <div class="form-group">
-          <button *ngIf="!btnprocessing" (click)="registerEmployer()" type="button" nbButton status="primary">Get Started</button>
-          <button *ngIf="btnprocessing" type="button" nbButton status="primary">Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button>
+          <button *ngIf="!btnprocessing" (click)="registerEmployer()" type="button" nbButton status="primary" style="float: right;">Get Started</button>
+          <button *ngIf="btnprocessing" type="button" nbButton status="primary" style="float: right;">Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button>
         </div>
       </nb-card-body>
 
@@ -983,8 +982,8 @@
         </form>
 
         <div class="form-group">
-          <button *ngIf="!btnprocessing" (click)="registerConsultant()" type="button" nbButton status="primary">Get Started</button>
-          <button *ngIf="btnprocessing" type="button" nbButton status="primary">Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button>
+          <button *ngIf="!btnprocessing" (click)="registerConsultant()" type="button" nbButton status="primary" style="float: right;">Get Started</button>
+          <button *ngIf="btnprocessing" type="button" nbButton status="primary" style="float: right;">Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button>
         </div>
       </nb-card-body>
         </nb-card>

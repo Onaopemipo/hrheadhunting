@@ -31,20 +31,42 @@ export class LoginComponent implements OnInit {
   loginUser() {
     this.btnprocessing = true;
     this.userlogin.isSocial = false;
-    this.loginServices.getToken(this.userlogin).subscribe((resp) => {
-      if (!resp.hasError) {
+    this.loginServices.getToken(this.userlogin).subscribe((data) => {
+      if(!data.hasError) {
         // console.log(resp)
         // console.log(resp.result)
-        this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'User Authenticated', 'Go to Dashboard').subscribe(data => {
-          if(data){
-            // this.router.navigateByUrl('/dashboard')
-            this.router.navigateByUrl('modules')
-          }
-        })
-       this.AuthenService.addUser(resp.result);
+        if(data.result.lstPermissions[0] === "ASS"){
+          this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'User Authenticated', 'Go to Dashboard').subscribe(data => {
+            if(data){
+              // this.router.navigateByUrl('/dashboard')
+              this.router.navigateByUrl('/')
+            }
+          })
+        }
+
+      //  else if(resp.result.lstPermissions[0] === "ASS"){
+      //     this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'User Authenticated', 'Go to Dashboard').subscribe(data => {
+      //       if(data){
+      //         // this.router.navigateByUrl('/dashboard')
+      //         this.router.navigateByUrl('/')
+      //       }
+      //     })
+      //   }
+
+        else {
+          this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'User Authenticated', 'Go to Dashboard').subscribe(res => {
+            if(res){
+              // this.router.navigateByUrl('/dashboard')
+              this.router.navigateByUrl('/modules')
+            }
+          })
+        }
+
+       this.AuthenService.addUser(data.result);
       } else {
+        this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.FAILED, data.message, 'Ok')
         this.clearerror();
-        this.errorMsg = resp.message;
+        this.errorMsg = data.message;
 
       }
     }, error => {

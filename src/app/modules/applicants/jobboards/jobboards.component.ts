@@ -1,8 +1,8 @@
-import { AlertserviceService } from 'app/_services/alertservice.service';
-import { EmployerServiceProxy, EmployerDTO, SkillAreasServiceProxy, SectorsServiceProxy, StatesServiceProxy } from '../../../_services/service-proxies';
+import { ReportServiceProxy, EmployerDTO, SkillAreasServiceProxy, SectorsServiceProxy, StatesServiceProxy } from '../../../_services/service-proxies';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { CommonServiceProxy, IDTextViewModel, Job, JobServiceProxy, JobDTO } from 'app/_services/service-proxies';
+import { IDTextViewModel, Job, JobServiceProxy } from 'app/_services/service-proxies';
+import { AuthenticationService } from 'app/_services/authentication.service';
+
 
 @Component({
   selector: 'ngx-jobboards',
@@ -11,17 +11,11 @@ import { CommonServiceProxy, IDTextViewModel, Job, JobServiceProxy, JobDTO } fro
 })
 export class JobboardsComponent implements OnInit {
 
-  allJobs: Job []= [];
-  showMenu: boolean = false;
-  loading:boolean = false;
-  recruiterData: IDTextViewModel [] = [];
-  jobsCounter:number = 0;
-  singleJob: JobDTO = new JobDTO().clone();
-  btnProcessing: boolean = false;
-  employerData: EmployerDTO = new EmployerDTO().clone();
-  skillData: IDTextViewModel [] = [];
-  stateData: IDTextViewModel [] = [];
-  sectorData: IDTextViewModel [] = [];
+  loggedIn:boolean = false;
+  loggedInUser: any = [];
+  myPlanHeader:string = "Nothing here";
+  myPlanDesc: string = "No data available yet";
+
 
   jobFilter = {
     skillAreaId:0,
@@ -35,20 +29,85 @@ export class JobboardsComponent implements OnInit {
 
   }
 
-  jobId:number = 0;
-  constructor( private job: JobServiceProxy, private employer: EmployerServiceProxy, private common: CommonServiceProxy,
-    private alertMe:AlertserviceService, private router: ActivatedRoute, private skill: SkillAreasServiceProxy,
-    private state: StatesServiceProxy, private sector: SectorsServiceProxy, ) { }
+  allJobs: Job []= [];
+  showMenu:boolean = false;
+  btnProcessing:boolean = false;
+  recruiterData: IDTextViewModel [] = [];
+  jobsCounter:number = 0;
+  employerCounter:number = 0;
+  employerData: EmployerDTO [] = [];
+  loading:boolean = false;
+  skillData: IDTextViewModel [] = [];
+  stateData: IDTextViewModel [] = [];
+  sectorData: IDTextViewModel [] = [];
+
+
+  filter = {
+    searchText: '',
+    dateFrom: null,
+    dateTo: null,
+    pageSize: 10,
+    pageNo: 1
+  }
+
+searchFilter = {
+    id:0,
+    searchText: '',
+    dateFrom: '',
+    dateTo: '',
+    pageSize: 10,
+    pageNo: 1
+}
+
+
+
+  constructor(private job: JobServiceProxy, private employer: ReportServiceProxy, private skill: SkillAreasServiceProxy,
+    private state: StatesServiceProxy, private sector: SectorsServiceProxy, public authenService: AuthenticationService,) { }
 
   ngOnInit(): void {
-    this.job.getJobById(this.jobId = Number(this.router.snapshot.paramMap.get("id"))).subscribe(data => {
-      if(!data.hasError){
-        this.singleJob = data.value;
-        console.log('Your single job is here:', this.singleJob);
-        this.fetchSingleEmployer();
-      }
-    })
+    // this.fetchAllEmployers();
+    this.fetchAllJobs();
+    this.fetchSectors();
+    this.fetchSkillAreas();
+    this.fetchStates(154);
+    this.fetchAllEmployers();
+    this.getMyUsers();
+    this.authUser();
   }
+
+ async getMyUsers(){
+   const data = await this.authenService.getuser();
+    console.log('See your user', this.loggedInUser);
+    if(data){
+      this.loggedIn = true;
+      console.log('See your user status', this.loggedIn);
+    }
+
+  }
+
+  async authUser(){
+    const data = await this.authenService.isAuthenticated();
+    if(data){
+      console.log('See your status', data);
+    }
+  }
+
+  getUsers() {
+    return this.authenService.getuser()
+    .then(
+      (users) => {
+        console.log('users ' + users);
+        this.loggedInUser = users;
+        console.log('this.users ' + this.loggedInUser);
+      })
+     .catch((error) => {
+        console.log('error ' + error);
+        throw error;
+      });
+    // users => this.users = users,
+    // error => this.errorMsg = <any>error);
+  }
+
 
   filterUpdated(filter: any) {
 
@@ -57,42 +116,23 @@ export class JobboardsComponent implements OnInit {
     this.fetchAllJobs();
   }
 
-
   toggleMenu(){
     this.showMenu = !this.showMenu;
   }
 
-
-  async fetchAllJobs(){
+  fetchAllJobs(){
     this.loading = true;
-   const data = await this.job.fetchAllJobs(this.jobFilter.skillAreaId, this.jobFilter.sectorId,
+   this.job.fetchAllJobs(this.jobFilter.skillAreaId, this.jobFilter.sectorId,
     this.jobFilter.countryId, this.jobFilter.stateId, this.jobFilter.isNewlyAdded,
-    this.jobFilter.isPopular,this.jobFilter.pageSize, this.jobFilter.pageNumber).toPromise();
-   this.loading = false;
-    if(!data.hasError){
-      this.allJobs = data.value;
-      this.jobsCounter = data.totalCount;
-      console.log('My Jobs:',this.allJobs)
-   }
-  }
-
-  fetchSingleEmployer(){
-    this.employer.getEmployerById(this.singleJob.companyID).subscribe(data => {
+    this.jobFilter.isPopular,this.jobFilter.pageSize, this.jobFilter.pageNumber).subscribe(data => {
+      this.loading = false;
       if(!data.hasError){
-        this.employerData = data.value;
-        console.log('see your employer',this.employerData)
-      }
-    })
-  }
+        this.allJobs = data.value;
+        this.jobsCounter = data.totalCount;
+        console.log('My Jobs:',this.allJobs)
+     }
+    });
 
-  jobApplication(){
-    this.btnProcessing = true;
-    this.job.applyJob(this.jobId).subscribe(data => {
-      this.btnProcessing = false;
-      if(!data.hasError){
-        this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'Success', 'OK')
-      }
-    })
   }
 
   async fetchSectors(){
@@ -113,9 +153,14 @@ export class JobboardsComponent implements OnInit {
     this.skillData = data.value;
   }
 
-  // async fetchRecruiters(){
-  //   const data = await this.common.fetchAllEmployers().toPromise();
-  //   this.recruiterData = data.value;
-  // }
-
+  fetchAllEmployers(){
+    this.employer.fetchAllEmployers(this.filter.searchText, this.filter.dateFrom,
+      this.filter.dateTo, this.filter.pageSize, this.filter.pageNo).subscribe(data => {
+        if(!data.hasError){
+          this.employerData = data.value;
+          this.employerCounter = data.totalCount;
+          console.log('My employers:',this.employerData)
+        }
+    })
+  }
 }

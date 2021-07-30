@@ -1,3 +1,4 @@
+import { AlertserviceService } from 'app/_services/alertservice.service';
 
 
 /**
@@ -159,6 +160,7 @@ FullCalendarModule.registerPlugins([
   bootstrap: [AppComponent],
   providers: [
 
+    AlertserviceService,
     AuthService,
     AuthGuardService,
     AuthenticationService,

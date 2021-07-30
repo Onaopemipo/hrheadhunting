@@ -50,7 +50,7 @@
       <button class="navbar-toggler" type="button" (click)="toggleMenu()" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon" style="color: #ffffff; display: none;"></span><i class="fa fa-bars" style="color: #ffffff;" aria-hidden="true"></i>
       </button>
-      <img src="assets/images/logo_2.png" alt="Home" class="navbar-brand" [routerLink]="['/']" style="width: 150px; height: 150px; cursor: pointer; margin: -40px 0 !important;">
+      <img src="assets/images/logo_2.png" alt="Home" class="navbar-brand" [routerLink]="['/']" style="width: 150px; height: 150px; cursor: pointer; margin: -40px 0 !important; margin-right: 5% !important;">
 
     <div class="collapse navbar-collapse" [class]="{'d-flex':showMenu}" id="navbarTogglerDemo03">
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -73,10 +73,22 @@
 
         <li class="nav-item active">
           <a class="nav-link"[routerLink]="['/applicants/pricing']">Pricing </a>
+
         </li>
+
+        <!-- <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" (click)="toggleMenu()" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+          <div class="dropdown-menu" [class]="{'d-flex':showMenu}" style="display: flex; flex-direction: column; justify-items: flex-start;">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Separated link</a>
+          </div>
+        </li> -->
       </ul>
 
-      <div class="form-inline my-2 my-lg-0">
+      <div *ngIf="!authenService.authStatus | async" class="form-inline my-2 my-lg-0">
         <ul class="navbar-nav mr-auto" style="color: #fff;">
           <li class="nav-item active">
             <a class="nav-link" [routerLink]="['/auth/signup']">Sign Up</a>
@@ -90,13 +102,27 @@
             <button class="btn" [routerLink]="['/auth/login']" nbButton outline size="small" style="color: #6495ED; background-color: #fff; border: 1px solid #6495ED;">Post Job</button>
           </li>
         </ul>
+      </div>
 
+      <div *ngIf="authenService.authStatus | async" class="form-inline my-2 my-lg-0">
+        <ul class="navbar-nav mr-auto" style="color: #fff;">
+          <li class="nav-item active">
+            <a class="nav-link" [routerLink]="['/auth/signup']">Log Out</a>
+          </li>
 
+          <li class="nav-item active">
+            <a class="nav-link" [routerLink]="['/appdash']">Dashboard</a>
+          </li>
+
+          <li class="nav-item active">
+            <button class="btn" [routerLink]="['/auth/login']" nbButton outline size="small" style="color: #6495ED; background-color: #fff; border: 1px solid #6495ED;">Post Job</button>
+          </li>
+        </ul>
       </div>
     </div>
   </nav>
 
-   <div class="container">
+   <div class="container" style="margin: 3% 0;">
     <div style="padding-top: 30px;">
       <h6 style="text-align: center; color: #fff;">News around HR Headhunting</h6>
     </div>

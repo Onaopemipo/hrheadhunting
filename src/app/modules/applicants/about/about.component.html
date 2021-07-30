@@ -47,11 +47,11 @@
  </div> -->
 
  <!-- <div class="container"> -->
-  <nav *ngFor="let i of [1,2]" [class]="{'fixed-Menu':i == 1}" class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%; padding: 0; background-color: #6495ED !important; ">
+  <nav *ngFor="let i of [1,2]" [class]="{'fixed-Menu':i == 1}" class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%; padding: 0; background-color: #6495ED !important;">
     <button class="navbar-toggler" type="button" (click)="toggleMenu()" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon" style="color: #ffffff; display: none;"></span><i class="fa fa-bars" style="color: #ffffff;" aria-hidden="true"></i>
     </button>
-    <img src="assets/images/logo_2.png" alt="Home" class="navbar-brand" [routerLink]="['/']" style="width: 150px; height: 150px; cursor: pointer; margin: -40px 0 !important;">
+    <img src="assets/images/logo_2.png" alt="Home" class="navbar-brand" [routerLink]="['/']" style="width: 150px; height: 150px; cursor: pointer; margin: -40px 0 !important; margin-right: 5% !important;">
 
   <div class="collapse navbar-collapse" [class]="{'d-flex':showMenu}" id="navbarTogglerDemo03">
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -74,10 +74,22 @@
 
       <li class="nav-item active">
         <a class="nav-link"[routerLink]="['/applicants/pricing']">Pricing </a>
+
       </li>
+
+      <!-- <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" (click)="toggleMenu()" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+        <div class="dropdown-menu" [class]="{'d-flex':showMenu}" style="display: flex; flex-direction: column; justify-items: flex-start;">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Separated link</a>
+        </div>
+      </li> -->
     </ul>
 
-    <div class="form-inline my-2 my-lg-0">
+    <div *ngIf="!authenService.authStatus | async" class="form-inline my-2 my-lg-0">
       <ul class="navbar-nav mr-auto" style="color: #fff;">
         <li class="nav-item active">
           <a class="nav-link" [routerLink]="['/auth/signup']">Sign Up</a>
@@ -91,8 +103,22 @@
           <button class="btn" [routerLink]="['/auth/login']" nbButton outline size="small" style="color: #6495ED; background-color: #fff; border: 1px solid #6495ED;">Post Job</button>
         </li>
       </ul>
+    </div>
 
+    <div *ngIf="authenService.authStatus | async" class="form-inline my-2 my-lg-0">
+      <ul class="navbar-nav mr-auto" style="color: #fff;">
+        <li class="nav-item active">
+          <a class="nav-link" [routerLink]="['/auth/signup']">Log Out</a>
+        </li>
 
+        <li class="nav-item active">
+          <a class="nav-link" [routerLink]="['/appdash']">Dashboard</a>
+        </li>
+
+        <li class="nav-item active">
+          <button class="btn" [routerLink]="['/auth/login']" nbButton outline size="small" style="color: #6495ED; background-color: #fff; border: 1px solid #6495ED;">Post Job</button>
+        </li>
+      </ul>
     </div>
   </div>
 </nav>
@@ -128,65 +154,6 @@
     </div>
 
     <div class="col-sm-9" style="padding: 5%;">
-      <!-- <div class="row" style="padding: 50px;">
-        <h3>The Services we offer</h3>
-        <div class="row" style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
-          <span style="text-align: justify;">At HR Headhunting, we offer you the best shot at getting what you want
-          </span>
-          <span>
-            <a class="nav-link" [routerLink]="['/applicants/about']">Read More about Services</a>
-          </span>
-        </div>
-
-        <div class="row" style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
-            <nb-card class="col-sm-3 signup-option">
-              <nb-card-body>
-                <img src="assets/images/Job_Seeker.png" style="width: 40px; height: 40px;"  alt="">
-              <span>
-                Job Board
-              </span>
-              </nb-card-body>
-            </nb-card>
-
-            <nb-card class="col-sm-3 signup-option">
-              <nb-card-body>
-                <img src="assets/images/Job_Seeker.png" style="width: 40px; height: 40px;"  alt="">
-              <span>
-                Training Board
-              </span>
-              </nb-card-body>
-            </nb-card>
-
-            <nb-card class="col-sm-3 signup-option">
-              <nb-card-body>
-                <img src="assets/images/Job_Seeker.png" style="width: 40px; height: 40px;"  alt="">
-              <span>
-                Candidate Screening Technology
-              </span>
-              </nb-card-body>
-            </nb-card>
-
-            <nb-card class="col-sm-3 signup-option">
-              <nb-card-body>
-                <img src="assets/images/Job_Seeker.png" style="width: 40px; height: 40px; "  alt="">
-              <span>
-                Resume Analysis
-              </span>
-              </nb-card-body>
-            </nb-card>
-      </div>
-    </div>
-    <div class="row" style="padding: 50px;">
-      <h3>The Services we offer</h3>
-      <div class="row" style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
-        <span style="text-align: justify;">At HR Headhunting, we offer you the best shot at getting what you want
-        </span>
-        <span>
-          <a class="nav-link" [routerLink]="['/applicants/about']">Read More about Services</a>
-        </span>
-      </div>
-    </div> -->
-
     <div style="margin: 5%;"></div>
     <div class="row" style="font-family: 'Rubik';">
       <div class="col-sm-3" style="height: 170px;">
@@ -269,9 +236,7 @@
     </div>
   </div>
  </div>
-<!-- </div> -->
 
-<!-- <div class="container"> -->
   <div class="row" style="display: flex; flex-direction: row; justify-content: space-between; font-family: 'Rubik';">
 
     <div class="col-sm-5" style="background-color: #6495ED2F; padding: 50px">
@@ -295,9 +260,7 @@
       </div>
     </div>
   </div>
- <!-- </div> -->
 
- <!-- <div class="container" style=""> -->
   <div class="row" style="font-family: 'Rubik'; display: flex; flex-direction: row; justify-content: space-between; background-color: #E2E3E5; font-family: 'Rubik';">
 
    <div class="col-sm-7" style="padding: 6%;">
@@ -327,8 +290,6 @@
 <div style="padding: 10px;"></div>
 
 <div class="row" class="shadow p-3 mb-5 bg-white rounded " style="padding: 10px; width: 100%;">
-  <!-- <img src="assets/icons/linkedin.png" style="width: 40px; height: 30px; padding-right: 10px;" alt="">
-   -->
    <i class="fa fa-star" style="width: 40px; height: 30px; padding-right: 10px; color: #4C7ED8" aria-hidden="true"></i>
   <span>Access to candidate profiles thereby reducing the time spent on shortlisting</span>
 </div>
@@ -339,5 +300,3 @@
          <img src="assets/images/about.png" style="height: 544px; width: 435;" alt="">
        </div>
   </div>
- <!-- </div> -->
-

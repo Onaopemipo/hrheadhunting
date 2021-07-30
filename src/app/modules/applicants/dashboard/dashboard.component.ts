@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { ReportServiceProxy, EmployerDTO, SkillAreasServiceProxy, SectorsServiceProxy, StatesServiceProxy } from '../../../_services/service-proxies';
 import { Component, OnInit } from '@angular/core';
 import { IDTextViewModel, Job, JobServiceProxy } from 'app/_services/service-proxies';
@@ -11,9 +12,10 @@ import { AuthenticationService } from 'app/_services/authentication.service';
 export class DashboardComponent implements OnInit {
 
   loggedIn:boolean = false;
-  myPlanHeader:string = "Nothing here";
-  myPlanDesc: string = "No vacancy yet";
   loggedInUser: any = [];
+  myPlanHeader:string = "Nothing here";
+  myPlanDesc: string = "No data available yet";
+
 
   jobFilter = {
     skillAreaId:0,
@@ -32,6 +34,7 @@ export class DashboardComponent implements OnInit {
   btnProcessing:boolean = false;
   recruiterData: IDTextViewModel [] = [];
   jobsCounter:number = 0;
+  employerCounter:number = 0;
   employerData: EmployerDTO [] = [];
   loading:boolean = false;
   skillData: IDTextViewModel [] = [];
@@ -39,20 +42,19 @@ export class DashboardComponent implements OnInit {
   sectorData: IDTextViewModel [] = [];
 
 
-  filter: {
-    id:0,
+  filter = {
     searchText: '',
-    dateFrom: undefined,
-    dateTo: undefined,
+    dateFrom: null,
+    dateTo: null,
     pageSize: 10,
     pageNo: 1
   }
 
-searchFilter: {
+searchFilter = {
     id:0,
     searchText: '',
-    dateFrom: undefined,
-    dateTo: undefined,
+    dateFrom: '',
+    dateTo: '',
     pageSize: 10,
     pageNo: 1
 }
@@ -60,26 +62,57 @@ searchFilter: {
 
 
   constructor(private job: JobServiceProxy, private employer: ReportServiceProxy, private skill: SkillAreasServiceProxy,
-    private state: StatesServiceProxy, private sector: SectorsServiceProxy, private AuthenService: AuthenticationService,) { }
+    private state: StatesServiceProxy, private route: Router, private sector: SectorsServiceProxy, public authenService: AuthenticationService,) { }
 
   ngOnInit(): void {
     // this.fetchAllEmployers();
-    // this.fetchAllJobs();
+    this.fetchAllJobs();
     this.fetchSectors();
     this.fetchSkillAreas();
     this.fetchStates(154);
     this.fetchAllEmployers();
-    this.fetchUser();
+    this.getMyUsers();
+    this.authUser();
   }
 
-  getUser(){
-    this.loggedInUser = this.AuthenService.getuser();
-    console.log('See your user', this.loggedInUser);
-    if(this.loggedInUser){
+  logOut(){
+    this.authenService.clearusers();
+    this.route.navigateByUrl('/auth/login')
+  }
 
+ async getMyUsers(){
+   const data = await this.authenService.getuser();
+    console.log('See your user', this.loggedInUser);
+    if(data){
+      this.loggedIn = true;
+      console.log('See your user status', this.loggedIn);
     }
 
   }
+
+  async authUser(){
+    const data = await this.authenService.isAuthenticated();
+    if(data){
+      console.log('See your status', data);
+    }
+  }
+
+  getUsers() {
+    return this.authenService.getuser()
+    .then(
+      (users) => {
+        console.log('users ' + users);
+        this.loggedInUser = users;
+        console.log('this.users ' + this.loggedInUser);
+      })
+     .catch((error) => {
+        console.log('error ' + error);
+        throw error;
+      });
+    // users => this.users = users,
+    // error => this.errorMsg = <any>error);
+  }
+
 
   filterUpdated(filter: any) {
 
@@ -126,17 +159,14 @@ searchFilter: {
   }
 
   fetchAllEmployers(){
-    this.employer.fetchAllEmployers('', this.filter.dateFrom,
+    this.employer.fetchAllEmployers(this.filter.searchText, this.filter.dateFrom,
       this.filter.dateTo, this.filter.pageSize, this.filter.pageNo).subscribe(data => {
         if(!data.hasError){
           this.employerData = data.value;
+          this.employerCounter = data.totalCount;
           console.log('My employers:',this.employerData)
         }
     })
   }
 
-  async fetchUser(){
-    this.loggedIn = await this.AuthenService.isAuthenticated();
-    console.log('See your user:',this.loggedIn)
-   }
 }

@@ -40,7 +40,7 @@
       <button class="navbar-toggler" type="button" (click)="toggleMenu()" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon" style="color: #ffffff; display: none;"></span><i class="fa fa-bars" style="color: #ffffff;" aria-hidden="true"></i>
       </button>
-      <img src="assets/images/logo_2.png" alt="Home" class="navbar-brand" [routerLink]="['/']" style="width: 150px; height: 150px; cursor: pointer; margin: -40px 0 !important;">
+      <img src="assets/images/logo_2.png" alt="Home" class="navbar-brand" [routerLink]="['/']" style="width: 150px; height: 150px; cursor: pointer; margin: -40px 0 !important; margin-right: 5% !important;">
 
     <div class="collapse navbar-collapse" [class]="{'d-flex':showMenu}" id="navbarTogglerDemo03">
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -63,10 +63,22 @@
 
         <li class="nav-item active">
           <a class="nav-link"[routerLink]="['/applicants/pricing']">Pricing </a>
+
         </li>
+
+        <!-- <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" (click)="toggleMenu()" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+          <div class="dropdown-menu" [class]="{'d-flex':showMenu}" style="display: flex; flex-direction: column; justify-items: flex-start;">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Separated link</a>
+          </div>
+        </li> -->
       </ul>
 
-      <div class="form-inline my-2 my-lg-0">
+      <div *ngIf="!authenService.authStatus | async" class="form-inline my-2 my-lg-0">
         <ul class="navbar-nav mr-auto" style="color: #fff;">
           <li class="nav-item active">
             <a class="nav-link" [routerLink]="['/auth/signup']">Sign Up</a>
@@ -80,13 +92,25 @@
             <button class="btn" [routerLink]="['/auth/login']" nbButton outline size="small" style="color: #6495ED; background-color: #fff; border: 1px solid #6495ED;">Post Job</button>
           </li>
         </ul>
+      </div>
 
+      <div *ngIf="authenService.authStatus | async" class="form-inline my-2 my-lg-0">
+        <ul class="navbar-nav mr-auto" style="color: #fff;">
+          <li class="nav-item active">
+            <a class="nav-link" (click)="logOut()" [routerLink]="['/auth/login']">Log Out</a>
+          </li>
 
+          <li class="nav-item active">
+            <a class="nav-link" [routerLink]="['/appdash']">Dashboard</a>
+          </li>
+
+          <li class="nav-item active">
+            <button class="btn" [routerLink]="['/auth/login']" nbButton outline size="small" style="color: #6495ED; background-color: #fff; border: 1px solid #6495ED;">Post Job</button>
+          </li>
+        </ul>
       </div>
     </div>
   </nav>
-
-
 
    <div class="container" style="margin: 3% 0;">
     <div style="padding-top: 20px;">
@@ -127,10 +151,9 @@
 
 </div>
 
-
 <div class="container" style="margin-top: 2%; background-color: transparent;">
   <div class="row row-cols-2">
-    <div class="col-sm-8">
+    <div class="col-sm-12 col-md-8 col-lg-8 ">
       <nb-card *ngIf="jobsCounter < 1">
         <nb-card-header  style="font-weight:900;">
           No Jobs
@@ -147,17 +170,19 @@
           <nb-tabset>
             <nb-tab tabTitle="All">
               <div class="row">
-                <div *ngFor="let job of allJobs" class="col-sm-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
-                  <div class="col-sm-4">
-                    <img src="assets/images/jobs.png" style="width:5rem;">
-                  </div>
-                  <div class="col-sm-8">
-                      <span style="font-weight: 600; padding-right:25px;">{{job.position}}</span><br>
-                      <div style="padding-top: 5px;"></div>
-                      <span>Amplifire Digital Agency</span><br>
-                      <span>{{job.location}} | Full-time</span><br>
-                      <!-- ({{job.endDate.ge}} - {{job.datePosted}}/(1000 * 3600 * 24)) -->
-                      <span style="margin-right: 4px;">Closes in 5 days</span><a [routerLink]="['applicants/boards', job.id]">View Details</a><br>
+                <div *ngFor="let job of allJobs" class="col-sm-12 col-md-6 col-lg-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
+                  <div class="row">
+                    <div class="col-sm-12 col-md-4 col-lg-4">
+                      <img src="assets/images/jobs.png" style="width:5rem;">
+                    </div>
+                    <div class="col-sm-12 col-md-8 col-lg-8">
+                        <span style="font-weight: 600; padding-right:25px;"><a [routerLink]="['applicants/boards', job.id]">{{job.position}}</a></span><br>
+                        <div style="padding-top: 5px;"></div>
+                        <span>Amplifire Digital Agency</span><br>
+                        <span>{{job.state}} | Full-time</span><br>
+                        <!-- ({{job.endDate.ge}} - {{job.datePosted}}/(1000 * 3600 * 24)) -->
+                        <span style="margin-right: 4px;">Closes in 5 days</span>
+                    </div>
                   </div>
                 </div>
 
@@ -261,7 +286,7 @@
 
     <!-- <div class="col-sm-4"> -->
 
-       <nb-card class="col-sm-4 shadow p-3 mb-5 bg-white rounded">
+       <nb-card class="col-sm-4  shadow p-3 mb-5 bg-white rounded">
          <nb-card-body>
           <div class="row">
             <div class="col">
@@ -287,11 +312,11 @@
           </div>
 
           <div class="form-group">
-            <nb-checkbox>Education / Training (453)</nb-checkbox><br>
-            <nb-checkbox>Computer Software (453)</nb-checkbox><br>
+            <nb-checkbox *ngFor="let sector of sectorData">{{sector.text}}</nb-checkbox><br>
+            <!-- <nb-checkbox>Computer Software (453)</nb-checkbox><br>
             <nb-checkbox>Health Care (453)</nb-checkbox><br>
             <nb-checkbox>Engineering & Construction (52)</nb-checkbox><br>
-            <nb-checkbox>Manufacturing (453)</nb-checkbox><br>
+            <nb-checkbox>Manufacturing (453)</nb-checkbox><br> -->
 
         </div>
 
@@ -348,139 +373,55 @@
 
 <div class="container" style="margin-top: 2%; background-color: transparent;">
   <div class="row row-cols-2">
+
     <div class="col-sm-8">
-      <nb-card style="background-color: transparent;">
+      <nb-card *ngIf="employerCounter < 1">
+        <nb-card-header  style="font-weight:900;">
+          No Data
+        </nb-card-header>
+        <nb-card-body>
+          <ngx-default-content pageHeader={{myPlanHeader}} pageDescription="{{myPlanDesc}}" [loading]="loading"></ngx-default-content>
+        </nb-card-body>
+      </nb-card>
+      <nb-card *ngIf="employerCounter > 0" style="background-color: transparent;">
         <nb-card-header style="font-weight: 900;">
           Places to Work
         </nb-card-header>
         <nb-card-body>
 
           <nb-tabset>
-            <nb-tab tabTitle="All">
-              <div class="row" style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
-                <div class="col-sm-3" style="text-align: center;">
-                  <img src="assets/images/jobs.png" style="width:5rem; margin-bottom: 5px;"><br>
-                  <span>Amplifire Digital Agency</span><br>
+            <!-- <nb-tab tabTitle="All">
+              <div class="row">
+                <div *ngFor="let employer of employerData" class="col-sm-12 col-md-6 col-lg-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
+                  <div class="row">
+                    <div class="col-sm-12 col-md-4 col-lg-4">
+                      <img src="assets/images/jobs.png" style="width:5rem;">
+                    </div>
+                    <div class="col-sm-12 col-md-8 col-lg-8">
+                        <span style="font-weight: 600; padding-right:25px;"><a [routerLink]="['applicants/boards', job.id]">{{employer.name}} </a></span><br>
+                        <span>{{employer.sector}}</span><br>
+                    </div>
+                  </div>
+                </div>
+              </div>
+             </nb-tab> -->
+             <nb-tab tabTitle="All">
+              <div class="row">
+                <div *ngFor="let employer of employerData" class="col-sm-12 col-md-4 col-lg-4" style="text-align: center;">
+                  <div class="row" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
+                    <div class="col-sm-12 col-md-4 col-lg-4" style="width: 100%;">
+                      <img src="assets/images/jobs.png" style="width:5rem;">
+                        <span style="font-weight: 600; width: auto;"><a [routerLink]="['/details', job.id]">{{employer.name}}</a></span><br>
+                        <div style="padding-top: 5px;"></div>
+                        <span>{{employer.sector}}</span><br>
+                   </div>
+                  </div>
                 </div>
 
-                <div class="col-sm-3" style="text-align: center;">
-                  <img src="assets/images/vogue.png" style="width:5rem; margin-bottom: 5px;"><br>
-                  <span>Amplifire Digital Agency</span><br>
-                </div>
-
-                <div class="col-sm-3" style="text-align: center;">
-                  <img src="assets/images/mida.png" style="width:5rem; margin-bottom: 5px;"><br>
-                  <span>Amplifire Digital Agency</span><br>
-                </div>
-
-                <div class="col-sm-3" style="text-align: center;">
-                  <img src="assets/images/vogue.png" style="width:5rem; margin-bottom: 5px;"><br>
-                  <span>Amplifire Digital Agency</span><br>
-                </div>
-            </div>
-
-            <hr>
-            <div style="padding: 10px;"></div>
-
-            <div class="row" style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
-              <div class="col-sm-3" style="text-align: center;">
-                <img src="assets/images/jobs.png" style="width:5rem; margin-bottom: 5px;"><br>
-                <span>Amplifire Digital Agency</span><br>
               </div>
 
-              <div class="col-sm-3" style="text-align: center;">
-                <img src="assets/images/vogue.png" style="width:5rem; margin-bottom: 5px;"><br>
-                <span>Amplifire Digital Agency</span><br>
-              </div>
-
-              <div class="col-sm-3" style="text-align: center;">
-                <img src="assets/images/mida.png" style="width:5rem; margin-bottom: 5px;"><br>
-                <span>Amplifire Digital Agency</span><br>
-              </div>
-
-              <div class="col-sm-3" style="text-align: center;">
-                <img src="assets/images/vogue.png" style="width:5rem; margin-bottom: 5px;"><br>
-                <span>Amplifire Digital Agency</span><br>
-              </div>
-          </div>
-
-
-          <hr>
-          <div style="padding: 10px;"></div>
-
-          <div class="row" style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
-            <div class="col-sm-3" style="text-align: center;">
-              <img src="assets/images/jobs.png" style="width:5rem; margin-bottom: 5px;"><br>
-              <span>Amplifire Digital Agency</span><br>
-            </div>
-
-            <div class="col-sm-3" style="text-align: center;">
-              <img src="assets/images/vogue.png" style="width:5rem; margin-bottom: 5px;"><br>
-              <span>Amplifire Digital Agency</span><br>
-            </div>
-
-            <div class="col-sm-3" style="text-align: center;">
-              <img src="assets/images/mida.png" style="width:5rem; margin-bottom: 5px;"><br>
-              <span>Amplifire Digital Agency</span><br>
-            </div>
-
-            <div class="col-sm-3" style="text-align: center;">
-              <img src="assets/images/vogue.png" style="width:5rem; margin-bottom: 5px;"><br>
-              <span>Amplifire Digital Agency</span><br>
-            </div>
-        </div>
-
-
-        <hr>
-        <div style="padding: 10px;"></div>
-
-        <div class="row" style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
-          <div class="col-sm-3" style="text-align: center;">
-            <img src="assets/images/jobs.png" style="width:5rem; margin-bottom: 5px;"><br>
-            <span>Amplifire Digital Agency</span><br>
-          </div>
-
-          <div class="col-sm-3" style="text-align: center;">
-            <img src="assets/images/vogue.png" style="width:5rem; margin-bottom: 5px;"><br>
-            <span>Amplifire Digital Agency</span><br>
-          </div>
-
-          <div class="col-sm-3" style="text-align: center;">
-            <img src="assets/images/mida.png" style="width:5rem; margin-bottom: 5px;"><br>
-            <span>Amplifire Digital Agency</span><br>
-          </div>
-
-          <div class="col-sm-3" style="text-align: center;">
-            <img src="assets/images/vogue.png" style="width:5rem; margin-bottom: 5px;"><br>
-            <span>Amplifire Digital Agency</span><br>
-          </div>
-      </div>
-
-      <hr>
-      <div style="padding: 10px;"></div>
-
-      <div class="row" style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
-        <div class="col-sm-3" style="text-align: center;">
-          <img src="assets/images/jobs.png" style="width:5rem; margin-bottom: 5px;"><br>
-          <span>Amplifire Digital Agency</span><br>
-        </div>
-
-        <div class="col-sm-3" style="text-align: center;">
-          <img src="assets/images/vogue.png" style="width:5rem; margin-bottom: 5px;"><br>
-          <span>Amplifire Digital Agency</span><br>
-        </div>
-
-        <div class="col-sm-3" style="text-align: center;">
-          <img src="assets/images/mida.png" style="width:5rem; margin-bottom: 5px;"><br>
-          <span>Amplifire Digital Agency</span><br>
-        </div>
-
-        <div class="col-sm-3" style="text-align: center;">
-          <img src="assets/images/vogue.png" style="width:5rem; margin-bottom: 5px;"><br>
-          <span>Amplifire Digital Agency</span><br>
-        </div>
-    </div>
-
+              <hr>
+              <div style="padding: 10px;"></div>
 
             </nb-tab>
             <nb-tab tabTitle="Featured Places">

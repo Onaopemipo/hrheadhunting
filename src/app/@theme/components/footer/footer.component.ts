@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   template: `
   <a href="javascript:;" class="pull-left">
         <span>Copyright</span>
-        © {{currentYr}} SmartAce
+        © {{currentYr}} HR HeadHunting
     </a>
   `,
 })

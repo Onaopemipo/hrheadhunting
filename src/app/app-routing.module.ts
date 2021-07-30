@@ -25,6 +25,16 @@ export const routes: Routes = [
   },
 
   {
+    path: 'appdash',
+    loadChildren: () => import('./modules/applicants-dashboard/applicants-dashboard.module').then(m => m.ApplicantsDashboardModule),
+  },
+
+  {
+    path: 'empdash',
+    loadChildren: () => import('./modules/employer-dashboard/employer-dashboard.module').then(m => m.EmployerDashboardModule),
+  },
+
+  {
     path: 'modules',
     loadChildren: () => import('./modules/modules.module').then(m => m.ModulesModule),
     canLoad: [AuthGuard],

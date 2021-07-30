@@ -1,3 +1,5 @@
+import { JobdetailsComponent } from './jobdetails/jobdetails.component';
+import { JobDetailsComponent } from './../job-details/job-details.component';
 import { TrainingComponent } from './training/training.component';
 import { ServicesComponent } from './services/services.component';
 import { PricingComponent } from './pricing/pricing.component';
@@ -30,6 +32,11 @@ const routes: Routes = [
       {
         path: 'applicants/blog',
         component: BlogsComponent
+      },
+
+      {
+        path: 'details/:id',
+        component: JobdetailsComponent
       },
 
       {
