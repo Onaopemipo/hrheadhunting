@@ -1,0 +1,168 @@
+<div class="bg-img" style="width: 100%;">
+  <div class="container">
+    <nav *ngFor="let i of [1,2]" [class]="{'fixed-Menu':i == 1}" class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%; padding: 0; background-color: #6495ED !important;">
+      <button class="navbar-toggler" type="button" (click)="toggleMenu()" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon" style="color: #ffffff; display: none;"></span><i class="fa fa-bars" style="color: #ffffff;" aria-hidden="true"></i>
+      </button>
+      <img src="assets/images/logo_2.png" alt="Home" class="navbar-brand" [routerLink]="['/']" style="width: 150px; height: 150px; cursor: pointer; margin: -40px 0 !important; margin-right: 5% !important;">
+
+    <div class="collapse navbar-collapse" [class]="{'d-flex':showMenu}" id="navbarTogglerDemo03">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <li class="nav-item active">
+          <a class="nav-link" [routerLink]="['/applicants/about']">About Us </a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" [routerLink]="['/applicants/services']">Services </a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" [routerLink]="['/applicants/blog']">Blog </a>
+        </li>
+
+        <li class="nav-item active">
+          <a class="nav-link"[routerLink]="['/applicants/boards']">Job Boards </a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link"[routerLink]="['/applicants/artisans']">Artisans </a>
+        </li>
+
+        <li class="nav-item active">
+          <a class="nav-link" [routerLink]="['/applicants/scorecv']">Score CV </a>
+        </li>
+
+        <li class="nav-item active">
+          <a class="nav-link"[routerLink]="['/applicants/pricing']">Pricing </a>
+
+        </li>
+
+        <!-- <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" (click)="toggleMenu()" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+          <div class="dropdown-menu" [class]="{'d-flex':showMenu}" style="display: flex; flex-direction: column; justify-items: flex-start;">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Separated link</a>
+          </div>
+        </li> -->
+      </ul>
+
+      <div *ngIf="!(authenService.authStatus | async)" class="form-inline my-2 my-lg-0">
+        <ul class="navbar-nav mr-auto" style="color: #fff;">
+          <li class="nav-item active">
+            <a class="nav-link" [routerLink]="['/auth/signup']">Sign Up</a>
+          </li>
+
+          <li class="nav-item active">
+            <a class="nav-link" [routerLink]="['/auth/login']">Login</a>
+          </li>
+
+          <li class="nav-item active">
+            <button class="btn" [routerLink]="['/auth/login']" nbButton outline size="small" style="color: #6495ED; background-color: #fff; border: 1px solid #6495ED;">Post Job</button>
+          </li>
+        </ul>
+      </div>
+
+      <div *ngIf="authenService.authStatus | async" class="form-inline my-2 my-lg-0">
+        <ul class="navbar-nav mr-auto" style="color: #fff;">
+          <li class="nav-item active">
+            <a class="nav-link" [routerLink]="['/auth/signup']">Log Out</a>
+          </li>
+
+          <li class="nav-item active">
+            <a class="nav-link" [routerLink]="['/appdash']">Dashboard</a>
+          </li>
+
+          <li class="nav-item active">
+            <button class="btn" [routerLink]="['/auth/login']" nbButton outline size="small" style="color: #6495ED; background-color: #fff; border: 1px solid #6495ED;">Post Job</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container" style="margin: 3% 0;">
+    <div style="padding-top: 30px;">
+      <h6 style="text-align: center; color: #fff;">HR Headhunting verified artisans</h6>
+    </div>
+   </div>
+
+  </div>
+
+</div>
+<div class="container" style="margin-top: 2%; background-color: transparent;">
+  <div class="row">
+    <div class="col-sm-12 col-md-8 col-lg-8">
+      <nb-card *ngIf="artisanCounter < 1">
+        <nb-card-body>
+          <ngx-default-content pageHeader={{myPlanHeader}} pageDescription="{{myPlanDesc}}" [loading]="loading"></ngx-default-content>
+        </nb-card-body>
+      </nb-card>
+      <nb-card *ngIf="artisanCounter > 0" style="background-color: transparent;">
+        <nb-card-body>
+          <div class="row" style="display: flex; flex-direction: row; justify-content: space-between;">
+            <div *ngFor="let artisan of artisanData" class="col-sm-8 col-md-6 col-lg-3 shadow p-3 mb-5 bg-white rounded" (click)="artisanDetails(artisan.id)" style="height: 200; width: 200px; cursor: pointer; margin: 0 1px 1px 0;">
+                <img src="assets/images/Job_Seeker.png" style=" height: 50px; text-align: center;"  alt=""><br>
+                <span style="font-size: 14; font-weight: 600;">{{artisan.name}}</span><br>
+                <span>{{artisan.specialty}}</span><br>
+                <span style="margin-right: 4px;">{{artisan.yearOfExperience}} of experience</span>
+            </div>
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </div>
+
+    <!-- <div class="col-sm-4"> -->
+
+       <nb-card class="col-sm-4  shadow p-3 mb-5 bg-white rounded">
+         <nb-card-body>
+          <div class="row">
+            <div class="col">
+            <h6>Artisans in Nigeria</h6>
+            <div style="padding: 5px;"></div>
+            <span>3,234 artisans found</span>
+            <div style="padding: 10px;"></div>
+            <div class="form-group has-search">
+              <div style="display: flex; justify-content: space-between; flex-direction: row; padding-bottom: 3px;">
+              <span style="font-weight: 600;">SPECIALIZATION</span>
+              <a href="" style="color: #0066F4;">Reset Filter</a>
+              </div>
+              <div class="input-group">
+              <span class="fa fa-search form-control-feedback"></span>
+              <input type="text" class="form-control" placeholder="Search"  style="height: 45px">
+              <div class="input-group-append">
+              </div>
+            </div>
+            </div>
+            </div>
+
+            <div style="padding: 20px;"></div>
+          </div>
+
+          <div class="form-group">
+            <div>
+
+            </div>
+            <!-- <nb-checkbox *ngFor="let sector of sectorData">{{sector.text}}</nb-checkbox><br> -->
+            <nb-checkbox>Plumbing (453)</nb-checkbox><br>
+            <nb-checkbox>Carpentry (145)</nb-checkbox><br>
+            <nb-checkbox>Electrician (52)</nb-checkbox><br>
+
+        </div>
+
+          <div class="form-group">
+            <h6>Artisans by location</h6>
+            <nb-checkbox>Abia</nb-checkbox><br>
+            <nb-checkbox>Akwa Ibom</nb-checkbox><br>
+            <nb-checkbox>Anambra</nb-checkbox><br>
+            <nb-checkbox>Bauchi</nb-checkbox><br>
+          </div>
+         </nb-card-body>
+       </nb-card>
+
+    <!-- </div> -->
+  </div>
+
+
+</div>
+
+

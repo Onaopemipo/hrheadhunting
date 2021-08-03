@@ -1,3 +1,4 @@
+import { AuthGuardService as AuthGuard } from '../../_services/auth-guard.service';
 import { ApplicantsDashboardComponent } from './applicants-dashboard.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -11,7 +12,8 @@ const routes: Routes = [
 
   children: [{
     path: '',
-    component: DashboardComponent
+    component: DashboardComponent,
+    canLoad: [AuthGuard],
   }
 
   ]

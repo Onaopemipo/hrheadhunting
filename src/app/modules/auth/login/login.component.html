@@ -1,17 +1,55 @@
 
 <div class="limiter" style="font-family: Rubik !important; margin: 0 10%;">
-  <div style="margin-left: 6%;">
+<div style="margin-left: 13%;">
     <img src="assets/images/Logo.png" [routerLink]="['/']"  alt="" style="width: 150px; cursor: pointer; height: 150px;">
   </div>
   <div class="container-login" >
-    <div class="col-sm-4" style="background-color: #6495ED; height: 500px; padding: 30px;">
+    <div class="col-sm-8 col-md-6 col-lg-4" style="background-color: #6495ED; height: 600px; padding: 30px;">
       <img src="assets/images/login.png" alt="" class="img-central">
     </div>
-    <div class="col-sm-4" style="background-color: #ffffff; padding: 10px; height: 500px; padding: 40px;">
-      <h6 style="color: #2E384D; font-size: 28px; font-weight: 500;">
+    <div class="col-sm-8 col-md-6 col-lg-4" style="background-color: #ffffff; padding: 10px; height: 600px; padding: 40px;">
+      <span style="color: #2E384D; font-size: 20px; font-weight: 500; margin-bottom: 20px 0;">
         Log In
-      </h6>
-      <div style="padding: 30px;"></div>
+      </span>
+
+      <!-- <p style="color: #2E384D; font-size: 15px; font-weight: 500; margin-bottom: 20px 0;">
+        Sign In using social
+      </p> -->
+      <div class="form-row" style="display: flex; flex-direction: row; justify-content:space-between; margin-top: 20px;">
+          <div class="col-md-5 form-group" style="margin-bottom: 10px;">
+            <div class="social" (click)="doLinkedIn()">
+              <i class="fab fa-linkedin" aria-hidden="true" (click)="doLinkedIn()" class="socialIcons"></i>
+              <span>LinkedIn</span>
+            </div>
+            <div style="padding: 10px;"></div>
+
+            <div type="button" class="social" (click)="doFacebook()">
+              <i class="fab fa-facebook-square" aria-hidden="true" (click)="doFacebook()" class="socialIcons"></i>
+              <span>Facebook</span>
+            </div>
+          </div>
+
+          <div style="padding: 10px;"></div>
+
+          <div class="col-md-5 form-group">
+              <div class="social" (click)="doGoogle()">
+                <i class="fab fa-google" aria-hidden="true" (click)="doGoogle()" class="socialIcons"></i>
+                <span>Google</span>
+              </div>
+              <div style="padding: 10px;"></div>
+              <div class="social" (click)="doTwitter()">
+                <i class="fab fa-twitter" aria-hidden="true"  class="socialIcons"></i>
+                <i class="fa-google" aria-hidden="true" class="socialIcons"></i>
+                <span>Twitter</span>
+              </div>
+
+          </div>
+      </div>
+
+      <div style="display: flex; flex-direction: row; align-items: center;">
+        <span style="background-color: #6495ED; color: #ffffff; padding: 5px; border-radius: 50%; margin: 0 auto;">OR</span>
+      </div>
+
       <form name="loginForm" id="loginForm" #loginForm="ngForm" style="color: #71727B;">
         <div class="form-group row">
           <div class="col">
@@ -19,7 +57,7 @@
           <input type="email" nbInput fullWidth placeholder="Email" name="email" #email='ngModel' [(ngModel)]="userlogin.email" [pattern]="emailPattern" required>
           </div>
         </div>
-        <div style="padding: 15px;"></div>
+        <div style="padding: 10px;"></div>
         <div class="form-group row">
          <div class="col">
           <label class="label">Password</label>
@@ -31,7 +69,7 @@
          </div>
         </div>
 
-        <div style="padding: 15px;"></div>
+        <div style="padding: 10px;"></div>
 
         <button *ngIf="!btnprocessing" [disabled]="loginForm.invalid" (click)="loginUser()" type="button" nbButton fullWidth status="primary" style="font-size: 12px;">SUBMIT</button>
         <button *ngIf="btnprocessing" type="button" nbButton fullWidth status="primary">Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button>

@@ -24,7 +24,7 @@ import { ComponentsModule } from 'app/components/components.module';
 import { JobsComponent } from './jobs/jobs.component';
 import { ApplicantsComponent } from './applicants/applicants.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { JobServiceProxy, CommonServiceProxy, CommunicationServiceProxy } from 'app/_services/service-proxies';
+import { JobServiceProxy, CommonServiceProxy, CommunicationServiceProxy, ReportServiceProxy } from 'app/_services/service-proxies';
 import { ApplicantProfileComponent } from './applicant-profile/applicant-profile.component';
 import { TrainingComponent } from './training/training.component';
 import { ArtisansComponent } from './artisans/artisans.component';
@@ -75,7 +75,8 @@ import { EmployerDashboardComponent } from './employer-dashboard/employer-dashbo
     ApplicationsServiceProxy,
     ArtisanServiceProxy,
     AlertserviceService,
-    QuizServiceProxy
+    QuizServiceProxy,
+    ReportServiceProxy,
   ]
 })
 export class ModulesModule { }

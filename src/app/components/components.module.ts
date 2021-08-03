@@ -74,6 +74,7 @@ import { ExcelServiceService } from '../_services/excel-service.service';
 import { PdfServiceService } from '../_services/pdf-service.service';
 import { NamedStatusComponent } from './named-status/named-status.component';
 import { InputvalidationService } from '../_services/inputvalidation.service';
+import { NavbarComponent } from './navbar/navbar.component';
 @NgModule({
   declarations: [
     ComponentsheaderComponent,
@@ -105,6 +106,7 @@ import { InputvalidationService } from '../_services/inputvalidation.service';
     CustomFormComponent,
     PageComponent,
     NamedStatusComponent,
+    NavbarComponent,
   ],
   imports: [
     FormsModule,

@@ -1,5 +1,5 @@
 .limiter {
-    width: 100%;
+    width: 80%;
     // background-color: #F4F6FC;
     margin: 0 auto
 }
@@ -10,7 +10,7 @@
 }
 
 .container-login {
-    width: 80%;
+    // width: 80%;
     min-height: 70vh;
     display: -webkit-box;
     display: -webkit-flex;
@@ -42,7 +42,7 @@ label {
   color: #71727B;
 }
 
-nb-checkbox {
+.nb-checkbox {
     margin-bottom: 1rem;
   }
 
@@ -52,6 +52,19 @@ nb-checkbox {
 
   .form-inline > * {
     margin: 0 1.5rem 1.5rem 0;
+  }
+
+  .social {
+    border: 1px solid #6495ED;
+    cursor: pointer;
+    padding: 2px;
+  }
+
+  .socialIcons {
+    color: #6495ED;
+    font-size: 20px;
+    padding: 2px;
+    cursor: pointer;
   }
 
   nb-card.inline-form-card nb-card-body {

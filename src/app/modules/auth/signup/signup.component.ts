@@ -103,7 +103,7 @@ export class SignupComponent implements OnInit {
 
    paymentInit() {
     this.paymentLoading = true;
-    this.registerEmployer();
+    // this.registerEmployer();
    }
   paymentCancel() {
     console.log('cancel')
@@ -285,9 +285,6 @@ doLinkedIn(){
  })
 }
 
-
-
-
 doTwitter(){
   this.social.doTwitterLogin().then(data => {
     this.twitterData = data;
@@ -295,7 +292,8 @@ doTwitter(){
     this.socialSignup.isSocial = true;
     this.socialSignup.firstName = this.twitterData.displayName;
     this.socialSignup.email = this.twitterData.email;
-    console.log('Your name is:', this.socialSignup.firstName, this.socialSignup.email)
+    console.log('Your name is:', this.socialSignup.firstName, this.socialSignup.email);
+    // if(this.socialSignup.email.length > 0){
     if(this.socialSignup.email.length > 0){
       this.account.getToken(this.socialSignup).subscribe(data => {
         if(!data.hasError){

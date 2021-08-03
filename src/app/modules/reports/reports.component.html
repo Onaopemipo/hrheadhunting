@@ -9,7 +9,15 @@
 </div>
 <div *ngIf="reportCounter > 0">
   <nb-card>
-    <ngx-tableheader></ngx-tableheader>
-    <ngx-tablecomponent  [tableColum]="reportTable" [userData]="allJobsApplication"></ngx-tablecomponent>
+    <!-- <ngx-tableheader></ngx-tableheader> -->
+    <ngx-tablecomponent
+    [tableColum]="reportTable"
+    [userData]="employerData"
+    (filterChange)="filterUpdated($event)"
+    [showFilter]="true"
+    [showActions]="true"
+    [actions]="tableActions"
+    (actionClick)="tableActionClicked($event)"
+    ></ngx-tablecomponent>
   </nb-card>
 </div>

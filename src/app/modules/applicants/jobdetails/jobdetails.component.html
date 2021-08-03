@@ -150,15 +150,19 @@
           <a class="nav-link"[routerLink]="['/applicants/boards']">Job Boards </a>
         </li>
         <li class="nav-item active">
+          <a class="nav-link"[routerLink]="['/applicants/artisans']">Artisans </a>
+        </li>
+        <li class="nav-item active">
           <a class="nav-link" [routerLink]="['/applicants/scorecv']">Score CV </a>
         </li>
+
 
         <li class="nav-item active">
           <a class="nav-link"[routerLink]="['/applicants/pricing']">Pricing </a>
         </li>
       </ul>
 
-      <div *ngIf="!loginStatus" class="form-inline my-2 my-lg-0">
+      <div *ngIf="!(authenService.authStatus | async)" class="form-inline my-2 my-lg-0">
         <ul class="navbar-nav mr-auto" style="color: #fff;">
           <li class="nav-item active">
             <a class="nav-link" [routerLink]="['/auth/signup']">Sign Up</a>
@@ -174,7 +178,7 @@
         </ul>
       </div>
 
-      <div *ngIf="loginStatus" class="form-inline my-2 my-lg-0">
+      <div *ngIf="authenService.authStatus | async" class="form-inline my-2 my-lg-0">
         <ul class="navbar-nav mr-auto" style="color: #fff;">
           <li class="nav-item active">
             <a class="nav-link" [routerLink]="['/auth/signup']">Log Out</a>

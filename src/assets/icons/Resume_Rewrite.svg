@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 56 56">
+  <g id="Group_31780" data-name="Group 31780" transform="translate(-455.5 -1434.828)">
+    <g id="Group_31775" data-name="Group 31775">
+      <g id="Ellipse_11" data-name="Ellipse 11" transform="translate(455.5 1434.828)" fill="#fff" stroke="#032b69" stroke-width="1">
+        <circle cx="28" cy="28" r="28" stroke="none"/>
+        <circle cx="28" cy="28" r="27.5" fill="none"/>
+      </g>
+      <circle id="Ellipse_12" data-name="Ellipse 12" cx="23.5" cy="23.5" r="23.5" transform="translate(459.5 1438.828)" fill="rgba(100,149,237,0.2)"/>
+      <path id="Icon_awesome-file-alt" data-name="Icon awesome-file-alt" d="M10.8,6.558V0H1.157A1.154,1.154,0,0,0,0,1.157V23.531a1.154,1.154,0,0,0,1.157,1.157h16.2a1.154,1.154,0,0,0,1.157-1.157V7.715H11.958A1.161,1.161,0,0,1,10.8,6.558Zm3.086,11.38a.58.58,0,0,1-.579.579h-8.1a.58.58,0,0,1-.579-.579v-.386a.58.58,0,0,1,.579-.579h8.1a.58.58,0,0,1,.579.579Zm0-3.086a.58.58,0,0,1-.579.579h-8.1a.58.58,0,0,1-.579-.579v-.386a.58.58,0,0,1,.579-.579h8.1a.58.58,0,0,1,.579.579Zm0-3.472v.386a.58.58,0,0,1-.579.579h-8.1a.58.58,0,0,1-.579-.579V11.38a.58.58,0,0,1,.579-.579h8.1A.58.58,0,0,1,13.887,11.38Zm4.629-5.5v.294H12.344V0h.294a1.156,1.156,0,0,1,.82.338l4.721,4.725A1.154,1.154,0,0,1,18.516,5.878Z" transform="translate(474.242 1449.034)" fill="#6495ed"/>
+    </g>
+  </g>
+</svg>

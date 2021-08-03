@@ -1,3 +1,4 @@
+import { DashboardData } from './../../_services/service-proxies';
 import { DashboardServiceProxy, DashboardDTO, IDTextViewModel, StatesServiceProxy, SectorsServiceProxy, SkillAreasServiceProxy } from '../../_services/service-proxies';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NbThemeService } from '@nebular/theme';
@@ -18,9 +19,11 @@ export class DashboardComponent implements OnInit {
   Department: [] = [];
   Location: [] = [];
   Event: [] = [];
-  Retention: [] = [];
-  UpcomingBirthday: [] = [];
-  UpcomingLeave: [] = [];
+  optionsForPie: any;
+  myPieOptions: any = {};
+  recruitmentSkillData: DashboardData [] = [];
+  recruitmentOvertimeData: DashboardData [] = [];
+  applicantAgeData: DashboardData [] =  [];
   Announcement: [] = [];
   Request: [] = [];
   totalConsultants: number = 0
@@ -35,34 +38,27 @@ export class DashboardComponent implements OnInit {
     year: undefined
   }
 
-  single = [
-    // {
-    //   name: 'Germany',
-    //   value: 8940000,
-    // },
-    // {
-    //   name: 'USA',
-    //   value: 5000000,
-    // },
-    // {
-    //   name: 'France',
-    //   value: 7200000,
-    // },
-    // {
-    //   name: 'Canada',
-    //   value: 820000,
-    // },
-    // {
-    //   name: 'Nigeria',
-    //   value: 7300000,
-    // },
-  ];
+  single = this.applicantAgeData
   colorScheme: any;
   barcolorScheme: any;
   themeSubscription: any;
   options: any = {};
 
 
+  singlePie = [
+    {
+      name: 'Finance',
+      value: 800,
+    },
+    {
+      name: 'Engineers',
+      value: 500,
+    },
+    {
+      name: 'Developers',
+      value: 720,
+    }
+  ];
 
   multi: any[];
 
@@ -74,7 +70,7 @@ export class DashboardComponent implements OnInit {
   gradient = false;
   showLegend = false;
   showXAxisLabel = true;
-  xAxisLabel = 'Location';
+  xAxisLabel = 'Time(Years)';
   showYAxisLabel = true;
   yAxisLabel = 'Employee Count';
   showGridLines = true;
@@ -114,6 +110,8 @@ export class DashboardComponent implements OnInit {
   onInit() {
 
   }
+
+
 
   getUser(){
     this.loggedInUser = this.auth.getuser();
@@ -210,18 +208,20 @@ export class DashboardComponent implements OnInit {
               },
             },
           },
-          data: [
-            '2010',
-            '2011',
-            '2012',
-            '2013',
-            '2014',
-            '2015',
-            '2016',
-            '2017',
-            '2018',
+          // data: [
+          //   '2010',
+          //   '2011',
+          //   '2012',
+          //   '2013',
+          //   '2014',
+          //   '2015',
+          //   '2016',
+          //   '2017',
+          //   '2018',
 
-          ],
+          // ],
+
+          data: [] = this.applicantAgeData
         },
         {
           type: 'category',
@@ -249,20 +249,22 @@ export class DashboardComponent implements OnInit {
               },
             },
           },
-          // data: [
-          //   '2015-1',
-          //   '2015-2',
-          //   '2015-3',
-          //   '2015-4',
-          //   '2015-5',
-          //   '2015-6',
-          //   '2015-7',
-          //   '2015-8',
-          //   '2015-9',
-          //   '2015-10',
-          //   '2015-11',
-          //   '2015-12',
-          // ],
+          data: [
+            '2015-1',
+            '2015-2',
+            '2015-3',
+            '2015-4',
+            '2015-5',
+            '2015-6',
+            '2015-7',
+            '2015-8',
+            '2015-9',
+            '2015-10',
+            '2015-11',
+            '2015-12',
+          ],
+
+          // data: [] = this.applicantAgeData
         },
       ],
       yAxis: [
@@ -317,6 +319,50 @@ export class DashboardComponent implements OnInit {
         },
       ],
     };
+    this.optionsForPie = {
+      backgroundColor: '#fff',
+      color: ['#FF90A4', '#2E9CDA', '#2CD8C5'],
+      tooltip: {
+        trigger: 'item',
+        formatter: '{a} <br/>{b} : {c} ({d}%)',
+      },
+
+      series: [
+        {
+          name: 'Training Record',
+          type: 'pie',
+          radius: '80%',
+          center: ['50%', '50%'],
+          data: [
+            { value: 335, name: 'Developer' },
+            { value: 500, name: 'Accountant' },
+            { value: 234, name: 'Engineer' },
+            { value: 294, name: 'Admin' }
+          ],
+          itemStyle: {
+            emphasis: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(153, 153, 153, 0.04)',
+            },
+          },
+          label: {
+            normal: {
+              textStyle: {
+                color: '#343A40',
+              },
+            },
+          },
+          labelLine: {
+            normal: {
+              lineStyle: {
+                color: '#E9EBF1',
+              },
+            },
+          },
+        },
+      ],
+    };
     this.options = {
       backgroundColor: '#fff',
       color: ['#FF90A4', '#2E9CDA', '#2CD8C5', '#E2D136', '#5655CA'],
@@ -338,13 +384,15 @@ export class DashboardComponent implements OnInit {
           type: 'pie',
           radius: '80%',
           center: ['50%', '50%'],
-          data: [
-            { value: 335, name: 'Germany' },
-            { value: 310, name: 'France' },
-            { value: 234, name: 'Canada' },
-            { value: 135, name: 'Russia' },
-            { value: 1548, name: 'USA' },
-          ],
+          // data: [
+          //   { value: 335, name: 'Germany' },
+          //   { value: 310, name: 'France' },
+          //   { value: 234, name: 'Canada' },
+          //   { value: 135, name: 'Russia' },
+          //   { value: 1548, name: 'USA' },
+          // ],
+
+          data : this.recruitmentSkillData,
           itemStyle: {
             emphasis: {
               shadowBlur: 10,
@@ -371,6 +419,8 @@ export class DashboardComponent implements OnInit {
     };
 
   }
+
+
   ngOnInit(): void {
     // Events
     const today = this.today;
@@ -439,6 +489,10 @@ export class DashboardComponent implements OnInit {
     this.totalEmployers = data.value.aggregateData.totalEmployers;
     this.totalApplicants = data.value.aggregateData.totalApplicants;
     this.totalConsultants = data.value.aggregateData.totalConsultants;
+    this.recruitmentOvertimeData = data.value.lstRecruitmentOverTimeData;
+    this.applicantAgeData = data.value.lstApplicantAgeRangeData;
+    this.recruitmentSkillData = data.value.lstSkillSetData;
+    console.log('yo baby',this.dashboardData);
   }
 
 

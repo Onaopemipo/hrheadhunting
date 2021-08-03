@@ -73,7 +73,20 @@ export class AuthService {
       .then(res => {
         resolve(res.user);
       })
-    })
+    }).catch((error) => {
+      // Handle Errors here.
+      let errorCode = error.code;
+      console.log(errorCode)
+      let errorMessage = error.message;
+      // The email of the user's account used.
+      let email = error.email;
+      console.log(email)
+      // The firebase.auth.AuthCredential type that was used.
+      let credential = error.credential;
+      // ...
+      console.log(CredentialsContainer)
+    });
+
   }
 
 
@@ -122,6 +135,52 @@ doTwitterLogin(){
       })
     })
  }
+
+
+
+//  doFacebookLogin(){
+//   return new Promise<any>((resolve, reject) => {
+//     let provider = new firebase.auth.FacebookAuthProvider();
+//     this.afAuth.auth
+//     .signInWithPopup(provider)
+//     .then(res => {
+//       resolve(res);
+//     }, err => {
+//       console.log(err);
+//       reject(err);
+//     })
+//   })
+// }
+
+// doTwitterLogin(){
+//   return new Promise<any>((resolve, reject) => {
+//     let provider = new firebase.auth.TwitterAuthProvider();
+//     this.afAuth.auth
+//     .signInWithPopup(provider)
+//     .then(res => {
+//       resolve(res);
+//     }, err => {
+//       console.log(err);
+//       reject(err);
+//     })
+//   })
+// }
+
+// doGoogleLogin(){
+//   return new Promise<any>((resolve, reject) => {
+//     let provider = new firebase.auth.GoogleAuthProvider();
+//     provider.addScope('profile');
+//     provider.addScope('email');
+//     this.afAuth.auth
+//     .signInWithPopup(provider)
+//     .then(res => {
+//       resolve(res);
+//     }, err => {
+//       console.log(err);
+//       reject(err);
+//     })
+//   })
+// }
 
 
 }

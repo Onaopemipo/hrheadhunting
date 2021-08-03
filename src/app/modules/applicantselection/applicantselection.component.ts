@@ -24,13 +24,14 @@ export class ApplicantselectionComponent implements OnInit {
   myPlanDesc: string = "You don't have any application yet"
 
   myApplicantTable: TableColumn [] = [
-    {name: 'name', title: 'Name', type: ColumnTypes.Text},
-    {name: 'email', title: 'Email'},
-    {name: 'role', title: 'Role'},
+    {name: 'firstName', title: 'Name', type: ColumnTypes.Text},
+    {name: 'lastName', title: 'Name', type: ColumnTypes.Text},
+    {name: 'applicantEmail', title: 'Email'},
+    {name: 'position', title: 'Role'},
     {name: 'dateApplied', title: 'Date Applied', type: ColumnTypes.Date},
     {name: ACTIONS.VIEW_PROFILE, title: '', type: ColumnTypes.Link, link_name: 'View Profile'},
     {name: ACTIONS.VIEW_CV, title: '', type: ColumnTypes.Link, link_name: 'View CV'},
-    {name: ACTIONS.PROCESS, title: '', type: ColumnTypes.Link, link_name: 'Process'}
+    // {name: ACTIONS.PROCESS, title: '', type: ColumnTypes.Link, link_name: 'Process'}
   ];
   data = [
     {id:0, name: 'Name', email: 'Email', role:'Job Title',dateApplied : '02/03/2021'}
@@ -52,7 +53,7 @@ export class ApplicantselectionComponent implements OnInit {
   constructor(private jobService: ApplicationsServiceProxy) { }
 
   ngOnInit(): void {
-    // this.fetchJobRoles();
+    this.fetchAllApplications();
   }
 
   filterUpdated(filter: any) {
@@ -74,9 +75,12 @@ export class ApplicantselectionComponent implements OnInit {
   }
 
  fetchAllApplications(){
+   this.loading = true;
     this.jobService.fetchAllApplications(this.applicationFilter.id, this.applicationFilter.recruitmentStageId, this.applicationFilter.searchText,this.applicationFilter.dateFrom,this.applicationFilter.dateTo, this.applicationFilter.pageSize, this.applicationFilter.pageNumber).subscribe(data => {
+      this.loading = false;
       if(!data.hasError){
         this.allApplications = data.value;
+        this.applicationCounter = data.totalCount;
       }
     });
 

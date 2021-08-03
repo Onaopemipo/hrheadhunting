@@ -89,7 +89,7 @@
       </li> -->
     </ul>
 
-    <div *ngIf="!authenService.authStatus | async" class="form-inline my-2 my-lg-0">
+    <div *ngIf="!(authenService.authStatus | async)" class="form-inline my-2 my-lg-0">
       <ul class="navbar-nav mr-auto" style="color: #fff;">
         <li class="nav-item active">
           <a class="nav-link" [routerLink]="['/auth/signup']">Sign Up</a>

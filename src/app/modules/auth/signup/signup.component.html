@@ -310,16 +310,16 @@
       <nb-card-body *ngIf="jobSeekerStatus">
         <div class="form-row" style="display: flex; flex-direction: row; justify-content: space-between;">
           <div class="col-md-5 form-group">
-            <div style="border: 2px solid #6495ED; cursor: pointer; padding: 2px;" (click)="doLinkedIn()">
-              <img src="assets/icons/linkedin.png" style="width: 40px; height: 30px; padding-right: 10px;" alt="">
+            <div class="social" (click)="doLinkedIn()">
+              <img src="assets/icons/linkedin.png" class="socialIcon " alt="">
               <span>Sign up with LinkedIn</span>
             </div>
 
 
             <div style="padding: 10px;"></div>
 
-            <div  type="button" nbButton status="primary" style="border: 2px solid #6495ED; cursor: pointer; padding: 2px;" (click)="doFacebook()">
-              <img src="assets/icons/facebook.png" style="width: 40px; height: 30px; padding-right: 10px;" alt="">
+            <div  type="button" nbButton status="primary" class="social" (click)="doFacebook()">
+              <img src="assets/icons/facebook.png" class="socialIcon" alt="">
               <span>Sign up with Facebook</span>
             </div>
 
@@ -329,16 +329,16 @@
           <div style="padding: 10px;"></div>
 
           <div class="col-md-5 form-group">
-              <div style="border: 2px solid #6495ED; cursor: pointer; padding: 2px;" (click)="doGoogle()">
-                <img src="assets/icons/google.png" style="width: 40px; height: 30px; padding-right: 10px;" alt="">
+              <div class="social" (click)="doGoogle()">
+                <img src="assets/icons/google.png" class="socialIcon" alt="">
                 <span>Sign up with Google</span>
               </div>
 
 
               <div style="padding: 10px;"></div>
 
-              <div style="border: 2px solid #6495ED; cursor: pointer; padding: 2px;" (click)="doTwitter()">
-                <img src="assets/icons/twitter.png" style="width: 40px; height: 3S0px; padding-right: 10px;" alt="">
+              <div class="social" (click)="doTwitter()">
+                <img src="assets/icons/twitter.png" class="socialIcon " alt="">
                 <span>Sign up with Twitter</span>
               </div>
               <div style="padding: 10px;"></div>
@@ -1078,4 +1078,20 @@
 </ngx-side-modal>
 
 
+<!-- <div class="row">
+  <div class="col-sm-12">
+    <button  angular4-paystack
+    [email]="companyDTO.email"
+    [amount]="selectedPlan.amount * 100"
+    [ref]="reference"
+    (paymentInit)="paymentInit()"
+    (close)="paymentCancel()"
+    (callback)="paymentDone()"
+    [channels]="['bank','card'] "
+    style="width: 144px;" type="submit" nbButton status="primary">
+    <span *ngIf="!paymentLoading" style="color: #fff;">Pay</span>
+    <span *ngIf="paymentLoading" style="color: #fff;"><i class="fa fa-spin fa-spinner"></i> Loading...</span>
+  </button>
 
+  </div>
+</div> -->

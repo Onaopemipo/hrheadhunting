@@ -1,5 +1,5 @@
 import { AlertserviceService } from 'app/_services/alertservice.service';
-import { SkillAreasServiceProxy, StatesServiceProxy, SectorsServiceProxy } from '../../_services/service-proxies';
+import { SkillAreasServiceProxy, StatesServiceProxy, SectorsServiceProxy, EmployerTypesServiceProxy, ArtisanServiceProxy } from '../../_services/service-proxies';
 import { ComponentsModule } from 'app/components/components.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -17,10 +17,13 @@ import { TrainingComponent } from './training/training.component';
 import { CommonServiceProxy, CommunicationServiceProxy, EmployerServiceProxy, JobServiceProxy, ReportServiceProxy, SubscriptionsServiceProxy } from 'app/_services/service-proxies';
 import { AuthenticationService } from 'app/_services/authentication.service';
 import { JobdetailsComponent } from './jobdetails/jobdetails.component';
+import { ArtisansComponent } from './artisans/artisans.component';
+import { ArtisandetailsComponent } from './artisandetails/artisandetails.component';
+import { EmployerdetailsComponent } from './employerdetails/employerdetails.component';
 
 
 @NgModule({
-  declarations: [DashboardComponent, ServicesComponent, BlogsComponent, AboutComponent, JobboardsComponent, ScorecvComponent, PricingComponent, TrainingComponent, JobdetailsComponent],
+  declarations: [DashboardComponent, ServicesComponent, BlogsComponent, AboutComponent, JobboardsComponent, ScorecvComponent, PricingComponent, TrainingComponent, JobdetailsComponent, ArtisansComponent, ArtisandetailsComponent, EmployerdetailsComponent],
   imports: [
     CommonModule,
     ApplicantsRoutingModule,
@@ -46,6 +49,8 @@ import { JobdetailsComponent } from './jobdetails/jobdetails.component';
     SectorsServiceProxy,
     SubscriptionsServiceProxy,
     AlertserviceService,
+    EmployerTypesServiceProxy,
+    ArtisanServiceProxy
   ]
 })
 export class ApplicantsModule { }

@@ -23,6 +23,18 @@
   z-index: 1
 }
 
+.social {
+  border: 2px solid #6495ED;
+  cursor: pointer;
+  padding: 2px;
+}
+
+.socialIcon {
+  width: 40px;
+  height: 30px;
+  padding-right: 10px;
+}
+
 // nb-tabset {
 //   tabset-tab-active-background-color: #6495ED;
 //   tabset-tab-active-text-color: #ffffff;

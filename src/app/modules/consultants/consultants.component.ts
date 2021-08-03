@@ -1,12 +1,52 @@
 import { AccountServiceProxy, IDTextViewModel, ManageConsultantDTO, SectorsServiceProxy } from '../../_services/service-proxies';
 import { Component, OnInit } from '@angular/core';
+import { TableAction, TableActionEvent } from 'app/components/tablecomponent/models';
 
+enum TP  {
+  VIEW ='1',DELETE = '2'
+  }
 @Component({
   selector: 'ngx-consultants',
   templateUrl: './consultants.component.html',
   styleUrls: ['./consultants.component.scss']
 })
 export class ConsultantsComponent implements OnInit {
+
+  // tableActionClicked(event: TableActionEvent){
+  //   if(event.name==TP.VIEW){
+  //     this.showConsultant = true;
+  //     this.artisan.getArtisanById(event.data.id).subscribe(data => {
+  //       if(!data.hasError){
+  //         this.singleConsultant = data.value;
+  //       }
+  //     })
+  //     }
+
+      // else if(event.name==TP.DELETE){
+      // this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.CONFIRM, '','Yes').subscribe(dataAction => {
+      //   if(dataAction){
+      //     this.artisan(event.data.id).subscribe(data => {
+      //       if(!data.hasError){
+      //         this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'Successfully Deleted', 'Dismiss').subscribe(res => {
+      //           this.fetchAllJobs();
+      //           this.router.navigateByUrl('/');
+      //         })
+      //       }
+      //     })
+      //   }
+      // }, (error) => {
+
+      //   if (error.status == 400) {
+      //     this.alertMe.openCatchErrorModal(this.alertMe.ALERT_TYPES.FAILED, error.title, "OK", error.errors);
+      //   }
+      // })
+      //   }
+  // }
+
+  tableActions: TableAction [] = [
+    {name: TP.VIEW, label: 'View'},
+  // {name: TP.DELETE, label: 'Delete'},
+  ]
   myPlanHeader:string = "Nothing here";
   myPlanDesc: string = "You don't have any consultant yet";
   // emptyButton: string = 'Add Consultant';

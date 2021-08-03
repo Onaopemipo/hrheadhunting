@@ -1,7 +1,9 @@
-import { ReportServiceProxy, EmployerDTO, SkillAreasServiceProxy, SectorsServiceProxy, StatesServiceProxy } from '../../../_services/service-proxies';
+import { ArtisanDTO } from './../../../_services/service-proxies';
+import { ReportServiceProxy, EmployerDTO, SkillAreasServiceProxy, SectorsServiceProxy, StatesServiceProxy, ArtisanServiceProxy } from '../../../_services/service-proxies';
 import { Component, OnInit } from '@angular/core';
 import { IDTextViewModel, Job, JobServiceProxy } from 'app/_services/service-proxies';
 import { AuthenticationService } from 'app/_services/authentication.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 @Component({
@@ -15,7 +17,6 @@ export class JobboardsComponent implements OnInit {
   loggedInUser: any = [];
   myPlanHeader:string = "Nothing here";
   myPlanDesc: string = "No data available yet";
-
 
   jobFilter = {
     skillAreaId:0,
@@ -40,7 +41,8 @@ export class JobboardsComponent implements OnInit {
   skillData: IDTextViewModel [] = [];
   stateData: IDTextViewModel [] = [];
   sectorData: IDTextViewModel [] = [];
-
+  artisanCounter:number = 0;
+  artisanData: ArtisanDTO [] = []
 
   filter = {
     searchText: '',
@@ -59,10 +61,20 @@ searchFilter = {
     pageNo: 1
 }
 
+ artisanFilter = {
+    id: null,
+    searchText: '',
+    dateFrom: undefined,
+    dateTo: undefined,
+    pageSize: 10,
+    pageNo: 1
+  }
 
+  imagePath: any;
 
   constructor(private job: JobServiceProxy, private employer: ReportServiceProxy, private skill: SkillAreasServiceProxy,
-    private state: StatesServiceProxy, private sector: SectorsServiceProxy, public authenService: AuthenticationService,) { }
+    private state: StatesServiceProxy, private sector: SectorsServiceProxy, public authenService: AuthenticationService,
+    private artisan: ArtisanServiceProxy, private _sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
     // this.fetchAllEmployers();
@@ -73,6 +85,7 @@ searchFilter = {
     this.fetchAllEmployers();
     this.getMyUsers();
     this.authUser();
+    this.fetchAllArtisans();
   }
 
  async getMyUsers(){
@@ -83,6 +96,24 @@ searchFilter = {
       console.log('See your user status', this.loggedIn);
     }
 
+  }
+
+  // getImage(){
+  //   this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'
+  //                + toReturnImage.base64string);
+  // }
+
+  fetchAllArtisans(){
+    this.loading = true;
+    this.artisan.fetchAllArtisans(this.artisanFilter.searchText, this.artisanFilter.dateFrom,
+      this.artisanFilter.dateTo, this.artisanFilter.pageSize, this.artisanFilter.pageNo).subscribe(data => {
+        this.loading = false;
+      if(!data.hasError){
+        this.artisanData = data.value;
+        this.artisanCounter = data.totalCount;
+        console.log('see all artisans', this.artisanData)
+      }
+    })
   }
 
   async authUser(){

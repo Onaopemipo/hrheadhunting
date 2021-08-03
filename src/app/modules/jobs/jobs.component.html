@@ -35,7 +35,7 @@
 
       <nb-tab tabTitle="Awaiting Approval" [tabId]="TABS.awaitingApproval">
           <div *ngIf="awaitingJobsCounter < 1">
-            <ngx-default-content [pageHeader]="myHeader" [pageDescription]="myDescription" buttonValue={{emptyButton}} (buttonClick)="addBudgetItem()">
+            <ngx-default-content [pageHeader]="myHeader" [loading]='loading' [pageDescription]="myDescription" buttonValue={{emptyButton}}>
             </ngx-default-content>
             </div>
 
@@ -43,7 +43,6 @@
           <ngx-tablecomponent
           [tableColum]="scheduledJobsTable"
           (filterChange)="filterUpdated($event)"
-          [showActions]="false"
           [showFilter]="true"
           [userData]="tableData"
           [showActions]="true"
@@ -55,7 +54,7 @@
 
       <nb-tab tabTitle="Drafts" [tabId]="TABS.draftedJobs">
             <div *ngIf="draftCounter < 1">
-              <ngx-default-content [pageHeader]="myHeader" [pageDescription]="myDescription" [buttonValue]="myButton" (buttonClick)="addBudgetItem()">
+              <ngx-default-content [pageHeader]="myHeader" [pageDescription]="myDescription"  (buttonClick)="addBudgetItem()">
               </ngx-default-content>
               </div>
 

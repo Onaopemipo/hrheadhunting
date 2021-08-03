@@ -1,5 +1,7 @@
+import { EmployerdetailsComponent } from './employerdetails/employerdetails.component';
+import { ArtisandetailsComponent } from './artisandetails/artisandetails.component';
+import { ArtisansComponent } from './artisans/artisans.component';
 import { JobdetailsComponent } from './jobdetails/jobdetails.component';
-import { JobDetailsComponent } from './../job-details/job-details.component';
 import { TrainingComponent } from './training/training.component';
 import { ServicesComponent } from './services/services.component';
 import { PricingComponent } from './pricing/pricing.component';
@@ -35,8 +37,23 @@ const routes: Routes = [
       },
 
       {
-        path: 'details/:id',
+        path: 'applicants/artisans',
+        component: ArtisansComponent
+      },
+
+      {
+        path: 'applicants/details/:id',
         component: JobdetailsComponent
+      },
+
+      {
+        path: 'applicants/artisandetails/:id',
+        component: ArtisandetailsComponent
+      },
+
+      {
+        path: 'applicants/employerdetails/:id',
+        component: EmployerdetailsComponent
       },
 
       {

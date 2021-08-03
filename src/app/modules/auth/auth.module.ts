@@ -8,6 +8,7 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './login/login.component';
 import { ComponentsModule } from 'app/components/components.module';
 import { AuthComponent } from './auth.component';
+import { NbDateFnsDateModule } from '@nebular/date-fns';
 import {
   NbButtonModule,
   NbCardModule,
@@ -42,11 +43,11 @@ import { Angular4PaystackModule } from 'angular4-paystack';
     NbRadioModule,
     NbStepperModule,
     Angular4PaystackModule.forRoot(environment.paystackToken),
-    // NbDateFnsDateModule.forRoot({
-    //   parseOptions: { useAdditionalWeekYearTokens: true, useAdditionalDayOfYearTokens: true },
-    //   formatOptions: { useAdditionalWeekYearTokens: true, useAdditionalDayOfYearTokens: true },
-    //   getWeekOptions:{useAdditionalWeekYearTokens: true, useAdditionalDayOfYearTokens: true }
-    // })
+    NbDateFnsDateModule.forRoot({
+      parseOptions: { useAdditionalWeekYearTokens: true, useAdditionalDayOfYearTokens: true },
+      formatOptions: { useAdditionalWeekYearTokens: true, useAdditionalDayOfYearTokens: true },
+      getWeekOptions:{useAdditionalWeekYearTokens: true, useAdditionalDayOfYearTokens: true }
+    })
   ],
 
   providers: [

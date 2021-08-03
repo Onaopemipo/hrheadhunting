@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { ReportServiceProxy, EmployerDTO, SkillAreasServiceProxy, SectorsServiceProxy, StatesServiceProxy } from '../../../_services/service-proxies';
 import { Component, OnInit } from '@angular/core';
-import { IDTextViewModel, Job, JobServiceProxy } from 'app/_services/service-proxies';
+import { IDTextViewModel, Job, JobServiceProxy, EmployerServiceProxy, JobDTO } from 'app/_services/service-proxies';
 import { AuthenticationService } from 'app/_services/authentication.service';
 
 @Component({
@@ -29,7 +29,18 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  allJobs: Job []= [];
+  employerFilter = {
+    sectorId:0,
+    stateId:0,
+    isNewlyAdded: false,
+    isPopular: false,
+    searchText: '',
+    pageSize:10,
+    pageNumber:1
+
+  }
+
+  allJobs: JobDTO []= [];
   showMenu:boolean = false;
   btnProcessing:boolean = false;
   recruiterData: IDTextViewModel [] = [];
@@ -61,11 +72,10 @@ searchFilter = {
 
 
 
-  constructor(private job: JobServiceProxy, private employer: ReportServiceProxy, private skill: SkillAreasServiceProxy,
+  constructor(private job: JobServiceProxy, private employer: EmployerServiceProxy, private skill: SkillAreasServiceProxy,
     private state: StatesServiceProxy, private route: Router, private sector: SectorsServiceProxy, public authenService: AuthenticationService,) { }
 
   ngOnInit(): void {
-    // this.fetchAllEmployers();
     this.fetchAllJobs();
     this.fetchSectors();
     this.fetchSkillAreas();
@@ -78,6 +88,10 @@ searchFilter = {
   logOut(){
     this.authenService.clearusers();
     this.route.navigateByUrl('/auth/login')
+  }
+
+  resetFilter(){
+    this.employerFilter.searchText = '';
   }
 
  async getMyUsers(){
@@ -127,7 +141,7 @@ searchFilter = {
 
   fetchAllJobs(){
     this.loading = true;
-   this.job.fetchAllJobs(this.jobFilter.skillAreaId, this.jobFilter.sectorId,
+   this.job.fetchJobs(this.jobFilter.skillAreaId, this.jobFilter.sectorId,
     this.jobFilter.countryId, this.jobFilter.stateId, this.jobFilter.isNewlyAdded,
     this.jobFilter.isPopular,this.jobFilter.pageSize, this.jobFilter.pageNumber).subscribe(data => {
       this.loading = false;
@@ -159,12 +173,14 @@ searchFilter = {
   }
 
   fetchAllEmployers(){
-    this.employer.fetchAllEmployers(this.filter.searchText, this.filter.dateFrom,
-      this.filter.dateTo, this.filter.pageSize, this.filter.pageNo).subscribe(data => {
+    this.loading = true;
+    this.employer.fetchAllEmployers(this.employerFilter.sectorId,this.employerFilter.stateId, this.employerFilter.isNewlyAdded,
+      this.employerFilter.isPopular,this.employerFilter.searchText,this.employerFilter.pageSize, this.employerFilter.pageNumber).subscribe(data => {
+       this.loading = false;
         if(!data.hasError){
           this.employerData = data.value;
           this.employerCounter = data.totalCount;
-          console.log('My employers:',this.employerData)
+          console.log('My employers:',this.employerData);
         }
     })
   }

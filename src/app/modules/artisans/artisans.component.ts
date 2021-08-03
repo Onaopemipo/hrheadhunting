@@ -1,8 +1,12 @@
+import { TableColumn, ColumnTypes, TableActionEvent, TableAction } from 'app/components/tablecomponent/models';
 import { AlertserviceService } from 'app/_services/alertservice.service';
 // import { ArtisansModel } from './../../_models/artisans';
 import { ArtisanDTO, ArtisanServiceProxy, IDTextViewModel, StatesServiceProxy, ManageArtisanDTO } from '../../_services/service-proxies';
 import { Component, OnInit } from '@angular/core';
 
+enum TP  {
+  VIEW ='1',DELETE = '2'
+  }
 @Component({
   selector: 'ngx-artisans',
   templateUrl: './artisans.component.html',
@@ -12,6 +16,55 @@ import { Component, OnInit } from '@angular/core';
 export class ArtisansComponent implements OnInit {
 
 
+  artisansTable: TableColumn [] = [
+    {name: 'name', title: 'Full Name'},
+    {name: 'specialty', title: 'Specialty'},
+    // {name: 'email', title: 'Recruiter ID'},
+    {name: 'mobile', title: 'Phone'},
+    {name: 'location', title: 'Location'},
+    {name: 'yearOfExperience', title: 'Experience(years)'},
+    // {name: 'isActive', title: 'Job Status', type: ColumnTypes.Status},
+  ];
+
+  tableActionClicked(event: TableActionEvent){
+    if(event.name==TP.VIEW){
+      this.showArtisan = true;
+      this.artisan.getArtisanById(event.data.id).subscribe(data => {
+        if(!data.hasError){
+          this.singleArtisan = data.value;
+        }
+      })
+      }
+
+      // else if(event.name==TP.DELETE){
+      // this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.CONFIRM, '','Yes').subscribe(dataAction => {
+      //   if(dataAction){
+      //     this.artisan(event.data.id).subscribe(data => {
+      //       if(!data.hasError){
+      //         this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'Successfully Deleted', 'Dismiss').subscribe(res => {
+      //           this.fetchAllJobs();
+      //           this.router.navigateByUrl('/');
+      //         })
+      //       }
+      //     })
+      //   }
+      // }, (error) => {
+
+      //   if (error.status == 400) {
+      //     this.alertMe.openCatchErrorModal(this.alertMe.ALERT_TYPES.FAILED, error.title, "OK", error.errors);
+      //   }
+      // })
+      //   }
+  }
+
+  tableActions: TableAction [] = [
+    {name: TP.VIEW, label: 'View'},
+  // {name: TP.DELETE, label: 'Delete'},
+  ]
+
+  showArtisan: boolean = false;
+  loading: boolean = false;
+  singleArtisan: ArtisanDTO = new ArtisanDTO();
   artisanModel:ManageArtisanDTO = new ManageArtisanDTO();
   myPlanHeader:string = "Nothing here";
   myPlanDesc: string = "You don't have any artisan yet";
@@ -23,7 +76,7 @@ export class ArtisansComponent implements OnInit {
   // artisanModel: ArtisansModel = new ArtisansModel();
   artisanData: ArtisanDTO [] = [];
 
-  artisanFilter: {
+  artisanFilter = {
     id: null,
     searchText: '',
     dateFrom: undefined,
@@ -118,12 +171,20 @@ _handleReaderLoaded(readerEvt) {
   }
 
   fetchAllArtisans(){
+    this.loading = true;
     this.artisan.fetchAllArtisans(this.artisanFilter.searchText, this.artisanFilter.dateFrom,
       this.artisanFilter.dateTo, this.artisanFilter.pageSize, this.artisanFilter.pageNo).subscribe(data => {
+        this.loading = false;
       if(!data.hasError){
         this.artisanData = data.value;
+        this.artisanCounter = data.totalCount;
+        console.log('see all artisans', this.artisanData)
       }
     })
   }
+
+  // fetchSingleArtisan(){
+  //   this.artisan.getArtisanById(1).
+  // }
 
 }
