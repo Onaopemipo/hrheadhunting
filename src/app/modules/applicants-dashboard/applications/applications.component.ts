@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ApplicationsComponent implements OnInit {
 
+  applicationHeader:string = "Nothing here";
+  applicationDesc: string = "You don't have any application yet";
   constructor() { }
 
   ngOnInit(): void {

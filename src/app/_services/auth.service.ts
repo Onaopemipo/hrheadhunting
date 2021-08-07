@@ -72,6 +72,7 @@ export class AuthService {
       .signInWithPopup(provider)
       .then(res => {
         resolve(res.user);
+        console.log('Google', res.user)
       })
     }).catch((error) => {
       // Handle Errors here.
@@ -100,6 +101,7 @@ doTwitterLogin(){
       /** @type {firebase.auth.OAuthCredential} */
       var credential = result.credential;
       resolve(result.user);
+      console.log('Twitter', result.user)
       // This gives you a the Twitter OAuth 1.0 Access Token and Secret.
       // You can use these server side with your app's credentials to access the Twitter API.
       // var token = credential.accessToken;
@@ -129,6 +131,7 @@ doTwitterLogin(){
       .signInWithPopup(provider)
       .then(res => {
         resolve(res.user);
+        console.log('Facebook', res.user)
       }, err => {
         console.log(err);
         reject(err);

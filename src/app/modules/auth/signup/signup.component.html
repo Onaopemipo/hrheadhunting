@@ -25,7 +25,7 @@
 
 
       <div [class.consultant]="isConsultant" class="col-sm-3 signup-option shadow p-3 mb-5 bg-white rounded" style="margin: 2%; height: 200px; cursor: pointer;" (click)="selectedOption2()">
-            <img src="assets/images/Employer.png" style=" height: 50px; text-align: center;" alt="">
+            <img src="assets/images/consultant.jpg" style=" height: 50px; text-align: center;" alt="">
           <h6>Consultant</h6>
           <span>
             Advertise and search with HR Headhunting
@@ -508,7 +508,7 @@
 
                 <div class="col-md-5 form-group">
                  <div>
-                  <label for="" style="padding-top: 5px;">Working Experience</label>
+                  <label for="" style="padding-top: 5px;">Work Experience</label>
                   <input type="number" class="form-control" name="experience" #experience="ngModel" [(ngModel)]="jobSeeker.yearOfExperience" placeholder="Experience in Years" required>
                   <div *ngIf="experience.invalid && (experience.dirty || experience.touched)" class="error">
                     <div *ngIf="experience.errors.required">Years of experience is required</div>
@@ -666,13 +666,15 @@
               <div class="col-md-5 form-group">
                 <div>
                   <label for="">Upload your CV in PDF format, not more than 512Kb</label><br>
-                <ngx-file-upload></ngx-file-upload>
+                  <input type="file" class="form-control-file" name="resume" id="" (change)="handleCvFileSelect($event)">
+                <!-- <ngx-file-upload></ngx-file-upload> -->
                 </div>
 
                 <div style="padding: 10px;"></div>
                 <div>
                   <label for="">Upload your video resume in MP4 format, not more than 2MB</label><br>
-                <ngx-file-upload></ngx-file-upload>
+                  <input type="file" class="form-control-file" name="resume" id="" (change)="handleVideoFileSelect($event)">
+                <!-- <ngx-file-upload></ngx-file-upload> -->
                 </div>
                 <div style="padding: 10px;"></div>
                 <!-- <label for="">About yourself</label><br>
@@ -1000,7 +1002,7 @@
         <nb-card-body>
           <span style="text-align: justify;">
             Will you like to take our psychometric test? Employers will
-            have access to see your score. The test subscription costs N20,000.00 monthly.
+            have access to see your score. The test subscription costs N20,000.00 one-off.
           </span>
         </nb-card-body>
 
@@ -1026,28 +1028,28 @@
 <ngx-side-modal [(show)]="servicePayment" [position]="'Center'">
   <div modal-header>Payment Method</div>
   <div modal-body>
-    <div class="row">
-      <div class="col-sm-12">
-        <p>Dear Employer, you have selected a plan of {{ planAmount }}</p>
-        <button  angular4-paystack
-        [email]="employer.email"
-        [amount]="planAmount * 100"
-        [ref]="reference"
-        (paymentInit)="paymentInit()"
-        (close)="paymentCancel()"
-        (callback)="paymentDone($event)"
-        [channels]="['bank','card'] "
-        style="width: 144px;" type="submit" nbButton status="primary">
-        <span style="color: #fff;">Pay Now</span>
-        <!-- <span *ngIf="paymentLoading" style="color: #fff;"><i class="fa fa-spin fa-spinner"></i> Loading...</span> -->
-      </button>
-      <button nbButton outline status="primary" (click)="cancelPay()" style="margin-left: 20px;">Cancel</button>
-
-
-
-
-      </div>
-    </div>
+    <nb-card>
+      <nb-card-body>
+        <!-- <div class="row">
+          <div class="col-sm-12"> -->
+            <p>Dear Employer, you have selected a plan of {{ planAmount }}</p>
+            <button  angular4-paystack
+            [email]="employer.email"
+            [amount]="planAmount * 100"
+            [ref]="reference"
+            (paymentInit)="paymentInit()"
+            (close)="paymentCancel()"
+            (callback)="paymentDone($event)"
+            [channels]="['bank','card'] "
+            style="width: 144px;" type="submit" nbButton status="primary">
+            <span style="color: #fff;">Pay Now</span>
+            <!-- <span *ngIf="paymentLoading" style="color: #fff;"><i class="fa fa-spin fa-spinner"></i> Loading...</span> -->
+          </button>
+          <button nbButton outline status="primary" (click)="cancelPay()" style="margin-left: 20px;">Cancel</button>
+          <!-- </div>
+        </div> -->
+      </nb-card-body>
+    </nb-card>
  <!-- <nb-card>
         <nb-card-body>
               <nb-radio-group name="MultiOption" >
@@ -1095,3 +1097,40 @@
 
   </div>
 </div> -->
+<ngx-side-modal [(show)]="emailPrompt" style="width: 600px;">
+  <div modal-header>Update Profile</div>
+  <div modal-body>
+    <nb-card>
+      <nb-card-body>
+        <form>
+          <div class="form-group row" style="padding: 15px;">
+            <label for="Department" >Email</label>
+              <input type="email" class="form-control" name="email" #email="ngModel" [(ngModel)]="socialLogin.email" required>
+              <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error">
+                <div *ngIf="email.errors.required">Email is required</div>
+              </div>
+          </div>
+
+        <div class="form-group row">
+         <div class="col">
+          <label class="label">Password</label>
+          <div style="display: flex;border: 0.800000011920929px solid #CED4DA;border-radius: 3px;background-color: #f7f9fc;">
+            <input [type]="show ? 'text' : 'password'" nbInput fullWidth placeholder="Password" name="password" #password="ngModel" [(ngModel)]="socialLogin.password" required style="border: none;">
+            <nb-icon  (click)="viewpassword()" *ngIf="!show"  icon="eye-off-outline" style="font-size: 32px;color: #95A8B8;cursor: pointer;"></nb-icon>
+            <nb-icon  (click)="viewpassword()" *ngIf="show"  icon="eye-outline" style="font-size: 32px;color: #95A8B8;cursor: pointer;"></nb-icon>
+          </div>
+         </div>
+        </div>
+
+          <div class="form-group row" style="padding: 15px;">
+            <label for="specialization" style="font-weight: bold;"></label>
+              <button nbButton status="primary" (click)="addSocialEmail()" style="float: right;">Update Profile</button>
+              <!-- <button *ngIf="btnProcessing" nbButton status="primary">Now Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button> -->
+              <span style="padding: 8px;"></span>
+          </div>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+
+</ngx-side-modal>

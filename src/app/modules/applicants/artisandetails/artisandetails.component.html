@@ -85,59 +85,27 @@
                 <img src="assets/images/jobs.png" style="width:5rem;">
               </div>
               <div class="col-sm-12 col-md-8 col-lg-8">
-                  <span style="font-weight: 600; padding-right:5px;"></span><br>
-                  <div style="padding-top: 5px;"></div>
-                  <span></span><br>
-                  <span></span><br>
-                  <span>Location</span><br>
+                  <span style="font-weight: 600; padding-bottom: 20px; margin-right: 5px;">Name: </span>{{singleArtisan.name}}<br>
+                  <span style="font-weight: 600; padding-bottom: 20px; margin-right: 5px;">Location: </span>{{singleArtisan.location}}<br>
+                  <span style="font-weight: 600; padding-bottom: 20px; margin-right: 5px;">Specialty: </span>{{singleArtisan.specialty}}<br>
+                  <span style="font-weight: 600; padding-bottom: 20px; margin-right: 5px;">Mobile: </span>{{singleArtisan.mobile}}<br>
+                  <span style="font-weight: 600; padding-bottom: 20px; margin-right: 5px;">Experience: </span>{{singleArtisan.yearOfExperience}}<br>
+                  <div class="row" style="padding-top: 10px;">
+                    <div class="col">
+                     <span style="font-weight: 700; padding-bottom: 20px;">Description</span><br><div style="padding:5px"></div>
+                     <span style="text-align: justify; line-height: 1.6;">{{singleArtisan.description}}</span>
+                    </div>
+                   </div>
+                   <div class="row">
+                    <div class="col">
+                      <button *ngIf="!btnProcessing" type="button" class="btn btn-primary" [disabled]="!flag ? 'disabled': null" nbButton status="primary">Rate Now</button>
+                      <button *ngIf="btnProcessing" nbButton status="primary">Now Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button>
+                    </div>
+                   </div>
               </div>
             </div>
 
-          <div class="row">
-          <div class="col-sm-12 col-md-6 col-lg-6" style="display: flex; flex-direction: row; justify-content: space-between; padding: 20px;">
-            <div style="padding:5px"></div>
-            <i class="fas fa-share-alt"></i>
-            <i class="fab fa-linkedin-in"></i>
-            <i class="fab fa-twitter"></i>
-            <i class="fas fa-link"></i>
-         </div>
-            <div class="col-sm-6"></div>
-          </div>
 
-          <div class="row" style="padding-top: 10px;">
-           <div class="col">
-            <span style="font-weight: 700; padding-bottom: 20px;">Job Description</span><br><div style="padding:5px"></div>
-            <span style="text-align: justify; line-height: 1.6;"></span>
-           </div>
-          </div>
-
-          <div class="row" style="padding-top: 10px;">
-            <div class="col">
-             <div>
-              <span><i class="fa fa-check-circle" aria-hidden="true" style="padding-right: 5px; line-height: 1.6;"></i></span><br>
-              <!-- <span><i class="fa fa-check-circle" aria-hidden="true" style="padding-right: 5px; line-height: 1.6;"></i>Proven work experience as a UI/UX Designer or similar role</span><br>
-              <span><i class="fa fa-check-circle" aria-hidden="true" style="padding-right: 5px; line-height: 1.6;"></i>Proven work experience as a UI/UX Designer or similar role</span><br>
-              <span><i class="fa fa-check-circle" aria-hidden="true" style="padding-right: 5px; line-height: 1.6;"></i>Proven work experience as a UI/UX Designer or similar role</span><br>
-               <span><i class="fa fa-check-circle" aria-hidden="true" style="padding-right: 5px; line-height: 1.6;"></i>Proven work experience as a UI/UX Designer or similar role</span><br>
-               <span><i class="fa fa-check-circle" aria-hidden="true" style="padding-right: 5px; line-height: 1.6;"></i>Proven work experience as a UI/UX Designer or similar role</span><br> -->
-             </div>
-            </div>
-           </div>
-
-           <div class="row" style="padding-top: 10px;">
-            <div class="col">
-             <span style="font-weight: 700; padding-bottom: 20px;">About Artisan</span><br><div style="padding:5px"></div>
-             <span style="text-align: justify; line-height: 1.6;">We are Nigeria top job portal, that makes the recruiting process seamless for recruiters and job seekers alike.
-              Job seekers can upload their video resumes and rate their resumes using Ai  to get the best positions. </span>
-            </div>
-           </div>
-
-           <div class="row" style="padding-top: 10px;">
-            <div class="col">
-              <button *ngIf="!btnProcessing" type="button" class="btn btn-primary" [disabled]="!flag ? 'disabled': null" nbButton status="primary">Apply Now</button>
-              <button *ngIf="btnProcessing" nbButton status="primary">Now Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button>
-            </div>
-           </div>
 
         </nb-card-body>
       </nb-card>

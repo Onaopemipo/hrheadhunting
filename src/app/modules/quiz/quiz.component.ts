@@ -29,7 +29,7 @@ export class QuizComponent implements OnInit {
     { id: 1, label: 'B', value: 'False'},
 ];
 
-  pagetitle: string = 'Quiz';
+  pagetitle: string = 'Test';
   allQuizTypes: IDTextViewModel [] = [];
   allQuestionTypes: IDTextViewModel [] = [];
   allQuizes: QuizDTO [] = [];
@@ -89,7 +89,7 @@ export class QuizComponent implements OnInit {
   // }
 
   toggleNewQuiz(){
-    this.router.navigateByUrl('/newquiz');
+    this.router.navigateByUrl('modules/newquiz');
   }
 
   async fetchQuizTypes(){

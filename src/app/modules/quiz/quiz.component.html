@@ -2,7 +2,7 @@
 <div *ngIf="quizCounter < 1" style="background-color: #ffffff;">
   <nb-card>
     <nb-card-body>
-        <ngx-default-content pageHeader={{myPlanHeader}} pageDescription="{{myPlanDesc}}" [loading]="loading" buttonValue={{emptyButton}} (buttonClick)="toggleArtisan()"></ngx-default-content>
+        <ngx-default-content pageHeader={{myPlanHeader}} pageDescription="{{myPlanDesc}}" [loading]="loading" buttonValue={{emptyButton}}></ngx-default-content>
     </nb-card-body>
   </nb-card>
 </div>
@@ -31,7 +31,7 @@
 
 
 <ngx-side-modal [(show)]="updateQuiz">
-  <div modal-header>Update Quiz</div>
+  <div modal-header>Update Test</div>
   <div modal-body>
   <nb-card>
         <nb-card-body>

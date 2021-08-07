@@ -1,0 +1,46 @@
+[debug] [2021-08-05T07:28:15.380Z] ----------------------------------------------------------------------
+[debug] [2021-08-05T07:28:15.389Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\phili\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2021-08-05T07:28:15.390Z] CLI Version:   9.16.0
+[debug] [2021-08-05T07:28:15.391Z] Platform:      win32
+[debug] [2021-08-05T07:28:15.391Z] Node Version:  v14.16.0
+[debug] [2021-08-05T07:28:15.395Z] Time:          Thu Aug 05 2021 08:28:15 GMT+0100 (West Africa Standard Time)
+[debug] [2021-08-05T07:28:15.395Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2021-08-05T07:28:15.416Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2021-08-05T07:28:15.525Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-08-05T07:28:15.526Z] > authorizing via signed-in user (philipmuyiwa@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\phili\source\repos\RecruitmentAppV2
+
+[debug] [2021-08-05T07:52:14.352Z] ----------------------------------------------------------------------
+[debug] [2021-08-05T07:52:14.354Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\phili\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2021-08-05T07:52:14.354Z] CLI Version:   9.16.0
+[debug] [2021-08-05T07:52:14.354Z] Platform:      win32
+[debug] [2021-08-05T07:52:14.354Z] Node Version:  v14.16.0
+[debug] [2021-08-05T07:52:14.355Z] Time:          Thu Aug 05 2021 08:52:14 GMT+0100 (West Africa Standard Time)
+[debug] [2021-08-05T07:52:14.355Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2021-08-05T07:52:14.358Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2021-08-05T07:52:14.376Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-08-05T07:52:14.376Z] > authorizing via signed-in user (philipmuyiwa@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\phili\source\repos\RecruitmentAppV2
+
+[debug] [2021-08-05T07:52:15.399Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2021-08-05T07:52:15.400Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}

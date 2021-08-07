@@ -32,8 +32,9 @@ export class ArtisansComponent implements OnInit {
   }
 
   artisanDetails(id:number){
-    this.route.navigateByUrl('/artisandetails' + id)
+    this.route.navigate(['/applicants/artisandetails', id])
     // alert(id)
+    // [routerLink]="['/applicants/employerdetails', employer.id]"
   }
 
   fetchAllArtisans(){

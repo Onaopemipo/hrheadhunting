@@ -1,29 +1,44 @@
 
-<div class="limiter" style="font-family: Rubik !important; margin: 0 10%;">
-<div style="margin-left: 13%;">
+<div class="limiter"  style="font-family: Rubik !important; margin: 0 10%;">
+<div >
     <img src="assets/images/Logo.png" [routerLink]="['/']"  alt="" style="width: 150px; cursor: pointer; height: 150px;">
   </div>
-  <div class="container-login" >
-    <div class="col-sm-8 col-md-6 col-lg-4" style="background-color: #6495ED; height: 600px; padding: 30px;">
+  <div class="container-login" style="border-radius: 4px;">
+    <div class="col-sm-8 col-md-6 col-lg-4 imageDiv" style="background-color: #6495ED; height: 550px; padding: 30px;">
       <img src="assets/images/login.png" alt="" class="img-central">
     </div>
-    <div class="col-sm-8 col-md-6 col-lg-4" style="background-color: #ffffff; padding: 10px; height: 600px; padding: 40px;">
+    <div class="col-sm-8 col-md-6 col-lg-4 mainDiv" style="background-color: #ffffff; padding: 10px; height: 550px; padding: 40px;">
       <span style="color: #2E384D; font-size: 20px; font-weight: 500; margin-bottom: 20px 0;">
         Log In
-      </span>
+      </span><br>
 
-      <!-- <p style="color: #2E384D; font-size: 15px; font-weight: 500; margin-bottom: 20px 0;">
-        Sign In using social
-      </p> -->
-      <div class="form-row" style="display: flex; flex-direction: row; justify-content:space-between; margin-top: 20px;">
+      <!-- <div class="container" > -->
+        <div style="padding: 5px;"></div>
+        <span style="color: #2E384D; font-size: 14px; margin: 10px 0px;">
+          Log in using social
+        </span>
+        <div class="row" style="display: flex; flex-direction: row; justify-content:flex-start; margin: 10px 3px 15px 0px;">
+          <img src="assets/icons/linkedin.png" (click)="doLinkedIn()" class="socialIcon " alt="">
+          <img src="assets/icons/google.png" (click)="doGoogle()" class="socialIcon" alt="">
+          <img src="assets/icons/twitter.png" (click)="doTwitter()" class="socialIcon " alt="">
+          <img src="assets/icons/facebook.png" (click)="doFacebook()" class="socialIcon" alt="">
+        </div>
+      <!-- </div> -->
+        <!-- <div style="display: flex; flex-direction: row; align-items: center; margin-top: 20px;">
+          <span style="background-color: #6495ED; color: #ffffff; padding: 5px; border-radius: 50%;">OR</span>
+        </div> -->
+      <!-- </div> -->
+      <!-- <div class="form-row" style="display: flex; flex-direction: row; justify-content:space-between; margin-top: 20px;">
           <div class="col-md-5 form-group" style="margin-bottom: 10px;">
             <div class="social" (click)="doLinkedIn()">
+              <img src="assets/icons/linkedin.png" class="socialIcon " alt="">
               <i class="fab fa-linkedin" aria-hidden="true" (click)="doLinkedIn()" class="socialIcons"></i>
               <span>LinkedIn</span>
             </div>
             <div style="padding: 10px;"></div>
 
             <div type="button" class="social" (click)="doFacebook()">
+              <img src="assets/icons/facebook.png" class="socialIcon" alt="">
               <i class="fab fa-facebook-square" aria-hidden="true" (click)="doFacebook()" class="socialIcons"></i>
               <span>Facebook</span>
             </div>
@@ -33,22 +48,19 @@
 
           <div class="col-md-5 form-group">
               <div class="social" (click)="doGoogle()">
+                <img src="assets/icons/google.png" class="socialIcon" alt="">
                 <i class="fab fa-google" aria-hidden="true" (click)="doGoogle()" class="socialIcons"></i>
                 <span>Google</span>
               </div>
               <div style="padding: 10px;"></div>
               <div class="social" (click)="doTwitter()">
+                <img src="assets/icons/twitter.png" class="socialIcon " alt="">
                 <i class="fab fa-twitter" aria-hidden="true"  class="socialIcons"></i>
-                <i class="fa-google" aria-hidden="true" class="socialIcons"></i>
                 <span>Twitter</span>
               </div>
 
           </div>
-      </div>
-
-      <div style="display: flex; flex-direction: row; align-items: center;">
-        <span style="background-color: #6495ED; color: #ffffff; padding: 5px; border-radius: 50%; margin: 0 auto;">OR</span>
-      </div>
+      </div> -->
 
       <form name="loginForm" id="loginForm" #loginForm="ngForm" style="color: #71727B;">
         <div class="form-group row">
@@ -79,3 +91,41 @@
     </div>
   </div>
 </div>
+
+<ngx-side-modal [(show)]="emailPrompt" style="width: 600px;">
+  <div modal-header>Update Profile</div>
+  <div modal-body>
+    <nb-card>
+      <nb-card-body>
+        <form>
+          <div class="form-group row" style="padding: 15px;">
+            <label for="Department" >Email</label>
+              <input type="email" class="form-control" name="email" #email="ngModel" [(ngModel)]="socialLogin.email" required>
+              <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error">
+                <div *ngIf="email.errors.required">Email is required</div>
+              </div>
+          </div>
+
+        <div class="form-group row">
+         <div class="col">
+          <label class="label">Password</label>
+          <div style="display: flex;border: 0.800000011920929px solid #CED4DA;border-radius: 3px;background-color: #f7f9fc;">
+            <input [type]="show ? 'text' : 'password'" nbInput fullWidth placeholder="Password" name="password" #password="ngModel" [(ngModel)]="socialLogin.password" required style="border: none;">
+            <nb-icon  (click)="viewpassword()" *ngIf="!show"  icon="eye-off-outline" style="font-size: 32px;color: #95A8B8;cursor: pointer;"></nb-icon>
+            <nb-icon  (click)="viewpassword()" *ngIf="show"  icon="eye-outline" style="font-size: 32px;color: #95A8B8;cursor: pointer;"></nb-icon>
+          </div>
+         </div>
+        </div>
+
+          <div class="form-group row" style="padding: 15px;">
+            <label for="specialization" style="font-weight: bold;"></label>
+              <button *ngIf="!btnProcessing" nbButton status="primary" (click)="addSocialEmail()" style="float: right;">Update Profile</button>
+              <button *ngIf="btnProcessing" nbButton status="primary">Now Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button>
+              <span style="padding: 8px;"></span>
+          </div>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+
+</ngx-side-modal>

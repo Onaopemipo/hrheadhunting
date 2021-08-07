@@ -22,7 +22,7 @@ export class AccountServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruitmentapi.azurewebsites.net";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
     }
 
     /**
@@ -568,7 +568,7 @@ export class ActivityLogServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruitmentapi.azurewebsites.net";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
     }
 
     /**
@@ -672,7 +672,7 @@ export class ApplicationsServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruitmentapi.azurewebsites.net";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
     }
 
     /**
@@ -1133,7 +1133,7 @@ export class ArtisanServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruitmentapi.azurewebsites.net";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
     }
 
     /**
@@ -1382,6 +1382,83 @@ export class ArtisanServiceProxy {
     }
 
     /**
+     * API to post Artisan review by the different Reviewer from the Public side
+     * @param body (optional) 
+     * @return Success
+     */
+    postArtisanReview(body: ReviewArtisanDTO | undefined): Observable<MessageOutApiResult> {
+        let url_ = this.baseUrl + "/api/Artisan/PostArtisanReview";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processPostArtisanReview(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processPostArtisanReview(<any>response_);
+                } catch (e) {
+                    return <Observable<MessageOutApiResult>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<MessageOutApiResult>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processPostArtisanReview(response: HttpResponseBase): Observable<MessageOutApiResult> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = MessageOutApiResult.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData400) {
+                result400 = {} as any;
+                for (let key in resultData400) {
+                    if (resultData400.hasOwnProperty(key))
+                        (<any>result400)![key] = resultData400[key];
+                }
+            }
+            else {
+                result400 = <any>null;
+            }
+            return throwException("Bad Request", status, _responseText, _headers, result400);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Server Error", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null);
+    }
+
+    /**
      * @param id (optional) 
      * @return Success
      */
@@ -1442,7 +1519,7 @@ export class CertificationServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruitmentapi.azurewebsites.net";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
     }
 
     /**
@@ -1696,7 +1773,7 @@ export class CommonServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruitmentapi.azurewebsites.net";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
     }
 
     /**
@@ -2071,7 +2148,7 @@ export class CommunicationServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruitmentapi.azurewebsites.net";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
     }
 
     /**
@@ -2773,7 +2850,7 @@ export class ConsultantServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruitmentapi.azurewebsites.net";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
     }
 
     /**
@@ -2862,7 +2939,7 @@ export class CountriesServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruitmentapi.azurewebsites.net";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
     }
 
     /**
@@ -3143,7 +3220,7 @@ export class CourseServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruitmentapi.azurewebsites.net";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
     }
 
     /**
@@ -3424,7 +3501,7 @@ export class CurrenciesServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruitmentapi.azurewebsites.net";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
     }
 
     /**
@@ -3705,7 +3782,7 @@ export class DashboardServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruitmentapi.azurewebsites.net";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
     }
 
     /**
@@ -3794,7 +3871,7 @@ export class EmployerServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruitmentapi.azurewebsites.net";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
     }
 
     /**
@@ -3988,7 +4065,7 @@ export class EmployerTypesServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruitmentapi.azurewebsites.net";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
     }
 
     /**
@@ -4269,7 +4346,7 @@ export class GradesServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruitmentapi.azurewebsites.net";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
     }
 
     /**
@@ -4550,7 +4627,7 @@ export class InstitutionServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruitmentapi.azurewebsites.net";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
     }
 
     /**
@@ -4831,7 +4908,7 @@ export class JobServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruitmentapi.azurewebsites.net";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
     }
 
     /**
@@ -5370,7 +5447,7 @@ export class JobTypesServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruitmentapi.azurewebsites.net";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
     }
 
     /**
@@ -5651,7 +5728,7 @@ export class PaymentServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruitmentapi.azurewebsites.net";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
     }
 
     /**
@@ -5819,7 +5896,7 @@ export class ProfessionalBodyServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruitmentapi.azurewebsites.net";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
     }
 
     /**
@@ -6073,7 +6150,7 @@ export class QualificationServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruitmentapi.azurewebsites.net";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
     }
 
     /**
@@ -6354,7 +6431,7 @@ export class QuizServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruitmentapi.azurewebsites.net";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
     }
 
     /**
@@ -6815,7 +6892,7 @@ export class ReportServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruitmentapi.azurewebsites.net";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
     }
 
     /**
@@ -6918,7 +6995,7 @@ export class RoleServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruitmentapi.azurewebsites.net";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
     }
 
     /**
@@ -7080,7 +7157,7 @@ export class RolePermissionServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruitmentapi.azurewebsites.net";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
     }
 
     /**
@@ -7315,7 +7392,7 @@ export class SectorsServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruitmentapi.azurewebsites.net";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
     }
 
     /**
@@ -7596,7 +7673,7 @@ export class SkillServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruitmentapi.azurewebsites.net";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
     }
 
     /**
@@ -7850,7 +7927,7 @@ export class SkillAreasServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruitmentapi.azurewebsites.net";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
     }
 
     /**
@@ -8131,7 +8208,7 @@ export class StatesServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruitmentapi.azurewebsites.net";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
     }
 
     /**
@@ -8489,7 +8566,7 @@ export class SubscriptionsServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruitmentapi.azurewebsites.net";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
     }
 
     /**
@@ -8914,7 +8991,7 @@ export class TitlesServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruitmentapi.azurewebsites.net";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
     }
 
     /**
@@ -9195,7 +9272,7 @@ export class UserManagementServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruitmentapi.azurewebsites.net";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
     }
 
     /**
@@ -11941,6 +12018,61 @@ export interface IArtisanDTOOdataResult {
     message: string | undefined;
     value: ArtisanDTO;
     totalCount: number;
+}
+
+export class ReviewArtisanDTO implements IReviewArtisanDTO {
+    id!: number;
+    name!: string;
+    rating!: number;
+    review!: string;
+
+    constructor(data?: IReviewArtisanDTO) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"];
+            this.rating = _data["rating"];
+            this.review = _data["review"];
+        }
+    }
+
+    static fromJS(data: any): ReviewArtisanDTO {
+        data = typeof data === 'object' ? data : {};
+        let result = new ReviewArtisanDTO();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["rating"] = this.rating;
+        data["review"] = this.review;
+        return data; 
+    }
+
+    clone(): ReviewArtisanDTO {
+        const json = this.toJSON();
+        let result = new ReviewArtisanDTO();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IReviewArtisanDTO {
+    id: number;
+    name: string;
+    rating: number;
+    review: string;
 }
 
 export class ManageCertificationDTO implements IManageCertificationDTO {

@@ -5,7 +5,7 @@
     <div style="flex: auto" (click)="closeModal()"></div>
     <!-- <div > -->
         <div style="background-color: white;overflow: scroll;"  class="modal-p" [class]="{center: center}" #host >
-            <div style="height: 75px;" class="header-space" *ngIf='!isPage'></div>
+            <div class="header-space" *ngIf='!isPage'></div>
             <div class="header" *ngIf="!isPage">
                 <span>{{title}}</span>
                 <ng-content select='[modal-header]' *ngIf="!title">

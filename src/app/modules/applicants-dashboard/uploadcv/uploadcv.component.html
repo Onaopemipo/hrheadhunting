@@ -1,0 +1,22 @@
+<ngx-componentsheader pageName='CV Upload'></ngx-componentsheader>
+
+<div class="container" style="background-color: #ffffff;">
+  <nb-card>
+    <form action="">
+      <div class="row">
+        <div class="col-sm-8 col-md-6 col-lg-6">
+          <label for="Descripion">Upload your CV in PDF format, not more than 512Kb</label>
+          <input type="file" class="form-control-file" name="resume" id="" (change)="handleFileSelect($event)">
+           <!-- <ngx-file-upload class="form-control" style="border: none;"></ngx-file-upload>    -->
+        </div>
+
+        <div class="col-sm-8 col-md-6 col-lg-6">
+          <label style="font-weight: bold;"></label>
+            <button *ngIf="!btnProcessing" nbButton status="primary" (click)="uploadCV()">Upload</button>
+            <button *ngIf="btnProcessing" nbButton status="primary">Now Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button>
+            <span style="padding: 8px;"></span>
+        </div>
+      </div>
+    </form>
+  </nb-card>
+</div>

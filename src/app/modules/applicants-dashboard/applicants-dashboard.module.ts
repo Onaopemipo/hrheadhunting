@@ -1,6 +1,6 @@
 import { NgxEchartsModule } from 'ngx-echarts';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { JobServiceProxy, SectorsServiceProxy, SkillAreasServiceProxy, StatesServiceProxy } from 'app/_services/service-proxies';
+import { AccountServiceProxy, JobServiceProxy, SectorsServiceProxy, SkillAreasServiceProxy, StatesServiceProxy } from 'app/_services/service-proxies';
 import { ThemeModule } from 'app/@theme/theme.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -12,10 +12,13 @@ import { NbLayoutModule, NbCardModule, NbIconModule, NbSelectModule, NbCheckboxM
 import { ApplicationsComponent } from './applications/applications.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
+import { UploadcvComponent } from './uploadcv/uploadcv.component';
+import { PasswordComponent } from './password/password.component';
+import { AlertserviceService } from 'app/_services/alertservice.service';
 
 
 @NgModule({
-  declarations: [ApplicationsComponent, DashboardComponent, ProfileComponent],
+  declarations: [ApplicationsComponent, DashboardComponent, ProfileComponent, UploadcvComponent, PasswordComponent],
   imports: [
     CommonModule,
     ApplicantsDashboardRoutingModule,
@@ -36,6 +39,8 @@ import { ProfileComponent } from './profile/profile.component';
     SectorsServiceProxy,
     SkillAreasServiceProxy,
     StatesServiceProxy,
+    AccountServiceProxy,
+    AlertserviceService
   ]
 })
 export class ApplicantsDashboardModule { }

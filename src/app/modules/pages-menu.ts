@@ -5,49 +5,55 @@ export const MENU_ITEMS: NbMenuItem[] = [
 
   {
     title: 'Dashboard',
-    icon: '/assets/icons/home.jpg',
+    icon: '/assets/icons/home.png',
     link: '/modules',
   },
 
   {
     title: 'Jobs',
-    icon: '/assets/icons/EmployeeManagement.jpg',
+    icon: '/assets/icons/job.png',
     link: '/modules/jobs',
   },
 
   {
     title: 'Applicants',
-    icon: '/assets/icons/EmployeeManagement.jpg',
+    icon: '/assets/icons/user.png',
     link: '/modules/selection',
   },
 
   {
     title: 'Psychometric',
-    icon: '/assets/icons/EmployeeManagement.jpg',
+    icon: '/assets/icons/test.png',
     link: '/modules/quiz',
   },
 
   {
     title: 'Artisans',
-    icon: '/assets/icons/Manpower.jpg',
+    icon: '/assets/icons/carpenter.png',
     link: '/modules/artisans',
   },
 
   {
     title: 'Consultants',
-    icon: '/assets/icons/Training.jpg',
+    icon: '/assets/icons/consultant.png',
     link: '/modules/consultants',
   },
 
   {
+    title: 'Training',
+    icon: '/assets/icons/consultant.png',
+    link: '/modules/training',
+  },
+
+  {
     title: 'Report',
-    icon: '/assets/icons/settings.jpg',
+    icon: '/assets/icons/report.png',
     link: '/modules/report',
   },
 
   {
     title: 'Settings',
-    icon: '/assets/icons/EmployeeManagement.jpg',
+    icon: '/assets/icons/settings.png',
     link: '/modules/settings',
   },
 
@@ -57,37 +63,37 @@ export const EMP_MENU_ITEMS: NbMenuItem[] = [
 
   {
     title: 'Dashboard',
-    icon: '/assets/icons/home.jpg',
+    icon: '/assets/icons/home.png',
     link: '/modules/dashboard',
   },
 
   {
     title: 'Jobs',
-    icon: '/assets/icons/EmployeeManagement.jpg',
+    icon: '/assets/icons/job.png',
     link: '/modules/jobs',
   },
 
   {
     title: 'Applicants',
-    icon: '/assets/icons/EmployeeManagement.jpg',
+    icon: '/assets/icons/user.png',
     link: '/modules/selection',
   },
 
   {
     title: 'Psychometric',
-    icon: '/assets/icons/EmployeeManagement.jpg',
+    icon: '/assets/icons/test.png',
     link: '/modules/quiz',
   },
 
   {
-    title: 'Report',
-    icon: '/assets/icons/settings.jpg',
-    link: '/modules/report',
+    title: 'Training',
+    icon: '/assets/icons/consultant.png',
+    link: '/modules/training',
   },
 
   {
     title: 'Settings',
-    icon: '/assets/icons/EmployeeManagement.jpg',
+    icon: '/assets/icons/settings.png',
     link: '/modules/settings',
   },
 
@@ -97,26 +103,26 @@ export const CLIENT_MENU_ITEMS: NbMenuItem[] = [
 
   {
     title: 'Dashboard',
-    icon: '/assets/icons/home.jpg',
-    link: '/dashboard',
+    icon: '/assets/icons/home.png',
+    link: 'appdash/',
   },
 
   {
     title: 'Job Applications',
-    icon: '/assets/icons/EmployeeManagement.jpg',
-    link: '/jobs',
+    icon: '/assets/icons/job.png',
+    link: '/appdash/applications',
   },
 
-  {
-    title: 'Upload CV',
-    icon: '/assets/icons/EmployeeManagement.jpg',
-    link: '/selection',
-  },
+  // {
+  //   title: 'Upload CV',
+  //   icon: '/assets/icons/cvrewrite.png',
+  //   link: '/appdash/uploadcv',
+  // },
 
   {
-    title: '  Account Settings',
-    icon: '/assets/icons/EmployeeManagement.jpg',
-    link: '/quiz',
+    title: 'Change Password',
+    icon: '/assets/icons/settings.png',
+    link: '/appdash/password',
   },
 
 ];

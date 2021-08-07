@@ -6,6 +6,7 @@ import { EmployerDashboardRoutingModule } from './employer-dashboard-routing.mod
 import { ComponentsModule } from 'app/components/components.module';
 import { NbLayoutModule } from '@nebular/theme';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardData, DashboardServiceProxy } from 'app/_services/service-proxies';
 
 
 @NgModule({
@@ -16,6 +17,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     ComponentsModule,
     ThemeModule,
     NbLayoutModule,
+  ],
+
+  providers: [
+    DashboardServiceProxy,
   ]
 })
 export class EmployerDashboardModule { }

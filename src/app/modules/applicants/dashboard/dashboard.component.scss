@@ -224,3 +224,19 @@ li {
     display: block;
   }
 }
+
+
+  @media (min-width: 576px) {
+    // .limiter {
+    //   background-image: url('/assets/images/login.jpg');
+    //   height: 50%;
+    //   width: 50%;
+    // }
+    .imageDiv {
+      display: none;
+      // z-index: -1;
+    }
+    .mainDiv {
+      display: block;
+    }
+   }

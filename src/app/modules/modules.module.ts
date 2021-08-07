@@ -1,3 +1,4 @@
+import { ConsultantServiceProxy } from './../_services/service-proxies';
 import { AlertserviceService } from 'app/_services/alertservice.service';
 import { ApplicantquizComponent } from './applicantquiz/applicantquiz.component';
 import { ApplicationsServiceProxy, DashboardServiceProxy, ArtisanServiceProxy, QuizServiceProxy } from '../_services/service-proxies';
@@ -77,6 +78,7 @@ import { EmployerDashboardComponent } from './employer-dashboard/employer-dashbo
     AlertserviceService,
     QuizServiceProxy,
     ReportServiceProxy,
+    ConsultantServiceProxy,
   ]
 })
 export class ModulesModule { }

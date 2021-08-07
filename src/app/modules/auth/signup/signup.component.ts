@@ -71,6 +71,9 @@ export class SignupComponent implements OnInit {
   planFeatures
   planAmount: number = 0;
   employerEmail: string = '';
+  emailPrompt: boolean = false;
+  socialLogin: UserLoginDTO = new UserLoginDTO();
+
 
   constructor(private route: Router, private account: AccountServiceProxy, private alertMe: AlertserviceService,
     private institution: InstitutionServiceProxy, private country:CountriesServiceProxy, private title: TitlesServiceProxy,
@@ -114,6 +117,13 @@ export class SignupComponent implements OnInit {
     if(event.status === 'success'){
       this.servicePayment = false;
       this.verifyPayment();
+      this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'Success', 'Go to dashboard').subscribe(res => {
+        if(res){
+          this.employer = new ManageEmployerDTO();
+          this.route.navigateByUrl('modules')
+        }
+      })
+
     }
 
   }
@@ -142,8 +152,6 @@ cancelPay() {
     this.subPlan = true;
     this.jobSeekerStatus = false;
     this.consultantStatus = false;
-    // alert(e);
-    // this.subPlan = !this.subPlan;
     switch(e){
       case 0: this.subscriptionPlanId = 0; break;
       case 1: this.subscriptionPlanId = 1; break;
@@ -159,25 +167,46 @@ cancelPay() {
     this.psychoTest = true;
   }
 
-  handleFileSelect(evt){
-    var files = evt.target.files;
-    var file = files[0];
 
-  if (files && file) {
-      var reader = new FileReader();
+  getBase64(event) {
+    console.log(event)
+    let me = this;
+    let file = event.target.files[0];
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    this.jobSeeker.resume = reader.result.toString();
+    console.log(this.jobSeeker.resume);
+    reader.onload = function () {
+      // this.artisanModel.brandLogo = reader.result;
+      console.log(reader.result);
+    };
+    reader.onerror = function (error) {
+      console.log('Error: ', error);
+    };
+ }
 
-      reader.onload =this._handleReaderLoaded.bind(this);
+ handleCvFileSelect(evt){
+  var files = evt.target.files;
+  var file = files[0];
+  console.log('My file size', file);
 
-      reader.readAsBinaryString(file);
-  }
-  }
+if(files && file && (file.size < 524888 || file.type == "image/png || image/jpg")) {
+    var reader = new FileReader();
+    reader.onload =this._handleReaderLoaded.bind(this);
+    reader.readAsBinaryString(file);
+}
 
+else {
+  this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.FAILED, 'Check your file type or size', 'OK')
 
-  _handleReaderLoaded(readerEvt) {
-   var binaryString = readerEvt.target.result;
-          // this.artisanModel.brandLogo= btoa(binaryString);
-          console.log(btoa(binaryString));
-  }
+}
+}
+
+_handleReaderLoaded(readerEvt) {
+ var binaryString = readerEvt.target.result;
+        this.jobSeeker.resume= btoa(binaryString);
+        console.log(btoa(binaryString));
+}
   toggleJobSeekers(){
     this.employersStatus = false;
     this.consultantStatus = false;
@@ -206,18 +235,17 @@ cancelPay() {
     console.log(this.subscriptionData)
   }
 
-doGoogle(){
-  this.social.doGoogleLogin().then(data => {
-    this.googleData = data;
-    // let name = this.googleData[0].displayName;
-    // console.log('You are', this.googleData);
-    this.socialSignup.isSocial = true;
-    this.socialSignup.email = this.googleData.email;
-    this.socialSignup.firstName = this.googleData.displayName;
-    this.account.getToken(this.socialSignup).subscribe(data => {
+  addSocialEmail(){
+    this.btnProcessing = true;
+    let login: UserLoginDTO = new UserLoginDTO();
+    login.email = this.socialLogin.email;
+    login.password = this.socialLogin.password;
+    this.btnProcessing = false;
+    this.emailPrompt = false;
+    this.account.getToken(this.socialLogin).subscribe(data => {
       if(!data.hasError){
         console.log(data);
-        this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'You are authenticated', 'OK').subscribe(res => {
+        this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'You are authenticated', 'Go to dashboard').subscribe(res => {
           if(res){
             this.route.navigateByUrl('/')
           }
@@ -225,32 +253,147 @@ doGoogle(){
         this.AuthenService.addUser(data.result);
       }
     })
-  });
-}
+  }
 
-doFacebook(){
-  this.social.doFacebookLogin().then(data => {
-    this.facebookData = data.user;
-    console.log('See your Facebook data',this.facebookData.values);
-    this.socialSignup.isSocial = true;
-    // this.socialSignup.firstName = this.facebookData.displayName;
-    // this.socialSignup.lastName = this.facebookData.displayName;
-    // this.socialSignup.password = this.googleData.uid;
-    // socialSignup.email = this.facebookData.
-    this.account.getToken(this.socialSignup).subscribe(data => {
-      if(!data.hasError){
-        this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, '', 'OK').subscribe(res => {
-          if(res){
-            this.route.navigateByUrl('/')
+  doLinkedIn(){
+    // let configUrl = 'https://www.linkedin.com/oauth/v2/authorization?client_id=78yijd3zifrl4b&redirect_uri=https://headhunting-79281.firebaseapp.com/__/auth/handler&scope=r_liteprofile%20r_emailaddress&response_type=code';
+  //  let configUrl = "https://api.linkedin.com/v2/me";
+   let configUrl = 'https://www.linkedin.com/oauth/v2/authorization'
+    let paramsData = new HttpParams().set("client_id",'78yijd3zifrl4b')
+    .set("redirect_uri", 'http://localhost:5000/')
+    .set("scope", 'r_liteprofile r_emailaddress')
+    .set("response_type", 'code')
+    this.http.get(configUrl).subscribe(data => {
+      console.log('LinkedIn data is here',data);
+
+    })
+   }
+
+   doGoogle(){
+    this.social.doGoogleLogin().then(data => {
+      this.googleData = data;
+      // let name = this.googleData[0].displayName;
+      console.log('You are', this.googleData);
+      this.socialLogin.isSocial = true;
+      this.socialLogin.email = this.googleData.email;
+      this.socialLogin.firstName = this.googleData.displayName;
+      if(!data.email){
+        this.emailPrompt = true;
+      } else {
+        this.account.getToken(this.socialLogin).subscribe(data => {
+          if(!data.hasError){
+            console.log(data);
+            this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'You are authenticated', 'Go to dashboard').subscribe(res => {
+              if(res){
+                this.route.navigateByUrl('/')
+              }
+            })
+            this.AuthenService.addUser(data.result);
           }
         })
-        this.AuthenService.addUser(data.result);
-      } else {
-        this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.FAILED, data.message, 'OK')
       }
-    })
-  });
-}
+
+    });
+  }
+
+  doFacebook(){
+    this.social.doFacebookLogin().then(data => {
+      this.facebookData = data;
+      console.log('See your Facebook data',this.facebookData, data.user);
+      this.socialLogin.isSocial = true;
+      // this.userlogin.firstName = this.facebookData.displayName;
+      // this.userlogin.lastName = this.facebookData.displayName;
+      // this.userlogin.password = this.googleData.uid;
+      // userlogin.email = this.facebookData.
+      if(!data.email){
+        this.emailPrompt = true;
+      }else {
+        this.account.getToken(this.socialLogin).subscribe(data => {
+          if(!data.hasError){
+            console.log(data);
+            this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'You are authenticated', 'Go to dashboard').subscribe(res => {
+              if(res){
+                this.route.navigateByUrl('/')
+              }
+            })
+            this.AuthenService.addUser(data.result);
+          }
+        })
+      }
+
+    });
+  }
+
+   doTwitter(){
+     this.social.doTwitterLogin().then(data => {
+       this.twitterData = data;
+       console.log('Here is you Twitter', this.twitterData);
+       this.socialLogin.isSocial = true;
+       this.socialLogin.firstName = this.twitterData.displayName;
+       this.socialLogin.email = this.twitterData.email;
+       console.log('Your name is:', this.socialLogin.firstName, this.socialLogin.email);
+       // if(this.userlogin.email.length > 0){
+        if(!data.email){
+          this.emailPrompt = true;
+        }else {
+          this.account.getToken(this.socialLogin).subscribe(data => {
+            if(!data.hasError){
+              console.log(data);
+              this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'You are authenticated', 'Go to dashboard').subscribe(res => {
+                if(res){
+                  this.route.navigateByUrl('/')
+                }
+              })
+              this.AuthenService.addUser(data.result);
+            }
+          })
+        }
+     })
+   }
+
+// doGoogle(){
+//   this.social.doGoogleLogin().then(data => {
+//     this.googleData = data;
+//     this.socialSignup.isSocial = true;
+//     this.socialSignup.email = this.googleData.email;
+//     this.socialSignup.firstName = this.googleData.displayName;
+//     this.account.getToken(this.socialSignup).subscribe(data => {
+//       if(!data.hasError){
+//         console.log(data);
+//         this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'You are authenticated', 'OK').subscribe(res => {
+//           if(res){
+//             this.route.navigateByUrl('/')
+//           }
+//         })
+//         this.AuthenService.addUser(data.result);
+//       }
+//     })
+//   });
+// }
+
+// doFacebook(){
+//   this.social.doFacebookLogin().then(data => {
+//     this.facebookData = data.user;
+//     console.log('See your Facebook data',this.facebookData.values);
+//     this.socialSignup.isSocial = true;
+//     this.socialSignup.firstName = this.facebookData.displayName;
+//     this.socialSignup.lastName = this.facebookData.displayName;
+//     this.socialSignup.password = this.googleData.uid;
+//     socialSignup.email = this.facebookData.
+//     this.account.getToken(this.socialSignup).subscribe(data => {
+//       if(!data.hasError){
+//         this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, '', 'OK').subscribe(res => {
+//           if(res){
+//             this.route.navigateByUrl('/')
+//           }
+//         })
+//         this.AuthenService.addUser(data.result);
+//       } else {
+//         this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.FAILED, data.message, 'OK')
+//       }
+//     })
+//   });
+// }
 
 async fetchRecruiterSub(){
   const data = await this.sub.fetchRecruiterPlanFeatures().toPromise()
@@ -272,42 +415,39 @@ async fetchCVPlan(){
   }
 }
 
-doLinkedIn(){
- let configUrl = "https://www.linkedin.com/oauth/v2/authorization?client_id=78yijd3zifrl4b&redirect_uri=https://headhunting-79281.firebaseapp.com/__/auth/handler&scope=r_liteprofile%20r_emailaddress&response_type=code";
-// let configUrl = "https://api.linkedin.com/v2/me";
- let paramsData = new HttpParams().set("client_id",'78yijd3zifrl4b')
- .set("redirect_uri", 'http://localhost:5000/')
- .set("scope", 'r_liteprofile r_emailaddress')
- .set("response_type", 'code')
- this.http.get(configUrl).subscribe(data => {
-   console.log('LinkedIn data is here',data);
-  // this.http.post()
- })
-}
+// doLinkedIn(){
+//  let configUrl = "https://www.linkedin.com/oauth/v2/authorization?client_id=78yijd3zifrl4b&redirect_uri=https://headhunting-79281.firebaseapp.com/__/auth/handler&scope=r_liteprofile%20r_emailaddress&response_type=code";
+//  let paramsData = new HttpParams().set("client_id",'78yijd3zifrl4b')
+//  .set("redirect_uri", 'http://localhost:5000/')
+//  .set("scope", 'r_liteprofile r_emailaddress')
+//  .set("response_type", 'code')
+//  this.http.get(configUrl).subscribe(data => {
+//    console.log('LinkedIn data is here',data);
+//  })
+// }
 
-doTwitter(){
-  this.social.doTwitterLogin().then(data => {
-    this.twitterData = data;
-    console.log('Here is you Twitter', this.twitterData);
-    this.socialSignup.isSocial = true;
-    this.socialSignup.firstName = this.twitterData.displayName;
-    this.socialSignup.email = this.twitterData.email;
-    console.log('Your name is:', this.socialSignup.firstName, this.socialSignup.email);
-    // if(this.socialSignup.email.length > 0){
-    if(this.socialSignup.email.length > 0){
-      this.account.getToken(this.socialSignup).subscribe(data => {
-        if(!data.hasError){
-          this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, '', 'OK').subscribe(res => {
-            if(res){
-              this.route.navigateByUrl('/')
-            }
-          })
-          this.AuthenService.addUser(data.result);
-        }
-      })
-    }
-  })
-}
+// doTwitter(){
+//   this.social.doTwitterLogin().then(data => {
+//     this.twitterData = data;
+//     console.log('Here is you Twitter', this.twitterData);
+//     this.socialSignup.isSocial = true;
+//     this.socialSignup.firstName = this.twitterData.displayName;
+//     this.socialSignup.email = this.twitterData.email;
+//     console.log('Your name is:', this.socialSignup.firstName, this.socialSignup.email);
+//     if(this.socialSignup.email.length > 0){
+//       this.account.getToken(this.socialSignup).subscribe(data => {
+//         if(!data.hasError){
+//           this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, '', 'OK').subscribe(res => {
+//             if(res){
+//               this.route.navigateByUrl('/')
+//             }
+//           })
+//           this.AuthenService.addUser(data.result);
+//         }
+//       })
+//     }
+//   })
+// }
 
   async fetchTitle(){
     const data = await this.title.fetchTitles().toPromise();
@@ -361,10 +501,10 @@ doTwitter(){
     this.account.applicantSignUp(applicant).subscribe(data => {
       this.btnProcessing = false;
       if(!data.hasError){
-        this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, data.message, 'OK').subscribe(res => {
+        this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, data.message, 'Finish Setup').subscribe(res => {
           if(res){
             this.jobSeeker = new ManageJobSeekerRegDTO();
-            this.route.navigateByUrl('/')
+            this.route.navigateByUrl('/auth/login')
           }
         })
       }
@@ -399,10 +539,10 @@ doTwitter(){
         if(this.planAmount > 0){
           this.servicePayment = true;
         } else {
-          this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, data.message, 'OK').subscribe(res => {
+          this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, data.message, 'Finish Setup').subscribe(res => {
             if(res){
               this.employer = new ManageEmployerDTO();
-            this.route.navigateByUrl('modules')
+              this.route.navigateByUrl('modules')
             }
           })
         }
@@ -431,14 +571,16 @@ doTwitter(){
       this.btnProcessing = false;
       if(!data.hasError){
         this.consultantModel = new ManageConsultantDTO();
-        this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, data.message, 'OK').subscribe(res => {
+        this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, data.message, 'Finish Setup').subscribe(res => {
           if(res){
             // this.route.navigateByUrl('dashboard')
-            this.route.navigateByUrl('modules')
+            this.route.navigateByUrl('/modules')
           }
         })
         console.log('Consultant Added!');
         alert('Consultant Added!')
+      } else {
+        this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.FAILED, data.message, 'OK')
       }
     })
   }

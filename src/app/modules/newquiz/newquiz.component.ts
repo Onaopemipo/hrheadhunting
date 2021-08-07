@@ -27,7 +27,7 @@ export class NewquizComponent implements OnInit {
   questions: QuestionDTO[] = [];
   myOptionType: number = 0;
 
-  pagetitle: string = 'Add Quiz';
+  pagetitle: string = 'Add Test';
   newQuizModel: ManageQuizDTO = new ManageQuizDTO();;
   allQuizTypes: IDTextViewModel [] = [];
   allQuestionTypes: IDTextViewModel [] = [];

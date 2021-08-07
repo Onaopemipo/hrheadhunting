@@ -17,12 +17,16 @@ export class LoginComponent implements OnInit {
   show: boolean = false;
   loginForm: NgForm;
   userlogin: UserLoginDTO = new UserLoginDTO();
+  socialLogin: UserLoginDTO = new UserLoginDTO();
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   btnprocessing: boolean = false;
   googleData: any;
-  facebookData: any [] = [];
+  facebookData: any;
   linkedInData: any [] = [];
   twitterData: any;
+  emailPrompt: boolean = false;
+  btnProcessing: boolean = false;
+
 
   errorMsg: string = "";
   constructor(
@@ -104,16 +108,36 @@ export class LoginComponent implements OnInit {
     });
 }
 
+addSocialEmail(){
+  this.btnProcessing = true;
+  let login: UserLoginDTO = new UserLoginDTO();
+  login.email = this.socialLogin.email;
+  login.password = this.socialLogin.password;
+  this.btnProcessing = false;
+  this.emailPrompt = false;
+  this.loginServices.getToken(this.socialLogin).subscribe(data => {
+    if(!data.hasError){
+      console.log(data);
+      this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'You are authenticated', 'Go to dashboard').subscribe(res => {
+        if(res){
+          this.route.navigateByUrl('/')
+        }
+      })
+      this.AuthenService.addUser(data.result);
+    }
+  })
+}
+
 doLinkedIn(){
-  let configUrl = "https://www.linkedin.com/oauth/v2/authorization?client_id=78yijd3zifrl4b&redirect_uri=https://headhunting-79281.firebaseapp.com/__/auth/handler&scope=r_liteprofile%20r_emailaddress&response_type=code";
+  let configUrl = 'https://www.linkedin.com/oauth/v2/authorization?client_id=78yijd3zifrl4b&redirect_uri=https://headhunting-79281.firebaseapp.com/__/auth/handler&scope=r_liteprofile%20r_emailaddress&response_type=code';
  // let configUrl = "https://api.linkedin.com/v2/me";
-  let paramsData = new HttpParams().set("client_id",'78yijd3zifrl4b')
-  .set("redirect_uri", 'http://localhost:5000/')
-  .set("scope", 'r_liteprofile r_emailaddress')
-  .set("response_type", 'code')
+  // let paramsData = new HttpParams().set("client_id",'78yijd3zifrl4b')
+  // .set("redirect_uri", 'http://localhost:5000/')
+  // .set("scope", 'r_liteprofile r_emailaddress')
+  // .set("response_type", 'code')
   this.http.get(configUrl).subscribe(data => {
     console.log('LinkedIn data is here',data);
-   // this.http.post()
+
   })
  }
 
@@ -121,45 +145,54 @@ doLinkedIn(){
   this.social.doGoogleLogin().then(data => {
     this.googleData = data;
     // let name = this.googleData[0].displayName;
-    // console.log('You are', this.googleData);
-    this.userlogin.isSocial = true;
-    this.userlogin.email = this.googleData.email;
-    this.userlogin.firstName = this.googleData.displayName;
-    this.loginServices.getToken(this.userlogin).subscribe(data => {
-      if(!data.hasError){
-        console.log(data);
-        this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'You are authenticated', 'OK').subscribe(res => {
-          if(res){
-            this.route.navigateByUrl('/')
-          }
-        })
-        this.AuthenService.addUser(data.result);
-      }
-    })
+    console.log('You are', this.googleData);
+    this.socialLogin.isSocial = true;
+    this.socialLogin.email = this.googleData.email;
+    this.socialLogin.firstName = this.googleData.displayName;
+    if(!data.email){
+      this.emailPrompt = true;
+    } else {
+      this.loginServices.getToken(this.socialLogin).subscribe(data => {
+        if(!data.hasError){
+          console.log(data);
+          this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'You are authenticated', 'Go to dashboard').subscribe(res => {
+            if(res){
+              this.route.navigateByUrl('/')
+            }
+          })
+          this.AuthenService.addUser(data.result);
+        }
+      })
+    }
+
   });
 }
 
 doFacebook(){
   this.social.doFacebookLogin().then(data => {
-    this.facebookData = data.user;
-    console.log('See your Facebook data',this.facebookData.values);
-    this.userlogin.isSocial = true;
+    this.facebookData = data;
+    console.log('See your Facebook data',this.facebookData, data.user);
+    this.socialLogin.isSocial = true;
     // this.userlogin.firstName = this.facebookData.displayName;
     // this.userlogin.lastName = this.facebookData.displayName;
     // this.userlogin.password = this.googleData.uid;
     // userlogin.email = this.facebookData.
-    this.loginServices.getToken(this.userlogin).subscribe(data => {
-      if(!data.hasError){
-        this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, '', 'OK').subscribe(res => {
-          if(res){
-            this.route.navigateByUrl('/')
-          }
-        })
-        this.AuthenService.addUser(data.result);
-      } else {
-        this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.FAILED, data.message, 'OK')
-      }
-    })
+    if(!data.email){
+      this.emailPrompt = true;
+    }else {
+      this.loginServices.getToken(this.socialLogin).subscribe(data => {
+        if(!data.hasError){
+          console.log(data);
+          this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'You are authenticated', 'Go to dashboard').subscribe(res => {
+            if(res){
+              this.route.navigateByUrl('/')
+            }
+          })
+          this.AuthenService.addUser(data.result);
+        }
+      })
+    }
+
   });
 }
 
@@ -167,23 +200,26 @@ doFacebook(){
    this.social.doTwitterLogin().then(data => {
      this.twitterData = data;
      console.log('Here is you Twitter', this.twitterData);
-     this.userlogin.isSocial = true;
-     this.userlogin.firstName = this.twitterData.displayName;
-     this.userlogin.email = this.twitterData.email;
-     console.log('Your name is:', this.userlogin.firstName, this.userlogin.email);
+     this.socialLogin.isSocial = true;
+     this.socialLogin.firstName = this.twitterData.displayName;
+     this.socialLogin.email = this.twitterData.email;
+     console.log('Your name is:', this.socialLogin.firstName, this.socialLogin.email);
      // if(this.userlogin.email.length > 0){
-     if(this.userlogin.email.length > 0){
-       this.loginServices.getToken(this.userlogin).subscribe(data => {
-         if(!data.hasError){
-           this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, '', 'OK').subscribe(res => {
-             if(res){
-               this.route.navigateByUrl('/')
-             }
-           })
-           this.AuthenService.addUser(data.result);
-         }
-       })
-     }
+      if(!data.email){
+        this.emailPrompt = true;
+      }else {
+        this.loginServices.getToken(this.socialLogin).subscribe(data => {
+          if(!data.hasError){
+            console.log(data);
+            this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'You are authenticated', 'Go to dashboard').subscribe(res => {
+              if(res){
+                this.route.navigateByUrl('/')
+              }
+            })
+            this.AuthenService.addUser(data.result);
+          }
+        })
+      }
    })
  }
 
