@@ -18,6 +18,12 @@ export class NewquizComponent implements OnInit {
     {id: 2, label: 'Long Text'},
     {id: 3, label: 'Description'},
   ];
+
+  testCategory = [
+    {id: 0, label: 'Aptititude Test'},
+    {id: 1, label: 'Psychometric Test'},
+  ];
+
   multiChoice: QuestionOptionDTO [] = [];
   booleanChoice = [
     { id: 0, label: 'A', value: 'True'},

@@ -18,54 +18,43 @@
   </nb-card>
 </div> -->
 
-<nb-card>
-  <nb-card-body>
+<div>
+  <nb-card *ngIf="jobsCounter > 0">
+    <nb-card-body>
 
-    <nb-tabset  *ngIf="jobsCounter > 0" (changeTab)="selectTab($event)">
-      <nb-tab tabTitle="Posted Jobs" [tabId]="TABS.postedJobs">
-          <div *ngIf="jobsCounter < 1">
-            <ngx-default-content [pageHeader]="myHeader" [pageDescription]="myDescription" [buttonValue]="myButton" (buttonClick)="addBudgetItem()">
-            </ngx-default-content>
-            </div>
-
-            <div *ngIf="jobsCounter > 0">
-              <ngx-tablecomponent [loading]='loading' [userData]='allJobs' [actions]='tableActions' [tableColum]="postedJobsTable" (actionClick)="tableActionClicked($event)"></ngx-tablecomponent>
-            </div>
-      </nb-tab>
-
-      <nb-tab tabTitle="Awaiting Approval" [tabId]="TABS.awaitingApproval">
-          <div *ngIf="awaitingJobsCounter < 1">
-            <ngx-default-content [pageHeader]="myHeader" [loading]='loading' [pageDescription]="myDescription" buttonValue={{emptyButton}}>
-            </ngx-default-content>
-            </div>
-
-          <div *ngIf="awaitingJobsCounter > 0">
-          <ngx-tablecomponent
-          [tableColum]="scheduledJobsTable"
-          (filterChange)="filterUpdated($event)"
-          [showFilter]="true"
-          [userData]="tableData"
-          [showActions]="true"
-          [actions]="tableActions"
-          (actionClick)="tableActionClicked($event)"></ngx-tablecomponent>
-          </div>
-      </nb-tab>
-
-
-      <nb-tab tabTitle="Drafts" [tabId]="TABS.draftedJobs">
-            <div *ngIf="draftCounter < 1">
-              <ngx-default-content [pageHeader]="myHeader" [pageDescription]="myDescription"  (buttonClick)="addBudgetItem()">
+      <nb-tabset (changeTab)="selectTab($event)">
+        <nb-tab tabTitle="Posted Jobs" [tabId]="TABS.postedJobs">
+            <div *ngIf="jobsCounter < 1">
+              <ngx-default-content [pageHeader]="emptyHeader" [pageDescription]="emptyDescription">
               </ngx-default-content>
               </div>
 
-            <div *ngIf="draftCounter > 0">
-             <ngx-tablecomponent [tableColum]="draftedJobsTable" [userData]="allDraftJobs" [actions]="draftTableActions" (actionClick)="draftTableActionClicked($event)"></ngx-tablecomponent>
-            </div>
-      </nb-tab>
+              <div *ngIf="jobsCounter > 0">
+                <ngx-tablecomponent [loading]='loading' [userData]='allJobs' [actions]='tableActions' [tableColum]="postedJobsTable" (actionClick)="tableActionClicked($event)"></ngx-tablecomponent>
+              </div>
+        </nb-tab>
 
-    </nb-tabset>
-  </nb-card-body>
-</nb-card>
+        <nb-tab tabTitle="Awaiting Approval" [tabId]="TABS.awaitingApproval">
+            <div *ngIf="awaitingJobsCounter < 1">
+              <ngx-default-content [pageHeader]="emptyHeader" [loading]='loading' [pageDescription]="emptyDescription">
+              </ngx-default-content>
+              </div>
+
+            <div *ngIf="awaitingJobsCounter > 0">
+            <ngx-tablecomponent
+            [tableColum]="scheduledJobsTable"
+            (filterChange)="filterUpdated($event)"
+            [showFilter]="true"
+            [userData]="tableData"
+            [showActions]="true"
+            [actions]="tableActions"
+            (actionClick)="tableActionClicked($event)"></ngx-tablecomponent>
+            </div>
+        </nb-tab>
+      </nb-tabset>
+    </nb-card-body>
+  </nb-card>
+</div>
 <!--
 <ngx-side-modal [(show)]='showCvModal' style="width: auto;" position='Center'>
   <div modal-header></div>

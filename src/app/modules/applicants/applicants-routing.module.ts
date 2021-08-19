@@ -1,3 +1,4 @@
+import { TrainingdetailsComponent } from './trainingdetails/trainingdetails.component';
 import { EmployerdetailsComponent } from './employerdetails/employerdetails.component';
 import { ArtisandetailsComponent } from './artisandetails/artisandetails.component';
 import { ArtisansComponent } from './artisans/artisans.component';
@@ -80,6 +81,11 @@ const routes: Routes = [
       {
         path: 'applicants/training',
         component: TrainingComponent
+      },
+
+      {
+        path: 'applicants/trainingdetails/:id',
+        component: TrainingdetailsComponent
       },
 
       {

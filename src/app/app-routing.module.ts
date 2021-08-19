@@ -27,11 +27,17 @@ export const routes: Routes = [
   {
     path: 'appdash',
     loadChildren: () => import('./modules/applicants-dashboard/applicants-dashboard.module').then(m => m.ApplicantsDashboardModule),
+    canLoad: [AuthGuard],
   },
 
   {
     path: 'empdash',
     loadChildren: () => import('./modules/employer-dashboard/employer-dashboard.module').then(m => m.EmployerDashboardModule),
+  },
+
+  {
+    path: 'consdash',
+    loadChildren: () => import('./modules/consultant-dashboard/consultant-dashboard.module').then(m => m.ConsultantDashboardModule),
   },
 
   {

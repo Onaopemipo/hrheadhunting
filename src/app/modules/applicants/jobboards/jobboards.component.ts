@@ -1,7 +1,7 @@
 import { ArtisanDTO } from './../../../_services/service-proxies';
 import { ReportServiceProxy, EmployerDTO, SkillAreasServiceProxy, SectorsServiceProxy, StatesServiceProxy, ArtisanServiceProxy } from '../../../_services/service-proxies';
 import { Component, OnInit } from '@angular/core';
-import { IDTextViewModel, Job, JobServiceProxy } from 'app/_services/service-proxies';
+import { IDTextViewModel, Job, JobServiceProxy, JobDTO } from 'app/_services/service-proxies';
 import { AuthenticationService } from 'app/_services/authentication.service';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -30,7 +30,7 @@ export class JobboardsComponent implements OnInit {
 
   }
 
-  allJobs: Job []= [];
+  allJobs: JobDTO []= [];
   showMenu:boolean = false;
   btnProcessing:boolean = false;
   recruiterData: IDTextViewModel [] = [];
@@ -71,6 +71,12 @@ searchFilter = {
   }
 
   imagePath: any;
+
+  news = [];
+  placeholders = [];
+  pageSize = 10;
+  pageToLoadNext = 1;
+  loader = false;
 
   constructor(private job: JobServiceProxy, private employer: ReportServiceProxy, private skill: SkillAreasServiceProxy,
     private state: StatesServiceProxy, private sector: SectorsServiceProxy, public authenService: AuthenticationService,
@@ -139,6 +145,20 @@ searchFilter = {
     // error => this.errorMsg = <any>error);
   }
 
+  // loadNext() {
+  //   if (this.loading) { return }
+
+  //   this.loader = true;
+  //   this.placeholders = new Array(this.pageSize);
+  //   this.sector.fetchSectorJobs(this.pageToLoadNext, this.pageSize)
+  //     .subscribe(news => {
+  //       this.placeholders = [];
+  //       this.news.push(...news);
+  //       this.loading = false;
+  //       this.pageToLoadNext++;
+  //     });
+  // }
+
 
   filterUpdated(filter: any) {
 
@@ -151,9 +171,13 @@ searchFilter = {
     this.showMenu = !this.showMenu;
   }
 
+  async fetChSectorJobs(){
+    // const data = await this.sector.fetchSectorJobs()
+  }
+
   fetchAllJobs(){
     this.loading = true;
-   this.job.fetchAllJobs(this.jobFilter.skillAreaId, this.jobFilter.sectorId,
+   this.job.fetchJobs(this.jobFilter.skillAreaId, this.jobFilter.sectorId,
     this.jobFilter.countryId, this.jobFilter.stateId, this.jobFilter.isNewlyAdded,
     this.jobFilter.isPopular,this.jobFilter.pageSize, this.jobFilter.pageNumber).subscribe(data => {
       this.loading = false;

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from 'app/_services/authentication.service';
+import { ConsultantServiceProxy, TrainingDTO } from 'app/_services/service-proxies';
 
 @Component({
   selector: 'ngx-training',
@@ -7,14 +9,40 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TrainingComponent implements OnInit {
 
+  myPlanHeader:string = "Nothing here";
+  myPlanDesc: string = "No data available yet";
+  loading: boolean = false;
   showMenu: boolean = false;
-  constructor() { }
+  trainingCounter: number = 0;
+  trainingData: TrainingDTO [] = []
+
+  trainingFilter = {
+    searchText: '',
+    dateFrom: undefined,
+    dateTo: undefined,
+    pageSize: 10,
+    pageNo: 1
+  }
+  constructor(public authenService: AuthenticationService,private training: ConsultantServiceProxy,) { }
 
   ngOnInit(): void {
+    this.fetchTraining();
   }
 
   toggleMenu(){
     this.showMenu = !this.showMenu;
   }
+
+  fetchTraining(){
+    this.loading = true;
+      this.training.fetchActiveTrainings(this.trainingFilter.searchText, this.trainingFilter.dateFrom, 
+        this.trainingFilter.dateTo, this.trainingFilter.pageSize, this.trainingFilter.pageNo).subscribe(data => {
+          this.loading = false;
+          if(!data.hasError)
+          {
+            this.trainingData = data.value;
+            this.trainingCounter = data.totalCount;
+          } })
+    }
 
 }

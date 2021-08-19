@@ -1,6 +1,45 @@
-<ngx-componentsheader pageName='Job Applications'></ngx-componentsheader>
+<ngx-componentsheader pageName='My Applications'></ngx-componentsheader>
 <nb-card>
-  <nb-card-body>
-      <ngx-default-content pageHeader={{applicationHeader}} pageDescription="{{applicationDesc}}"></ngx-default-content>
+  <nb-card-body *ngIf="counter < 1">
+      <ngx-default-content pageHeader={{applicationHeader}} pageDescription="{{applicationDesc}}" [loading]="loading"></ngx-default-content>
   </nb-card-body>
 </nb-card>
+
+<div *ngIf="counter > 0">
+  <nb-card *ngFor="let application of allMyApplications">
+    <nb-card-body>
+          <div
+            style="border-bottom: 0.800000011920929px solid #CED4DA;padding-bottom: 10px; display: flex;flex-direction: row;">
+            <div style="flex: auto; display: flex;padding-top: 15px;">
+              <p style="color: #4847E0 !important; text-transform: uppercase;" class="listsubheader">{{application.position}}</p>
+            </div>
+            <button outline='true' readonly nbButton status="primary" style="min-width: unset !important;">
+              {{application.recruitmentStage}}
+            </button>
+          </div>
+        <span style="padding: 10px;"></span>
+
+        <div class="reference">
+          <div>
+            <span class="experienceCompany"> {{application.recruitmentStage}}</span>
+          </div>
+          <div style="display: flex;flex-direction: row;justify-self: center;">
+            <div style="flex: auto;"><span> {{application.jobLocation}}</span></div>
+            <div><a href="#">Edit</a><span style="padding:3px"></span><a href="#">Delete</a></div>
+          </div>
+
+        </div>
+
+        <div class="reference">
+          <div>
+            <span class="experienceCompany">M.Sc at University of Lagos, Nigeria.</span>
+          </div>
+          <div style="display: flex;flex-direction: row;justify-self: center;">
+            <div style="flex: auto;"><span>Jan 2007 - Feb 2013</span></div>
+            <div><a href="#">Edit</a><span style="padding:3px"></span><a href="#">Delete</a></div>
+          </div>
+        </div>
+
+        </nb-card-body>
+      </nb-card>
+    </div>

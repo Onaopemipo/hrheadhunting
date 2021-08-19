@@ -1,5 +1,5 @@
 import { AlertserviceService } from 'app/_services/alertservice.service';
-import { SkillAreasServiceProxy, StatesServiceProxy, SectorsServiceProxy, EmployerTypesServiceProxy, ArtisanServiceProxy } from '../../_services/service-proxies';
+import { SkillAreasServiceProxy, StatesServiceProxy, SectorsServiceProxy, EmployerTypesServiceProxy, ArtisanServiceProxy, CvScoreServiceProxy, ConsultantServiceProxy } from '../../_services/service-proxies';
 import { ComponentsModule } from 'app/components/components.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -20,10 +20,11 @@ import { JobdetailsComponent } from './jobdetails/jobdetails.component';
 import { ArtisansComponent } from './artisans/artisans.component';
 import { ArtisandetailsComponent } from './artisandetails/artisandetails.component';
 import { EmployerdetailsComponent } from './employerdetails/employerdetails.component';
+import { TrainingdetailsComponent } from './trainingdetails/trainingdetails.component';
 
 
 @NgModule({
-  declarations: [DashboardComponent, ServicesComponent, BlogsComponent, AboutComponent, JobboardsComponent, ScorecvComponent, PricingComponent, TrainingComponent, JobdetailsComponent, ArtisansComponent, ArtisandetailsComponent, EmployerdetailsComponent],
+  declarations: [DashboardComponent, ServicesComponent, BlogsComponent, AboutComponent, JobboardsComponent, ScorecvComponent, PricingComponent, TrainingComponent, JobdetailsComponent, ArtisansComponent, ArtisandetailsComponent, EmployerdetailsComponent, TrainingdetailsComponent],
   imports: [
     CommonModule,
     ApplicantsRoutingModule,
@@ -50,7 +51,10 @@ import { EmployerdetailsComponent } from './employerdetails/employerdetails.comp
     SubscriptionsServiceProxy,
     AlertserviceService,
     EmployerTypesServiceProxy,
-    ArtisanServiceProxy
+    ArtisanServiceProxy,
+    CvScoreServiceProxy,
+    ConsultantServiceProxy,
+    
   ]
 })
 export class ApplicantsModule { }

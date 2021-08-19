@@ -85,11 +85,13 @@
         <span>Services</span><br>
         <span>Training</span><br>
       </div>
-      <div class="col-sm-10 col-md-6 col-lg-3" style="margin-top: 30px;">
+      <div *ngIf="!(auth.authStatus | async)" class="col-sm-10 col-md-6 col-lg-3" style="margin-top: 30px;">
         <button class="btn" nbButton [routerLink]="['/auth/login']" outline style="color: #6495ED; background-color: #fff; margin-right: 8px;">Log In</button>
 
         <button type="submit" class="btn my-button" [routerLink]="['/auth/signup']" nbButton status="primary" >Register now</button>
       </div>
+
+      <div *ngIf="auth.authStatus | async" class="col-sm-10 col-md-6 col-lg-3" style="margin-top: 30px;"></div>
       <div class="col-sm-10 col-md-6 col-lg-3 minfoot" >
         <h6 style="color: #fff; text-align: left !important;">Subscribe to our newsletter</h6><br>
         <div class="input-group col" style="background-color: #ffffff;border: 5px solid #ffffff;">

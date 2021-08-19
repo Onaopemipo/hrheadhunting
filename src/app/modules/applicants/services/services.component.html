@@ -107,25 +107,15 @@
         <li class="nav-item active">
           <a class="nav-link"[routerLink]="['/applicants/artisans']">Artisan Board</a>
         </li>
+
+        <li class="nav-item active">
+          <a class="nav-link"[routerLink]="['/applicants/training']">Training Board</a>
+        </li>
+
         <li class="nav-item active">
           <a class="nav-link" [routerLink]="['/applicants/scorecv']">Score CV </a>
         </li>
 
-        <li class="nav-item active">
-          <a class="nav-link"[routerLink]="['/applicants/pricing']">Pricing </a>
-
-        </li>
-
-        <!-- <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" (click)="toggleMenu()" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-          <div class="dropdown-menu" [class]="{'d-flex':showMenu}" style="display: flex; flex-direction: column; justify-items: flex-start;">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Separated link</a>
-          </div>
-        </li> -->
       </ul>
 
       <div *ngIf="!(authenService.authStatus | async)" class="form-inline my-2 my-lg-0">
@@ -147,16 +137,13 @@
       <div *ngIf="authenService.authStatus | async" class="form-inline my-2 my-lg-0">
         <ul class="navbar-nav mr-auto" style="color: #fff;">
           <li class="nav-item active">
-            <a class="nav-link" [routerLink]="['/auth/signup']">Log Out</a>
+            <a class="nav-link" [routerLink]="['/auth/login']">Log Out</a>
           </li>
 
           <li class="nav-item active">
             <a class="nav-link" [routerLink]="['/appdash']">Dashboard</a>
           </li>
 
-          <li class="nav-item active">
-            <button class="btn" [routerLink]="['/auth/login']" nbButton outline size="small" style="color: #6495ED; background-color: #fff; border: 1px solid #6495ED;">Post Job</button>
-          </li>
         </ul>
       </div>
     </div>
@@ -164,7 +151,7 @@
 
    <div class="container" style="margin: 3% 0;">
     <div style="padding-top: 30px;">
-      <h6 style="text-align: center; color: #fff;">The Services we offer are golden!</h6>
+      <h6 style="font-family: Rubik !important; text-align: center; color: #fff;">The Services we offer are golden!</h6>
     </div>
    </div>
 
@@ -173,7 +160,7 @@
 
 </div>
 
-<div class="container" style="background-color: #fff; padding: 5%">
+<div class="container" style="background-color: #fff;">
     <div style="padding: 2%;"></div>
 
   <div class="row" style="display: flex; flex-direction: row; justify-content: space-between; ">
@@ -186,7 +173,7 @@
         For candidates, we provide a free forum for self-evaluation as well as CV improvement tips. ​
         Do you want resume writing specialist assistance? We are just a click away
        </span>
-       <button class="btn btn-theme" type="submit" nbButton status="primary" style="color: #fff; margin-top: 5px">Score your Resume</button>
+       <button class="btn btn-theme" type="submit" [routerLink]="['/applicants/scorecv']" nbButton status="primary" style="color: #fff; margin-top: 5px">Score your Resume</button>
 
      </div>
 
@@ -199,10 +186,7 @@
   </div>
 
   <div style="padding: 2%;"></div>
- <!-- </div>
-
-
- <div class="container" style="background-color: #fff;"> -->
+ 
   <div class="row" style="display: flex; flex-direction: row; justify-content: space-between; ">
     <div class="col-sm-5">
       <img src="assets/images/Job_Listing.png" style="height: 100%; width: 100%;"  alt="">
@@ -227,8 +211,6 @@
  <div class="container" style="background-color: #fff;"> -->
   <div class="row" style="display: flex; flex-direction: row; justify-content: space-between; ">
 
-
-
        <div class="col-sm-7">
         <div class="row" style="padding: 50px;">
           <h3>Training Board</h3>
@@ -248,10 +230,7 @@
   </div>
 
   <div style="padding: 2%;"></div>
- <!-- </div>
 
-
- <div class="container" style="background-color: #fff;"> -->
   <div class="row" style="display: flex; flex-direction: row; justify-content: space-between; ">
 
     <div class="col-sm-5">
@@ -286,40 +265,39 @@
           <img src="assets/images/Artisan_Listing.png" style="height: 100%; width: 100%;" alt="">
         </div>
    </div>
+
+   <div class="row" style="display: flex; flex-direction: row; justify-content: space-between; ">
+    <div class="col-sm-5">
+      <img src="assets/images/Job_Listing.png" style="height: 100%; width: 100%;"  alt="">
+    </div>
+
+    <div class="col-sm-7">
+     <div class="row" style="padding: 50px;">
+       <h3>LinkedIn Optimization</h3>
+       <span style="text-align: justify; line-height: 2.6;">Your professional profile is not complete without a great LinkedIn profile. We will optimise your existing LinkedIn 
+        page with a total revamp or we will create a brand new one for you.
+       </span>
+     </div>
+
+       </div>
+
+
+  </div>
+
+  <div class="row" style="display: flex; flex-direction: row; justify-content: space-between; ">
+    <div class="col-sm-7">
+      <div class="row" style="padding: 50px;">
+        <h3>Aptitude Test</h3>
+        <span style="text-align: justify; line-height: 2.6; line-height: 2.6;">We all know how difficult it is to deal with artisan today. It's much more difficult to selectgood ones. ​
+         We want to put them to light, so we've created a forum where you can find verified artisans with the right attitude.
+        </span>
+      </div>
+
+        </div>
+        <div class="col-sm-5">
+          <img src="assets/images/Artisan_Listing.png" style="height: 100%; width: 100%;" alt="">
+        </div>
+   </div>
  </div>
 
-
-
-<!-- <div class="row" style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; background-color: #1F2566; height: 225px; width: 100%; padding: 30px;">
-  <div class="col-sm-3" style="color: #fff; padding: 10px; text-align: center;">
-    <h6 style="color: #fff;">Company</h6><br>
-    <span>About</span><br>
-    <span>Help Center</span><br>
-    <span>Services</span><br>
-    <span>Services</span><br>
-    <span>Training</span><br>
-
-  </div>
-
-  <div class="col-sm-3" style="color: #fff; padding: 10px; text-align: center;">
-    <h6 style="color: #fff;">Quick Access</h6><br>
-    <span>Post a job</span><br>
-    <span>Create Profile</span><br>
-    <span>Login</span><br>
-
-  </div>
-  <div class="col-sm-3" style="display: flex; flex-direction: row; padding: 10px; justify-content: space-around; color: #fff; padding: 10px; text-align: center;">
-    <button type="submit" class="btn my-button" nbButton status="primary">Log In</button>
-    <button type="submit" class="btn my-button" nbButton status="primary" outline>Register now</button>
-  </div>
-
-  <div class="col-sm-3">
-    <h6 style="color: #fff;">Subscribe to our newsletter</h6><br>
-    <div class="input-group">
-      <input type="email" class="form-control" placeholder="Enter your email">
-      <span class="input-group-btn">
-      <button class="btn btn-theme" type="submit">Subscribe</button>
-      </span>
-       </div>
-  </div>
-  </div> -->
+ 

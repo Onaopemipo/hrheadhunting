@@ -27,24 +27,13 @@
         </li>
 
         <li class="nav-item active">
-          <a class="nav-link" [routerLink]="['/applicants/scorecv']">Score CV </a>
+          <a class="nav-link"[routerLink]="['/applicants/training']">Training Board</a>
         </li>
 
         <li class="nav-item active">
-          <a class="nav-link"[routerLink]="['/applicants/pricing']">Pricing </a>
-
+          <a class="nav-link" [routerLink]="['/applicants/scorecv']">Score CV </a>
         </li>
 
-        <!-- <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" (click)="toggleMenu()" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-          <div class="dropdown-menu" [class]="{'d-flex':showMenu}" style="display: flex; flex-direction: column; justify-items: flex-start;">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Separated link</a>
-          </div>
-        </li> -->
       </ul>
 
       <div *ngIf="!(authenService.authStatus | async)" class="form-inline my-2 my-lg-0">
@@ -66,21 +55,17 @@
       <div *ngIf="authenService.authStatus | async" class="form-inline my-2 my-lg-0">
         <ul class="navbar-nav mr-auto" style="color: #fff;">
           <li class="nav-item active">
-            <a class="nav-link" [routerLink]="['/auth/signup']">Log Out</a>
+            <a class="nav-link" [routerLink]="['/auth/login']">Log Out</a>
           </li>
 
           <li class="nav-item active">
             <a class="nav-link" [routerLink]="['/appdash']">Dashboard</a>
           </li>
 
-          <li class="nav-item active">
-            <button class="btn" [routerLink]="['/auth/login']" nbButton outline size="small" style="color: #6495ED; background-color: #fff; border: 1px solid #6495ED;">Post Job</button>
-          </li>
         </ul>
       </div>
     </div>
   </nav>
-
   <div class="container" style="margin: 3% 0;">
     <div style="padding-top: 30px;">
       <h6 style="text-align: center; color: #fff;">HR Headhunting verified artisans</h6>

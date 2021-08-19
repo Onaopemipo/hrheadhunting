@@ -1,3 +1,4 @@
+import { ConsultantDashboardComponent } from './consultant-dashboard/consultant-dashboard.component';
 import { ConsultantServiceProxy } from './../_services/service-proxies';
 import { AlertserviceService } from 'app/_services/alertservice.service';
 import { ApplicantquizComponent } from './applicantquiz/applicantquiz.component';
@@ -40,7 +41,7 @@ import { EmployerDashboardComponent } from './employer-dashboard/employer-dashbo
   declarations: [ModulesComponent, JobsComponent, ApplicantProfileComponent, ApplicantquizComponent,
     DashboardComponent, QuizComponent, ReportsComponent, ApplicantsComponent, NewquizComponent,
     NewjobComponent, SettingsComponent, ApplicantselectionComponent, TrainingComponent,
-    ArtisansComponent, ConsultantsComponent, ApplicantsDashboardComponent, EmployerDashboardComponent,],
+    ArtisansComponent, ConsultantsComponent, ApplicantsDashboardComponent, EmployerDashboardComponent, ConsultantDashboardComponent,],
   imports: [
     CommonModule,
     ComponentsModule,

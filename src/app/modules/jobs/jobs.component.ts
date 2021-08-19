@@ -1,13 +1,16 @@
-import { CurrenciesServiceProxy, Job, JobDTO } from '../../_services/service-proxies';
+import { JobDTO } from './../../_services/service-proxies';
+import { CurrenciesServiceProxy, Job } from '../../_services/service-proxies';
 import { ColumnTypes, TableAction, TableActionEvent, TableColumn } from 'app/components/tablecomponent/models';
 import { Router } from '@angular/router';
 import { AlertserviceService } from 'app/_services/alertservice.service';
 import { Component, OnInit } from '@angular/core';
 import { IStatus, MyColor } from 'app/components/status/models';
-import { CountriesServiceProxy, GradesServiceProxy, IDTextViewModel, JobServiceProxy, JobTypesServiceProxy, QualificationServiceProxy, SectorsServiceProxy, SkillAreasServiceProxy, StatesServiceProxy, CommonServiceProxy } from 'app/_services/service-proxies';
+import { CountriesServiceProxy, GradesServiceProxy, IDTextViewModel, JobServiceProxy, JobTypesServiceProxy, QualificationServiceProxy, SectorsServiceProxy, SkillAreasServiceProxy, StatesServiceProxy, CommonServiceProxy} from 'app/_services/service-proxies';
 
 enum TP  {
-VIEW ='1',DELETE = '2'
+VIEW ='1',
+PROCESS = "2",
+DELETE = '3'
 }
 
 enum draftEnum  {
@@ -57,14 +60,14 @@ export class JobsComponent implements OnInit {
   showCvModal = false
   showdeleteModal = false
 
-  emptyHeader: string = 'You have not posted any Job';
-  emptyDescription: string = 'Click on the button to post a job';
+  emptyHeader: string = 'You have no Job here';
+  emptyDescription: string = 'There is no data here';
   emptyButton: string = 'Add a Job Posting';
 
   availability: string = 'Physical';
   employmentType: string = 'Full Time';
   newJob: boolean = false;
-  allJobs: Job []= [];
+  allJobs: JobDTO []= [];
   allDraftJobs:  []= [];
   jobsCounter: number = 0;
   allDepartments:  [] = [];
@@ -114,6 +117,7 @@ export class JobsComponent implements OnInit {
 
 tableActions: TableAction [] = [
   {name: TP.VIEW, label: 'View'},
+  {name: TP.PROCESS, label: 'Process'},
 {name: TP.DELETE, label: 'Delete'},
 ]
 
@@ -208,14 +212,14 @@ tableActionClicked(event: TableActionEvent){
   }
 
   jobFilter = {
-    SkillAreaId:0,
-    SectorId:0,
-    CountryId:0,
-    StateId:0,
-    IsNewlyAdded: false,
-    IsPopular: false,
-    PageSize:10,
-    PageNumber:1
+    skillAreaId:0,
+    sectorId:0,
+    countryId:0,
+    stateId:0,
+    isNewlyAdded: false,
+    isPopular: false,
+    pageSize:10,
+    pageNumber:1
 
   }
 
@@ -375,15 +379,29 @@ tableActionClicked(event: TableActionEvent){
       }
   }
 
+  // fetchAllJobs(){
+  //   this.loading = true;
+  //  this.job.fetchAllJobs(this.jobFilter.SkillAreaId, this.jobFilter.SectorId,
+  //   this.jobFilter.CountryId, this.jobFilter.StateId, this.jobFilter.IsNewlyAdded,
+  //   this.jobFilter.IsPopular,this.jobFilter.PageSize, this.jobFilter.PageNumber).subscribe(data => {
+  //     this.loading = false;
+  //     if(!data.hasError){
+  //       this.allJobs = data.value;
+  //       this.jobsCounter = data.totalCount;
+  //       console.log('My Jobs:',this.allJobs)
+  //    }
+  //   });
+
+  // }
+
   fetchAllJobs(){
     this.loading = true;
-   this.job.fetchAllJobs(this.jobFilter.SkillAreaId, this.jobFilter.SectorId,
-    this.jobFilter.CountryId, this.jobFilter.StateId, this.jobFilter.IsNewlyAdded,
-    this.jobFilter.IsPopular,this.jobFilter.PageSize, this.jobFilter.PageNumber).subscribe(data => {
+   this.job.fetchJobs(this.jobFilter.skillAreaId, this.jobFilter.sectorId,
+    this.jobFilter.countryId, this.jobFilter.stateId, this.jobFilter.isNewlyAdded,
+    this.jobFilter.isPopular,this.jobFilter.pageSize, this.jobFilter.pageNumber).subscribe(data => {
       this.loading = false;
       if(!data.hasError){
         this.allJobs = data.value;
-        // this.allJobs = data.value.map(x => new JobWithStatus(x));
         this.jobsCounter = data.totalCount;
         console.log('My Jobs:',this.allJobs)
      }

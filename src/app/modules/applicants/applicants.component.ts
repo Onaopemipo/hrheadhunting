@@ -8,6 +8,7 @@ import { CLIENT_MENU_ITEMS } from '../pages-menu';
   styleUrls: ['./applicants.component.scss']
 })
 export class ApplicantsComponent implements OnInit {
+
   menu = CLIENT_MENU_ITEMS;
   loginStatus: boolean = false;
   constructor(public auth: AuthenticationService) { }
@@ -19,5 +20,6 @@ export class ApplicantsComponent implements OnInit {
   async getStatus(){
     this.loginStatus = await this.auth.isAuthenticated();
   }
+
 
 }

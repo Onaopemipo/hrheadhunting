@@ -18,6 +18,22 @@ avbar-light .navbar-nav .show > .nav-link, .navbar-light .navbar-nav .active > .
   font-size: 15px;
 }
 
+.dot {
+  height: 100px;
+  width: 100px;
+  background-color: #bbb;
+  border-radius: 50%;
+  text-align: center;
+  display: inline-block;
+}
+
+.text {
+  position: absolute;
+  bottom: 50%;
+  width: 100%;
+  text-align: center;
+}
+
 .icon {
   font-size: 12px;
   padding-right: 10px;

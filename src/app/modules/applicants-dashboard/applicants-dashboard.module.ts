@@ -1,6 +1,6 @@
 import { NgxEchartsModule } from 'ngx-echarts';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { AccountServiceProxy, JobServiceProxy, SectorsServiceProxy, SkillAreasServiceProxy, StatesServiceProxy } from 'app/_services/service-proxies';
+import { AccountServiceProxy, JobServiceProxy, SectorsServiceProxy, SkillAreasServiceProxy, StatesServiceProxy, ApplicationsServiceProxy } from 'app/_services/service-proxies';
 import { ThemeModule } from 'app/@theme/theme.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -40,6 +40,7 @@ import { AlertserviceService } from 'app/_services/alertservice.service';
     SkillAreasServiceProxy,
     StatesServiceProxy,
     AccountServiceProxy,
+    ApplicationsServiceProxy,
     AlertserviceService
   ]
 })

@@ -53,9 +53,9 @@
                         <img src="assets/images/jobs.png" style="width:5rem;">
                       </div>
                       <div class="col-sm-12 col-md-8 col-lg-8">
-                          <span style="font-weight: 600; padding-right:25px;"><a [routerLink]="['applicants/boards', job.id]">{{job.position}}</a></span><br>
+                          <span style="font-weight: 600; padding-right:25px;"><a [routerLink]="['/applicants/details/', job.id]">{{job.position}}</a></span><br>
                           <div style="padding-top: 5px;"></div>
-                          <span>Amplifire Digital Agency</span><br>
+                          <span>{{job.recruiter}}</span><br>
                           <span>{{job.state}} | Full-time</span><br>
                           <!-- ({{job.endDate.ge}} - {{job.datePosted}}/(1000 * 3600 * 24)) -->
                           <span style="margin-right: 4px;">Closes in 5 days</span>

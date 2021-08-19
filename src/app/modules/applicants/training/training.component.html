@@ -1,55 +1,71 @@
 <div class="bg-img">
   <div class="container">
-<nav *ngFor="let i of [1,2]" [class]="{'fixed-Menu':i == 1}" class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%; padding: 0; background-color: #6495ED !important; margin: -40px 0 5px 0;">
-    <button class="navbar-toggler" type="button" (click)="toggleMenu()" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon" style="color: #ffffff; display: none;"></span><i class="fa fa-bars" style="color: #ffffff;" aria-hidden="true"></i>
-    </button>
-    <img src="assets/images/logo_2.png" alt="Home" class="navbar-brand" [routerLink]="['/']" style="width: 150px; height: 150px; cursor: pointer; ">
+    <nav *ngFor="let i of [1,2]" [class]="{'fixed-Menu':i == 1}" class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%; padding: 0; background-color: #6495ED !important;">
+      <button class="navbar-toggler" type="button" (click)="toggleMenu()" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon" style="color: #ffffff; display: none;"></span><i class="fa fa-bars" style="color: #ffffff;" aria-hidden="true"></i>
+      </button>
+      <img src="assets/images/logo_2.png" alt="Home" class="navbar-brand" [routerLink]="['/']" style="width: 150px; height: 150px; cursor: pointer; margin: -40px 0 !important; margin-right: 5% !important;">
 
-  <div class="collapse navbar-collapse" [class]="{'d-flex':showMenu}" id="navbarTogglerDemo03">
-    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-      <li class="nav-item active">
-        <a class="nav-link" [routerLink]="['/applicants/about']">About Us </a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" [routerLink]="['/applicants/services']">Services </a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" [routerLink]="['/applicants/blog']">Blog </a>
-      </li>
-
-      <li class="nav-item active">
-        <a class="nav-link"[routerLink]="['/applicants/boards']">Job Boards </a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" [routerLink]="['/applicants/scorecv']">Score CV </a>
-      </li>
-
-      <li class="nav-item active">
-        <a class="nav-link"[routerLink]="['/applicants/pricing']">Pricing </a>
-      </li>
-    </ul>
-
-    <div class="form-inline my-2 my-lg-0">
-      <ul class="navbar-nav mr-auto" style="color: #fff;">
+    <div class="collapse navbar-collapse" [class]="{'d-flex':showMenu}" id="navbarTogglerDemo03">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
         <li class="nav-item active">
-          <a class="nav-link" [routerLink]="['/auth/signup']">Sign Up</a>
+          <a class="nav-link" [routerLink]="['/applicants/about']">About Us </a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" [routerLink]="['/applicants/services']">Services </a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" [routerLink]="['/applicants/blog']">Blog </a>
         </li>
 
         <li class="nav-item active">
-          <a class="nav-link" [routerLink]="['/auth/login']">Login</a>
+          <a class="nav-link"[routerLink]="['/applicants/boards']">Job Board</a>
         </li>
 
         <li class="nav-item active">
-          <button class="btn" [routerLink]="['/auth/login']" nbButton outline size="small" style="color: #6495ED; background-color: #fff; border: 1px solid #6495ED;">Post Job</button>
+          <a class="nav-link"[routerLink]="['/applicants/trainings']">Artisan Board</a>
         </li>
+
+        <li class="nav-item active">
+          <a class="nav-link"[routerLink]="['/applicants/training']">Training Board</a>
+        </li>
+
+        <li class="nav-item active">
+          <a class="nav-link" [routerLink]="['/applicants/scorecv']">Score CV </a>
+        </li>
+
       </ul>
 
+      <div *ngIf="!(authenService.authStatus | async)" class="form-inline my-2 my-lg-0">
+        <ul class="navbar-nav mr-auto" style="color: #fff;">
+          <li class="nav-item active">
+            <a class="nav-link" [routerLink]="['/auth/signup']">Sign Up</a>
+          </li>
 
+          <li class="nav-item active">
+            <a class="nav-link" [routerLink]="['/auth/login']">Login</a>
+          </li>
+
+          <li class="nav-item active">
+            <button class="btn" [routerLink]="['/auth/login']" nbButton outline size="small" style="color: #6495ED; background-color: #fff; border: 1px solid #6495ED;">Post Job</button>
+          </li>
+        </ul>
+      </div>
+
+      <div *ngIf="authenService.authStatus | async" class="form-inline my-2 my-lg-0">
+        <ul class="navbar-nav mr-auto" style="color: #fff;">
+          <li class="nav-item active">
+            <a class="nav-link" [routerLink]="['/auth/login']">Log Out</a>
+          </li>
+
+          <li class="nav-item active">
+            <a class="nav-link" [routerLink]="['/appdash']">Dashboard</a>
+          </li>
+
+        </ul>
+      </div>
     </div>
-  </div>
-</nav>
-
+  </nav>
 <div class="container">
   <div style="padding-top: 50px;">
     <h6 style="text-align: center; color: #fff;">News around HR Headhunting</h6>
@@ -58,53 +74,130 @@
 </div>
 </div>
 
+<div class="container" style="background-color: #ffffff;">
+  <div class="row row-cols-2">
+    <div class="col-sm-12 col-md-8 col-lg-8 ">
+      <nb-card>
+        <nb-card-body *ngIf="trainingCounter < 1">
+          <ngx-default-content pageHeader={{myPlanHeader}} pageDescription="{{myPlanDesc}}" [loading]="loading"></ngx-default-content>
+        </nb-card-body>
+      </nb-card>
+        
+          <nb-tabset *ngIf="trainingCounter > 0">
+            <nb-tab tabTitle="All Trainings">
+              <div class="row" style="display: flex; flex-direction: row; justify-content: space-between;">
+                <div *ngFor="let training of trainingData" class="col-sm-12 col-md-6 col-lg-6" style="margin: 10px 0;">
+                  <div class="row">
+                    <div class="col-sm-12 col-md-4 col-lg-4" style="display: inline-block; width: 40%; height: 40%;">
+                      <img src="assets/images/jobs.png" style="width:5rem;">
+                    </div>
+                    <div class="col-sm-12 col-md-8 col-lg-8" style="display: inline-block; width: 60%; height: 60%;">
+                        <span style="display: block; font-weight: 600;"><a [routerLink]="['/applicants/trainingdetails', training.id]">{{training.title}}</a></span>
+                        <span style="display: block;">{{training.consultantName}}</span>
+                        <span style="display: block;">{{training.duration}} months</span>
+                        <span style="display: block;">&#8358; {{training.fee}}</span>
+                        <span style="display: block;">Starts on {{training.startDate | date:'shortDate' }}</span>
+                        <!-- <img [src]="imagePath">-->
+                       <!-- <img src="{{'data:image/jpg;base64,' + training.brandLogo}}" style="width:5rem; height: 5rem;"> -->
+                    </div>
+                  </div>
+                </div>
 
-<div class="row" style="background-color: #1F2566; font-size: small; color: #fff; padding: 10px; text-align: left;">
-  <div class="col-sm-12 col-md-6 col-lg-3">
-    <h6 style="color: #fff;">Quick Access</h6><br>
-    <span>Post a job</span><br>
-    <span>Create Profile</span><br>
-    <span>Login</span><br>
-  </div>
-  <div class="col-sm-12 col-md-6 col-lg-3"><h6 style="color: #fff;">Company</h6><br>
-    <span>About</span><br>
-    <span>Help Center</span><br>
-    <span>Services</span><br>
-    <span>Training</span><br>
-  </div>
-  <div class="col-sm-12 col-md-6 col-lg-3">
-    <button class="btn" nbButton [routerLink]="['/auth/login']" outline style="color: #6495ED; background-color: #fff; margin-right: 8px; width: 35%;">Log In</button>
+              </div>
+              <div style="padding: 10px;"></div>
 
-    <button type="submit" class="btn my-button" [routerLink]="['/auth/signup']" nbButton status="primary" style="width: 35%;">Register now</button>
+            </nb-tab>
+            <nb-tab tabTitle="Featured trainings">
+              <div class="row">
+                <div class="col-sm-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
+                  <div class="col-sm-4">
+                    <img src="assets/images/jobs.png" style="width:5rem;">
+                  </div>
+                  <div class="col-sm-8">
+                      <span style="font-weight: 600; padding-right:25px;">UI/UX Designer</span><br>
+                      <div style="padding-top: 5px;"></div>
+                      <span>Amplifire Digital Agency</span><br>
+                      <span>Lekki, Lagos | Full-time</span><br>
+                      <span>Closes in 5 days</span><br>
+                  </div>
+                </div>
 
-  </div>
-  <div class="col-sm-12 col-md-6 col-lg-3">
-    <div class="input-group" style="background-color: #ffffff;border: 5px solid #ffffff;">
-      <input type="email" class="form-control" placeholder="Enter your email" style="color: #000;">
-      <button class="btn btn-primary" type="submit" size="tiny"  nbButton outline style="background-color: #6495ED; color: #ffffff;">Subscribe<i class="fa fa-arrow-right" style="color: #ffffff; padding-left: 10px;" aria-hidden="true"></i></button>
-
-       </div>
-       <div style="display: block; padding-top: 20px;">
-        <p style="color: #ffffff; font-weight: 500;">Contact Us: 23 Hawley Street Lagos Island.</p>
-        <p style="color: #ffffff; font-weight: 500;">Email: Info@hrheadhunting.com</p>
-      </div>
-  </div>
-
-
-  <div class="container" style="display: flex; flex-direction: row; width: 100%; justify-content: space-between; background-color: #1F2566;">
-    <div class="col-sm-12 col-md-6 col-lg-3" style=" display: flex; flex-direction: row; justify-content: space-between; color: #ffffff;">
-      <img src="assets/images/logo_2.png" [routerLink]="['/']"  alt="" style="cursor: pointer; height: 100px;">
+                <div class="col-sm-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
+                  <div class="col-sm-4">
+                    <img src="assets/images/jobs.png" style="width:5rem;">
+                  </div>
+                  <div class="col-sm-8">
+                      <span style="font-weight: 600; padding-right:25px;">UI/UX Designer</span><br>
+                      <div style="padding-top: 5px;"></div>
+                      <span>Amplifire Digital Agency</span><br>
+                      <span>Lekki, Lagos | Full-time</span><br>
+                      <span>Closes in 5 days</span><br>
+                  </div>
+                </div>
+              </div>
+            </nb-tab>
+          </nb-tabset>
     </div>
 
-    <div class="col-sm-12 col-md-6 col-lg-3" style="margin-top:2%; display: flex; flex-direction: row; justify-content: space-around; color: #ffffff;">
-        <p style="color: #D8FFEF;">Terms and Policy</p>
-        <div style="display: flex; flex-direction: row; justify-content: flex-start;">
-          <i class="fas fa-share-alt" style="margin-right: 15px;"></i>
-          <i class="fab fa-linkedin-in" style="margin-right: 15px;"></i>
-          <i class="fab fa-twitter" style="margin-right: 15px;"></i>
-          <i class="fas fa-link" ></i>
+    <!-- <div class="col-sm-4"> -->
+
+       <nb-card class="col-sm-4  shadow p-3 mb-5 bg-white rounded">
+         <nb-card-body>
+          <div class="row">
+            <div class="col">
+            <h6>Top Trainings in Nigeria</h6>
+            <div style="padding: 5px;"></div>
+            <span>3,234 companies found</span>
+            <div style="padding: 10px;"></div>
+            <div class="form-group has-search">
+              <div style="display: flex; justify-content: space-between; flex-direction: row; padding-bottom: 3px;">
+              <span style="font-weight: 600;">INDUSTRY</span>
+              <a href="" style="color: #0066F4;">Reset Filter</a>
+              </div>
+              <div class="input-group">
+              <span class="fa fa-search form-control-feedback"></span>
+              <input type="text" class="form-control" placeholder="Search"  style="height: 45px">
+              <div class="input-group-append">
+              </div>
+            </div>
+            </div>
+            </div>
+
+            <div style="padding: 20px;"></div>
+          </div>
+
+          <div class="form-group">
+            <!-- <nb-checkbox *ngFor="let sector of sectorData">{{sector.text}}</nb-checkbox><br> -->
+            <nb-checkbox>Computer Software (453)</nb-checkbox><br>
+            <nb-checkbox>Health Care (453)</nb-checkbox><br>
+            <nb-checkbox>Engineering & Construction (52)</nb-checkbox><br>
+            <nb-checkbox>Manufacturing (453)</nb-checkbox><br>
+
         </div>
 
-    </div>
+        <div class="row" style="display: flex; justify-content: flex-start; flex-direction: row; padding: 10px;">
+          <div class="col" style="padding: 10px;">
+          <h6>List of companies in Nigeria</h6>
+          <div style="padding: 5px;"></div>
+          <span>3,234 companies found</span>
+          <div style="padding: 10px;"></div>
+          <input type="text" class="form-control" nbInput fullWidth id="keyword" placeholder="Enter Keyword" style="background-color: #ffffff; color:#95A8B8;">
+          </div>
+          <div style="padding: 20px;"></div>
+        </div>
+
+          <div class="form-group">
+            <nb-checkbox>Abia</nb-checkbox><br>
+            <nb-checkbox>Akwa Ibom</nb-checkbox><br>
+            <nb-checkbox>Anambra</nb-checkbox><br>
+            <nb-checkbox>Bauchi</nb-checkbox><br>
+          </div>
+         </nb-card-body>
+       </nb-card>
+
+    <!-- </div> -->
   </div>
+
 </div>
+
+

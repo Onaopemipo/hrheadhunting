@@ -1,5 +1,5 @@
-<ngx-componentsheader pageName='Consultants'>
-  <div headerButton>
+<ngx-componentsheader pageName='Consultants' [requiredButton]="[{name:'newConsultant', label:'Add New', icon: 'plus'}]" (buttonClick)="toggleConsultant()">
+  <!-- <div headerButton>
     <div style="display: flex; flex-direction: row; justify-content: space-between;">
       <div style="margin-right: 5px;">
         <button [outline]="true"   (click)="toggleConsultant()" nbButton status="primary" >
@@ -12,7 +12,7 @@
           </button>
       </div>
     </div>
-  </div>
+  </div> -->
 
 </ngx-componentsheader>
 <div *ngIf="consultantCounter < 1" style="background-color: #ffffff;">
@@ -37,7 +37,7 @@
 </div>
 
 
-<ngx-side-modal [(show)]="consultantModal" style="width: 600px;" position='Center'>
+<ngx-side-modal [(show)]="consultantModal" style="width: 1200px;">
   <div modal-header>Add Consultant</div>
 
   <div modal-body>
@@ -114,7 +114,7 @@
 
           <div class="form-group">
             <label class="row">Password</label>
-            <div style="display: flex;border: 0.800000011920929px solid #CED4DA;border-radius: 3px;background-color: #f7f9fc;padding: 5px;">
+            <div style="display: flex;border: 0.800000011920929px solid #CED4DA;border-radius: 3px;background-color: #f7f9fc;">
               <input [type]="show ? 'text' : 'password'" nbInput fullWidth placeholder="Password" name="password" #password="ngModel" [(ngModel)]="consultantModel.password" required style="border: none;">
               <nb-icon  (click)="viewpassword()" *ngIf="!show"  icon="eye-off-outline" style="font-size: 32px;color: #95A8B8;cursor: pointer;"></nb-icon>
               <nb-icon  (click)="viewpassword()" *ngIf="show"  icon="eye-outline" style="font-size: 32px;color: #95A8B8;cursor: pointer;"></nb-icon>
@@ -122,8 +122,8 @@
           </div>
 
           <div class="form-group">
-            <label class="row">Confirm Password</label><br>
-            <div style="display: flex;border: 0.800000011920929px solid #CED4DA;border-radius: 3px;background-color: #f7f9fc;padding: 5px;">
+            <label class="row">Confirm Password</label>
+            <div style="display: flex;border: 0.800000011920929px solid #CED4DA;border-radius: 3px;background-color: #f7f9fc;">
              <input [type]="show ? 'text' : 'password'" nbInput fullWidth placeholder="Confirm Password" name="conPassword" #conPassword="ngModel" [(ngModel)]="consultantModel.confirmPassword" required style="border: none;">
              <nb-icon  (click)="viewpassword()" *ngIf="!show"  icon="eye-off-outline" style="font-size: 32px;color: #95A8B8;cursor: pointer;"></nb-icon>
              <nb-icon  (click)="viewpassword()" *ngIf="show"  icon="eye-outline" style="font-size: 32px;color: #95A8B8;cursor: pointer;"></nb-icon>
@@ -142,5 +142,5 @@
     </nb-card>
   </div>
 
-</ngx-side-modal> -->
+</ngx-side-modal>
 

@@ -3,11 +3,21 @@
       <nb-card>
        <nb-card-body>
         <div class="form-group row mydiv">
-          <label class="col-sm-3 col-form-label" for="">Quiz Name</label>
+          <label class="col-sm-3 col-form-label" for="">Test Name</label>
         <div class="col-md-4">
           <input type="text" class="form-control" name="quizName" #quizName="ngModel" [(ngModel)]="newQuizModel.name">
         </div>
       </div>
+
+      <div class="form-group row mydiv">
+        <label class="col-sm-3 col-form-label" for="">Test Category</label>
+      <div class="col-md-4">
+        <select type="text" class="form-control" name="quizType">
+          <option value="">--Select Category--</option>
+          <option *ngFor="let cat of testCategory" [value]="cat.id">{{ cat.label }}</option>
+        </select>
+      </div>
+    </div>
 
       <div class="form-group row mydiv">
           <label class="col-sm-3 col-form-label" for="">Quiz Type</label>

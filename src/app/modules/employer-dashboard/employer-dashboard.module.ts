@@ -7,10 +7,11 @@ import { ComponentsModule } from 'app/components/components.module';
 import { NbLayoutModule } from '@nebular/theme';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DashboardData, DashboardServiceProxy } from 'app/_services/service-proxies';
+import { JobsComponent } from './jobs/jobs.component';
 
 
 @NgModule({
-  declarations: [DashboardComponent],
+  declarations: [DashboardComponent, JobsComponent],
   imports: [
     CommonModule,
     EmployerDashboardRoutingModule,

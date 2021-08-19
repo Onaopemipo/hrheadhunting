@@ -7,9 +7,10 @@
         <div class="col-sm-8 col-md-6 col-lg-6">
           <label for="Descripion">Upload your CV in PDF format, not more than 512Kb</label>
           <input type="file" class="form-control-file" name="resume" id="" (change)="handleFileSelect($event)">
-           <!-- <ngx-file-upload class="form-control" style="border: none;"></ngx-file-upload>    -->
         </div>
+      </div>
 
+      <div class="row">
         <div class="col-sm-8 col-md-6 col-lg-6">
           <label style="font-weight: bold;"></label>
             <button *ngIf="!btnProcessing" nbButton status="primary" (click)="uploadCV()">Upload</button>

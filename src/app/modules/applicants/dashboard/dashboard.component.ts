@@ -51,6 +51,7 @@ export class DashboardComponent implements OnInit {
   skillData: IDTextViewModel [] = [];
   stateData: IDTextViewModel [] = [];
   sectorData: IDTextViewModel [] = [];
+  sectorJobsData: IDTextViewModel [] = [];
 
 
   filter = {
@@ -70,8 +71,6 @@ searchFilter = {
     pageNo: 1
 }
 
-
-
   constructor(private job: JobServiceProxy, private employer: EmployerServiceProxy, private skill: SkillAreasServiceProxy,
     private state: StatesServiceProxy, private route: Router, private sector: SectorsServiceProxy, public authenService: AuthenticationService,) { }
 
@@ -83,11 +82,16 @@ searchFilter = {
     this.fetchAllEmployers();
     this.getMyUsers();
     this.authUser();
+    this.fetchSectorJobs();
   }
 
   logOut(){
     this.authenService.clearusers();
-    this.route.navigateByUrl('/auth/login')
+    this.route.navigateByUrl('/auth/login');
+  }
+
+  LoadMore(){
+
   }
 
   resetFilter(){
@@ -128,8 +132,8 @@ searchFilter = {
   }
 
 
-  filterUpdated(filter: any) {
-
+ async filterUpdated(filter: any) {
+   console.log('See me',filter)
     this.jobFilter = {...this.jobFilter, ...filter};
     console.log('Updated filter', this.jobFilter)
     this.fetchAllJobs();
@@ -159,6 +163,12 @@ searchFilter = {
       this.sectorData = data.value;
     });
 
+  }
+
+  async fetchSectorJobs(){
+    const data = await this.sector.fetchSectorJobs().toPromise();
+    this.sectorJobsData = data.value;
+    console.log('My sector jobs data:', this.sectorJobsData)
   }
 
  async fetchStates(countryId){

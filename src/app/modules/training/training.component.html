@@ -1,130 +1,93 @@
-<!-- <form>
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <label for="inputEmail4"></label>
-      <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
-    </div>
-    <div class="form-group col-md-6">
-      <label for="inputPassword4">Password</label>
-      <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="inputAddress">Address</label>
-    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-  </div>
-  <div class="form-group">
-    <label for="inputAddress2">Address 2</label>
-    <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-  </div>
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <label for="inputCity">City</label>
-      <input type="text" class="form-control" id="inputCity">
-    </div>
-    <div class="form-group col-md-4">
-      <label for="inputState">State</label>
-      <select id="inputState" class="form-control">
-        <option selected>Choose...</option>
-        <option>...</option>
-      </select>
-    </div>
-    <div class="form-group col-md-2">
-      <label for="inputZip">Zip</label>
-      <input type="text" class="form-control" id="inputZip">
-    </div>
-  </div>
-  <button type="submit" class="btn btn-primary">Sign in</button>
-</form> -->
-<nb-card>
-  <nb-card-body>
-    <form>
-      <div class="form-group row ">
-        <label for="Title" class="col-sm-6 col-md-3 col-lg-3 col-md-3 col-lg-3 col-form-label ">Training Title</label>
-        <div class="col-sm-10 col-md-6 col-lg-6">
-          <input class="form-control" type="text" name="title" #title="ngModel" [(ngModel)]="trainingModel.title" placeholder="Training Title" required>
-          <div *ngIf="title.invalid && (title.dirty || title.touched)" class="error">
-            <div *ngIf="title.errors.required">Training Title is required</div>
+<ngx-componentsheader pageName='My Trainings' [requiredButton]="[{name:'new', label:'Add New', icon: 'plus'}]" (buttonClick)="toggleTraining()"></ngx-componentsheader>
+
+<div *ngIf="trainingCounter < 1" style="background-color: #ffffff;">
+  <nb-card>
+    <nb-card-body>
+        <ngx-default-content pageHeader={{emptyHeader}} pageDescription="{{emptyDescription}}" buttonValue={{myButton}}
+          (buttonClick)="newJobPosting()" [loading]="loading"></ngx-default-content>
+    </nb-card-body>
+  </nb-card>
+</div>
+
+<div *ngIf="trainingCounter > 0">
+  
+</div>
+
+
+<ngx-side-modal [(show)]="newTraining" style="width: 600px;">
+  <div modal-header>New Training</div>
+
+  <div modal-body>
+    <nb-card>
+      <nb-card-body>
+        <form>
+          <div class="form-group row">
+            <label for="Title" class="col-form-label">Training Title</label>
+              <input class="form-control" type="text" name="title" #title="ngModel" [(ngModel)]="trainingModel.title" placeholder="Training Title" required>
+              <div *ngIf="title.invalid && (title.dirty || title.touched)" class="error">
+                <div *ngIf="title.errors.required">Training Title is required</div>
+              </div>
           </div>
-        </div>
-      </div>
-
-      <div class="form-group row ">
-        <label for="Descripion" class="col-sm-6 col-md-3 col-lg-3 col-form-label ">Description</label>
-        <div class="col-sm-10 col-md-6 col-lg-6">
-          <textarea name="description" #description="ngModel" class="form-control" [(ngModel)]="trainingModel.descriptions" cols="30" rows="10" style="width: 100%;" required></textarea>
-          <div *ngIf="description.invalid && (description.dirty || description.touched)" class="error">
-            <div *ngIf="description.errors.required">Description is required</div>
+    
+          <div class="form-group row">
+            <label for="Descripion" class="col-form-label ">Description</label>
+              <textarea name="description" #description="ngModel" class="form-control" [(ngModel)]="trainingModel.descriptions" cols="30" rows="10" style="width: 100%;" required></textarea>
+              <div *ngIf="description.invalid && (description.dirty || description.touched)" class="error">
+                <div *ngIf="description.errors.required">Description is required</div>
+              </div>
           </div>
-        </div>
-      </div>
-
-      <div class="form-group row ">
-        <label for="Region" class="col-sm-6 col-md-3 col-lg-3 col-form-label ">State</label>
-        <div class="col-sm-10 col-md-6 col-lg-6">
-          <select class="custom-select" name="stateRegion" #stateRegion="ngModel" [(ngModel)]="trainingModel.stateId" required>
-            <option value="">--Select State--</option>
-            <option *ngFor="let state of stateData" [value]="state.id">{{state.text}}</option>
-          </select>
-          <div *ngIf="stateRegion.invalid && (stateRegion.dirty || stateRegion.touched)" class="error">
-            <div *ngIf="stateRegion.errors.required">State is required</div>
+    
+          <div class="form-group row ">
+            <label for="Region" class="col-form-label ">State</label>
+              <select class="custom-select" name="stateRegion" #stateRegion="ngModel" [(ngModel)]="trainingModel.stateId" required>
+                <option value="">--Select State--</option>
+                <option *ngFor="let state of stateData" [value]="state.id">{{state.text}}</option>
+              </select>
+              <div *ngIf="stateRegion.invalid && (stateRegion.dirty || stateRegion.touched)" class="error">
+                <div *ngIf="stateRegion.errors.required">State is required</div>
+              </div>
           </div>
-        </div>
-      </div>
-
-      <div class="form-group row ">
-        <label for="Descripion" class="col-sm-6 col-md-3 col-lg-3 col-form-label ">Office Address</label>
-        <div class="col-sm-10 col-md-6 col-lg-6">
-          <textarea name="address" #address="ngModel" class="form-control" [(ngModel)]="trainingModel.location" cols="30" rows="10" style="width: 100%;" required></textarea>
-          <div *ngIf="address.invalid && (address.dirty || address.touched)" class="error">
-            <div *ngIf="address.errors.required">Address is required</div>
+    
+          <div class="form-group row ">
+            <label for="Descripion" class="col-form-label ">Office Address</label>
+              <textarea name="address" #address="ngModel" class="form-control" [(ngModel)]="trainingModel.location" cols="30" rows="10" style="width: 100%;" required></textarea>
+              <div *ngIf="address.invalid && (address.dirty || address.touched)" class="error">
+                <div *ngIf="address.errors.required">Address is required</div>
+            </div>
           </div>
-        </div>
-      </div>
-
-      <div class="form-group row ">
-        <label for="Region" class="col-sm-6 col-md-3 col-lg-3 col-form-label ">Training Duration (in months)</label>
-        <div class="col-sm-10 col-md-6 col-lg-6">
-         <input type="number" class="form-control" name="duration" #duration="ngModel" [(ngModel)]="trainingModel.duration" placeholder="Training Duration (in months)" required>
-         <div *ngIf="duration.invalid && (duration.dirty || duration.touched)" class="error">
-          <div *ngIf="duration.errors.required">Training Duration is required</div>
-        </div>
-        </div>
-      </div>
-
-      <div class="form-group row ">
-        <label for="currency" class="col-sm-6 col-md-3 col-lg-3 col-form-label ">Training Fee</label>
-        <div class="col-sm-10 col-md-6 col-lg-6">
-          <app-amount-input [(value)]="trainingModel.fee"></app-amount-input>
-        </div>
-      </div>
-
-      <hr style="margin: 40px 0px;">
-
-      <div class="form-group row ">
-        <label for="currency" class="col-sm-6 col-md-3 col-lg-3 col-form-label ">Start Date</label>
-        <div class="col-sm-10 col-md-6 col-lg-6">
-          <ngx-date [(value)]="trainingModel.startDate"></ngx-date>
-        </div>
-      </div>
-
-      <div class="form-group row ">
-        <label for="currency" class="col-sm-6 col-md-3 col-lg-3 col-form-label ">End Date</label>
-        <div class="col-sm-10 col-md-6 col-lg-6">
-          <ngx-date [(value)]="trainingModel.endDate"></ngx-date>
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label class="col-sm-6 col-md-3 col-lg-3 col-form-label" style="font-weight: bold;"></label>
-        <div class="col-sm-10">
-          <button *ngIf="!btnProcessing" nbButton status="primary" (click)="postTraining()">Post Now</button>
-          <button *ngIf="btnProcessing" nbButton status="primary">Now Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button>
-          <span style="padding: 8px;"></span>
-          <!-- <button nbButton>Cancel</button> -->
-
-        </div>
-      </div>
-    </form>
-  </nb-card-body>
-</nb-card>
+    
+          <div class="form-group row ">
+            <label for="Region" class="col-form-label ">Training Duration (in months)</label>
+             <input type="number" class="form-control" name="duration" #duration="ngModel" [(ngModel)]="trainingModel.duration" placeholder="Training Duration (in months)" required>
+             <div *ngIf="duration.invalid && (duration.dirty || duration.touched)" class="error">
+              <div *ngIf="duration.errors.required">Training Duration is required</div>
+            </div>
+          </div>
+    
+          <div class="form-group row ">
+            <label for="currency" class="col-form-label ">Training Fee</label>
+              <app-amount-input [(value)]="trainingModel.fee" class="form-control" style="border: none;width: 100%;"></app-amount-input>
+          </div>
+    
+    
+          <div class="form-group row">
+            <label for="currency" class="col-form-label" style="display:block">Start Date</label>
+              <ngx-date [(value)]="trainingModel.startDate" class="form-control" style="border: none;width: 100%;"></ngx-date>
+          </div>
+    
+          <div class="form-group row ">
+            <label for="currency" class="col-form-label ">End Date</label>
+              <ngx-date [(value)]="trainingModel.endDate" class="form-control" style="border: none;width: 100%;"></ngx-date>
+          </div>
+    
+          <div class="form-group row">
+            <label class="col-form-label" style="font-weight: bold;"></label>
+              <button *ngIf="!btnProcessing" nbButton status="primary" fullWidth (click)="postTraining()">Post Now</button>
+              <button *ngIf="btnProcessing" nbButton status="primary">Now Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button>
+              <span style="padding: 8px;"></span>
+          </div>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</ngx-side-modal>

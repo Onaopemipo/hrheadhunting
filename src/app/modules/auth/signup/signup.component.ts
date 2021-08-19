@@ -12,6 +12,7 @@ import { AuthService } from 'app/_services/auth.service';
 import { PaystackOptions } from 'angular4-paystack';
 import * as firebase from 'firebase';
 import { AuthenticationService } from 'app/_services/authentication.service';
+import { NgForm } from '@angular/forms';
 @Component({
   selector: 'ngx-signup',
   templateUrl: './signup.component.html',
@@ -19,7 +20,9 @@ import { AuthenticationService } from 'app/_services/authentication.service';
 })
 export class SignupComponent implements OnInit {
 
-  // applicantForm = NgForm;
+  applicantForm  = NgForm;
+  employerForm = NgForm;
+  consultantForm  = NgForm;
   selectedAccount: number = 0;
   isSeeker: boolean = false;
   isEmployer: boolean = false;
@@ -32,7 +35,6 @@ export class SignupComponent implements OnInit {
   consultantStatus: boolean = false;
   show: boolean = false;
   emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$';
-  btnprocessing: boolean = false;
   errorMsg: string = '';
   pageNo: number = 0;
   subPlan: boolean = false;
@@ -73,6 +75,10 @@ export class SignupComponent implements OnInit {
   employerEmail: string = '';
   emailPrompt: boolean = false;
   socialLogin: UserLoginDTO = new UserLoginDTO();
+  today: Date = new Date();
+  minAgeVal: Date = new Date();
+  loading: boolean = false;
+  btn: boolean = false;
 
 
   constructor(private route: Router, private account: AccountServiceProxy, private alertMe: AlertserviceService,
@@ -102,6 +108,20 @@ export class SignupComponent implements OnInit {
     this.fetchGenders();
     this.fetchRecruiterSub();
     this.fetchCVPlan();
+    // this.minAgeCal();
+
+  }
+
+  minAgeCal($scope, $filter){
+    var today = new Date();
+    var minAge = 18;
+    $scope.dob = ($filter)('date')(new Date(today.getFullYear() - minAge, today.getMonth(), today.getDate()), 'yyyy-MM-dd');
+    $scope.minAge = new Date(today.getFullYear() - minAge, today.getMonth(), today.getDate());
+    // let today = new Date();
+    // let minAge = 18;
+    // console.log(this.today);
+    // this.minAgeVal = new Date(this.today.getFullYear() - minAge, this.today.getMonth(), this.today.getDate());
+    // console.log('Your min date', this.minAgeCal)
   }
 
    paymentInit() {
@@ -201,6 +221,29 @@ else {
 
 }
 }
+
+handleVideoFileSelect(evt){
+  var files = evt.target.files;
+  var file = files[0];
+  console.log('My file size', file);
+
+if(files && file && (file.size < 524888 || file.type == "mp4")) {
+    var reader = new FileReader();
+    reader.onload =this._handleVideoReaderLoaded.bind(this);
+    reader.readAsBinaryString(file);
+}
+
+else {
+  this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.FAILED, 'Check your file type or size', 'OK')
+
+}
+}
+
+_handleVideoReaderLoaded(readerEvt) {
+  var binaryString = readerEvt.target.result;
+         this.jobSeeker.videoResume= btoa(binaryString);
+         console.log(btoa(binaryString));
+ }
 
 _handleReaderLoaded(readerEvt) {
  var binaryString = readerEvt.target.result;
@@ -351,49 +394,7 @@ _handleReaderLoaded(readerEvt) {
      })
    }
 
-// doGoogle(){
-//   this.social.doGoogleLogin().then(data => {
-//     this.googleData = data;
-//     this.socialSignup.isSocial = true;
-//     this.socialSignup.email = this.googleData.email;
-//     this.socialSignup.firstName = this.googleData.displayName;
-//     this.account.getToken(this.socialSignup).subscribe(data => {
-//       if(!data.hasError){
-//         console.log(data);
-//         this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'You are authenticated', 'OK').subscribe(res => {
-//           if(res){
-//             this.route.navigateByUrl('/')
-//           }
-//         })
-//         this.AuthenService.addUser(data.result);
-//       }
-//     })
-//   });
-// }
 
-// doFacebook(){
-//   this.social.doFacebookLogin().then(data => {
-//     this.facebookData = data.user;
-//     console.log('See your Facebook data',this.facebookData.values);
-//     this.socialSignup.isSocial = true;
-//     this.socialSignup.firstName = this.facebookData.displayName;
-//     this.socialSignup.lastName = this.facebookData.displayName;
-//     this.socialSignup.password = this.googleData.uid;
-//     socialSignup.email = this.facebookData.
-//     this.account.getToken(this.socialSignup).subscribe(data => {
-//       if(!data.hasError){
-//         this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, '', 'OK').subscribe(res => {
-//           if(res){
-//             this.route.navigateByUrl('/')
-//           }
-//         })
-//         this.AuthenService.addUser(data.result);
-//       } else {
-//         this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.FAILED, data.message, 'OK')
-//       }
-//     })
-//   });
-// }
 
 async fetchRecruiterSub(){
   const data = await this.sub.fetchRecruiterPlanFeatures().toPromise()
@@ -468,6 +469,7 @@ async fetchCVPlan(){
 
   registerApplicant(){
     this.btnProcessing = true;
+    this.loading = true;
     let applicant: ManageJobSeekerRegDTO = new ManageJobSeekerRegDTO();
     applicant.titleId = Number(this.jobSeeker.titleId);
     applicant.firstName = this.jobSeeker.firstName;
@@ -496,15 +498,14 @@ async fetchCVPlan(){
     applicant.fieldOfInterestId = Number(this.jobSeeker.fieldOfInterestId);
     applicant.dateOfBirth = this.jobSeeker.dateOfBirth;
     applicant.courseOfStudyId = Number(this.jobSeeker.courseOfStudyId);
-
-    console.log(applicant);
     this.account.applicantSignUp(applicant).subscribe(data => {
       this.btnProcessing = false;
+      this.loading = false;
       if(!data.hasError){
         this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, data.message, 'Finish Setup').subscribe(res => {
           if(res){
             this.jobSeeker = new ManageJobSeekerRegDTO();
-            this.route.navigateByUrl('/auth/login')
+            this.route.navigateByUrl('/auth/login');
           }
         })
       }
@@ -554,7 +555,7 @@ async fetchCVPlan(){
   }
 
   registerConsultant(){
-    this.btnProcessing = true;
+    this.btn = true;
     let consultant = new ManageConsultantDTO();
     consultant.name = this.consultantModel.name;
     consultant.firstName = this.consultantModel.firstName;
@@ -568,7 +569,7 @@ async fetchCVPlan(){
     consultant.password = this.consultantModel.password;
     consultant.confirmPassword = this.consultantModel.confirmPassword;
     this.account.consultantSignUp(consultant).subscribe(data => {
-      this.btnProcessing = false;
+      this.btn = false;
       if(!data.hasError){
         this.consultantModel = new ManageConsultantDTO();
         this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, data.message, 'Finish Setup').subscribe(res => {

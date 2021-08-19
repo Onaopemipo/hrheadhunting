@@ -1,6 +1,6 @@
 import { ReportServiceProxy, EmployerDTO, SkillAreasServiceProxy, SectorsServiceProxy, StatesServiceProxy } from '../../../_services/service-proxies';
 import { Component, OnInit } from '@angular/core';
-import { IDTextViewModel, Job, JobServiceProxy } from 'app/_services/service-proxies';
+import { IDTextViewModel, Job, JobServiceProxy, JobDTO } from 'app/_services/service-proxies';
 import { AuthenticationService } from 'app/_services/authentication.service';
 
 @Component({
@@ -29,7 +29,7 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  allJobs: Job []= [];
+  allJobs: JobDTO []= [];
   showMenu:boolean = false;
   btnProcessing:boolean = false;
   recruiterData: IDTextViewModel [] = [];
@@ -118,7 +118,7 @@ searchFilter = {
 
   fetchAllJobs(){
     this.loading = true;
-   this.job.fetchAllJobs(this.jobFilter.skillAreaId, this.jobFilter.sectorId,
+   this.job.fetchJobs(this.jobFilter.skillAreaId, this.jobFilter.sectorId,
     this.jobFilter.countryId, this.jobFilter.stateId, this.jobFilter.isNewlyAdded,
     this.jobFilter.isPopular,this.jobFilter.pageSize, this.jobFilter.pageNumber).subscribe(data => {
       this.loading = false;

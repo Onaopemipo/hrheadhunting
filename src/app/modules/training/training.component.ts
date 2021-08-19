@@ -1,4 +1,4 @@
-import { ConsultantServiceProxy, IDTextViewModel, ManageTrainingDTO, StatesServiceProxy } from './../../_services/service-proxies';
+import { ConsultantServiceProxy, IDTextViewModel, ManageTrainingDTO, StatesServiceProxy, TrainingDTO } from './../../_services/service-proxies';
 import { Component, OnInit } from '@angular/core';
 import { AlertserviceService } from 'app/_services/alertservice.service';
 
@@ -9,14 +9,34 @@ import { AlertserviceService } from 'app/_services/alertservice.service';
 })
 export class TrainingComponent implements OnInit {
 
+  emptyHeader:string = "Nothing here";
+  emptyDescription: string = "You don't have any training yet";
   trainingModel: ManageTrainingDTO = new ManageTrainingDTO();
   btnProcessing: boolean = false;
+  newTraining: boolean = false;
+  loading: boolean = false;
   stateData: IDTextViewModel [] = [];
+  trainingCounter: number = 0;
+  trainingData: TrainingDTO [] = [];
+  reference: string = '';
+
+  trainingFilter = {
+    searchText: '',
+    dateFrom: undefined,
+    dateTo: undefined,
+    pageSize: 10,
+    pageNo: 1
+  }
 
   constructor(private training: ConsultantServiceProxy, private alertMe: AlertserviceService, private state: StatesServiceProxy) { }
 
   ngOnInit(): void {
+    this.reference = `ref-${Math.ceil(Math.random() * 10e13)}`;
     this.fetchStates();
+  }
+
+  toggleTraining(){
+    this.newTraining = true;
   }
 
   postTraining(){
@@ -31,7 +51,7 @@ export class TrainingComponent implements OnInit {
     newTraining.duration = this.trainingModel.duration;
     newTraining.descriptions = this.trainingModel.descriptions;
     newTraining.durationLength = 1;
-
+    newTraining.referenceNumber = this.reference;
     this.training.postTraining(newTraining).subscribe(data => {
     this.btnProcessing = false;
     if(!data.hasError){
@@ -45,6 +65,18 @@ export class TrainingComponent implements OnInit {
     })
 
 
+  }
+
+fetchTraining(){
+  this.loading = true;
+    this.training.fetchActiveTrainings(this.trainingFilter.searchText, this.trainingFilter.dateFrom, 
+      this.trainingFilter.dateTo, this.trainingFilter.pageSize, this.trainingFilter.pageNo).subscribe(data => {
+        this.loading = false;
+        if(!data.hasError)
+        {
+          this.trainingData = data.value;
+          console.log(this.trainingData)
+        } })
   }
 
   async fetchStates(){
