@@ -25,17 +25,32 @@ export class ArtisansComponent implements OnInit {
     pageSize: 10,
     pageNo: 1
   }
+
+
+
   constructor(private artisan: ArtisanServiceProxy,public authenService: AuthenticationService, private route: Router) { }
 
   ngOnInit(): void {
     this.fetchAllArtisans();
   }
 
+  async filterUpdated(filter: any) {
+    console.log('See me',filter)
+     this.artisanFilter = {...this.artisanFilter, ...filter};
+     console.log('Updated filter', this.artisanFilter)
+     this.fetchAllArtisans();
+   }
+
   artisanDetails(id:number){
     this.route.navigate(['/applicants/artisandetails', id])
     // alert(id)
     // [routerLink]="['/applicants/employerdetails', employer.id]"
   }
+
+  resetFilter(){
+    this.artisanFilter.searchText = '';
+  }
+
 
   fetchAllArtisans(){
     this.loading = true;

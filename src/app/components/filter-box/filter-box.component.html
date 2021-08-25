@@ -1,0 +1,5 @@
+<form>
+  <div class="form-group">
+    <nb-checkbox *ngFor="let item of data" style="display: block;" name="sector" [checked]="isSelected(item.id)" (change)="filterUpdated(item.id)">{{item.text}}</nb-checkbox><br>
+  </div>
+</form>

@@ -1,4 +1,5 @@
 import { NgxEchartsModule } from 'ngx-echarts';
+import { AngularTawkComponent } from 'angular-tawk';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { AccountServiceProxy, JobServiceProxy, SectorsServiceProxy, SkillAreasServiceProxy, StatesServiceProxy, ApplicationsServiceProxy } from 'app/_services/service-proxies';
 import { ThemeModule } from 'app/@theme/theme.module';
@@ -18,7 +19,7 @@ import { AlertserviceService } from 'app/_services/alertservice.service';
 
 
 @NgModule({
-  declarations: [ApplicationsComponent, DashboardComponent, ProfileComponent, UploadcvComponent, PasswordComponent],
+  declarations: [ApplicationsComponent, DashboardComponent, ProfileComponent, UploadcvComponent, PasswordComponent,],
   imports: [
     CommonModule,
     ApplicantsDashboardRoutingModule,
@@ -42,6 +43,6 @@ import { AlertserviceService } from 'app/_services/alertservice.service';
     AccountServiceProxy,
     ApplicationsServiceProxy,
     AlertserviceService
-  ]
+  ],
 })
 export class ApplicantsDashboardModule { }

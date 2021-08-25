@@ -86,7 +86,7 @@
       <nb-card *ngIf="artisanCounter > 0" style="background-color: transparent;">
         <nb-card-body>
           <div class="row" style="display: flex; flex-direction: row; justify-content: space-between;">
-            <div *ngFor="let artisan of artisanData" class="col-sm-8 col-md-6 col-lg-3 shadow p-3 mb-5 bg-white rounded" (click)="artisanDetails(artisan.id)" style="height: 200; width: 200px; cursor: pointer; margin: 0 1px 1px 0;">
+            <div *ngFor="let artisan of artisanData" class="col-sm-8 col-md-6 col-lg-3 shadow p-3 mb-5 bg-white rounded" (click)="artisanDetails(artisan.id)" style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 200; width: 200px; cursor: pointer; margin: 0 1px 1px 0;">
                 <img src="assets/images/Job_Seeker.png" style=" height: 50px; text-align: center;"  alt=""><br>
                 <span style="font-size: 14; font-weight: 600;">{{artisan.name}}</span><br>
                 <span>{{artisan.specialty}}</span><br>
@@ -111,11 +111,10 @@
             <div class="form-group has-search">
               <div style="display: flex; justify-content: space-between; flex-direction: row; padding-bottom: 3px;">
               <span style="font-weight: 600;">SPECIALIZATION</span>
-              <a href="" style="color: #0066F4;">Reset Filter</a>
-              </div>
+              <a href="javascript: void(0)" style="color: #0066F4;" (click)="resetFilter()">Reset Filter</a>              </div>
               <div class="input-group">
               <span class="fa fa-search form-control-feedback"></span>
-              <input type="text" class="form-control" placeholder="Search"  style="height: 45px">
+              <input type="text" class="form-control" placeholder="Search" (keyup.enter)="filterUpdated($event)" name="searchText" #searchText="ngModel" [(ngModel)]="artisanFilter.searchText" style="height: 45px">
               <div class="input-group-append">
               </div>
             </div>
@@ -151,5 +150,7 @@
 
 
 </div>
+
+
 
 

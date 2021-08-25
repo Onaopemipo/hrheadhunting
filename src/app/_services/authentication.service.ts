@@ -61,6 +61,7 @@ export class  AuthenticationService {
         this.users = [];
         localStorage.removeItem('user');
         console.log('user has been removed!')
+        this.router.navigateByUrl('auth/login')
     }
 
 }

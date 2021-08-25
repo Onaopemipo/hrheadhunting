@@ -183,8 +183,8 @@
      </div>
 </div>
 
-<div *ngIf="pageId === 1" class="row" style="display: flex; flex-direction: row; justify-content: space-between; padding: 50px; margin: 4%; font-family: 'Rubik';">
-    <nb-tabset>
+<div *ngIf="pageId === 1"  class="container">
+    <nb-tabset style="height: auto;">
       <nb-tab tabTitle="Summary">
         <div class="row">
           <div class="col-md-3" style="height: 100%; width: 100%;" alt="">
@@ -233,35 +233,32 @@
         </div>
       </nb-tab>
       <nb-tab tabTitle="CV Analysis">
-
           <div class="row">
             <div class="col-md-3" style="height: 100%; width: 100%;" alt="">
               <h6>Your CV-Score</h6>
               <img [src]="imgSrc">
             </div>
 
-            <div class="col-md-4">
-              <h3></h3>
+            <div class="col-md-6">
               <div class="row">
               <span >
                 Your resume needs some improvement. A good resume tells your employer a powerful story about why you would be valuable to their company.
                 This resume needs some improvement before anybody will be wowed.
               </span>
-
-              <div class="row" style="text-align: center; display: flex; flex-direction: row; align-items: center; justify-content: space-between;">
-                <div class="dot col-md-4" style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                  <h6>Impact</h6>
-                  <strong>{{analysisResult.impactScoreField}}</strong>
-                </div>
-                <div class="dot col-md-4" style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                  <h6>Brevity</h6>
-                  <strong>{{analysisResult.brevityScoreField}}</strong>
-                </div>
-                <div class="dot col-md-4"  style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                  <h6>Depth</h6>
-                  <strong>{{analysisResult.depthScoreField}}</strong>
-                </div>
               </div>
+              <div class="row" style="font-family: Rubik !important; display: flex; flex-direction: row; justify-content: space-between; height: 100%; width: 100%;">
+                <div class="col-md-3 score">
+                    <h6>Impact</h6>
+                    <h5>{{analysisResult.impactScoreField}}</h5>
+                </div>
+                <div class="col-md-3 score">
+                  <h6>Brevity</h6>
+                  <h5>{{analysisResult.brevityScoreField}}</h5>
+                </div>
+                <div class="col-md-3 score" >
+                  <h6>Depth</h6>
+                  <h5>{{analysisResult.depthScoreField}}</h5>
+                </div>
               </div>
             </div>
           </div>
@@ -276,6 +273,7 @@
           <span>
             A highly targeted resume is typically more effective than one diffused among several disparate industries
           </span>
+          <p><a [routerLink]="['/applicants/rewriteplans']"> Click to apply for a rewrite.</a></p>
       </nb-tab>
      </nb-tabset>
 </div>

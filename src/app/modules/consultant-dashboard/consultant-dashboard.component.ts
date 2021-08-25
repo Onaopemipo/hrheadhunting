@@ -17,7 +17,7 @@ export class ConsultantDashboardComponent implements OnInit {
     {
       title: 'Training',
       icon: '/assets/icons/consultant.png',
-      link: '/modules/training',
+      link: '/consdash/training',
     },
   ];
   constructor() { }

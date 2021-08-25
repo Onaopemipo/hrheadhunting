@@ -4,7 +4,6 @@
   // position: relative;
   // top: 30%;
   height:50vh;
-  width: 100%;
   min-height:400px;
   background-size:cover;
 
@@ -14,32 +13,21 @@
   color: #fff;
 }
 
-
-.navbar-light .navbar-nav .show > .nav-link, .navbar-light .navbar-nav .active > .nav-link, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .nav-link.active {
+.navbar-light .navbar-nav .show > .nav-link, .navbar-light .navbar-nav
+.active > .nav-link, .navbar-light .navbar-nav .nav-link.show,
+.navbar-light .navbar-nav .nav-link.active {
   color:#fff;
   font-size: 15px;
-  display: flex !important;
-  flex-direction: row !important;
-  justify-content: space-between !important;
-}
-
-.navbar-light .navbar-toggler {
-  color: #ffffff;
-}
-
-li {
-  margin-right: 20px;
-  font-family: Rubik !important;
-}
-
-.nav .justify-content-center {
-  color: #ffffff;
-  font-size: 13px;
 }
 
 .icon {
   font-size: 12px;
   padding-right: 10px;
+}
+
+
+li {
+  margin-right: 10px;
 }
 
 .title {
@@ -77,10 +65,9 @@ p {
 
 li {
   color: #95A8B8, 100%;
-  font-size: 12px !important;
+  font-size: 12px;
   text-justify: distribute;
   font-weight: 400;
-  font-family: Graphik;
 }
 
 // header {
@@ -94,11 +81,15 @@ li {
   height: 56px
 }
 
+.has-search .form-control {
+  padding-left: 2.375rem;
+}
+
 .has-search .form-control-feedback {
   position: absolute;
   z-index: 2;
   display: block;
-  padding-top: 4px;
+  padding-top: 10px;
   width: 2.375rem;
   height: 2.375rem;
   line-height: 2.375rem;
@@ -171,22 +162,13 @@ li {
   position: absolute;
   z-index: 2;
   display: block;
-  padding-top: 4px;
+  padding-top: 10px;
   width: 2.375rem;
   height: 2.375rem;
   line-height: 2.375rem;
   text-align: center;
   pointer-events: none;
   color: #aaa;
-}
-
-.nb-theme-smartace [nbButton]{
-  font-family: Graphik !important;
-  font-size: 13px;
-  font-weight: normal;
-}
-.custom-select{
-  font-size: 13px;
 }
 
 .fixed-Menu {
@@ -225,18 +207,3 @@ li {
   }
 }
 
-
-  @media (min-width: 576px) {
-    // .limiter {
-    //   background-image: url('/assets/images/login.jpg');
-    //   height: 50%;
-    //   width: 50%;
-    // }
-    .imageDiv {
-      display: none;
-      // z-index: -1;
-    }
-    .mainDiv {
-      display: block;
-    }
-   }

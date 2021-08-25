@@ -12,7 +12,7 @@ export class DateComponent implements OnInit {
 
 
   // Start of Philip Code in case you need to clear it
-  _dateItem = new Date();
+  _dateItem:Date = new Date();
   @Input() min;
   @Input() max;
   set dateItem(val: Date) {

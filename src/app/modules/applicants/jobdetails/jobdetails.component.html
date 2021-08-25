@@ -170,13 +170,13 @@
            </div>
 
            <div class="row" style="padding-top: 10px;">
-            <div class="col">
+            <div *ngIf="authenService.authStatus | async " class="col">
               <button *ngIf="!btnProcessing" type="button" class="btn btn-primary" [disabled]="!flag ? 'disabled': null" (click)="jobApplication(singleJob.id)" nbButton status="primary">Apply Now</button>
               <button *ngIf="btnProcessing" nbButton status="primary">Now Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button>
             </div>
 
-            <div *ngIf="!btnProcessing"  class="col">
-              <button type="button" class="btn btn-primary" [disabled]="!flag ? 'disabled': null" (click)="jobApplication(singleJob.id)" nbButton status="primary">Apply Now</button>
+            <div *ngIf="!(authenService.authStatus | async)" class="col">
+              <button type="button" class="btn btn-primary" [disabled]="!flag ? 'disabled': null" (click)="logOut()" nbButton status="primary">Apply Now</button>
             </div>
            </div>
 

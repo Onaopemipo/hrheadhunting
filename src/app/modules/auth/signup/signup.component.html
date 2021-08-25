@@ -395,7 +395,7 @@
 
                   <div>
                     <label>Date of Birth</label>
-                    <ngx-date [(value)]="jobSeeker.dateOfBirth"> </ngx-date>
+                    <ngx-date [(value)]="jobSeeker.dateOfBirth" [max]="minDate"> </ngx-date>
 
                   </div>
 
@@ -547,13 +547,17 @@
 
                   <div>
                     <label for="" style="padding-top: 5px;">Institution Name</label>
-                  <select type="text" class="form-control" name="institution" #institution="ngModel" [(ngModel)]="jobSeeker.institutionId" required>
+                  <select type="text" class="form-control" name="institution" #institution="ngModel" [(ngModel)]="jobSeeker.institutionId" (change)="otherSchool(jobSeeker.institutionId)" required>
                     <option value="">Select</option>
                     <option *ngFor="let inst of institutionData" [value]="inst.id">{{inst.text}}</option>
                   </select>
                   <div *ngIf="institution.invalid && (institution.dirty || institution.touched)" class="error">
                     <div *ngIf="institution.errors.required">Institution Name is required</div>
                   </div>
+                  </div>
+
+                  <div *ngIf="foreignInstitution < 0" style="padding-top: 10px;">
+                    <input type="text" name="foreignSchool" #foreignSchool="ngModel" [(ngModel)]="jobSeeker.institutionName" class="form-control" placeholder="Enter name of school">
                   </div>
 
                   <div style="padding: 10px;"></div>
@@ -990,12 +994,12 @@
   <div modal-body  style="width: auto;">
           <p style="text-align: justify; padding: 2%;">
             Will you like to take our psychometric test? Employers will
-            have access to see your score. The test subscription costs N20,000.00 one-off.
+            have access to see your score. The test subscription costs {{testAmount}} one-off.
           </p>
       <div style="display: flex; flex-direction: row; justify-content: flex-end; margin-right: 20px;">
         <angular4-paystack
-          [email]="'mailexample@mail.com'"
-          [amount]="planAmount"
+          [email]="jobSeeker.email"
+          [amount]="testAmount * 100"
           [ref]="reference"
           [channels]="['bank', 'card']"
           [class]="'btn btn-primary'"

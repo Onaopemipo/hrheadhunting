@@ -71,9 +71,10 @@
     <div style="padding-top: 20px;">
       <h6 style="text-align: center; color: #fff;">Get hired for any job, any time.</h6>
     </div>
+   <form #searchForm='ngForm'>
     <div class="row" style="display: flex; flex-direction: row; justify-content: stretch; align-items:stretch; align-self: center; padding-top: 3%;">
       <div class="form-group col-sm-8 col-md-6 col-lg-3" >
-         <select class="custom-select" name="functions" #functions="ngModel" [(ngModel)]="jobFilter.skillAreaId">
+         <select class="custom-select" name="skillArea" #skillArea="ngModel" [(ngModel)]="jobFilter.skillAreaId">
            <option value="0">Search by Job Functions</option>
            <option *ngFor="let skill of skillData" [value]="skill.id">{{skill.text}}</option>
          </select>
@@ -96,9 +97,10 @@
 
 
        <div class="form-group col-sm-8 col-md-6 col-lg-3" >
-        <button type="submit" class="btn btn-primary" size="small" fullWidth (click)="filterUpdated($event)" nbButton status="primary" style="border:2px solid #fff;">Search</button>
+        <button type="submit" class="btn btn-primary" size="small" fullWidth (click)="filterUpdated(searchForm.value)" nbButton status="primary" style="border:2px solid #fff;">Search</button>
        </div>
      </div>
+   </form>
    </div>
 
 
@@ -121,7 +123,7 @@
           <nb-tabset>
             <nb-tab tabTitle="All">
               <div class="row" style="display: flex; flex-direction: row; justify-content: space-between;">
-                <div *ngFor="let job of allJobs" class="col-sm-12 col-md-6 col-lg-6">
+                <div *ngFor="let job of allJobs" class="col-sm-12 col-md-6 col-lg-6" [routerLink]="['/applicants/details', job.id]" style="cursor:pointer; margin-top: 20px;">
                   <div class="row">
                     <div class="col-sm-12 col-md-4 col-lg-4">
                       <img src="assets/images/jobs.png" style="width:5rem;">
@@ -130,12 +132,11 @@
                         <span style="font-weight: 600; padding-right:25px;"><a [routerLink]="['/applicants/details', job.id]">{{job.position}}</a></span><br>
                         <div style="padding-top: 5px;"></div>
                         <span>{{job.recruiter}}</span><br>
-                        <span>{{job.state}} | Full-time</span><br>
+                        <span>{{job.state}} | {{job.jobTypeName}}</span><br>
                         <span style="margin-right: 4px;">Closes in {{job.jobCloseInDays}} days</span>
                     </div>
                   </div>
                 </div>
-
               </div>
 
               <hr>
@@ -240,9 +241,9 @@
          <nb-card-body>
           <div class="row">
             <div class="col">
-            <h6>List of companies in Nigeria</h6>
+            <h6>Top Jobs in Nigeria</h6>
             <div style="padding: 5px;"></div>
-            <span>3,234 companies found</span>
+            <span *ngIf="jobsCounter > 0">{{jobsCounter}} jobs found</span>
             <div style="padding: 10px;"></div>
             <div class="form-group has-search">
               <div style="display: flex; justify-content: space-between; flex-direction: row; padding-bottom: 3px;">
@@ -260,39 +261,9 @@
 
             <div style="padding: 20px;"></div>
           </div>
-
-          <div class="form-group">
-            <nb-checkbox *ngFor="let sector of sectorJobsData" style="display: block;" name="sector" #sector="ngModel" [(ngModel)]="jobFilter.sectorId" (change)="filterUpdated(jobFilter.sectorId)">{{sector.text}}</nb-checkbox><br>
-            <!-- <nb-checkbox>Computer Software (453)</nb-checkbox><br>
-            <nb-checkbox>Health Care (453)</nb-checkbox><br>
-            <nb-checkbox>Engineering & Construction (52)</nb-checkbox><br>
-            <nb-checkbox>Manufacturing (453)</nb-checkbox><br> -->
-
-
-        </div>
-
-        <div class="row" style="display: flex; justify-content: flex-start; flex-direction: row; padding: 10px;">
-          <div class="col" style="padding: 10px;">
-          <h6>List of companies in Nigeria</h6>
-          <div style="padding: 5px;"></div>
-          <span>3,234 companies found</span>
-          <div style="padding: 10px;"></div>
-          <input type="text" class="form-control" nbInput fullWidth placeholder="Enter Keyword" (keyup.enter)="filterUpdated($event)" name="searchText" #searchText="ngModel" [(ngModel)]="employerFilter.searchText" style="background-color: #ffffff; color:#95A8B8;">
-          </div>
-          <div style="padding: 20px;"></div>
-        </div>
-
-          <!-- <div class="form-group">
-            <nb-checkbox *ngFor="let skill of skillData" (change)="filterUpdated($event)">{{skill.text}}</nb-checkbox><br>
-            <input type="button" (click)="LoadMore()" value="showMore">
-            <nb-checkbox>Akwa Ibom</nb-checkbox><br>
-            <nb-checkbox>Anambra</nb-checkbox><br>
-            <nb-checkbox>Bauchi</nb-checkbox><br>
-          </div> -->
+          <ngx-filter-box [data]="sectorJobsData" [(value)]="filteredSector" (valueChange)="filterUpdated($event)"></ngx-filter-box>
          </nb-card-body>
        </nb-card>
-
-    <!-- </div> -->
   </div>
 
 </div>
@@ -343,8 +314,8 @@
 
           <nb-tabset>
              <nb-tab tabTitle="All">
-              <div class="row" style="display: flex; flex-direction: row; justify-content: space-between;">
-                <div *ngFor="let employer of employerData" class="col-sm-12 col-md-6 col-lg-4" style="text-align: center; width:100%">
+              <div class="row" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
+                <div *ngFor="let employer of employerData" class="col-sm-12 col-md-6 col-lg-4" style="text-align: left; width:100%; margin-bottom: 20px;">
                   <div class="row">
                     <div class="col" style="width: 100%;">
                       <img src="assets/images/jobs.png" style="width:5rem;">
@@ -352,15 +323,8 @@
                         <span style="display: block;">{{employer.sector}}</span>
                    </div>
                   </div>
-                  
                 </div>
-
               </div>
-
-              
-
-              <hr>
-              <div style="padding: 10px;"></div>
 
             </nb-tab>
             <nb-tab tabTitle="Featured Places">
@@ -447,20 +411,12 @@
             <div style="padding: 5px;"></div>
             <span>You can filter workplace here to get a more detailed search</span>
             <div style="padding: 10px;"></div>
-            <input type="text" class="form-control" nbInput fullWidth placeholder="Enter Keyword" style="background-color: #ffffff; color:#95A8B8;">
-            </div>
-            <div style="padding: 20px;"></div>
+            <input type="text" class="form-control" placeholder="Search" (keyup.enter)="filterUpdated($event)" name="searchText" #searchText="ngModel" [(ngModel)]="employerFilter.searchText" style="height: 45px">
+          </div>
           </div>
 
-          <div class="form-group">
-            <nb-checkbox>Education / Training (453)</nb-checkbox><br>
-            <nb-checkbox>Computer Software (453)</nb-checkbox><br>
-            <nb-checkbox>Health Care (453)</nb-checkbox><br>
-            <nb-checkbox>Engineering & Construction (52)</nb-checkbox><br>
-            <nb-checkbox>Manufacturing (453)</nb-checkbox><br>
-        </div>
-
-        <div class="row" style="display: flex; justify-content: flex-start; flex-direction: row; padding: 10px;">
+          <!-- <ngx-filter-box [data]="employerData" [(value)]="filteredEmployer" (valueChange)="filterUpdated()"></ngx-filter-box> -->
+        <!-- <div class="row" style="display: flex; justify-content: flex-start; flex-direction: row; padding: 10px;">
           <div class="col" style="padding: 10px;">
           <h6>Jobs by Locations</h6>
           <div style="padding: 5px;"></div>
@@ -476,7 +432,7 @@
             <nb-checkbox>Akwa Ibom</nb-checkbox><br>
             <nb-checkbox>Anambra</nb-checkbox><br>
             <nb-checkbox>Bauchi</nb-checkbox><br>
-          </div>
+          </div> -->
         </nb-card-body>
       </nb-card>
   </div>

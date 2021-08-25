@@ -75,6 +75,7 @@ import { PdfServiceService } from '../_services/pdf-service.service';
 import { NamedStatusComponent } from './named-status/named-status.component';
 import { InputvalidationService } from '../_services/inputvalidation.service';
 import { NavbarComponent } from './navbar/navbar.component';
+import { FilterBoxComponent } from './filter-box/filter-box.component';
 @NgModule({
   declarations: [
     ComponentsheaderComponent,
@@ -107,6 +108,7 @@ import { NavbarComponent } from './navbar/navbar.component';
     PageComponent,
     NamedStatusComponent,
     NavbarComponent,
+    FilterBoxComponent,
   ],
   imports: [
     FormsModule,
@@ -211,6 +213,7 @@ import { NavbarComponent } from './navbar/navbar.component';
     NbDialogModule,
     LoadableButtonComponent,
     PageComponent,
+    FilterBoxComponent,
   ],
 })
 export class ComponentsModule { }

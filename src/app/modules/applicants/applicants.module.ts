@@ -21,10 +21,11 @@ import { ArtisansComponent } from './artisans/artisans.component';
 import { ArtisandetailsComponent } from './artisandetails/artisandetails.component';
 import { EmployerdetailsComponent } from './employerdetails/employerdetails.component';
 import { TrainingdetailsComponent } from './trainingdetails/trainingdetails.component';
+import { RewriteplansComponent } from './rewriteplans/rewriteplans.component';
 
 
 @NgModule({
-  declarations: [DashboardComponent, ServicesComponent, BlogsComponent, AboutComponent, JobboardsComponent, ScorecvComponent, PricingComponent, TrainingComponent, JobdetailsComponent, ArtisansComponent, ArtisandetailsComponent, EmployerdetailsComponent, TrainingdetailsComponent],
+  declarations: [DashboardComponent, ServicesComponent, BlogsComponent, AboutComponent, JobboardsComponent, ScorecvComponent, PricingComponent, TrainingComponent, JobdetailsComponent, ArtisansComponent, ArtisandetailsComponent, EmployerdetailsComponent, TrainingdetailsComponent, RewriteplansComponent],
   imports: [
     CommonModule,
     ApplicantsRoutingModule,
@@ -54,6 +55,7 @@ import { TrainingdetailsComponent } from './trainingdetails/trainingdetails.comp
     ArtisanServiceProxy,
     CvScoreServiceProxy,
     ConsultantServiceProxy,
+    SubscriptionsServiceProxy,
     
   ]
 })

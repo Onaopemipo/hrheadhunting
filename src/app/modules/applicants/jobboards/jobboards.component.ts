@@ -19,10 +19,10 @@ export class JobboardsComponent implements OnInit {
   myPlanDesc: string = "No data available yet";
 
   jobFilter = {
-    skillAreaId:0,
-    sectorId:0,
-    countryId:0,
-    stateId:0,
+    skillAreaId: undefined,
+    sectorId: undefined,
+    countryId: undefined,
+    stateId: undefined,
     isNewlyAdded: false,
     isPopular: false,
     pageSize:10,
@@ -35,6 +35,7 @@ export class JobboardsComponent implements OnInit {
   btnProcessing:boolean = false;
   recruiterData: IDTextViewModel [] = [];
   jobsCounter:number = 0;
+  sectorCounter:number = 0;
   employerCounter:number = 0;
   employerData: EmployerDTO [] = [];
   loading:boolean = false;
@@ -42,7 +43,11 @@ export class JobboardsComponent implements OnInit {
   stateData: IDTextViewModel [] = [];
   sectorData: IDTextViewModel [] = [];
   artisanCounter:number = 0;
-  artisanData: ArtisanDTO [] = []
+  artisanData: ArtisanDTO [] = [];
+  sectorJobsData: IDTextViewModel [] = [];
+  filteredSkill = [];
+  filteredArtisans = [];
+  filteredSector = [];
 
   filter = {
     searchText: '',
@@ -61,8 +66,19 @@ searchFilter = {
     pageNo: 1
 }
 
+employerFilter = {
+    sectorId: undefined,
+    stateId: undefined,
+    isNewlyAdded: false,
+    isPopular: false,
+    searchText: '',
+    pageSize:10,
+    pageNumber:1
+
+}
+
  artisanFilter = {
-    id: null,
+    id: undefined,
     searchText: '',
     dateFrom: undefined,
     dateTo: undefined,
@@ -92,6 +108,8 @@ searchFilter = {
     this.getMyUsers();
     this.authUser();
     this.fetchAllArtisans();
+    this.fetchSectorJobs();
+    this.fetchSectorJob();
   }
 
  async getMyUsers(){
@@ -103,6 +121,18 @@ searchFilter = {
     }
 
   }
+
+  resetFilter(){
+    this.employerFilter.searchText = '';
+  }
+
+  async fetchSectorJobs(){
+    const data = await this.sector.fetchSectorJobs().toPromise();
+    this.sectorJobsData = data.value;
+    this.sectorCounter = data.totalCount;
+    console.log('My sector jobs data:', this.sectorJobsData)
+  }
+
 
   // getImage(){
   //   this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'
@@ -171,8 +201,11 @@ searchFilter = {
     this.showMenu = !this.showMenu;
   }
 
-  async fetChSectorJobs(){
-    // const data = await this.sector.fetchSectorJobs()
+  async fetchSectorJob(){
+    const data = await this.sector.fetchSectorJobs().toPromise();
+    this.sectorJobsData = data.value;
+    this.sectorCounter = data.totalCount;
+    console.log('My sector jobs data:', this.sectorJobsData)
   }
 
   fetchAllJobs(){

@@ -3,6 +3,7 @@ import { ReportServiceProxy, EmployerDTO, SkillAreasServiceProxy, SectorsService
 import { Component, OnInit } from '@angular/core';
 import { IDTextViewModel, Job, JobServiceProxy, EmployerServiceProxy, JobDTO } from 'app/_services/service-proxies';
 import { AuthenticationService } from 'app/_services/authentication.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'ngx-dashboard',
@@ -12,26 +13,27 @@ import { AuthenticationService } from 'app/_services/authentication.service';
 export class DashboardComponent implements OnInit {
 
   loggedIn:boolean = false;
+  searchForm: NgForm;
+  filterForm: NgForm;
   loggedInUser: any = [];
   myPlanHeader:string = "Nothing here";
   myPlanDesc: string = "No data available yet";
 
 
   jobFilter = {
-    skillAreaId:0,
-    sectorId:0,
-    countryId:0,
-    stateId:0,
+    skillAreaId: undefined,
+    sectorId: undefined,
+    countryId: undefined,
+    stateId: undefined,
     isNewlyAdded: false,
     isPopular: false,
     pageSize:10,
     pageNumber:1
-
   }
 
   employerFilter = {
-    sectorId:0,
-    stateId:0,
+    sectorId: undefined,
+    stateId: undefined,
     isNewlyAdded: false,
     isPopular: false,
     searchText: '',
@@ -45,6 +47,7 @@ export class DashboardComponent implements OnInit {
   btnProcessing:boolean = false;
   recruiterData: IDTextViewModel [] = [];
   jobsCounter:number = 0;
+  sectorCounter:number = 0;
   employerCounter:number = 0;
   employerData: EmployerDTO [] = [];
   loading:boolean = false;
@@ -52,11 +55,13 @@ export class DashboardComponent implements OnInit {
   stateData: IDTextViewModel [] = [];
   sectorData: IDTextViewModel [] = [];
   sectorJobsData: IDTextViewModel [] = [];
+  filteredSector = [];
+  filteredEmployer = [];
 
 
   filter = {
     searchText: '',
-    dateFrom: null,
+    dateFrom: undefined,
     dateTo: null,
     pageSize: 10,
     pageNo: 1
@@ -145,7 +150,8 @@ searchFilter = {
 
   fetchAllJobs(){
     this.loading = true;
-   this.job.fetchJobs(this.jobFilter.skillAreaId, this.jobFilter.sectorId,
+    const sectorId = this.filteredSector.join()
+   this.job.fetchJobs(this.jobFilter.skillAreaId, this.filteredSector[0],
     this.jobFilter.countryId, this.jobFilter.stateId, this.jobFilter.isNewlyAdded,
     this.jobFilter.isPopular,this.jobFilter.pageSize, this.jobFilter.pageNumber).subscribe(data => {
       this.loading = false;
@@ -168,6 +174,7 @@ searchFilter = {
   async fetchSectorJobs(){
     const data = await this.sector.fetchSectorJobs().toPromise();
     this.sectorJobsData = data.value;
+    this.sectorCounter = data.totalCount;
     console.log('My sector jobs data:', this.sectorJobsData)
   }
 

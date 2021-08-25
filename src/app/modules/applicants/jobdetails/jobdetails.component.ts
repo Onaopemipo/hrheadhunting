@@ -69,6 +69,10 @@ export class JobdetailsComponent implements OnInit {
 
    }
 
+   logOut(){
+     this.authenService.clearusers();
+   }
+
   filterUpdated(filter: any) {
 
     this.jobFilter = {...this.jobFilter, ...filter};

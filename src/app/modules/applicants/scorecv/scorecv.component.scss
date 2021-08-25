@@ -18,13 +18,17 @@ avbar-light .navbar-nav .show > .nav-link, .navbar-light .navbar-nav .active > .
   font-size: 15px;
 }
 
-.dot {
+.score {
   height: 100px;
   width: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
+  align-items: center;
   background-color: #bbb;
   border-radius: 50%;
   text-align: center;
-  display: inline-block;
 }
 
 .text {

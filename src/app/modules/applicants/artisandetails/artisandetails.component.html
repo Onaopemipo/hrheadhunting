@@ -79,31 +79,61 @@
         </nb-card-header>
         <nb-card-body>
             <div class="row" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
-              <div class="col-sm-8 col-md-4 col-lg-4">
+              <div class="col-sm-8 col-md-3 col-lg-3">
                 <img src="assets/images/jobs.png" style="width:5rem;">
               </div>
               <div class="col-sm-12 col-md-8 col-lg-8">
-                  <span style="font-weight: 600; padding-bottom: 20px; margin-right: 5px;">Name: </span>{{singleArtisan.name}}<br>
-                  <span style="font-weight: 600; padding-bottom: 20px; margin-right: 5px;">Location: </span>{{singleArtisan.location}}<br>
-                  <span style="font-weight: 600; padding-bottom: 20px; margin-right: 5px;">Specialty: </span>{{singleArtisan.specialty}}<br>
-                  <span style="font-weight: 600; padding-bottom: 20px; margin-right: 5px;">Mobile: </span>{{singleArtisan.mobile}}<br>
-                  <span style="font-weight: 600; padding-bottom: 20px; margin-right: 5px;">Experience: </span>{{singleArtisan.yearOfExperience}}<br>
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <!-- <th scope="col">#</th>
+                      <th scope="col">First</th> -->
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Name:</td>
+                      <td>{{singleArtisan.name}}</td>
+                    </tr>
+                    <tr>
+                      <td>Location:</td>
+                      <td>{{singleArtisan.location}}</td>
+                    </tr>
+                    <tr>
+                      <td>Specialty:</td>
+                      <td>{{singleArtisan.specialty}}</td>
+                    </tr>
+
+                    <tr>
+                      <td>Mobile:</td>
+                      <td>{{singleArtisan.mobile}}</td>
+                    </tr>
+
+                    <tr>
+                      <td>Email:</td>
+                      <td>{{singleArtisan.email}}</td>
+                    </tr>
+
+                    <tr>
+                      <td>Experience:</td>
+                      <td>{{singleArtisan.yearOfExperience}}</td>
+                    </tr>
+                  </tbody>
+                </table>
                   <div class="row" style="padding-top: 10px;">
                     <div class="col">
-                     <span style="font-weight: 700; padding-bottom: 20px;">Description</span><br><div style="padding:5px"></div>
+                     <span style="font-weight: 700; padding-bottom: 20px;">About Artisan</span><br><div style="padding:5px"></div>
                      <span style="text-align: justify; line-height: 1.6;">{{singleArtisan.description}}</span>
                     </div>
                    </div>
                    <div class="row">
                     <div class="col">
-                      <button *ngIf="!btnProcessing" type="button" class="btn btn-primary" [disabled]="!flag ? 'disabled': null" nbButton status="primary">Rate Now</button>
+                      <button *ngIf="!btnProcessing" type="button" class="btn btn-primary" [disabled]="!flag ? 'disabled': null" (click)="toggleRating()" nbButton status="primary">Rate Now</button>
                       <button *ngIf="btnProcessing" nbButton status="primary">Now Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button>
                     </div>
                    </div>
               </div>
             </div>
-
-
 
         </nb-card-body>
       </nb-card>
@@ -112,34 +142,28 @@
 <div class="col-sm-12 col-md-4 col-lg-4">
     <nb-card>
         <nb-card-header>
-          Top Arisans
+          Artisan Summary
         </nb-card-header>
         <nb-card-body>
 
-                <div class="row" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;">
-                  <div class="col-sm-4">
-                    <img src="assets/images/jobs.png" style="width:5rem;">
-                  </div>
-                  <div class="col-sm-8">
-                      <span style="font-weight: 600; padding-right:25px;">UI/UX Designer</span><br>
-                      <div style="padding-top: 5px;"></div>
-                      <span>Amplifire Digital Agency</span><br>
-                      <span>Lekki, Lagos | Full-time</span><br>
-                      <span>Closes in 5 days</span><br>
-                  </div>
-                </div>
-
-                <div class="row" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
-                  <div class="col-sm-4">
-                    <img src="assets/images/jobs.png" style="width:5rem;">
-                  </div>
-                  <div class="col-sm-8">
-                      <span style="font-weight: 600; padding-right:25px;">UI/UX Designer</span><br>
-                      <div style="padding-top: 5px;"></div>
-                      <span>Amplifire Digital Agency</span><br>
-                      <span>Lekki, Lagos | Full-time</span><br>
-                      <span>Closes in 5 days</span><br>
-                  </div>
+                <div class="row" style="display: flex; flex-direction: column; margin-bottom: 10px;">
+                  <table class="table table-striped">
+                    <thead></thead>
+                    <tbody>
+                      <tr>
+                        <td><i class="fa fa-address-book" aria-hidden="true"></i></td>
+                        <td>{{singleArtisan.name}}</td>
+                      </tr>
+                      <tr>
+                        <td><i class="fa fa-compass" aria-hidden="true"></i></td>
+                        <td>{{singleArtisan.location}}</td>
+                      </tr>
+                      <tr>
+                        <td><i class="fa fa-mobile" aria-hidden="true"></i></td>
+                        <td>{{singleArtisan.mobile}}</td>
+                      </tr>
+                    </tbody>
+                  </table>    
                 </div>
         </nb-card-body>
       </nb-card>
@@ -147,3 +171,45 @@
   </div>
 
 </div>
+<ngx-side-modal [(show)]="showRating" style="width: 600px;">
+  <div modal-header>Rate Artisan</div>
+  <div modal-body>
+    <nb-card>
+      <nb-card-body>
+        <form>
+          <div class="form-group row">
+            <h6 style="display: block;">Do you know this Artisan?</h6>
+            <p style="color: #313131; font-size: 14pt; opacity: 0.56;">Rate artisan</p>
+            <span >
+              <i class="fa fa-star" *ngFor="let item of stars" (click)="rateArtisan(item)" name="star" style="font-size: 16px;padding: 5px;" [class.rating]="item <= rating" aria-hidden="true"></i>
+            </span>
+          </div>
+
+          <div class="form-group row" style="padding: 15px;">
+            <label for="fullName" >Full Name</label>
+              <input type="text" class="form-control" name="fullName" #fullName="ngModel" [(ngModel)]="ratingModel.fullName" required>
+              <div *ngIf="fullName.invalid && (fullName.dirty || fullName.touched)" class="error">
+                <div *ngIf="fullName.errors.required">Full Name is required</div>
+              </div>
+          </div>
+
+          <div class="form-group row" style="padding: 15px;">
+            <label for="">Review</label><br>
+          <textarea name="review" #review="ngModel" [(ngModel)]="ratingModel.review" cols="30" rows="10" style="width: 100%;" required></textarea>
+          <div *ngIf="review.invalid && (review.dirty || review.touched)" class="error">
+            <div *ngIf="review.errors.required">Review is required</div>
+          </div>
+          </div>
+
+          <div class="form-group row" style="padding: 15px;">
+            <label for="specialization" style="font-weight: bold;"></label>
+              <button nbButton status="primary" (click)="submitRating()" style="float: right;">Rate Artisan</button>
+              <!-- <button *ngIf="btnProcessing" nbButton status="primary">Now Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button> -->
+              <span style="padding: 8px;"></span>
+          </div>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+
+</ngx-side-modal>

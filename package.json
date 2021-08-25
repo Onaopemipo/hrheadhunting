@@ -58,6 +58,7 @@
     "@nebular/theme": "6.0.0",
     "@swimlane/ngx-charts": "^14.0.0",
     "@types/faker": "^5.1.5",
+    "angular-tawk": "0.0.4",
     "angular2-chartjs": "0.4.1",
     "angular4-paystack": "^3.0.1",
     "angularfire2": "^5.4.2",

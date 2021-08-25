@@ -79,6 +79,9 @@ export class SignupComponent implements OnInit {
   minAgeVal: Date = new Date();
   loading: boolean = false;
   btn: boolean = false;
+  minDate: Date = new Date();
+  testAmount:number = 20000;
+  foreignInstitution: number = 0;
 
 
   constructor(private route: Router, private account: AccountServiceProxy, private alertMe: AlertserviceService,
@@ -92,6 +95,7 @@ export class SignupComponent implements OnInit {
     this.route.navigate(['/onboarding/accountsetup']);
   }
   ngOnInit(): void {
+    console.log('Your date:',this.minDate = new Date(new Date().setFullYear(new Date().getFullYear() - 18)))
     this.reference = `ref-${Math.ceil(Math.random() * 10e13)}`;
     this.tempRef = `ref-${Math.ceil(Math.random() * 10e13)}`;
     this.fetchInstitution();
@@ -124,6 +128,10 @@ export class SignupComponent implements OnInit {
     // console.log('Your min date', this.minAgeCal)
   }
 
+  otherSchool(e){
+    this.foreignInstitution = e;
+  }
+
    paymentInit() {
     this.paymentLoading = true;
     // this.registerEmployer();
@@ -143,6 +151,22 @@ export class SignupComponent implements OnInit {
           this.route.navigateByUrl('modules')
         }
       })
+
+    }
+
+  }
+
+  testpaymentDone(event) {
+    console.log('success', event)
+    if(event.status === 'success'){
+      this.psychoTest = false;
+      this.registerApplicant();
+      // this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'Success', 'Go to dashboard').subscribe(res => {
+      //   if(res){
+      //     this.employer = new ManageEmployerDTO();
+      //     this.route.navigateByUrl('modules')
+      //   }
+      // })
 
     }
 
@@ -502,6 +526,10 @@ async fetchCVPlan(){
       this.btnProcessing = false;
       this.loading = false;
       if(!data.hasError){
+        // this.testAmount = data.result.amount;
+        // if(this.testAmount > 0){
+        //   this.psychoTest = true;
+        // }
         this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, data.message, 'Finish Setup').subscribe(res => {
           if(res){
             this.jobSeeker = new ManageJobSeekerRegDTO();

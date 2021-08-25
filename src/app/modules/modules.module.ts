@@ -1,5 +1,6 @@
+import { environment } from '../environment';
 import { ConsultantDashboardComponent } from './consultant-dashboard/consultant-dashboard.component';
-import { ConsultantServiceProxy } from './../_services/service-proxies';
+import { ConsultantServiceProxy, PaymentServiceProxy } from './../_services/service-proxies';
 import { AlertserviceService } from 'app/_services/alertservice.service';
 import { ApplicantquizComponent } from './applicantquiz/applicantquiz.component';
 import { ApplicationsServiceProxy, DashboardServiceProxy, ArtisanServiceProxy, QuizServiceProxy } from '../_services/service-proxies';
@@ -33,6 +34,7 @@ import { ArtisansComponent } from './artisans/artisans.component';
 import { ConsultantsComponent } from './consultants/consultants.component';
 import { ApplicantsDashboardComponent } from './applicants-dashboard/applicants-dashboard.component';
 import { EmployerDashboardComponent } from './employer-dashboard/employer-dashboard.component';
+import { Angular4PaystackModule } from 'angular4-paystack';
 
 
 
@@ -55,6 +57,8 @@ import { EmployerDashboardComponent } from './employer-dashboard/employer-dashbo
     NbSelectModule,
     NbCheckboxModule,
     NbRadioModule,
+    Angular4PaystackModule.forRoot(environment.paystackToken),
+
   ],
 
   providers: [
@@ -80,6 +84,7 @@ import { EmployerDashboardComponent } from './employer-dashboard/employer-dashbo
     QuizServiceProxy,
     ReportServiceProxy,
     ConsultantServiceProxy,
+    PaymentServiceProxy
   ]
 })
 export class ModulesModule { }

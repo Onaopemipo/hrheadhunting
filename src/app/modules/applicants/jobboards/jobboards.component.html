@@ -127,25 +127,24 @@
           <nb-tabset>
             <nb-tab tabTitle="All">
               <div class="row" style="display: flex; flex-direction: row; justify-content: space-between;">
-                <div *ngFor="let job of allJobs" class="col-sm-12 col-md-6 col-lg-6" style="margin: 10px 0;">
-                  <div class="row">
-                    <div class="col-sm-12 col-md-4 col-lg-4" style="display: inline-block; width: 40%; height: 40%; margin: 5px;">
+                <div *ngFor="let job of allJobs" class="col-sm-12 col-md-6 col-lg-6">
+                  <div class="row" [routerLink]="['/applicants/details', job.id]" style="cursor:pointer;">
+                    <div class="col-sm-12 col-md-4 col-lg-4">
                       <img src="assets/images/jobs.png" style="width:5rem;">
                     </div>
-                    <div class="col-sm-12 col-md-8 col-lg-8" style="display: inline-block; width: 60%; height: 60%;">
-                        <span style="display: block; font-weight: 600;"><a [routerLink]="['/applicants/details', job.id]">{{job.position}}</a></span>
-                        <!-- <div style="padding-top: 5px;"></div> -->
-                        <span style="display: block;">Amplifire Digital Agency</span>
-                        <span style="display: block;">{{job.state}} | Full-time</span>
-                        <!-- ({{job.endDate.ge}} - {{job.datePosted}}/(1000 * 3600 * 24)) -->
-                        <span style="display: block;">Closes in 5 days</span>
+                    <div class="col-sm-12 col-md-8 col-lg-8">
+                        <span style="font-weight: 600; padding-right:25px;"><a [routerLink]="['/applicants/details', job.id]">{{job.position}}</a></span><br>
+                        <div style="padding-top: 5px;"></div>
+                        <span>{{job.recruiter}}</span><br>
+                        <span>{{job.state}} | {{job.jobTypeName}}</span><br>
+                        <span style="margin-right: 4px;">Closes in {{job.jobCloseInDays}} days</span>
                     </div>
                   </div>
                 </div>
 
               </div>
 
-              <nb-card>
+              <!-- <nb-card>
                 <nb-list
                   nbInfiniteList
                   listenWindowScroll
@@ -158,7 +157,7 @@
                     <nb-news-post-placeholder></nb-news-post-placeholder>
                   </nb-list-item>
                 </nb-list>
-              </nb-card>
+              </nb-card> -->
 
             </nb-tab>
             <nb-tab tabTitle="Featured Jobs">
@@ -256,58 +255,63 @@
     <!-- <div class="col-sm-4"> -->
 
        <nb-card class="col-sm-4  shadow p-3 mb-5 bg-white rounded">
-         <nb-card-body>
-          <div class="row">
-            <div class="col">
-            <h6>List of companies in Nigeria</h6>
-            <div style="padding: 5px;"></div>
-            <span>3,234 companies found</span>
-            <div style="padding: 10px;"></div>
-            <div class="form-group has-search">
-              <div style="display: flex; justify-content: space-between; flex-direction: row; padding-bottom: 3px;">
-              <span style="font-weight: 600;">INDUSTRY</span>
-              <a href="" style="color: #0066F4;">Reset Filter</a>
-              </div>
-              <div class="input-group">
-              <span class="fa fa-search form-control-feedback"></span>
-              <input type="text" class="form-control" placeholder="Search"  style="height: 45px">
-              <div class="input-group-append">
-              </div>
-            </div>
-            </div>
-            </div>
+        <nb-card-body>
+         <div class="row">
+           <div class="col">
+           <h6>Top jobs in Nigeria</h6>
+           <div style="padding: 5px;"></div>
+           <span>{{jobsCounter}} jobs found</span>
+           <div style="padding: 10px;"></div>
+           <div class="form-group has-search">
+             <div style="display: flex; justify-content: space-between; flex-direction: row; padding-bottom: 3px;">
+             <span style="font-weight: 600;">INDUSTRY</span>
+             <a href="javascript: void(0)" style="color: #0066F4;" (click)="resetFilter()">Reset Filter</a>
+             </div>
+             <div class="input-group">
+             <span class="fa fa-search form-control-feedback"></span>
+             <input type="text" class="form-control" placeholder="Search" (keyup.enter)="filterUpdated($event)" name="searchText" #searchText="ngModel" [(ngModel)]="employerFilter.searchText" style="height: 45px">
+             <div class="input-group-append">
+             </div>
+           </div>
+           </div>
+           </div>
 
-            <div style="padding: 20px;"></div>
-          </div>
+           <div style="padding: 20px;"></div>
+         </div>
 
-          <div class="form-group">
-            <!-- <nb-checkbox *ngFor="let sector of sectorData">{{sector.text}}</nb-checkbox><br> -->
-            <nb-checkbox>Computer Software (453)</nb-checkbox><br>
-            <nb-checkbox>Health Care (453)</nb-checkbox><br>
-            <nb-checkbox>Engineering & Construction (52)</nb-checkbox><br>
-            <nb-checkbox>Manufacturing (453)</nb-checkbox><br>
+         <ngx-filter-box [data]="sectorJobsData" [(value)]="filteredSector" (valueChange)="filterUpdated($event)"></ngx-filter-box>
 
-        </div>
+<!--
+           <form #filterForm="ngForm">
+             <div class="form-group">
+               <nb-checkbox *ngFor="let sector of sectorJobsData" style="display: block;" name="sector" #sector="ngModel" [(ngModel)]="jobFilter.sectorId" (change)="filterUpdated($event.value)">{{sector.text}}</nb-checkbox><br>
+             </div>
+           </form> -->
 
-        <div class="row" style="display: flex; justify-content: flex-start; flex-direction: row; padding: 10px;">
-          <div class="col" style="padding: 10px;">
-          <h6>List of companies in Nigeria</h6>
-          <div style="padding: 5px;"></div>
-          <span>3,234 companies found</span>
-          <div style="padding: 10px;"></div>
-          <input type="text" class="form-control" nbInput fullWidth id="keyword" placeholder="Enter Keyword" style="background-color: #ffffff; color:#95A8B8;">
-          </div>
-          <div style="padding: 20px;"></div>
-        </div>
 
-          <div class="form-group">
-            <nb-checkbox>Abia</nb-checkbox><br>
-            <nb-checkbox>Akwa Ibom</nb-checkbox><br>
-            <nb-checkbox>Anambra</nb-checkbox><br>
-            <nb-checkbox>Bauchi</nb-checkbox><br>
-          </div>
-         </nb-card-body>
-       </nb-card>
+       <!-- <div class="row" style="display: flex; justify-content: flex-start; flex-direction: row; padding: 10px;">
+         <div class="col" style="padding: 10px;">
+         <h6>Places</h6>
+         <div style="padding: 5px;"></div>
+         <span>{{employerCounter}} employers found</span>
+         <div style="padding: 10px;"></div>
+         <input type="text" class="form-control" nbInput fullWidth placeholder="Enter Keyword" (keyup.enter)="filterUpdated($event)" name="searchText" #searchText="ngModel" [(ngModel)]="employerFilter.searchText" style="background-color: #ffffff; color:#95A8B8;">
+         </div>
+         <div style="padding: 20px;"></div>
+       </div> -->
+
+         <!-- <div class="form-group">
+           <nb-checkbox *ngFor="let skill of skillData" (change)="filterUpdated($event)">{{skill.text}}</nb-checkbox><br>
+           <input type="button" (click)="LoadMore()" value="showMore">
+           <nb-checkbox>Akwa Ibom</nb-checkbox><br>
+           <nb-checkbox>Anambra</nb-checkbox><br>
+           <nb-checkbox>Bauchi</nb-checkbox><br>
+
+         </div> -->
+         <!-- <ngx-filter-box [data]="skillData" [(value)]="filteredSkill" (valueChange)="filterUpdated()"></ngx-filter-box> -->
+
+        </nb-card-body>
+      </nb-card>
 
     <!-- </div> -->
   </div>
@@ -389,60 +393,51 @@
     </div>
 
     <!-- <div class="col-sm-4"> -->
+      <nb-card class="col-sm-4  shadow p-3 mb-5 bg-white rounded">
+        <nb-card-body>
+         <div class="row">
+           <div class="col">
+           <h6>Top artisans in Nigeria</h6>
+           <div style="padding: 5px;"></div>
+           <span>{{artisanCounter}} artisans found</span>
+           <div style="padding: 10px;"></div>
+           <div class="form-group has-search">
+             <div style="display: flex; justify-content: space-between; flex-direction: row; padding-bottom: 3px;">
+             <span style="font-weight: 600;">SPECIALTY</span>
+             <a href="javascript: void(0)" style="color: #0066F4;" (click)="resetFilter()">Reset Filter</a>
+             </div>
+             <div class="input-group">
+             <span class="fa fa-search form-control-feedback"></span>
+             <input type="text" class="form-control" placeholder="Search" (keyup.enter)="filterUpdated($event)" name="searchText" #searchText="ngModel" [(ngModel)]="employerFilter.searchText" style="height: 45px">
+             <div class="input-group-append">
+             </div>
+           </div>
+           </div>
+           </div>
 
-       <nb-card class="col-sm-4  shadow p-3 mb-5 bg-white rounded">
-         <nb-card-body>
-          <div class="row">
-            <div class="col">
-            <h6>List of companies in Nigeria</h6>
-            <div style="padding: 5px;"></div>
-            <span>3,234 companies found</span>
-            <div style="padding: 10px;"></div>
-            <div class="form-group has-search">
-              <div style="display: flex; justify-content: space-between; flex-direction: row; padding-bottom: 3px;">
-              <span style="font-weight: 600;">INDUSTRY</span>
-              <a href="" style="color: #0066F4;">Reset Filter</a>
-              </div>
-              <div class="input-group">
-              <span class="fa fa-search form-control-feedback"></span>
-              <input type="text" class="form-control" placeholder="Search"  style="height: 45px">
-              <div class="input-group-append">
-              </div>
-            </div>
-            </div>
-            </div>
+           <div style="padding: 20px;"></div>
+         </div>
 
-            <div style="padding: 20px;"></div>
-          </div>
+       <!-- <div class="row" style="display: flex; justify-content: flex-start; flex-direction: row; padding: 10px;">
+         <div class="col" style="padding: 10px;">
+         <h6>Places</h6>
+         <div style="padding: 5px;"></div>
+         <span>{{employerCounter}} employers found</span>
+         <div style="padding: 10px;"></div>
+         <input type="text" class="form-control" nbInput fullWidth placeholder="Enter Keyword" (keyup.enter)="filterUpdated($event)" name="searchText" #searchText="ngModel" [(ngModel)]="employerFilter.searchText" style="background-color: #ffffff; color:#95A8B8;">
+         </div>
+         <div style="padding: 20px;"></div>
+       </div> -->
 
-          <div class="form-group">
-            <!-- <nb-checkbox *ngFor="let sector of sectorData">{{sector.text}}</nb-checkbox><br> -->
-            <nb-checkbox>Computer Software (453)</nb-checkbox><br>
-            <nb-checkbox>Health Care (453)</nb-checkbox><br>
-            <nb-checkbox>Engineering & Construction (52)</nb-checkbox><br>
-            <nb-checkbox>Manufacturing (453)</nb-checkbox><br>
-
-        </div>
-
-        <div class="row" style="display: flex; justify-content: flex-start; flex-direction: row; padding: 10px;">
-          <div class="col" style="padding: 10px;">
-          <h6>List of companies in Nigeria</h6>
-          <div style="padding: 5px;"></div>
-          <span>3,234 companies found</span>
-          <div style="padding: 10px;"></div>
-          <input type="text" class="form-control" nbInput fullWidth id="keyword" placeholder="Enter Keyword" style="background-color: #ffffff; color:#95A8B8;">
-          </div>
-          <div style="padding: 20px;"></div>
-        </div>
-
-          <div class="form-group">
-            <nb-checkbox>Abia</nb-checkbox><br>
-            <nb-checkbox>Akwa Ibom</nb-checkbox><br>
-            <nb-checkbox>Anambra</nb-checkbox><br>
-            <nb-checkbox>Bauchi</nb-checkbox><br>
-          </div>
-         </nb-card-body>
-       </nb-card>
+         <!-- <div class="form-group">
+           <nb-checkbox *ngFor="let skill of skillData" (change)="filterUpdated($event)">{{skill.text}}</nb-checkbox><br>
+           <input type="button" (click)="LoadMore()" value="showMore">
+           <nb-checkbox>Akwa Ibom</nb-checkbox><br>
+           <nb-checkbox>Anambra</nb-checkbox><br>
+           <nb-checkbox>Bauchi</nb-checkbox><br>
+         </div> -->
+        </nb-card-body>
+      </nb-card>
 
     <!-- </div> -->
   </div>

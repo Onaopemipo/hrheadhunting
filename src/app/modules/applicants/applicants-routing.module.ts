@@ -1,3 +1,4 @@
+import { RewriteplansComponent } from './rewriteplans/rewriteplans.component';
 import { TrainingdetailsComponent } from './trainingdetails/trainingdetails.component';
 import { EmployerdetailsComponent } from './employerdetails/employerdetails.component';
 import { ArtisandetailsComponent } from './artisandetails/artisandetails.component';
@@ -91,6 +92,11 @@ const routes: Routes = [
       {
         path: 'applicants/signup',
         component: SignupComponent
+      },
+
+      {
+        path: 'applicants/rewriteplans',
+        component: RewriteplansComponent
       }
     ]
   }

@@ -62,7 +62,6 @@ searchFilter = {
     private state: StatesServiceProxy, private sector: SectorsServiceProxy, private authenService: AuthenticationService,) { }
 
   ngOnInit(): void {
-    // this.fetchAllEmployers();
     this.fetchAllJobs();
     this.fetchSectors();
     this.fetchSkillAreas();
@@ -106,7 +105,6 @@ searchFilter = {
 
 
   filterUpdated(filter: any) {
-
     this.jobFilter = {...this.jobFilter, ...filter};
     console.log('Updated filter', this.jobFilter)
     this.fetchAllJobs();
@@ -117,6 +115,7 @@ searchFilter = {
   }
 
   fetchAllJobs(){
+    console.log('This is your filter', this.jobFilter)
     this.loading = true;
    this.job.fetchJobs(this.jobFilter.skillAreaId, this.jobFilter.sectorId,
     this.jobFilter.countryId, this.jobFilter.stateId, this.jobFilter.isNewlyAdded,

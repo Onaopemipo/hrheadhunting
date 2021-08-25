@@ -21,7 +21,6 @@
 <div>
   <nb-card *ngIf="jobsCounter > 0">
     <nb-card-body>
-
       <nb-tabset (changeTab)="selectTab($event)">
         <nb-tab tabTitle="Posted Jobs" [tabId]="TABS.postedJobs">
             <div *ngIf="jobsCounter < 1">

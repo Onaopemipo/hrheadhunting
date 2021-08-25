@@ -1,0 +1,88 @@
+<nav *ngFor="let i of [1,2]" [class]="{'fixed-Menu':i == 1}" class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%; padding: 0; background-color: #6495ED !important;">
+  <button class="navbar-toggler" type="button" (click)="toggleMenu()" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon" style="color: #ffffff; display: none;"></span><i class="fa fa-bars" style="color: #ffffff;" aria-hidden="true"></i>
+  </button>
+  <img src="assets/images/logo_2.png" alt="Home" class="navbar-brand" [routerLink]="['/']" style="width: 150px; height: 150px; cursor: pointer; margin: -40px 0 !important; margin-right: 5% !important;">
+
+<div class="collapse navbar-collapse" [class]="{'d-flex':showMenu}" id="navbarTogglerDemo03">
+  <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+    <li class="nav-item active">
+      <a class="nav-link" [routerLink]="['/applicants/about']">About Us </a>
+    </li>
+    <li class="nav-item active">
+      <a class="nav-link" [routerLink]="['/applicants/services']">Services </a>
+    </li>
+    <li class="nav-item active">
+      <a class="nav-link" [routerLink]="['/applicants/blog']">Blog </a>
+    </li>
+
+    <li class="nav-item active">
+      <a class="nav-link"[routerLink]="['/applicants/boards']">Job Board</a>
+    </li>
+
+    <li class="nav-item active">
+      <a class="nav-link"[routerLink]="['/applicants/artisans']">Artisan Board</a>
+    </li>
+
+    <li class="nav-item active">
+      <a class="nav-link"[routerLink]="['/applicants/training']">Training Board</a>
+    </li>
+
+    <li class="nav-item active">
+      <a class="nav-link" [routerLink]="['/applicants/scorecv']">Score CV </a>
+    </li>
+
+  </ul>
+
+  <div *ngIf="!(authenService.authStatus | async)" class="form-inline my-2 my-lg-0">
+    <ul class="navbar-nav mr-auto" style="color: #fff;">
+      <li class="nav-item active">
+        <a class="nav-link" [routerLink]="['/auth/signup']">Sign Up</a>
+      </li>
+
+      <li class="nav-item active">
+        <a class="nav-link" [routerLink]="['/auth/login']">Login</a>
+      </li>
+
+      <li class="nav-item active">
+        <button class="btn" [routerLink]="['/auth/login']" nbButton outline size="small" style="color: #6495ED; background-color: #fff; border: 1px solid #6495ED;">Post Job</button>
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="authenService.authStatus | async" class="form-inline my-2 my-lg-0">
+    <ul class="navbar-nav mr-auto" style="color: #fff;">
+      <li class="nav-item active">
+        <a class="nav-link" [routerLink]="['/auth/login']">Log Out</a>
+      </li>
+
+      <li class="nav-item active">
+        <a class="nav-link" [routerLink]="['/appdash']">Dashboard</a>
+      </li>
+
+    </ul>
+  </div>
+</div>
+</nav>
+
+<div class="container" style="font-family: Rubik !important; background-color: #fff; display: flex; flex-direction: row; justify-content: space-between; ">
+</div>
+
+<div class="row" style="font-family: Rubik !important; display: flex; flex-direction: row; justify-content: space-between; font-family: 'Rubik'; margin: 2%;">
+<div class="col-md-4 shadow-lg p-3 mb-5 bg-white rounded" *ngFor="let plan of allPlans">
+<nb-card>
+  <nb-card-header>
+    <span><h6>{{plan.planName}}</h6></span>
+    <p style="font-size: 15px; font-weight: 500;">Features of {{plan.planName}}</p>
+    <p style="background-color:#6495ED; color: #fff; padding: 15px; font-size: 30px; font-weight: 800;">&#8358;{{plan.amount}}</p>
+  </nb-card-header>
+  <nb-card-body *ngFor="let sub of rewritePlans">
+    <span *ngIf="plan.isCheck">{{sub.name}}</span>
+  </nb-card-body>
+  <button type="submit" class="btn btn-primary" nbButton status="primary">Subscribe</button>
+</nb-card>
+</div>
+
+</div>
+
+
