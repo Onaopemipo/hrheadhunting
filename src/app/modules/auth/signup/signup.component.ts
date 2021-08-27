@@ -58,8 +58,12 @@ export class SignupComponent implements OnInit {
   genderData: IDTextViewModel [] = [];
   consultantModel:ManageConsultantDTO = new ManageConsultantDTO();
   planStatus: boolean = false;
+  // googleData = [];
+  // facebookData = [];
+  // linkedInData = [];
+  // twitterData = [];
   googleData: any;
-  facebookData: any [] = [];
+  facebookData: any;
   linkedInData: any [] = [];
   twitterData: any;
   subscriptionPlanId:number = 0;
@@ -82,9 +86,10 @@ export class SignupComponent implements OnInit {
   minDate: Date = new Date();
   testAmount:number = 20000;
   foreignInstitution: number = 0;
+  applicantNames = [];
 
 
-  constructor(private route: Router, private account: AccountServiceProxy, private alertMe: AlertserviceService,
+  constructor(private route: Router, private loginServices: AccountServiceProxy, private alertMe: AlertserviceService,
     private institution: InstitutionServiceProxy, private country:CountriesServiceProxy, private title: TitlesServiceProxy,
     private course: CourseServiceProxy, private qualification: QualificationServiceProxy, private employment: EmployerTypesServiceProxy,
     private state: StatesServiceProxy, private sector: SectorsServiceProxy, private skill: SkillAreasServiceProxy,
@@ -309,7 +314,7 @@ _handleReaderLoaded(readerEvt) {
     login.password = this.socialLogin.password;
     this.btnProcessing = false;
     this.emailPrompt = false;
-    this.account.getToken(this.socialLogin).subscribe(data => {
+    this.loginServices.getToken(this.socialLogin).subscribe(data => {
       if(!data.hasError){
         console.log(data);
         this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'You are authenticated', 'Go to dashboard').subscribe(res => {
@@ -336,18 +341,18 @@ _handleReaderLoaded(readerEvt) {
     })
    }
 
-   doGoogle(){
+  doGoogle(){
     this.social.doGoogleLogin().then(data => {
-      this.googleData = data;
-      // let name = this.googleData[0].displayName;
+      this.googleData = data.providerData[0];
       console.log('You are', this.googleData);
       this.socialLogin.isSocial = true;
       this.socialLogin.email = this.googleData.email;
-      this.socialLogin.firstName = this.googleData.displayName;
-      if(!data.email){
-        this.emailPrompt = true;
-      } else {
-        this.account.getToken(this.socialLogin).subscribe(data => {
+      this.applicantNames = this.googleData.displayName.split(' ');
+      this.socialLogin.firstName = this.applicantNames[1];
+      this.socialLogin.lastName = this.applicantNames[0];
+      console.log(this.applicantNames + 'I am', this.socialLogin.firstName + 'Last Name:' + this.socialLogin.lastName)
+      if(this.socialLogin.email){
+        this.loginServices.getToken(this.socialLogin).subscribe(data => {
           if(!data.hasError){
             console.log(data);
             this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'You are authenticated', 'Go to dashboard').subscribe(res => {
@@ -358,6 +363,9 @@ _handleReaderLoaded(readerEvt) {
             this.AuthenService.addUser(data.result);
           }
         })
+
+      }else {
+        this.emailPrompt = true;
       }
 
     });
@@ -365,17 +373,16 @@ _handleReaderLoaded(readerEvt) {
 
   doFacebook(){
     this.social.doFacebookLogin().then(data => {
-      this.facebookData = data;
-      console.log('See your Facebook data',this.facebookData, data.user);
+      this.facebookData = data.providerData[0];
+      console.log('See your Facebook data',this.facebookData.displayName);
       this.socialLogin.isSocial = true;
-      // this.userlogin.firstName = this.facebookData.displayName;
-      // this.userlogin.lastName = this.facebookData.displayName;
-      // this.userlogin.password = this.googleData.uid;
-      // userlogin.email = this.facebookData.
-      if(!data.email){
-        this.emailPrompt = true;
-      }else {
-        this.account.getToken(this.socialLogin).subscribe(data => {
+      this.socialLogin.email = this.facebookData.email;
+      this.applicantNames = this.facebookData.displayName.split(' ');
+      this.socialLogin.firstName = this.applicantNames[0];
+      this.socialLogin.lastName = this.applicantNames[1];
+      console.log(this.applicantNames + 'I am', this.socialLogin.firstName + 'Last Name:' + this.socialLogin.lastName)
+      if(this.socialLogin.email){
+        this.loginServices.getToken(this.socialLogin).subscribe(data => {
           if(!data.hasError){
             console.log(data);
             this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'You are authenticated', 'Go to dashboard').subscribe(res => {
@@ -386,6 +393,9 @@ _handleReaderLoaded(readerEvt) {
             this.AuthenService.addUser(data.result);
           }
         })
+
+      }else {
+        this.emailPrompt = true;
       }
 
     });
@@ -393,29 +403,32 @@ _handleReaderLoaded(readerEvt) {
 
    doTwitter(){
      this.social.doTwitterLogin().then(data => {
-       this.twitterData = data;
+       this.twitterData = data.providerData[0];
        console.log('Here is you Twitter', this.twitterData);
        this.socialLogin.isSocial = true;
-       this.socialLogin.firstName = this.twitterData.displayName;
        this.socialLogin.email = this.twitterData.email;
-       console.log('Your name is:', this.socialLogin.firstName, this.socialLogin.email);
-       // if(this.userlogin.email.length > 0){
-        if(!data.email){
-          this.emailPrompt = true;
-        }else {
-          this.account.getToken(this.socialLogin).subscribe(data => {
-            if(!data.hasError){
-              console.log(data);
-              this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'You are authenticated', 'Go to dashboard').subscribe(res => {
-                if(res){
-                  this.route.navigateByUrl('/')
-                }
-              })
-              this.AuthenService.addUser(data.result);
-            }
-          })
-        }
-     })
+       this.applicantNames = this.twitterData.displayName.split(' ');
+       this.socialLogin.firstName = this.applicantNames[0];
+       this.socialLogin.lastName = this.applicantNames[1];
+       console.log(this.applicantNames + 'I am', this.socialLogin.firstName + 'Last Name:' + this.socialLogin.lastName)
+       if(this.socialLogin.email){
+         this.loginServices.getToken(this.socialLogin).subscribe(data => {
+           if(!data.hasError){
+             console.log(data);
+             this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'You are authenticated', 'Go to dashboard').subscribe(res => {
+               if(res){
+                 this.route.navigateByUrl('/')
+               }
+             })
+             this.AuthenService.addUser(data.result);
+           }
+         })
+
+       }else {
+         this.emailPrompt = true;
+       }
+
+     });
    }
 
 
@@ -522,7 +535,7 @@ async fetchCVPlan(){
     applicant.fieldOfInterestId = Number(this.jobSeeker.fieldOfInterestId);
     applicant.dateOfBirth = this.jobSeeker.dateOfBirth;
     applicant.courseOfStudyId = Number(this.jobSeeker.courseOfStudyId);
-    this.account.applicantSignUp(applicant).subscribe(data => {
+    this.loginServices.applicantSignUp(applicant).subscribe(data => {
       this.btnProcessing = false;
       this.loading = false;
       if(!data.hasError){
@@ -560,7 +573,7 @@ async fetchCVPlan(){
     employerVal.subscriptionPlanId = this.subscriptionPlanId;
     employerVal.referenceNumber = this.reference;
     this.employerEmail = this.employer.email;
-    this.account.employerSignUp(employerVal).subscribe(data => {
+    this.loginServices.employerSignUp(employerVal).subscribe(data => {
       this.btnProcessing = false;
       if(!data.hasError){
         console.log(data)
@@ -596,7 +609,7 @@ async fetchCVPlan(){
     consultant.address = this.consultantModel.address;
     consultant.password = this.consultantModel.password;
     consultant.confirmPassword = this.consultantModel.confirmPassword;
-    this.account.consultantSignUp(consultant).subscribe(data => {
+    this.loginServices.consultantSignUp(consultant).subscribe(data => {
       this.btn = false;
       if(!data.hasError){
         this.consultantModel = new ManageConsultantDTO();

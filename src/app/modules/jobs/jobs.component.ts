@@ -261,7 +261,7 @@ tableActionClicked(event: TableActionEvent){
     this.fetchRecruiters();
     this.fetchCountries();
     this.fetchQualifications();
-    this.fetchJobTitles();
+    // this.fetchJobTitles();
 
   }
 
@@ -270,7 +270,7 @@ tableActionClicked(event: TableActionEvent){
   }
 
   newJobPosting(){
-    this.router.navigateByUrl('newjob');
+    this.router.navigateByUrl('modules/newjob');
   }
 
   filterUpdated(filter: any) {
@@ -351,10 +351,10 @@ tableActionClicked(event: TableActionEvent){
       this.currencyData = data.value;
     }
 
-  async fetchJobTitles(){
-    const data = await this.common.fetchAllJobTitles(this.titleFilter.searchText).toPromise();
-    this.jobTitleData = data.value;
-  }
+  // async fetchJobTitles(){
+  //   const data = await this.common.fetchAllJobTitles(this.titleFilter.searchText).toPromise();
+  //   this.jobTitleData = data.value;
+  // }
 
 
  // async fetchJobAvailabilty(){

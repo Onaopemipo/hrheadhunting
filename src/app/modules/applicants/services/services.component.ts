@@ -27,4 +27,9 @@ export class ServicesComponent implements OnInit {
     console.log('See your user:',this.loggedIn);
    }
 
+   logOut(){
+    this.authenService.clearusers();
+
+   }
+
 }

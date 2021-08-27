@@ -207,8 +207,8 @@ doFacebook(){
      this.twitterData = data.providerData[0];
      console.log('Here is you Twitter', this.twitterData);
      this.socialLogin.isSocial = true;
-     this.socialLogin.email = this.facebookData.email;
-     this.applicantNames = this.facebookData.displayName.split(' ');
+     this.socialLogin.email = this.twitterData.email;
+     this.applicantNames = this.twitterData.displayName.split(' ');
      this.userlogin.firstName = this.applicantNames[0];
      this.userlogin.lastName = this.applicantNames[1];
      console.log(this.applicantNames + 'I am', this.userlogin.firstName + 'Last Name:' + this.userlogin.lastName)

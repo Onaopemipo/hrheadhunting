@@ -73,7 +73,7 @@ export class NewjobComponent implements OnInit {
     this.fetchStates();
     this.fetchJobType();
     this.fetchRecruiters();
-    this.fetchJobTitles();
+    // this.fetchJobTitles();
   }
 
   postNewDraft(){}
@@ -172,10 +172,10 @@ export class NewjobComponent implements OnInit {
       this.recruiterData = data.value;
     }
 
-    async fetchJobTitles(){
-      const data = await this.common.fetchAllJobTitles(this.titleFilter.searchText).toPromise();
-      this.jobTitleData = data.value;
-    }
+    // async fetchJobTitles(){
+    //   const data = await this.common.fetchAllJobTitles(this.titleFilter.searchText).toPromise();
+    //   this.jobTitleData = data.value;
+    // }
 
      getSelectedEmployee(event,selectType) {
        if(selectType == 'employee'){

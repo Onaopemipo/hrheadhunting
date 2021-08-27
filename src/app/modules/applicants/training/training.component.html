@@ -1,5 +1,7 @@
 <div class="bg-img">
   <div class="container">
+    <!-- <ngx-navigator></ngx-navigator> -->
+
     <nav *ngFor="let i of [1,2]" [class]="{'fixed-Menu':i == 1}" class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%; padding: 0; background-color: #6495ED !important;">
       <button class="navbar-toggler" type="button" (click)="toggleMenu()" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon" style="color: #ffffff; display: none;"></span><i class="fa fa-bars" style="color: #ffffff;" aria-hidden="true"></i>
@@ -74,7 +76,7 @@
 </div>
 </div>
 
-<div class="container" style="background-color: #ffffff;">
+<div class="container" >
   <div class="row row-cols-2">
     <div class="col-sm-12 col-md-8 col-lg-8 ">
       <nb-card>
@@ -82,12 +84,11 @@
           <ngx-default-content pageHeader={{myPlanHeader}} pageDescription="{{myPlanDesc}}" [loading]="loading"></ngx-default-content>
         </nb-card-body>
       </nb-card>
-        
-          <nb-tabset *ngIf="trainingCounter > 0">
+          <nb-tabset *ngIf="trainingCounter > 0" style="background-color: #ffffff;">
             <nb-tab tabTitle="All Trainings">
               <div class="row" style="display: flex; flex-direction: row; justify-content: space-between;">
                 <div *ngFor="let training of trainingData" class="col-sm-12 col-md-6 col-lg-6" style="margin: 10px 0;">
-                  <div class="row">
+                  <div class="row" [routerLink]="['/applicants/trainingdetails', training.id]" style="cursor: pointer;">
                     <div class="col-sm-12 col-md-4 col-lg-4" style="display: inline-block; width: 40%; height: 40%;">
                       <img src="assets/images/jobs.png" style="width:5rem;">
                     </div>
@@ -147,11 +148,11 @@
             <div class="col">
             <h6>Top Trainings in Nigeria</h6>
             <div style="padding: 5px;"></div>
-            <span>3,234 companies found</span>
+            <span>{{trainingCounter}} trainings found</span>
             <div style="padding: 10px;"></div>
             <div class="form-group has-search">
               <div style="display: flex; justify-content: space-between; flex-direction: row; padding-bottom: 3px;">
-              <span style="font-weight: 600;">INDUSTRY</span>
+              <span style="font-weight: 600;">TYPES</span>
               <a href="" style="color: #0066F4;">Reset Filter</a>
               </div>
               <div class="input-group">
@@ -175,7 +176,7 @@
 
         </div>
 
-        <div class="row" style="display: flex; justify-content: flex-start; flex-direction: row; padding: 10px;">
+        <!-- <div class="row" style="display: flex; justify-content: flex-start; flex-direction: row; padding: 10px;">
           <div class="col" style="padding: 10px;">
           <h6>List of companies in Nigeria</h6>
           <div style="padding: 5px;"></div>
@@ -191,7 +192,7 @@
             <nb-checkbox>Akwa Ibom</nb-checkbox><br>
             <nb-checkbox>Anambra</nb-checkbox><br>
             <nb-checkbox>Bauchi</nb-checkbox><br>
-          </div>
+          </div> -->
          </nb-card-body>
        </nb-card>
 

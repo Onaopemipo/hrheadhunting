@@ -1,86 +1,6 @@
 <div class="bg-img">
   <div class="container">
-    <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light  bg-transparent" style="color: #fff;">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <img src="assets/images/logo_2.png" alt="" [routerLink]="['/applicants/dashboard']" style="width: 150px; height: 150px; margin-right: 200px; cursor: pointer;">
-      <div class="collapse navbar-collapse">
-        <ul class="navbar-nav mr-auto" style="display: flex; flex-direction: row; justify-content: space-between; color: #fff;">
-          <li class="nav-item active">
-            <a class="nav-link" [routerLink]="['/applicants/about']">About Us <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" [routerLink]="['/applicants/services']">Services <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" [routerLink]="['/applicants/blog']">Blog <span class="sr-only">(current)</span></a>
-          </li>
-
-          <li class="nav-item active">
-            <a class="nav-link"[routerLink]="['/applicants/boards']">Job Boards <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" [routerLink]="['/applicants/scorecv']">Score CV <span class="sr-only">(current)</span></a>
-          </li>
-
-          <li class="nav-item active">
-            <a class="nav-link"[routerLink]="['/applicants/pricing']">Pricing <span class="sr-only">(current)</span></a>
-          </li>
-        </ul>
-
-        <form class="form-inline my-2 my-lg-0">
-          <ul class="navbar-nav mr-auto" style="color: #fff;">
-            <li class="nav-item active">
-              <a class="nav-link" [routerLink]="['/auth/signup']">Sign Up</a>
-            </li>
-
-            <li class="nav-item active">
-              <a class="nav-link" [routerLink]="['/auth/login']">Login</a>
-            </li>
-          </ul>
-          <button class="btn" [routerLink]="['/auth/login']" nbButton outline size="small" style="color: #6495ED; background-color: #fff; border: 1px solid #6495ED;">Post Job</button>
-        </form>
-      </div>
-      <div class="collapse navbar-collapse">
-        <ul class="navbar-nav mr-auto" style="color: #fff;">
-          <li class="nav-item active">
-            <a class="nav-link" [routerLink]="['/applicants/about']">About Us <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" [routerLink]="['/applicants/services']">Services <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" [routerLink]="['/applicants/blog']">Blog <span class="sr-only">(current)</span></a>
-          </li>
-
-          <li class="nav-item active">
-            <a class="nav-link"[routerLink]="['/applicants/boards']">Job Boards <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" [routerLink]="['/applicants/scorecv']">Score CV <span class="sr-only">(current)</span></a>
-          </li>
-
-          <li class="nav-item active">
-            <a class="nav-link"[routerLink]="['/applicants/pricing']">Pricing <span class="sr-only">(current)</span></a>
-          </li>
-        </ul>
-
-        <form class="form-inline my-2 my-lg-0">
-          <ul class="navbar-nav mr-auto" style="color: #fff;">
-            <li class="nav-item active">
-              <a class="nav-link" [routerLink]="['/auth/signup']">Sign Up</a>
-            </li>
-
-            <li class="nav-item active">
-              <a class="nav-link" [routerLink]="['/auth/login']">Login</a>
-            </li>
-          </ul>
-          <button class="btn" [routerLink]="['/auth/login']" nbButton outline size="small" style="color: #1F2566; background-color: #fff;">Post Job</button>
-        </form>
-      </div>
-    </nav> -->
+    <!-- <ngx-navigator></ngx-navigator> -->
 
     <nav *ngFor="let i of [1,2]" [class]="{'fixed-Menu':i == 1}" class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%; padding: 0; background-color: #6495ED !important;">
       <button class="navbar-toggler" type="button" (click)="toggleMenu()" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
@@ -137,7 +57,7 @@
       <div *ngIf="authenService.authStatus | async" class="form-inline my-2 my-lg-0">
         <ul class="navbar-nav mr-auto" style="color: #fff;">
           <li class="nav-item active">
-            <a class="nav-link" [routerLink]="['/auth/login']">Log Out</a>
+            <a href="javascript: void(0)" class="nav-link" (click)="logOut()">Log Out</a>
           </li>
 
           <li class="nav-item active">
@@ -186,7 +106,7 @@
   </div>
 
   <div style="padding: 2%;"></div>
- 
+
   <div class="row" style="display: flex; flex-direction: row; justify-content: space-between; ">
     <div class="col-sm-5">
       <img src="assets/images/Job_Listing.png" style="height: 100%; width: 100%;"  alt="">
@@ -242,7 +162,8 @@
        <span style="text-align: justify; line-height: 2.6;">Psychometric Assessment:  You can create  psychometric and competency-based assessment,
          and it will serve as outstanding indicator of a candidate's ability to execute the tasks needed for the job.
        </span>
-       <button class="btn btn-theme" type="submit" nbButton status="primary" style="color: #fff; margin-top: 5px">Get Started</button>
+       <button *ngIf="(authenService.authStatus | async)" class="btn btn-theme" type="submit" nbButton [routerLink]="['/appdash']" status="primary" style="color: #fff; margin-top: 5px">Get Started</button>
+       <button *ngIf="!(authenService.authStatus | async)" class="btn btn-theme" type="submit" nbButton [routerLink]="['/auth/login']" status="primary" style="color: #fff; margin-top: 5px">Get Started</button>
 
      </div>
        </div>
@@ -274,7 +195,7 @@
     <div class="col-sm-7">
      <div class="row" style="padding: 50px;">
        <h3>LinkedIn Optimization</h3>
-       <span style="text-align: justify; line-height: 2.6;">Your professional profile is not complete without a great LinkedIn profile. We will optimise your existing LinkedIn 
+       <span style="text-align: justify; line-height: 2.6;">Your professional profile is not complete without a great LinkedIn profile. We will optimise your existing LinkedIn
         page with a total revamp or we will create a brand new one for you.
        </span>
      </div>
@@ -300,4 +221,4 @@
    </div>
  </div>
 
- 
+

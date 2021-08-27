@@ -76,6 +76,7 @@ import { NamedStatusComponent } from './named-status/named-status.component';
 import { InputvalidationService } from '../_services/inputvalidation.service';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FilterBoxComponent } from './filter-box/filter-box.component';
+import { NavigatorComponent } from './navigator/navigator.component';
 @NgModule({
   declarations: [
     ComponentsheaderComponent,
@@ -109,6 +110,7 @@ import { FilterBoxComponent } from './filter-box/filter-box.component';
     NamedStatusComponent,
     NavbarComponent,
     FilterBoxComponent,
+    NavigatorComponent,
   ],
   imports: [
     FormsModule,
@@ -175,7 +177,8 @@ import { FilterBoxComponent } from './filter-box/filter-box.component';
     NbDatepickerDirective,
     ExcelServiceService,
     PdfServiceService,
-    InputvalidationService
+    InputvalidationService,
+
   ],
   exports: [
     ComponentsheaderComponent,
@@ -214,6 +217,7 @@ import { FilterBoxComponent } from './filter-box/filter-box.component';
     LoadableButtonComponent,
     PageComponent,
     FilterBoxComponent,
+    NavigatorComponent,
   ],
 })
 export class ComponentsModule { }

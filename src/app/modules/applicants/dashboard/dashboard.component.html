@@ -66,7 +66,7 @@
       </div>
     </div>
   </nav>
-
+  <!-- <ngx-navigator></ngx-navigator> -->
    <div class="container" style="margin: 3% 0;">
     <div style="padding-top: 20px;">
       <h6 style="text-align: center; color: #fff;">Get hired for any job, any time.</h6>
@@ -126,7 +126,7 @@
                 <div *ngFor="let job of allJobs" class="col-sm-12 col-md-6 col-lg-6" [routerLink]="['/applicants/details', job.id]" style="cursor:pointer; margin-top: 20px;">
                   <div class="row">
                     <div class="col-sm-12 col-md-4 col-lg-4">
-                      <img src="assets/images/jobs.png" style="width:5rem;">
+                      <img src="assets/images/jobs.png" style="width: 100%;">
                     </div>
                     <div class="col-sm-12 col-md-8 col-lg-8">
                         <span style="font-weight: 600; padding-right:25px;"><a [routerLink]="['/applicants/details', job.id]">{{job.position}}</a></span><br>
@@ -146,8 +146,8 @@
             <nb-tab tabTitle="Featured Jobs">
               <div class="row">
                 <div class="col-sm-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
-                  <div class="col-sm-4">
-                    <img src="assets/images/jobs.png" style="width:5rem;">
+                  <div class="col-sm-12 col-md-4 col-lg-4">
+                    <img src="assets/images/jobs.png" style="width: 100%;">
                   </div>
                   <div class="col-sm-8">
                       <span style="font-weight: 600; padding-right:25px;">UI/UX Designer</span><br>
@@ -159,8 +159,8 @@
                 </div>
 
                 <div class="col-sm-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
-                  <div class="col-sm-4">
-                    <img src="assets/images/jobs.png" style="width:5rem;">
+                  <div class="col-sm-12 col-md-4 col-lg-4">
+                    <img src="assets/images/jobs.png" style="width: 100%;">
                   </div>
                   <div class="col-sm-8">
                       <span style="font-weight: 600; padding-right:25px;">UI/UX Designer</span><br>
@@ -172,7 +172,7 @@
                 </div>
               </div>
             </nb-tab>
-            <nb-tab tabTitle="Newly Added Jobs">
+            <!-- <nb-tab tabTitle="Newly Added Jobs">
               <div class="row">
                 <div class="col-sm-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
                   <div class="col-sm-4">
@@ -229,7 +229,7 @@
                   </div>
                 </div>
               </div>
-            </nb-tab>
+            </nb-tab> -->
           </nb-tabset>
         </nb-card-body>
       </nb-card>
@@ -288,7 +288,7 @@
 
 
     </div>
-    <div class="col-sm-8 col-md-6 col-lg-4">
+    <div class="col-sm-8 col-md-6 col-lg-4 dashImage">
       <img src="assets/images/Artisan_Listing.png" class="imageDivs" style="width: 300px; height: 300px; margin-top: -15%; margin-bottom: -12%;" alt="">
     </div>
     </div>
@@ -316,10 +316,10 @@
              <nb-tab tabTitle="All">
               <div class="row" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
                 <div *ngFor="let employer of employerData" class="col-sm-12 col-md-6 col-lg-4" style="text-align: left; width:100%; margin-bottom: 20px;">
-                  <div class="row">
+                  <div class="row" style="width: 100%;">
                     <div class="col" style="width: 100%;">
-                      <img src="assets/images/jobs.png" style="width:5rem;">
-                        <span style="font-weight: 600; display: block;"><a [routerLink]="['/applicants/employerdetails', employer.id]">{{employer.name}}</a></span>
+                      <img src="{{'data:image/jpg;base64,' + employer.logo}}" onError="this.onerror=null;this.src='assets/images/jobs.png';" style="width: 8rem;">
+                      <span style="font-weight: 600; display: block;"><a [routerLink]="['/applicants/employerdetails', employer.id]">{{employer.name}}</a></span>
                         <span style="display: block;">{{employer.sector}}</span>
                    </div>
                   </div>
@@ -350,7 +350,7 @@
                 </div>
             </div>
             </nb-tab>
-            <nb-tab tabTitle="Newly Added Places">
+            <!-- <nb-tab tabTitle="Newly Added Places">
               <div class="row" style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
                 <div class="col-sm-3" style="text-align: center;">
                   <img src="assets/images/jobs.png" style="width:5rem; margin-bottom: 5px;"><br>
@@ -395,7 +395,7 @@
                   <span>Amplifire Digital Agency</span><br>
                 </div>
             </div>
-            </nb-tab>
+            </nb-tab> -->
           </nb-tabset>
 
         </nb-card-body>

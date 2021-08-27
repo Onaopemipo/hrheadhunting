@@ -1,3 +1,5 @@
+import { ReviewArtisanDTO } from './../../../_services/service-proxies';
+import { AlertserviceService } from 'app/_services/alertservice.service';
 import { ArtisanDTO, ArtisanServiceProxy } from 'app/_services/service-proxies';
 import { Component, Input, OnInit } from '@angular/core';
 import { AuthenticationService } from 'app/_services/authentication.service';
@@ -20,15 +22,17 @@ export class ArtisandetailsComponent implements OnInit {
   isRated = true;
   rating = 1;
 
-  ratingModel = {
-    fullName: '',
-    starRating: 0,
-    review: ''
-  }
+  ratingModel: ReviewArtisanDTO = new ReviewArtisanDTO();
+
+  // ratingModel = {
+  //   fullName: '',
+  //   starRating: 0,
+  //   review: ''
+  // }
 
 
 
-  constructor(public authenService: AuthenticationService, private artisan: ArtisanServiceProxy, private router: ActivatedRoute) { }
+  constructor(public authenService: AuthenticationService, private alertMe: AlertserviceService, private myArtisan: ArtisanServiceProxy, private artisan: ArtisanServiceProxy, private router: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.artisan.getArtisanById(this.artisanId = Number(this.router.snapshot.paramMap.get("id"))).subscribe(data => {
@@ -45,11 +49,17 @@ export class ArtisandetailsComponent implements OnInit {
     this.showRating = true;
   }
   rateArtisan(item){
-    this.rating = item
+    this.rating = item;
+    this.ratingModel.rating = item;
+    console.log('This is your rating',this.rating);
   }
 
   submitRating(){
-
+    this.myArtisan.postArtisanReview(this.ratingModel).subscribe(data => {
+      if(!data.hasError){
+        this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, data.message, 'Ok')
+      }
+    })
   }
 
 }

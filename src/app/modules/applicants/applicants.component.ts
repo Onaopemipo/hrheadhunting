@@ -1,3 +1,4 @@
+import { AlertserviceService } from 'app/_services/alertservice.service';
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'app/_services/authentication.service';
 import { CLIENT_MENU_ITEMS } from '../pages-menu';
@@ -11,10 +12,14 @@ export class ApplicantsComponent implements OnInit {
 
   menu = CLIENT_MENU_ITEMS;
   loginStatus: boolean = false;
-  constructor(public auth: AuthenticationService) { }
+  constructor(public auth: AuthenticationService, private alertMe: AlertserviceService) { }
 
   ngOnInit(): void {
 
+  }
+
+  subscription(){
+    this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'Successful', 'Ok')
   }
 
   async getStatus(){
