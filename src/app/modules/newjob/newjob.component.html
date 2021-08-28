@@ -70,7 +70,7 @@
           <div class="form-group row mydiv">
             <label for="Descripion" class="col-sm-3 col-form-label mylabel">Office Address</label>
             <div class="col-sm-5 col-md-5 col-lg-5">
-              <textarea name="location" #location="ngModel" [(ngModel)]="newJobModel.location" cols="30" rows="10" style="width: 100%;"></textarea>
+              <textarea class="form-control" name="location" #location="ngModel" [(ngModel)]="newJobModel.location" cols="30" rows="10" style="width: 100%;"></textarea>
               <div *ngIf="description.invalid && (description.dirty || description.touched)" class="error">
                 <div *ngIf="description.errors.required">Address is required</div>
               </div>
@@ -82,7 +82,7 @@
           <div class="form-group row mydiv">
             <label for="Descripion" class="col-sm-3 col-form-label mylabel">Job Details</label>
             <div class="col-sm-5 col-md-5 col-lg-5">
-              <textarea name="description" #description="ngModel" [(ngModel)]="newJobModel.details" cols="30" rows="10" style="width: 100%;"></textarea>
+              <textarea class="form-control" name="description" #description="ngModel" [(ngModel)]="newJobModel.details" cols="30" rows="10" style="width: 100%;"></textarea>
               <div *ngIf="description.invalid && (description.dirty || description.touched)" class="error">
                 <div *ngIf="description.errors.required">Descripion is required</div>
               </div>
@@ -92,7 +92,7 @@
           <div class="form-group row mydiv">
             <label for="Descripion" class="col-sm-3 col-form-label mylabel">Job Requirement</label>
             <div class="col-sm-5 col-md-5 col-lg-5">
-              <textarea name="requirements" #requirements="ngModel" [(ngModel)]="newJobModel.requirements" cols="30" rows="10" style="width: 100%;" required></textarea>
+              <textarea class="form-control" name="requirements" #requirements="ngModel" [(ngModel)]="newJobModel.requirements" cols="30" rows="10" style="width: 100%;" required></textarea>
               <div *ngIf="requirements.invalid && (requirements.dirty || requirements.touched)" class="error">
                 <div *ngIf="requirements.errors.required">Job Requirement is required</div>
               </div>

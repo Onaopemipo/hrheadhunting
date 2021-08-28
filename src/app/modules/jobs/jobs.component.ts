@@ -68,6 +68,8 @@ export class JobsComponent implements OnInit {
   employmentType: string = 'Full Time';
   newJob: boolean = false;
   allJobs: JobDTO []= [];
+  pendingJobs: JobDTO []= [];
+  pendingJobsCounter: number = 0;
   allDraftJobs:  []= [];
   jobsCounter: number = 0;
   allDepartments:  [] = [];
@@ -212,12 +214,14 @@ tableActionClicked(event: TableActionEvent){
   }
 
   jobFilter = {
+    companyId: 0,
     skillAreaId:0,
     sectorId:0,
     countryId:0,
     stateId:0,
     isNewlyAdded: false,
     isPopular: false,
+    searchText: '',
     pageSize:10,
     pageNumber:1
 
@@ -396,9 +400,10 @@ tableActionClicked(event: TableActionEvent){
 
   fetchAllJobs(){
     this.loading = true;
-   this.job.fetchJobs(this.jobFilter.skillAreaId, this.jobFilter.sectorId,
+    this.job.fetchJobs(this.jobFilter.companyId, this.jobFilter.skillAreaId,
     this.jobFilter.countryId, this.jobFilter.stateId, this.jobFilter.isNewlyAdded,
-    this.jobFilter.isPopular,this.jobFilter.pageSize, this.jobFilter.pageNumber).subscribe(data => {
+    this.jobFilter.isPopular,this.jobFilter.searchText, this.jobFilter.pageSize,
+    this.jobFilter.pageNumber).subscribe(data => {
       this.loading = false;
       if(!data.hasError){
         this.allJobs = data.value;
@@ -407,6 +412,21 @@ tableActionClicked(event: TableActionEvent){
      }
     });
 
+  }
+
+  fetchPending(){
+    this.loading = true;
+    this.job.fetchPendingJobs(this.jobFilter.companyId, this.jobFilter.skillAreaId,
+      this.jobFilter.countryId, this.jobFilter.stateId, this.jobFilter.isNewlyAdded,
+      this.jobFilter.isPopular,this.jobFilter.searchText, this.jobFilter.pageSize,
+      this.jobFilter.pageNumber).subscribe(data => {
+        this.loading = false;
+        if(!data.hasError){
+          this.pendingJobs = data.value;
+          this.pendingJobsCounter = data.totalCount;
+          console.log('My Jobs:',this.allJobs)
+       }
+      });
   }
 
   actionClicked(event: TableActionEvent){

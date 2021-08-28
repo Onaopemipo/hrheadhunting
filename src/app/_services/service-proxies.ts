@@ -5425,26 +5425,27 @@ export class JobServiceProxy {
 
     /**
      * API for getting All Jobs Listing with filter but optional
+     * @param companyId (optional) 
      * @param skillAreaId (optional) 
-     * @param sectorId (optional) 
      * @param countryId (optional) 
      * @param stateId (optional) 
      * @param isNewlyAdded (optional) 
      * @param isPopular (optional) 
+     * @param searchText (optional) 
      * @param pageSize (optional) 
      * @param pageNumber (optional) 
      * @return Success
      */
-    fetchJobs(skillAreaId: number | undefined, sectorId: number | undefined, countryId: number | undefined, stateId: number | undefined, isNewlyAdded: boolean | undefined, isPopular: boolean | undefined, pageSize: number | undefined, pageNumber: number | undefined): Observable<JobDTOIListOdataResult> {
+    fetchJobs(companyId: number | undefined, skillAreaId: number | undefined, countryId: number | undefined, stateId: number | undefined, isNewlyAdded: boolean | undefined, isPopular: boolean | undefined, searchText: string | null | undefined, pageSize: number | undefined, pageNumber: number | undefined): Observable<JobDTOIListOdataResult> {
         let url_ = this.baseUrl + "/api/Job/FetchJobs?";
+        if (companyId === null)
+            throw new Error("The parameter 'companyId' cannot be null.");
+        else if (companyId !== undefined)
+            url_ += "CompanyId=" + encodeURIComponent("" + companyId) + "&";
         if (skillAreaId === null)
             throw new Error("The parameter 'skillAreaId' cannot be null.");
         else if (skillAreaId !== undefined)
             url_ += "SkillAreaId=" + encodeURIComponent("" + skillAreaId) + "&";
-        if (sectorId === null)
-            throw new Error("The parameter 'sectorId' cannot be null.");
-        else if (sectorId !== undefined)
-            url_ += "SectorId=" + encodeURIComponent("" + sectorId) + "&";
         if (countryId === null)
             throw new Error("The parameter 'countryId' cannot be null.");
         else if (countryId !== undefined)
@@ -5461,6 +5462,8 @@ export class JobServiceProxy {
             throw new Error("The parameter 'isPopular' cannot be null.");
         else if (isPopular !== undefined)
             url_ += "IsPopular=" + encodeURIComponent("" + isPopular) + "&";
+        if (searchText !== undefined && searchText !== null)
+            url_ += "SearchText=" + encodeURIComponent("" + searchText) + "&";
         if (pageSize === null)
             throw new Error("The parameter 'pageSize' cannot be null.");
         else if (pageSize !== undefined)
@@ -5537,26 +5540,27 @@ export class JobServiceProxy {
 
     /**
      * API for getting All Jobs Listing with filter but optional
+     * @param companyId (optional) 
      * @param skillAreaId (optional) 
-     * @param sectorId (optional) 
      * @param countryId (optional) 
      * @param stateId (optional) 
      * @param isNewlyAdded (optional) 
      * @param isPopular (optional) 
+     * @param searchText (optional) 
      * @param pageSize (optional) 
      * @param pageNumber (optional) 
      * @return Success
      */
-    fetchAllJobs(skillAreaId: number | undefined, sectorId: number | undefined, countryId: number | undefined, stateId: number | undefined, isNewlyAdded: boolean | undefined, isPopular: boolean | undefined, pageSize: number | undefined, pageNumber: number | undefined): Observable<JobIListOdataResult> {
+    fetchAllJobs(companyId: number | undefined, skillAreaId: number | undefined, countryId: number | undefined, stateId: number | undefined, isNewlyAdded: boolean | undefined, isPopular: boolean | undefined, searchText: string | null | undefined, pageSize: number | undefined, pageNumber: number | undefined): Observable<JobIListOdataResult> {
         let url_ = this.baseUrl + "/api/Job/FetchAllJobs?";
+        if (companyId === null)
+            throw new Error("The parameter 'companyId' cannot be null.");
+        else if (companyId !== undefined)
+            url_ += "CompanyId=" + encodeURIComponent("" + companyId) + "&";
         if (skillAreaId === null)
             throw new Error("The parameter 'skillAreaId' cannot be null.");
         else if (skillAreaId !== undefined)
             url_ += "SkillAreaId=" + encodeURIComponent("" + skillAreaId) + "&";
-        if (sectorId === null)
-            throw new Error("The parameter 'sectorId' cannot be null.");
-        else if (sectorId !== undefined)
-            url_ += "SectorId=" + encodeURIComponent("" + sectorId) + "&";
         if (countryId === null)
             throw new Error("The parameter 'countryId' cannot be null.");
         else if (countryId !== undefined)
@@ -5573,6 +5577,8 @@ export class JobServiceProxy {
             throw new Error("The parameter 'isPopular' cannot be null.");
         else if (isPopular !== undefined)
             url_ += "IsPopular=" + encodeURIComponent("" + isPopular) + "&";
+        if (searchText !== undefined && searchText !== null)
+            url_ += "SearchText=" + encodeURIComponent("" + searchText) + "&";
         if (pageSize === null)
             throw new Error("The parameter 'pageSize' cannot be null.");
         else if (pageSize !== undefined)
@@ -5833,6 +5839,197 @@ export class JobServiceProxy {
     }
 
     protected processApplyJob(response: HttpResponseBase): Observable<MessageOutApiResult> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = MessageOutApiResult.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData400) {
+                result400 = {} as any;
+                for (let key in resultData400) {
+                    if (resultData400.hasOwnProperty(key))
+                        (<any>result400)![key] = resultData400[key];
+                }
+            }
+            else {
+                result400 = <any>null;
+            }
+            return throwException("Bad Request", status, _responseText, _headers, result400);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Server Error", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<MessageOutApiResult>(<any>null);
+    }
+
+    /**
+     * API for getting All Pending Jobs posted by Recruiters from HR HeadHuntings Admin with filter but optional
+    SearchText cover the followings; (Recruiter, Position, Job Location (State/Country), and Skill area)
+     * @param companyId (optional) 
+     * @param skillAreaId (optional) 
+     * @param countryId (optional) 
+     * @param stateId (optional) 
+     * @param isNewlyAdded (optional) 
+     * @param isPopular (optional) 
+     * @param searchText (optional) 
+     * @param pageSize (optional) 
+     * @param pageNumber (optional) 
+     * @return Success
+     */
+    fetchPendingJobs(companyId: number | undefined, skillAreaId: number | undefined, countryId: number | undefined, stateId: number | undefined, isNewlyAdded: boolean | undefined, isPopular: boolean | undefined, searchText: string | null | undefined, pageSize: number | undefined, pageNumber: number | undefined): Observable<JobDTOIListOdataResult> {
+        let url_ = this.baseUrl + "/api/Job/FetchPendingJobs?";
+        if (companyId === null)
+            throw new Error("The parameter 'companyId' cannot be null.");
+        else if (companyId !== undefined)
+            url_ += "CompanyId=" + encodeURIComponent("" + companyId) + "&";
+        if (skillAreaId === null)
+            throw new Error("The parameter 'skillAreaId' cannot be null.");
+        else if (skillAreaId !== undefined)
+            url_ += "SkillAreaId=" + encodeURIComponent("" + skillAreaId) + "&";
+        if (countryId === null)
+            throw new Error("The parameter 'countryId' cannot be null.");
+        else if (countryId !== undefined)
+            url_ += "CountryId=" + encodeURIComponent("" + countryId) + "&";
+        if (stateId === null)
+            throw new Error("The parameter 'stateId' cannot be null.");
+        else if (stateId !== undefined)
+            url_ += "StateId=" + encodeURIComponent("" + stateId) + "&";
+        if (isNewlyAdded === null)
+            throw new Error("The parameter 'isNewlyAdded' cannot be null.");
+        else if (isNewlyAdded !== undefined)
+            url_ += "IsNewlyAdded=" + encodeURIComponent("" + isNewlyAdded) + "&";
+        if (isPopular === null)
+            throw new Error("The parameter 'isPopular' cannot be null.");
+        else if (isPopular !== undefined)
+            url_ += "IsPopular=" + encodeURIComponent("" + isPopular) + "&";
+        if (searchText !== undefined && searchText !== null)
+            url_ += "SearchText=" + encodeURIComponent("" + searchText) + "&";
+        if (pageSize === null)
+            throw new Error("The parameter 'pageSize' cannot be null.");
+        else if (pageSize !== undefined)
+            url_ += "pageSize=" + encodeURIComponent("" + pageSize) + "&";
+        if (pageNumber === null)
+            throw new Error("The parameter 'pageNumber' cannot be null.");
+        else if (pageNumber !== undefined)
+            url_ += "pageNumber=" + encodeURIComponent("" + pageNumber) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processFetchPendingJobs(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processFetchPendingJobs(<any>response_);
+                } catch (e) {
+                    return <Observable<JobDTOIListOdataResult>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<JobDTOIListOdataResult>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processFetchPendingJobs(response: HttpResponseBase): Observable<JobDTOIListOdataResult> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = JobDTOIListOdataResult.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData400) {
+                result400 = {} as any;
+                for (let key in resultData400) {
+                    if (resultData400.hasOwnProperty(key))
+                        (<any>result400)![key] = resultData400[key];
+                }
+            }
+            else {
+                result400 = <any>null;
+            }
+            return throwException("Bad Request", status, _responseText, _headers, result400);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Server Error", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<JobDTOIListOdataResult>(<any>null);
+    }
+
+    /**
+     * API for Posting Pending Jobs by HR HeadHuntings by selecting one or multiple records at a time
+     * @param selectedJobIds (optional) 
+     * @return Success
+     */
+    postPendingJobs(selectedJobIds: string | null | undefined): Observable<MessageOutApiResult> {
+        let url_ = this.baseUrl + "/api/Job/PostPendingJobs?";
+        if (selectedJobIds !== undefined && selectedJobIds !== null)
+            url_ += "selectedJobIds=" + encodeURIComponent("" + selectedJobIds) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processPostPendingJobs(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processPostPendingJobs(<any>response_);
+                } catch (e) {
+                    return <Observable<MessageOutApiResult>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<MessageOutApiResult>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processPostPendingJobs(response: HttpResponseBase): Observable<MessageOutApiResult> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -8810,6 +9007,78 @@ export class StatesServiceProxy {
             }));
         }
         return _observableOf<StateIListOdataResult>(<any>null);
+    }
+
+    /**
+     * API for getting All States with the number of Jobs posted under each for dropdowns
+     * @return Success
+     */
+    fetchLocationJobs(): Observable<IDTextViewModelIListOdataResult> {
+        let url_ = this.baseUrl + "/api/States/FetchLocationJobs";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processFetchLocationJobs(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processFetchLocationJobs(<any>response_);
+                } catch (e) {
+                    return <Observable<IDTextViewModelIListOdataResult>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<IDTextViewModelIListOdataResult>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processFetchLocationJobs(response: HttpResponseBase): Observable<IDTextViewModelIListOdataResult> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = IDTextViewModelIListOdataResult.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData400) {
+                result400 = {} as any;
+                for (let key in resultData400) {
+                    if (resultData400.hasOwnProperty(key))
+                        (<any>result400)![key] = resultData400[key];
+                }
+            }
+            else {
+                result400 = <any>null;
+            }
+            return throwException("Bad Request", status, _responseText, _headers, result400);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Server Error", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<IDTextViewModelIListOdataResult>(<any>null);
     }
 
     /**

@@ -44,7 +44,7 @@
             [tableColum]="scheduledJobsTable"
             (filterChange)="filterUpdated($event)"
             [showFilter]="true"
-            [userData]="tableData"
+            [userData]="pendingJobs"
             [showActions]="true"
             [actions]="tableActions"
             (actionClick)="tableActionClicked($event)"></ngx-tablecomponent>
@@ -396,7 +396,7 @@
 
           <div class="form-group row mydiv">
             <label for="Descripion" >Office Address</label>
-              <textarea name="location" #location="ngModel" [(ngModel)]="singleJob.location" cols="30" rows="10" style="width: 100%;"></textarea>
+              <textarea class="form-control" name="location" #location="ngModel" [(ngModel)]="singleJob.location" cols="30" rows="10" style="width: 100%;"></textarea>
               <div *ngIf="description.invalid && (description.dirty || description.touched)" class="error">
                 <div *ngIf="description.errors.required">Address is required</div>
               </div>
@@ -407,7 +407,7 @@
           <div class="form-group row mydiv">
             <label for="Descripion" >Job Details</label>
 
-              <textarea name="description" #description="ngModel" [(ngModel)]="singleJob.details" cols="30" rows="10" style="width: 100%;"></textarea>
+              <textarea class="form-control" name="description" #description="ngModel" [(ngModel)]="singleJob.details" cols="30" rows="10" style="width: 100%;"></textarea>
               <div *ngIf="description.invalid && (description.dirty || description.touched)" class="error">
                 <div *ngIf="description.errors.required">Descripion is required</div>
               </div>
@@ -415,7 +415,7 @@
 
           <div class="form-group row mydiv">
             <label for="Descripion" >Job Requirement</label>
-              <textarea name="requirements" #requirements="ngModel" [(ngModel)]="singleJob.requirements" cols="30" rows="10" style="width: 100%;" required></textarea>
+              <textarea class="form-control" name="requirements" #requirements="ngModel" [(ngModel)]="singleJob.requirements" cols="30" rows="10" style="width: 100%;" required></textarea>
               <div *ngIf="requirements.invalid && (requirements.dirty || requirements.touched)" class="error">
                 <div *ngIf="requirements.errors.required">Job Requirement is required</div>
               </div>

@@ -19,12 +19,22 @@ export class JobboardsComponent implements OnInit {
   myPlanDesc: string = "No data available yet";
 
   jobFilter = {
-    skillAreaId: undefined,
-    sectorId: undefined,
-    countryId: undefined,
-    stateId: undefined,
+    // skillAreaId: undefined,
+    // sectorId: undefined,
+    // countryId: undefined,
+    // stateId: undefined,
+    // isNewlyAdded: false,
+    // isPopular: false,
+    // pageSize:10,
+    // pageNumber:1
+    companyId: undefined,
+    skillAreaId:undefined,
+    sectorId:undefined,
+    countryId:undefined,
+    stateId:undefined,
     isNewlyAdded: false,
     isPopular: false,
+    searchText: '',
     pageSize:10,
     pageNumber:1
 
@@ -208,11 +218,27 @@ employerFilter = {
     console.log('My sector jobs data:', this.sectorJobsData)
   }
 
+  // fetchAllJobs(){
+  //   this.loading = true;
+  //  this.job.fetchJobs(this.jobFilter.skillAreaId, this.jobFilter.sectorId,
+  //   this.jobFilter.countryId, this.jobFilter.stateId, this.jobFilter.isNewlyAdded,
+  //   this.jobFilter.isPopular,this.jobFilter.pageSize, this.jobFilter.pageNumber).subscribe(data => {
+  //     this.loading = false;
+  //     if(!data.hasError){
+  //       this.allJobs = data.value;
+  //       this.jobsCounter = data.totalCount;
+  //       console.log('My Jobs:',this.allJobs)
+  //    }
+  //   });
+
+  // }
+
   fetchAllJobs(){
     this.loading = true;
-   this.job.fetchJobs(this.jobFilter.skillAreaId, this.jobFilter.sectorId,
+    this.job.fetchJobs(this.jobFilter.companyId, this.jobFilter.skillAreaId,
     this.jobFilter.countryId, this.jobFilter.stateId, this.jobFilter.isNewlyAdded,
-    this.jobFilter.isPopular,this.jobFilter.pageSize, this.jobFilter.pageNumber).subscribe(data => {
+    this.jobFilter.isPopular,this.jobFilter.searchText, this.jobFilter.pageSize,
+    this.jobFilter.pageNumber).subscribe(data => {
       this.loading = false;
       if(!data.hasError){
         this.allJobs = data.value;
@@ -222,6 +248,7 @@ employerFilter = {
     });
 
   }
+
 
   async fetchSectors(){
     this.sector.fetchSectors().subscribe(data => {
