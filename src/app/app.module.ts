@@ -82,6 +82,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { JwtInterceptor } from './_services/jwt.interceptor';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Angular4PaystackModule } from 'angular4-paystack';
+import { Router, RouterModule } from '@angular/router';
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
   interactionPlugin,
@@ -101,6 +102,7 @@ FullCalendarModule.registerPlugins([
     FullCalendarModule,
     ReactiveFormsModule,
     Angular4PaystackModule,
+    RouterModule,
     // NbSidebarModule.forRoot(),
     // NbMenuModule.forRoot(),
     // NbDatepickerModule.forRoot(),

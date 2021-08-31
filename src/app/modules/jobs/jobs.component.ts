@@ -129,6 +129,7 @@ draftTableActions: TableAction [] = [
   {name: draftEnum.DELETE, label: 'Delete'},
 ]
 
+
 tableActionClicked(event: TableActionEvent){
   if(event.name==TP.VIEW){
     this.showJob = true;

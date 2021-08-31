@@ -18,12 +18,13 @@ export class DashboardComponent implements OnInit {
 
 
   jobFilter = {
-    skillAreaId:0,
-    sectorId:0,
-    countryId:0,
-    stateId:0,
+    companyId: undefined,
+    skillAreaId:undefined,
+    countryId:undefined,
+    stateId:undefined,
     isNewlyAdded: false,
     isPopular: false,
+    searchText: '',
     pageSize:10,
     pageNumber:1
 
@@ -117,9 +118,10 @@ searchFilter = {
   fetchAllJobs(){
     console.log('This is your filter', this.jobFilter)
     this.loading = true;
-   this.job.fetchJobs(this.jobFilter.skillAreaId, this.jobFilter.sectorId,
+   this.job.fetchJobs(this.jobFilter.companyId, this.jobFilter.skillAreaId,
     this.jobFilter.countryId, this.jobFilter.stateId, this.jobFilter.isNewlyAdded,
-    this.jobFilter.isPopular,this.jobFilter.pageSize, this.jobFilter.pageNumber).subscribe(data => {
+    this.jobFilter.isPopular,this.jobFilter.searchText, this.jobFilter.pageSize,
+    this.jobFilter.pageNumber).subscribe(data => {
       this.loading = false;
       if(!data.hasError){
         this.allJobs = data.value;

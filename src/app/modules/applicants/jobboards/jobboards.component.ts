@@ -29,7 +29,6 @@ export class JobboardsComponent implements OnInit {
     // pageNumber:1
     companyId: undefined,
     skillAreaId:undefined,
-    sectorId:undefined,
     countryId:undefined,
     stateId:undefined,
     isNewlyAdded: false,
@@ -49,6 +48,7 @@ export class JobboardsComponent implements OnInit {
   employerCounter:number = 0;
   employerData: EmployerDTO [] = [];
   loading:boolean = false;
+  loading1:boolean = false;
   skillData: IDTextViewModel [] = [];
   stateData: IDTextViewModel [] = [];
   sectorData: IDTextViewModel [] = [];
@@ -110,6 +110,7 @@ employerFilter = {
 
   ngOnInit(): void {
     // this.fetchAllEmployers();
+    this.fetchAllArtisans();
     this.fetchAllJobs();
     this.fetchSectors();
     this.fetchSkillAreas();
@@ -117,9 +118,8 @@ employerFilter = {
     this.fetchAllEmployers();
     this.getMyUsers();
     this.authUser();
-    this.fetchAllArtisans();
     this.fetchSectorJobs();
-    this.fetchSectorJob();
+    // this.fetchSectorJob();
   }
 
  async getMyUsers(){
@@ -150,10 +150,10 @@ employerFilter = {
   // }
 
   fetchAllArtisans(){
-    this.loading = true;
+    this.loading1 = true;
     this.artisan.fetchAllArtisans(this.artisanFilter.searchText, this.artisanFilter.dateFrom,
       this.artisanFilter.dateTo, this.artisanFilter.pageSize, this.artisanFilter.pageNo).subscribe(data => {
-        this.loading = false;
+        this.loading1 = false;
       if(!data.hasError){
         this.artisanData = data.value;
         this.artisanCounter = data.totalCount;
@@ -211,12 +211,12 @@ employerFilter = {
     this.showMenu = !this.showMenu;
   }
 
-  async fetchSectorJob(){
-    const data = await this.sector.fetchSectorJobs().toPromise();
-    this.sectorJobsData = data.value;
-    this.sectorCounter = data.totalCount;
-    console.log('My sector jobs data:', this.sectorJobsData)
-  }
+  // async fetchSectorJob(){
+  //   const data = await this.sector.fetchSectorJobs().toPromise();
+  //   this.sectorJobsData = data.value;
+  //   this.sectorCounter = data.totalCount;
+  //   console.log('My sector jobs data:', this.sectorJobsData)
+  // }
 
   // fetchAllJobs(){
   //   this.loading = true;
@@ -232,6 +232,14 @@ employerFilter = {
   //   });
 
   // }
+
+  async fetchJobsLocation(){
+    const data = await this.state.fetchLocationJobs().toPromise();
+    if(!data.hasError){
+      this.sectorJobsData = data.value;
+      this.sectorCounter = data.totalCount;
+    }
+  }
 
   fetchAllJobs(){
     this.loading = true;

@@ -72,7 +72,7 @@
       <h6 style="text-align: center; color: #fff;">Get hired for any job, any time.</h6>
     </div>
     <div class="row" style="display: flex; flex-direction: row; justify-content: stretch; align-items:stretch; align-self: center; padding-top: 3%;">
-      <div class="form-group col-sm-8 col-md-6 col-lg-3" >
+      <div class="form-group col-sm-12 col-md-6 col-lg-4" >
          <select class="custom-select" name="functions" #functions="ngModel" [(ngModel)]="jobFilter.skillAreaId">
            <option value="0">Search by Job Functions</option>
            <option *ngFor="let skill of skillData" [value]="skill.id">{{skill.text}}</option>
@@ -80,22 +80,22 @@
        </div>
 
 
-       <div class="form-group col-sm-8 col-md-6 col-lg-3">
+       <div class="form-group col-sm-12 col-md-6 col-lg-4">
          <select class="custom-select" name="state" #state="ngModel" [(ngModel)]="jobFilter.stateId">
            <option value="0">Search by Locations</option>
            <option *ngFor="let state of stateData" [value]="state.id">{{state.text}}</option>
          </select>
        </div>
 
-       <div class="form-group col-sm-8 col-md-6 col-lg-3">
+       <!-- <div class="form-group col-sm-12 col-md-6 col-lg-3">
          <select class="custom-select" name="industries" #industries="ngModel" [(ngModel)]="jobFilter.sectorId">
            <option value="0">Search by Industries</option>
            <option *ngFor="let sec of sectorData" [value]="sec.id">{{sec.text}}</option>
          </select>
-       </div>
+       </div> -->
 
 
-       <div class="form-group col-sm-8 col-md-6 col-lg-3" >
+       <div class="form-group col-sm-12 col-md-6 col-lg-4" >
         <button type="submit" class="btn btn-primary" size="small" fullWidth (click)="filterUpdated($event)" nbButton status="primary" style="border:2px solid #fff;">Search</button>
        </div>
      </div>
@@ -159,12 +159,12 @@
 
             </nb-tab>
             <nb-tab tabTitle="Featured Jobs">
-              <div class="row">
-                <div class="col-sm-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
-                  <div class="col-sm-4">
+              <!-- <div class="row">
+                <div class="col-sm-12 col-md-6 col-lg-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
+                  <div class="col-sm-12 col-md-4 col-lg-4">
                     <img src="assets/images/jobs.png" style="width:5rem;">
                   </div>
-                  <div class="col-sm-8">
+                  <div class="col-sm-12 col-md-8 col-lg-8">
                       <span style="font-weight: 600; padding-right:25px;">UI/UX Designer</span><br>
                       <div style="padding-top: 5px;"></div>
                       <span>Amplifire Digital Agency</span><br>
@@ -173,11 +173,11 @@
                   </div>
                 </div>
 
-                <div class="col-sm-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
-                  <div class="col-sm-4">
+                <div class="col-sm-12 col-md-6 col-lg-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
+                  <div class="col-sm-12 col-md-4 col-lg-4">
                     <img src="assets/images/jobs.png" style="width:5rem;">
                   </div>
-                  <div class="col-sm-8">
+                  <div class="col-sm-12 col-md-8 col-lg-8">
                       <span style="font-weight: 600; padding-right:25px;">UI/UX Designer</span><br>
                       <div style="padding-top: 5px;"></div>
                       <span>Amplifire Digital Agency</span><br>
@@ -185,15 +185,15 @@
                       <span>Closes in 5 days</span><br>
                   </div>
                 </div>
-              </div>
+              </div> -->
             </nb-tab>
             <nb-tab tabTitle="Newly Added Jobs">
-              <div class="row">
-                <div class="col-sm-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
-                  <div class="col-sm-4">
+              <!-- <div class="row">
+                <div class="col-sm-12 col-md-6 col-lg-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
+                  <div class="col-sm-12 col-md-4 col-lg-4">
                     <img src="assets/images/jobs.png" style="width:5rem;">
                   </div>
-                  <div class="col-sm-8">
+                  <div class="col-sm-12 col-md-8 col-lg-8">
                       <span style="font-weight: 600; padding-right:25px;">UI/UX Designer</span><br>
                       <div style="padding-top: 5px;"></div>
                       <span>Amplifire Digital Agency</span><br>
@@ -202,11 +202,11 @@
                   </div>
                 </div>
 
-                <div class="col-sm-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
-                  <div class="col-sm-4">
+                <div class="col-sm-12 col-md-6 col-lg-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
+                  <div class="col-sm-12 col-md-4 col-lg-4">
                     <img src="assets/images/jobs.png" style="width:5rem;">
                   </div>
-                  <div class="col-sm-8">
+                  <div class="col-sm-12 col-md-8 col-lg-8">
                       <span style="font-weight: 600; padding-right:25px;">UI/UX Designer</span><br>
                       <div style="padding-top: 5px;"></div>
                       <span>Amplifire Digital Agency</span><br>
@@ -214,15 +214,15 @@
                       <span>Closes in 5 days</span><br>
                   </div>
                 </div>
-              </div>
+              </div> -->
             </nb-tab>
             <nb-tab tabTitle="Popular Jobs">
               <div class="row">
-                <div class="col-sm-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
-                  <div class="col-sm-4">
+                <div class="col-sm-12 col-md-6 col-lg-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
+                  <div class="col-sm-12 col-md-4 col-lg-4">
                     <img src="assets/images/jobs.png" style="width:5rem;">
                   </div>
-                  <div class="col-sm-8">
+                  <div class="col-sm-12 col-md-8 col-lg-8">
                       <span style="font-weight: 600; padding-right:25px;">UI/UX Designer</span><br>
                       <div style="padding-top: 5px;"></div>
                       <span>Amplifire Digital Agency</span><br>
@@ -231,11 +231,11 @@
                   </div>
                 </div>
 
-                <div class="col-sm-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
-                  <div class="col-sm-4">
+                <div class="col-sm-12 col-md-6 col-lg-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
+                  <div class="col-sm-12 col-md-4 col-lg-4">
                     <img src="assets/images/jobs.png" style="width:5rem;">
                   </div>
-                  <div class="col-sm-8">
+                  <div class="col-sm-12 col-md-8 col-lg-8">
                       <span style="font-weight: 600; padding-right:25px;">UI/UX Designer</span><br>
                       <div style="padding-top: 5px;"></div>
                       <span>Amplifire Digital Agency</span><br>
@@ -250,9 +250,9 @@
       </nb-card>
     </div>
 
-    <!-- <div class="col-sm-4"> -->
+    <!-- <div class="col-sm-12 col-md-4 col-lg-4"> -->
 
-       <nb-card class="col-sm-4  shadow p-3 mb-5 bg-white rounded">
+       <nb-card class="col-sm-12 col-md-4 col-lg-4  shadow p-3 mb-5 bg-white rounded">
         <nb-card-body>
          <div class="row">
            <div class="col">
@@ -324,7 +324,7 @@
           Artisans
         </nb-card-header>
         <nb-card-body>
-          <ngx-default-content pageHeader={{myPlanHeader}} pageDescription="{{myPlanDesc}}" [loading]="loading"></ngx-default-content>
+          <ngx-default-content pageHeader={{myPlanHeader}} pageDescription="{{myPlanDesc}}" [loading]="loading1"></ngx-default-content>
         </nb-card-body>
       </nb-card>
       <nb-card *ngIf="artisanCounter > 0" style="background-color: transparent;">
@@ -338,7 +338,7 @@
                 <div *ngFor="let artisan of artisanData" class="col-sm-12 col-md-6 col-lg-6" style="margin: 10px 0;">
                   <div class="row">
                     <div class="col-sm-12 col-md-4 col-lg-4" style="display: inline-block; width: 40%; height: 40%;">
-                      <img src="assets/images/jobs.png" style="width:5rem;">
+                      <img src="{{'data:image/jpg;base64,' + artisan.brandLogo}}" onError="this.onerror=null;this.src='assets/images/jobs.png';" style="width:7rem; height: 7rem;">
                     </div>
                     <div class="col-sm-12 col-md-8 col-lg-8" style="display: inline-block; width: 60%; height: 60%;">
                         <span style="display: block; font-weight: 600;"><a [routerLink]="['/artisandetails', artisan.id]">{{artisan.name}}</a></span>
@@ -358,11 +358,11 @@
             </nb-tab>
             <nb-tab tabTitle="Featured Artisans">
               <div class="row">
-                <div class="col-sm-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
-                  <div class="col-sm-4">
+                <div class="col-sm-12 col-md-6 col-lg-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
+                  <div class="col-sm-12 col-md-4 col-lg-4">
                     <img src="assets/images/jobs.png" style="width:5rem;">
                   </div>
-                  <div class="col-sm-8">
+                  <div class="col-sm-12 col-md-8 col-lg-8">
                       <span style="font-weight: 600; padding-right:25px;">UI/UX Designer</span><br>
                       <div style="padding-top: 5px;"></div>
                       <span>Amplifire Digital Agency</span><br>
@@ -371,11 +371,11 @@
                   </div>
                 </div>
 
-                <div class="col-sm-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
-                  <div class="col-sm-4">
+                <div class="col-sm-12 col-md-6 col-lg-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
+                  <div class="col-sm-12 col-md-4 col-lg-4">
                     <img src="assets/images/jobs.png" style="width:5rem;">
                   </div>
-                  <div class="col-sm-8">
+                  <div class="col-sm-12 col-md-8 col-lg-8">
                       <span style="font-weight: 600; padding-right:25px;">UI/UX Designer</span><br>
                       <div style="padding-top: 5px;"></div>
                       <span>Amplifire Digital Agency</span><br>
@@ -390,8 +390,8 @@
       </nb-card>
     </div>
 
-    <!-- <div class="col-sm-4"> -->
-      <nb-card class="col-sm-4  shadow p-3 mb-5 bg-white rounded">
+    <!-- <div class="col-sm-12 col-md-4 col-lg-4"> -->
+      <nb-card class="col-sm-12 col-md-4 col-lg-4  shadow p-3 mb-5 bg-white rounded">
         <nb-card-body>
          <div class="row">
            <div class="col">

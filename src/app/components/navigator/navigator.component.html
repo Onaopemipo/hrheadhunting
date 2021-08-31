@@ -7,25 +7,28 @@
   <div class="collapse navbar-collapse" [class]="{'d-flex':showMenu}" id="navbarTogglerDemo03">
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
       <li class="nav-item active">
-        <a class="nav-link" [routerLink]="['/applicants/about']">About Us </a>
+        <button class="nav-link" [routerLink]="['/applicants/about']" style="border: none;">About Us </button>
       </li>
       <li class="nav-item active">
         <a class="nav-link" [routerLink]="['/applicants/services']">Services </a>
+      </li>
+
+      <li><button class="btn" [routerLink]="['/auth/login']" nbButton outline size="small" style="color: #6495ED; background-color: #fff; border: 1px solid #6495ED;">Post Job</button>
       </li>
       <li class="nav-item active">
         <a class="nav-link" [routerLink]="['/applicants/blog']">Blog </a>
       </li>
 
       <li class="nav-item active">
-        <a class="nav-link"[routerLink]="['/applicants/boards']">Job Board</a>
+        <a class="nav-link" [routerLink]="['/applicants/boards']">Job Board</a>
       </li>
 
       <li class="nav-item active">
-        <a class="nav-link"[routerLink]="['/applicants/artisans']">Artisan Board</a>
+        <a class="nav-link" [routerLink]="['/applicants/artisans']">Artisan Board</a>
       </li>
 
       <li class="nav-item active">
-        <a class="nav-link"[routerLink]="['/applicants/training']">Training Board</a>
+        <a class="nav-link" [routerLink]="['/applicants/training']">Training Board</a>
       </li>
 
       <li class="nav-item active">

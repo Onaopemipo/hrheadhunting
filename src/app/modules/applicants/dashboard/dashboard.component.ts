@@ -23,7 +23,6 @@ export class DashboardComponent implements OnInit {
   jobFilter = {
     companyId: undefined,
     skillAreaId:undefined,
-    sectorId:undefined,
     countryId:undefined,
     stateId:undefined,
     isNewlyAdded: false,
@@ -57,7 +56,9 @@ export class DashboardComponent implements OnInit {
   stateData: IDTextViewModel [] = [];
   sectorData: IDTextViewModel [] = [];
   sectorJobsData: IDTextViewModel [] = [];
-  filteredSector = [];
+  skillJobsData: IDTextViewModel [] = [];
+  skillAreaJobsCounter: number = 0;
+  filteredSkillArea = [];
   filteredEmployer = [];
 
 
@@ -89,7 +90,8 @@ searchFilter = {
     this.fetchAllEmployers();
     this.getMyUsers();
     this.authUser();
-    this.fetchSectorJobs();
+    this.fetchJobsLocation();
+    // this.fetchSectorJobs();
   }
 
   logOut(){
@@ -151,9 +153,10 @@ searchFilter = {
   }
 
   fetchAllJobs(){
-    this.loading = true; this.filteredSector[0]
-    const sectorId = this.filteredSector.join()
-   this.job.fetchJobs(this.jobFilter.companyId, this.jobFilter.skillAreaId,
+    this.loading = true;
+    this.filteredSkillArea[0]
+    const sectorId = this.filteredSkillArea.join()
+    this.job.fetchJobs(this.jobFilter.companyId, this.jobFilter.skillAreaId,
     this.jobFilter.countryId, this.jobFilter.stateId, this.jobFilter.isNewlyAdded,
     this.jobFilter.isPopular,this.jobFilter.searchText, this.jobFilter.pageSize,
     this.jobFilter.pageNumber).subscribe(data => {
@@ -161,7 +164,7 @@ searchFilter = {
       if(!data.hasError){
         this.allJobs = data.value;
         this.jobsCounter = data.totalCount;
-        console.log('My Jobs:',this.allJobs)
+        console.log('My Jobs:',this.allJobs);
      }
     });
 
@@ -174,12 +177,12 @@ searchFilter = {
 
   }
 
-  async fetchSectorJobs(){
-    const data = await this.sector.fetchSectorJobs().toPromise();
-    this.sectorJobsData = data.value;
-    this.sectorCounter = data.totalCount;
-    console.log('My sector jobs data:', this.sectorJobsData)
-  }
+  // async fetchSectorJobs(){
+  //   const data = await this.sector.fetchSectorJobs().toPromise();
+  //   this.sectorJobsData = data.value;
+  //   this.sectorCounter = data.totalCount;
+  //   console.log('My sector jobs data:', this.sectorJobsData)
+  // }
 
  async fetchStates(countryId){
     const data = await this.state.fetchStates().toPromise();
@@ -190,6 +193,15 @@ searchFilter = {
  async fetchSkillAreas(){
     const data = await this.skill.fetchSkillAreas().toPromise();
     this.skillData = data.value;
+  }
+
+  async fetchJobsLocation(){
+    const data = await this.state.fetchLocationJobs().toPromise();
+    if(!data.hasError){
+      this.skillJobsData = data.value;
+      this.skillAreaJobsCounter = data.totalCount;
+      console.log('See your data', this.skillJobsData)
+    }
   }
 
   fetchAllEmployers(){

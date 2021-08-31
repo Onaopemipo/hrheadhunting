@@ -89,7 +89,7 @@
           <div class="row" style="display: flex; flex-direction: row; justify-content: space-between;">
             <div *ngFor="let artisan of artisanData" class="col-sm-8 col-md-6 col-lg-3 shadow p-3 mb-5 bg-white rounded" (click)="artisanDetails(artisan.id)" style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 200; width: 200px; cursor: pointer; margin: 0 1px 1px 0;">
                 <!-- <img src="assets/images/Job_Seeker.png" style=" height: 50px; text-align: center;"  alt=""><br> -->
-                <img src="{{'data:image/jpg;base64,' + artisan.brandLogo}}" onError="this.onerror=null;this.src='assets/images/jobs.png';" style="width:6rem; height: 6rem;">
+                <img src="{{'data:image/jpg;base64,' + artisan.brandLogo}}" onError="this.onerror=null;this.src='assets/images/jobs.png';" style="width:7rem; height: 7rem;">
                 <span style="font-size: 14; font-weight: 600;">{{artisan.name}}</span><br>
                 <span>{{artisan.specialty}}</span><br>
                 <span style="margin-right: 4px;">{{artisan.yearOfExperience}} of experience</span>
@@ -100,52 +100,53 @@
       </nb-card>
     </div>
 
-    <!-- <div class="col-sm-4"> -->
+    <!-- <div class="col-sm-12 col-md-4 col-lg-4"> -->
 
-       <nb-card class="col-sm-4  shadow p-3 mb-5 bg-white rounded">
-         <nb-card-body>
-          <div class="row">
-            <div class="col">
-            <h6>Artisans in Nigeria</h6>
-            <div style="padding: 5px;"></div>
-            <span>3,234 artisans found</span>
-            <div style="padding: 10px;"></div>
-            <div class="form-group has-search">
-              <div style="display: flex; justify-content: space-between; flex-direction: row; padding-bottom: 3px;">
-              <span style="font-weight: 600;">SPECIALIZATION</span>
-              <a href="javascript: void(0)" style="color: #0066F4;" (click)="resetFilter()">Reset Filter</a>              </div>
-              <div class="input-group">
-              <span class="fa fa-search form-control-feedback"></span>
-              <input type="text" class="form-control" placeholder="Search" (keyup.enter)="filterUpdated($event)" name="searchText" #searchText="ngModel" [(ngModel)]="artisanFilter.searchText" style="height: 45px">
-              <div class="input-group-append">
-              </div>
-            </div>
-            </div>
-            </div>
+      <nb-card class="col-sm-12 col-md-4 col-lg-4  shadow p-3 mb-5 bg-white rounded">
+        <nb-card-body>
+         <div class="row">
+           <div class="col">
+           <h6>Top artisans in Nigeria</h6>
+           <div style="padding: 5px;"></div>
+           <span>{{artisanCounter}} artisans found</span>
+           <div style="padding: 10px;"></div>
+           <div class="form-group has-search">
+             <div style="display: flex; justify-content: space-between; flex-direction: row; padding-bottom: 3px;">
+             <span style="font-weight: 600;">SPECIALTY</span>
+             <a href="javascript: void(0)" style="color: #0066F4;" (click)="resetFilter()">Reset Filter</a>
+             </div>
+             <div class="input-group">
+             <span class="fa fa-search form-control-feedback"></span>
+             <input type="text" class="form-control" placeholder="Search" (keyup.enter)="filterUpdated($event)" name="searchText" #searchText="ngModel" [(ngModel)]="artisanFilter.searchText" style="height: 45px">
+             <div class="input-group-append">
+             </div>
+           </div>
+           </div>
+           </div>
 
-            <div style="padding: 20px;"></div>
-          </div>
+           <div style="padding: 20px;"></div>
+         </div>
 
-          <div class="form-group">
-            <div>
+       <!-- <div class="row" style="display: flex; justify-content: flex-start; flex-direction: row; padding: 10px;">
+         <div class="col" style="padding: 10px;">
+         <h6>Places</h6>
+         <div style="padding: 5px;"></div>
+         <span>{{employerCounter}} employers found</span>
+         <div style="padding: 10px;"></div>
+         <input type="text" class="form-control" nbInput fullWidth placeholder="Enter Keyword" (keyup.enter)="filterUpdated($event)" name="searchText" #searchText="ngModel" [(ngModel)]="employerFilter.searchText" style="background-color: #ffffff; color:#95A8B8;">
+         </div>
+         <div style="padding: 20px;"></div>
+       </div> -->
 
-            </div>
-            <!-- <nb-checkbox *ngFor="let sector of sectorData">{{sector.text}}</nb-checkbox><br> -->
-            <nb-checkbox>Plumbing (453)</nb-checkbox><br>
-            <nb-checkbox>Carpentry (145)</nb-checkbox><br>
-            <nb-checkbox>Electrician (52)</nb-checkbox><br>
-
-        </div>
-
-          <div class="form-group">
-            <h6>Artisans by location</h6>
-            <nb-checkbox>Abia</nb-checkbox><br>
-            <nb-checkbox>Akwa Ibom</nb-checkbox><br>
-            <nb-checkbox>Anambra</nb-checkbox><br>
-            <nb-checkbox>Bauchi</nb-checkbox><br>
-          </div>
-         </nb-card-body>
-       </nb-card>
+         <!-- <div class="form-group">
+           <nb-checkbox *ngFor="let skill of skillData" (change)="filterUpdated($event)">{{skill.text}}</nb-checkbox><br>
+           <input type="button" (click)="LoadMore()" value="showMore">
+           <nb-checkbox>Akwa Ibom</nb-checkbox><br>
+           <nb-checkbox>Anambra</nb-checkbox><br>
+           <nb-checkbox>Bauchi</nb-checkbox><br>
+         </div> -->
+        </nb-card-body>
+      </nb-card>
 
     <!-- </div> -->
   </div>

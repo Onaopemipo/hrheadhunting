@@ -1,4 +1,3 @@
-// @import url('../../..');
 .header {
   background: url(/assets/images/landing_banner.png);
   // height: 354px;
@@ -19,11 +18,34 @@ avbar-light .navbar-nav .show > .nav-link, .navbar-light .navbar-nav .active > .
   font-size: 15px;
 }
 
+.score {
+  height: 100px;
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
+  align-items: center;
+  background-color: #bbb;
+  border-radius: 50%;
+  text-align: center;
+}
 
+.text {
+  position: absolute;
+  bottom: 50%;
+  width: 100%;
+  text-align: center;
+}
 
 .icon {
   font-size: 12px;
   padding-right: 10px;
+}
+
+
+li {
+  margin-right: 10px;
 }
 
 .title {
@@ -75,10 +97,6 @@ li {
 
 .hidden-spacer {
   height: 56px
-}
-
-li {
-  margin-right: 10px;
 }
 
 .has-search .form-control {
@@ -206,4 +224,5 @@ li {
     display: block;
   }
 }
+
 

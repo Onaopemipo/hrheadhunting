@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
 import { ApplicantsDashboardRoutingModule } from './applicants-dashboard-routing.module';
 // import { NbMenuInternalService } from '@nebular/theme/components/menu/menu.service';
 import { ComponentsModule } from 'app/components/components.module';
-import { NbLayoutModule, NbCardModule, NbIconModule, NbSelectModule, NbCheckboxModule, NbRadioModule } from '@nebular/theme';
+import { NbLayoutModule, NbCardModule, NbIconModule, NbSelectModule, NbCheckboxModule, NbRadioModule, NbAccordionModule } from '@nebular/theme';
 import { ApplicationsComponent } from './applications/applications.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -33,6 +33,7 @@ import { AlertserviceService } from 'app/_services/alertservice.service';
     NbSelectModule,
     NbCheckboxModule,
     NbRadioModule,
+    NbAccordionModule,
   ],
 
   providers: [

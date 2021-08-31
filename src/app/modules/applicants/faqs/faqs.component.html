@@ -1,0 +1,154 @@
+<div class="bg-img">
+  <div class="container">
+    <!-- <ngx-navigator></ngx-navigator> -->
+
+    <nav *ngFor="let i of [1,2]" [class]="{'fixed-Menu':i == 1}" class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%; padding: 0; background-color: #6495ED !important;">
+      <button class="navbar-toggler" type="button" (click)="toggleMenu()" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon" style="color: #ffffff; display: none;"></span><i class="fa fa-bars" style="color: #ffffff;" aria-hidden="true"></i>
+      </button>
+      <img src="assets/images/logo_2.png" alt="Home" class="navbar-brand" [routerLink]="['/']" style="width: 150px; height: 150px; cursor: pointer; margin: -40px 0 !important; margin-right: 5% !important;">
+
+    <div class="collapse navbar-collapse" [class]="{'d-flex':showMenu}" id="navbarTogglerDemo03">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <li class="nav-item active">
+          <a class="nav-link" [routerLink]="['/applicants/about']">About Us </a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" [routerLink]="['/applicants/services']">Services </a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" [routerLink]="['/applicants/blog']">Blog </a>
+        </li>
+
+        <li class="nav-item active">
+          <a class="nav-link"[routerLink]="['/applicants/boards']">Job Board</a>
+        </li>
+
+        <li class="nav-item active">
+          <a class="nav-link"[routerLink]="['/applicants/trainings']">Artisan Board</a>
+        </li>
+
+        <li class="nav-item active">
+          <a class="nav-link"[routerLink]="['/applicants/training']">Training Board</a>
+        </li>
+
+        <li class="nav-item active">
+          <a class="nav-link" [routerLink]="['/applicants/scorecv']">Score CV </a>
+        </li>
+
+      </ul>
+
+      <div *ngIf="!(authenService.authStatus | async)" class="form-inline my-2 my-lg-0">
+        <ul class="navbar-nav mr-auto" style="color: #fff;">
+          <li class="nav-item active">
+            <a class="nav-link" [routerLink]="['/auth/signup']">Sign Up</a>
+          </li>
+
+          <li class="nav-item active">
+            <a class="nav-link" [routerLink]="['/auth/login']">Login</a>
+          </li>
+
+          <li class="nav-item active">
+            <button class="btn" [routerLink]="['/auth/login']" nbButton outline size="small" style="color: #6495ED; background-color: #fff; border: 1px solid #6495ED;">Post Job</button>
+          </li>
+        </ul>
+      </div>
+
+      <div *ngIf="authenService.authStatus | async" class="form-inline my-2 my-lg-0">
+        <ul class="navbar-nav mr-auto" style="color: #fff;">
+          <li class="nav-item active">
+            <a class="nav-link" [routerLink]="['/auth/login']">Log Out</a>
+          </li>
+
+          <li class="nav-item active">
+            <a class="nav-link" [routerLink]="['/appdash']">Dashboard</a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+<div class="container">
+  <div style="padding-top: 5%;">
+    <h6 style="text-align: center; color: #fff;">Help Center</h6>
+  </div>
+ </div>
+</div>
+</div>
+
+<div class="container" style="font-family: Rubik !important; font-size: 14px; margin-top: 3%;">
+<div class="row">
+  <div class="col-sm-12 col-md-6 col-lg-6">
+    <nb-accordion>
+      <nb-accordion-item>
+       <nb-accordion-item-header>Why do you need a CV Rewrite, Cover Letter Rewrite and LinkedIn Profile Optimization?
+      </nb-accordion-item-header>
+       <nb-accordion-item-body>
+         <p style="text-align: justify; font-family: Rubik !important; font-size: 14px;" >
+          After submitting several applications, you get no or few assessment or interview invitations.
+          You are changing jobs and need a CV that is appropriate for your current position.
+          Your CV does not accurately represent your ability and skills.
+          You have no idea how to beat recruitment software.
+          You may take advice from a recruitment expert.
+
+         </p>
+       </nb-accordion-item-body>
+      </nb-accordion-item>
+
+      <nb-accordion-item>
+        <nb-accordion-item-header>How long would it take?
+       </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <p style="text-align: justify; font-family: Rubik !important; font-size: 14px;">
+            Our standard processing time is five business days. However, if you need it immediately, we will arrange for an express service.
+          </p>
+        </nb-accordion-item-body>
+       </nb-accordion-item>
+
+       <nb-accordion-item>
+        <nb-accordion-item-header>How should I go about applying for a job?
+       </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <p style="text-align: justify; font-family: Rubik !important; font-size: 14px;">
+            Click on the job title and follow the application instructions in the chosen listing.
+          </p>
+        </nb-accordion-item-body>
+       </nb-accordion-item>
+     </nb-accordion>
+  </div>
+
+  <div class="col-sm-12 col-md-6 col-lg-6">
+    <nb-accordion>
+      <nb-accordion-item>
+       <nb-accordion-item-header>Can I discuss a summary after the  service is delivered?        ?
+      </nb-accordion-item-header>
+       <nb-accordion-item-body>
+         <p style="text-align: justify; font-family: Rubik !important; font-size: 14px;">
+          Yes, we will refine your profile until you are fully fulfilled.
+         </p>
+       </nb-accordion-item-body>
+      </nb-accordion-item>
+
+      <nb-accordion-item>
+        <nb-accordion-item-header>Will I be able to find work after the rewrite?          ?          ?
+       </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <p style="text-align: justify; font-family: Rubik !important; font-size: 14px;">
+            Your profile will be optimized to ensure you are shortlisted. We hope you do your best to scale through the interview.
+          </p>
+        </nb-accordion-item-body>
+       </nb-accordion-item>
+
+       <nb-accordion-item>
+        <nb-accordion-item-header>Can HR Headhunting help me get a job?
+       </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <p style="text-align: justify; font-family: Rubik !important; font-size: 14px;">
+            Jobs are listed on the website for you to apply and you will be contacted for an interview by the recruiter?
+          </p>
+        </nb-accordion-item-body>
+       </nb-accordion-item>
+     </nb-accordion>
+  </div>
+</div>
+</div>

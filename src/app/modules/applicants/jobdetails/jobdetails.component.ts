@@ -30,12 +30,13 @@ export class JobdetailsComponent implements OnInit {
   flag:boolean = false;
 
   jobFilter = {
-    skillAreaId:0,
-    sectorId:0,
-    countryId:0,
-    stateId:0,
+    companyId: undefined,
+    skillAreaId:undefined,
+    countryId:undefined,
+    stateId:undefined,
     isNewlyAdded: false,
     isPopular: false,
+    searchText: '',
     pageSize:10,
     pageNumber:1
 
@@ -95,9 +96,10 @@ export class JobdetailsComponent implements OnInit {
 
   async fetchAllJobs(){
     this.loading = true;
-   const data = await this.job.fetchAllJobs(this.jobFilter.skillAreaId, this.jobFilter.sectorId,
+   const data = await this.job.fetchAllJobs(this.jobFilter.companyId, this.jobFilter.skillAreaId,
     this.jobFilter.countryId, this.jobFilter.stateId, this.jobFilter.isNewlyAdded,
-    this.jobFilter.isPopular,this.jobFilter.pageSize, this.jobFilter.pageNumber).toPromise();
+    this.jobFilter.isPopular,this.jobFilter.searchText, this.jobFilter.pageSize,
+    this.jobFilter.pageNumber).toPromise();
    this.loading = false;
     if(!data.hasError){
       this.allJobs = data.value;

@@ -1,27 +1,27 @@
 
  <div class="container">
   <div class="row" style="display: flex; flex-direction: row; justify-content: stretch; align-items:stretch; align-self: center; padding-top: 3%;">
-    <div class="form-group col-sm-8 col-md-6 col-lg-3" >
+    <div class="form-group col-sm-8 col-md-6 col-lg-4" >
        <select class="custom-select" name="functions" #functions="ngModel" [(ngModel)]="jobFilter.skillAreaId" placeholder="Search by Job Functions">
          <option *ngFor="let skill of skillData" [value]="skill.id">{{skill.text}}</option>
        </select>
      </div>
 
 
-     <div class="form-group col-sm-8 col-md-6 col-lg-3">
+     <div class="form-group col-sm-8 col-md-6 col-lg-4">
        <select class="custom-select" name="state" #state="ngModel" [(ngModel)]="jobFilter.stateId" placeholder="Search by Locations">
          <option *ngFor="let state of stateData" [value]="state.id">{{state.text}}</option>
        </select>
      </div>
 
-     <div class="form-group col-sm-8 col-md-6 col-lg-3">
+     <!-- <div class="form-group col-sm-8 col-md-6 col-lg-4">
        <select class="custom-select" name="industries" #industries="ngModel" [(ngModel)]="jobFilter.sectorId" placeholder="Search by Industries">
          <option *ngFor="let sec of sectorData" [value]="sec.id">{{sec.text}}</option>
        </select>
-     </div>
+     </div> -->
 
 
-     <div class="form-group col-sm-8 col-md-6 col-lg-3" >
+     <div class="form-group col-sm-8 col-md-6 col-lg-4" >
       <button type="submit" class="btn btn-primary" size="small" fullWidth (click)="filterUpdated($event)" nbButton status="primary" style="border:2px solid #fff;">Search</button>
      </div>
    </div>

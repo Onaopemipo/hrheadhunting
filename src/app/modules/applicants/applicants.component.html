@@ -1,19 +1,19 @@
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <ngx-single-column-layout>
   <router-outlet></router-outlet>
 </ngx-single-column-layout>
     <div class="row" style="background-color: #1F2566; font-size: small; color: #fff; padding: 50px; text-align: left;">
       <div class="col-sm-10 col-md-6 col-lg-3">
-        <h6 style="color: #fff;">Quick Access</h6><br>
-        <span>Post a job</span><br>
-        <span>Create Profile</span><br>
-        <span>Login</span><br>
+        <h6 style="color: #fff;">Quick Access</h6>
+        <p><a [routerLink]="['/auth/login']" style="color: #ffffff !important;">Post a job</a></p>
+        <p><a [routerLink]="['/auth/login']" style="color: #ffffff !important;">Create Profile</a></p>
+        <p><a [routerLink]="['/auth/login']" style="color: #ffffff !important;">Login</a></p>
       </div>
-      <div class="col-sm-10 col-md-6 col-lg-3"><h6 style="color: #fff;">Company</h6><br>
-        <span><a [routerLink]="['applicants/about']">About</a></span><br>
-        <span>Help Center</span><br>
-        <span><a [routerLink]="['applicants/services']">Services</a></span><br>
-        <span><a [routerLink]="['applicants/training']">Training</a></span><br>
+      <div class="col-sm-10 col-md-6 col-lg-3">
+        <h6 style="color: #fff;">Company</h6>
+        <p><a [routerLink]="['applicants/about']" style="color: #ffffff !important;" >About</a></p>
+        <p><a [routerLink]="['applicants/faqs']" style="color: #ffffff !important;" >Help Center</a></p>
+        <p><a [routerLink]="['applicants/services']" style="color: #ffffff !important;" >Services</a></p>
+        <p><a [routerLink]="['applicants/training']" style="color: #ffffff !important;" >Training</a></p>
       </div>
       <div *ngIf="!(auth.authStatus | async)" class="col-sm-10 col-md-6 col-lg-3" style="margin-top: 30px;">
         <button class="btn" nbButton [routerLink]="['/auth/login']" outline style="color: #6495ED; background-color: #fff; margin-right: 8px;">Log In</button>
@@ -29,28 +29,42 @@
           <button class="btn btn-primary" type="submit" size="tiny" (click)="subscription()" nbButton outline style="background-color: #6495ED; color: #ffffff;">Subscribe<i class="fa fa-arrow-right" style="color: #ffffff; padding-left: 10px;" aria-hidden="true"></i></button>
            </div>
            <div style="display: block; padding-top: 20px;">
-            <p style="color: #ffffff; font-weight: 500;">Contact Us: 23 Hawley Street Lagos Island.</p>
-            <p style="color: #ffffff; font-weight: 500;">Email: Info@hrheadhunting.com</p>
+            <p style="color: #ffffff;">Contact Us: 23 Hawley Street Lagos Island.</p>
+            <p style="color: #ffffff;">Email: Info@hrheadhunting.com</p>
           </div>
       </div>
     </div>
 
     <div style="width: 100%; border: 1px solid #ffffff; margin: 1px;"></div>
 
-      <div class="row" style="display: flex; flex-direction: row; justify-content: space-between; background-color: #1F2566;">
-        <div class="col-sm-6 col-md-6 col-lg-3" style=" display: flex; flex-direction: row; justify-content: space-between; color: #ffffff;">
+      <div class="row" style="display: flex; flex-direction: row; justify-content: space-around; background-color: #1F2566;">
+        <div class="col-sm-6 col-md-6 col-lg-6" style=" display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start; color: #ffffff;">
           <img src="assets/images/logo_2.png" [routerLink]="['/']"  alt="" style="cursor: pointer; height: 100px;">
         </div>
 
-        <div class="col-sm-6 col-md-6 col-lg-3" style=" margin-top:2%; display: flex; flex-direction: row; justify-content: space-around; color: #ffffff;">
-            <p style="color: #D8FFEF;">Terms and Policy</p>
+        <div class="col-sm-6 col-md-6 col-lg-6" style=" margin-top:2%; display: flex; flex-direction: row; justify-content:center; color: #ffffff;">
             <div class="row">
-              <i class="fas fa-share-alt" style="margin-right: 10px;"></i>
-              <i class="fab fa-linkedin-in" style="margin-right: 10px;"></i>
-              <i class="fab fa-twitter" style="margin-right: 10px;"></i>
-              <i class="fas fa-link" ></i>
+              <p style="color: #D8FFEF; margin-right: 10px;">Terms and Policy</p>
+              <a href="https://www.facebook.com/hrheadhuntingltd" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook" style="margin-right: 10px;"></i></a>
+              <a href="https://www.linkedin.com/company/hr-headhunting-limited/about/?viewAsMember=true" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin-in" style="margin-right: 10px;"></i></a>
+              <a href="https://twitter.com/hrheadhunting" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter" style="margin-right: 10px;"></i></a>
+              <a href="https://www.instagram.com/hrheadhuntingltd/" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"  style="margin-right: 10px;"></i></a>
+              <a href="https://www.instagram.com/hrheadhuntingltd/" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram" style="margin-right: 10px;"></i></a>
             </div>
         </div>
       </div>
 
   <!-- </div> -->
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+  // var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+  // (function(){
+  // var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+  // s1.async=true;
+  // s1.src='https://embed.tawk.to/61240dac649e0a0a5cd28f02/1fdqdar62';
+  // s1.charset='UTF-8';
+  // s1.setAttribute('crossorigin','*');
+  // s0.parentNode.insertBefore(s1,s0);
+  // })();
+  // </script>
+  <!--End of Tawk.to Script-->

@@ -17,6 +17,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { SignupComponent } from '../auth/signup/signup.component';
 import { JobboardsComponent } from './jobboards/jobboards.component';
 import { AuthGuardService as AuthGuard } from '../../_services/auth-guard.service';
+import { FaqsComponent } from './faqs/faqs.component';
 
 const routes: Routes = [
   {
@@ -87,6 +88,11 @@ const routes: Routes = [
       {
         path: 'applicants/trainingdetails/:id',
         component: TrainingdetailsComponent
+      },
+
+      {
+        path: 'applicants/faqs',
+        component: FaqsComponent
       },
 
       {

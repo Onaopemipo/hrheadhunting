@@ -12,7 +12,7 @@ import { AboutComponent } from './about/about.component';
 import { JobboardsComponent } from './jobboards/jobboards.component';
 import { ScorecvComponent } from './scorecv/scorecv.component';
 import { PricingComponent } from './pricing/pricing.component';
-import { NbTableModule, NbCardModule, NbTabsetModule, NbCheckboxModule } from '@nebular/theme';
+import { NbTableModule, NbCardModule, NbTabsetModule, NbCheckboxModule, NbAccordionModule } from '@nebular/theme';
 import { TrainingComponent } from './training/training.component';
 import { CommonServiceProxy, CommunicationServiceProxy, EmployerServiceProxy, JobServiceProxy, ReportServiceProxy, SubscriptionsServiceProxy } from 'app/_services/service-proxies';
 import { AuthenticationService } from 'app/_services/authentication.service';
@@ -22,10 +22,11 @@ import { ArtisandetailsComponent } from './artisandetails/artisandetails.compone
 import { EmployerdetailsComponent } from './employerdetails/employerdetails.component';
 import { TrainingdetailsComponent } from './trainingdetails/trainingdetails.component';
 import { RewriteplansComponent } from './rewriteplans/rewriteplans.component';
+import { FaqsComponent } from './faqs/faqs.component';
 
 
 @NgModule({
-  declarations: [DashboardComponent, ServicesComponent, BlogsComponent, AboutComponent, JobboardsComponent, ScorecvComponent, PricingComponent, TrainingComponent, JobdetailsComponent, ArtisansComponent, ArtisandetailsComponent, EmployerdetailsComponent, TrainingdetailsComponent, RewriteplansComponent],
+  declarations: [DashboardComponent, ServicesComponent, BlogsComponent, AboutComponent, JobboardsComponent, ScorecvComponent, PricingComponent, TrainingComponent, JobdetailsComponent, ArtisansComponent, ArtisandetailsComponent, EmployerdetailsComponent, TrainingdetailsComponent, RewriteplansComponent, FaqsComponent],
   imports: [
     CommonModule,
     ApplicantsRoutingModule,
@@ -34,7 +35,8 @@ import { RewriteplansComponent } from './rewriteplans/rewriteplans.component';
     NbCardModule,
     NbTabsetModule,
     NbCheckboxModule,
-    ComponentsModule
+    ComponentsModule,
+    NbAccordionModule,
   ],
 
   providers: [
@@ -56,7 +58,7 @@ import { RewriteplansComponent } from './rewriteplans/rewriteplans.component';
     CvScoreServiceProxy,
     ConsultantServiceProxy,
     SubscriptionsServiceProxy,
-    
+
   ]
 })
 export class ApplicantsModule { }
