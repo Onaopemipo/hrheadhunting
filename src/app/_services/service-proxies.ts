@@ -8801,6 +8801,78 @@ export class SkillAreasServiceProxy {
     }
 
     /**
+     * API for getting All Skill Area with the number of Jobs posted under each for dropdowns
+     * @return Success
+     */
+    fetchSkillAreaJobs(): Observable<IDTextViewModelIListOdataResult> {
+        let url_ = this.baseUrl + "/api/SkillAreas/FetchSkillAreaJobs";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processFetchSkillAreaJobs(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processFetchSkillAreaJobs(<any>response_);
+                } catch (e) {
+                    return <Observable<IDTextViewModelIListOdataResult>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<IDTextViewModelIListOdataResult>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processFetchSkillAreaJobs(response: HttpResponseBase): Observable<IDTextViewModelIListOdataResult> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = IDTextViewModelIListOdataResult.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData400) {
+                result400 = {} as any;
+                for (let key in resultData400) {
+                    if (resultData400.hasOwnProperty(key))
+                        (<any>result400)![key] = resultData400[key];
+                }
+            }
+            else {
+                result400 = <any>null;
+            }
+            return throwException("Bad Request", status, _responseText, _headers, result400);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Server Error", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<IDTextViewModelIListOdataResult>(<any>null);
+    }
+
+    /**
      * @param body (optional) 
      * @return Success
      */
@@ -10209,39 +10281,39 @@ export class UserManagementServiceProxy {
 }
 
 export class ManageJobSeekerRegDTO implements IManageJobSeekerRegDTO {
-    id!: number;
-    titleId!: number;
-    isSocial!: boolean;
+    id?: number;
+    titleId?: number;
+    isSocial?: boolean;
     firstName!: string;
     lastname!: string;
-    email!: string | undefined;
-    dateOfBirth!: Date;
-    genderId!: number;
-    nationalityId!: number;
-    residentialStateId!: number;
-    phoneNumber!: string | undefined;
+    email?: string | undefined;
+    dateOfBirth?: Date;
+    genderId?: number;
+    nationalityId?: number;
+    residentialStateId?: number;
+    phoneNumber?: string | undefined;
     password!: string;
     fieldOfInterestId!: number;
-    stateOfInterestId!: number;
-    yearOfExperience!: number;
-    availabilityDuration!: number;
-    qualificationId!: number;
-    courseOfStudyId!: number;
-    institutionId!: number;
-    institutionName!: string | undefined;
-    gradeId!: number;
-    qualificationStartDate!: Date;
-    qualificationEndDate!: Date;
-    currentJobTitle!: string | undefined;
-    companyName!: string | undefined;
-    workStartDate!: Date;
-    workEndDate!: Date | undefined;
-    isPresentEmployment!: boolean;
-    resume!: string | undefined;
-    videoResume!: string | undefined;
-    briefDescription!: string | undefined;
-    readonly title!: string | undefined;
-    readonly sex!: string | undefined;
+    stateOfInterestId?: number;
+    yearOfExperience?: number;
+    availabilityDuration?: number;
+    qualificationId?: number;
+    courseOfStudyId?: number;
+    institutionId?: number;
+    institutionName?: string | undefined;
+    gradeId?: number;
+    qualificationStartDate?: Date;
+    qualificationEndDate?: Date;
+    currentJobTitle?: string | undefined;
+    companyName?: string | undefined;
+    workStartDate?: Date;
+    workEndDate?: Date | undefined;
+    isPresentEmployment?: boolean;
+    resume?: string | undefined;
+    videoResume?: string | undefined;
+    briefDescription?: string | undefined;
+    readonly title?: string | undefined;
+    readonly sex?: string | undefined;
 
     constructor(data?: IManageJobSeekerRegDTO) {
         if (data) {
@@ -10334,59 +10406,52 @@ export class ManageJobSeekerRegDTO implements IManageJobSeekerRegDTO {
         data["sex"] = this.sex;
         return data; 
     }
-
-    clone(): ManageJobSeekerRegDTO {
-        const json = this.toJSON();
-        let result = new ManageJobSeekerRegDTO();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IManageJobSeekerRegDTO {
-    id: number;
-    titleId: number;
-    isSocial: boolean;
+    id?: number;
+    titleId?: number;
+    isSocial?: boolean;
     firstName: string;
     lastname: string;
-    email: string | undefined;
-    dateOfBirth: Date;
-    genderId: number;
-    nationalityId: number;
-    residentialStateId: number;
-    phoneNumber: string | undefined;
+    email?: string | undefined;
+    dateOfBirth?: Date;
+    genderId?: number;
+    nationalityId?: number;
+    residentialStateId?: number;
+    phoneNumber?: string | undefined;
     password: string;
     fieldOfInterestId: number;
-    stateOfInterestId: number;
-    yearOfExperience: number;
-    availabilityDuration: number;
-    qualificationId: number;
-    courseOfStudyId: number;
-    institutionId: number;
-    institutionName: string | undefined;
-    gradeId: number;
-    qualificationStartDate: Date;
-    qualificationEndDate: Date;
-    currentJobTitle: string | undefined;
-    companyName: string | undefined;
-    workStartDate: Date;
-    workEndDate: Date | undefined;
-    isPresentEmployment: boolean;
-    resume: string | undefined;
-    videoResume: string | undefined;
-    briefDescription: string | undefined;
-    title: string | undefined;
-    sex: string | undefined;
+    stateOfInterestId?: number;
+    yearOfExperience?: number;
+    availabilityDuration?: number;
+    qualificationId?: number;
+    courseOfStudyId?: number;
+    institutionId?: number;
+    institutionName?: string | undefined;
+    gradeId?: number;
+    qualificationStartDate?: Date;
+    qualificationEndDate?: Date;
+    currentJobTitle?: string | undefined;
+    companyName?: string | undefined;
+    workStartDate?: Date;
+    workEndDate?: Date | undefined;
+    isPresentEmployment?: boolean;
+    resume?: string | undefined;
+    videoResume?: string | undefined;
+    briefDescription?: string | undefined;
+    title?: string | undefined;
+    sex?: string | undefined;
 }
 
 export class MessageOut implements IMessageOut {
-    message!: string | undefined;
-    isSuccessful!: boolean;
-    retId!: number;
-    redirectUrl!: string | undefined;
-    referenceNumber!: string | undefined;
-    amount!: number;
-    errors!: string[] | undefined;
+    message?: string | undefined;
+    isSuccessful?: boolean;
+    retId?: number;
+    redirectUrl?: string | undefined;
+    referenceNumber?: string | undefined;
+    amount?: number;
+    errors?: string[] | undefined;
 
     constructor(data?: IMessageOut) {
         if (data) {
@@ -10435,31 +10500,24 @@ export class MessageOut implements IMessageOut {
         }
         return data; 
     }
-
-    clone(): MessageOut {
-        const json = this.toJSON();
-        let result = new MessageOut();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IMessageOut {
-    message: string | undefined;
-    isSuccessful: boolean;
-    retId: number;
-    redirectUrl: string | undefined;
-    referenceNumber: string | undefined;
-    amount: number;
-    errors: string[] | undefined;
+    message?: string | undefined;
+    isSuccessful?: boolean;
+    retId?: number;
+    redirectUrl?: string | undefined;
+    referenceNumber?: string | undefined;
+    amount?: number;
+    errors?: string[] | undefined;
 }
 
 export class MessageOutApiResult implements IMessageOutApiResult {
-    hasError!: boolean;
-    message!: string | undefined;
-    result!: MessageOut;
-    totalCount!: number;
-    readonly totalRecord!: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: MessageOut;
+    totalCount?: number;
+    readonly totalRecord?: number;
 
     constructor(data?: IMessageOutApiResult) {
         if (data) {
@@ -10496,42 +10554,35 @@ export class MessageOutApiResult implements IMessageOutApiResult {
         data["totalRecord"] = this.totalRecord;
         return data; 
     }
-
-    clone(): MessageOutApiResult {
-        const json = this.toJSON();
-        let result = new MessageOutApiResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IMessageOutApiResult {
-    hasError: boolean;
-    message: string | undefined;
-    result: MessageOut;
-    totalCount: number;
-    totalRecord: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: MessageOut;
+    totalCount?: number;
+    totalRecord?: number;
 }
 
 export class ManageEmployerDTO implements IManageEmployerDTO {
-    id!: number;
+    id?: number;
     name!: string;
     firstName!: string;
     lastName!: string;
-    subscriptionPlanId!: number;
-    isTrial!: boolean;
+    subscriptionPlanId?: number;
+    isTrial?: boolean;
     contactPerson!: string;
     email!: string;
-    address!: string | undefined;
-    stateId!: number;
-    aboutCompany!: string | undefined;
+    address?: string | undefined;
+    stateId?: number;
+    aboutCompany?: string | undefined;
     password!: string;
     confirmPassword!: string;
-    mobile!: string | undefined;
+    mobile?: string | undefined;
     sectorId!: number;
-    logo!: string | undefined;
+    logo?: string | undefined;
     employerTypeId!: number;
-    referenceNumber!: string | undefined;
+    referenceNumber?: string | undefined;
 
     constructor(data?: IManageEmployerDTO) {
         if (data) {
@@ -10594,50 +10645,43 @@ export class ManageEmployerDTO implements IManageEmployerDTO {
         data["referenceNumber"] = this.referenceNumber;
         return data; 
     }
-
-    clone(): ManageEmployerDTO {
-        const json = this.toJSON();
-        let result = new ManageEmployerDTO();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IManageEmployerDTO {
-    id: number;
+    id?: number;
     name: string;
     firstName: string;
     lastName: string;
-    subscriptionPlanId: number;
-    isTrial: boolean;
+    subscriptionPlanId?: number;
+    isTrial?: boolean;
     contactPerson: string;
     email: string;
-    address: string | undefined;
-    stateId: number;
-    aboutCompany: string | undefined;
+    address?: string | undefined;
+    stateId?: number;
+    aboutCompany?: string | undefined;
     password: string;
     confirmPassword: string;
-    mobile: string | undefined;
+    mobile?: string | undefined;
     sectorId: number;
-    logo: string | undefined;
+    logo?: string | undefined;
     employerTypeId: number;
-    referenceNumber: string | undefined;
+    referenceNumber?: string | undefined;
 }
 
 export class ManageConsultantDTO implements IManageConsultantDTO {
-    id!: number;
+    id?: number;
     name!: string;
     firstName!: string;
     lastName!: string;
-    stateId!: number;
+    stateId?: number;
     address!: string;
     contactPerson!: string;
     email!: string;
     password!: string;
     confirmPassword!: string;
-    mobile!: string | undefined;
+    mobile?: string | undefined;
     sectorId!: number;
-    subscriptionPlanId!: number | undefined;
+    subscriptionPlanId?: number | undefined;
 
     constructor(data?: IManageConsultantDTO) {
         if (data) {
@@ -10690,37 +10734,30 @@ export class ManageConsultantDTO implements IManageConsultantDTO {
         data["subscriptionPlanId"] = this.subscriptionPlanId;
         return data; 
     }
-
-    clone(): ManageConsultantDTO {
-        const json = this.toJSON();
-        let result = new ManageConsultantDTO();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IManageConsultantDTO {
-    id: number;
+    id?: number;
     name: string;
     firstName: string;
     lastName: string;
-    stateId: number;
+    stateId?: number;
     address: string;
     contactPerson: string;
     email: string;
     password: string;
     confirmPassword: string;
-    mobile: string | undefined;
+    mobile?: string | undefined;
     sectorId: number;
-    subscriptionPlanId: number | undefined;
+    subscriptionPlanId?: number | undefined;
 }
 
 export class UserLoginDTO implements IUserLoginDTO {
-    email!: string | undefined;
-    password!: string | undefined;
-    firstName!: string | undefined;
-    lastName!: string | undefined;
-    isSocial!: boolean;
+    email?: string | undefined;
+    password?: string | undefined;
+    firstName?: string | undefined;
+    lastName?: string | undefined;
+    isSocial?: boolean;
 
     constructor(data?: IUserLoginDTO) {
         if (data) {
@@ -10757,50 +10794,43 @@ export class UserLoginDTO implements IUserLoginDTO {
         data["isSocial"] = this.isSocial;
         return data; 
     }
-
-    clone(): UserLoginDTO {
-        const json = this.toJSON();
-        let result = new UserLoginDTO();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IUserLoginDTO {
-    email: string | undefined;
-    password: string | undefined;
-    firstName: string | undefined;
-    lastName: string | undefined;
-    isSocial: boolean;
+    email?: string | undefined;
+    password?: string | undefined;
+    firstName?: string | undefined;
+    lastName?: string | undefined;
+    isSocial?: boolean;
 }
 
 export class CompanyUserCache implements ICompanyUserCache {
-    companyId!: number;
-    totalJobPosted!: number;
-    userId!: number;
-    isAdmin!: boolean;
-    isTenantAdmin!: boolean;
-    isSuperAdmin!: boolean;
-    name!: string | undefined;
-    contactPerson!: string | undefined;
-    firstName!: string | undefined;
-    lastname!: string | undefined;
-    email!: string | undefined;
-    mobile!: string | undefined;
-    nowRecruiting!: boolean;
-    employerTypeId!: number;
-    registered!: boolean;
-    sectorId!: number;
-    subsidiaryId!: number;
-    subscriptionPlanId!: number;
-    subscriptionPlanName!: string | undefined;
-    lastBillingDate!: Date | undefined;
-    lastPaymentDate!: Date | undefined;
-    userDisplayName!: string | undefined;
-    isTrial!: boolean;
-    isPlanActivated!: boolean;
-    hasPostedJob!: boolean;
-    hasActivePremiumJob!: boolean;
+    companyId?: number;
+    totalJobPosted?: number;
+    userId?: number;
+    isAdmin?: boolean;
+    isTenantAdmin?: boolean;
+    isSuperAdmin?: boolean;
+    name?: string | undefined;
+    contactPerson?: string | undefined;
+    firstName?: string | undefined;
+    lastname?: string | undefined;
+    email?: string | undefined;
+    mobile?: string | undefined;
+    nowRecruiting?: boolean;
+    employerTypeId?: number;
+    registered?: boolean;
+    sectorId?: number;
+    subsidiaryId?: number;
+    subscriptionPlanId?: number;
+    subscriptionPlanName?: string | undefined;
+    lastBillingDate?: Date | undefined;
+    lastPaymentDate?: Date | undefined;
+    userDisplayName?: string | undefined;
+    isTrial?: boolean;
+    isPlanActivated?: boolean;
+    hasPostedJob?: boolean;
+    hasActivePremiumJob?: boolean;
 
     constructor(data?: ICompanyUserCache) {
         if (data) {
@@ -10879,72 +10909,65 @@ export class CompanyUserCache implements ICompanyUserCache {
         data["hasActivePremiumJob"] = this.hasActivePremiumJob;
         return data; 
     }
-
-    clone(): CompanyUserCache {
-        const json = this.toJSON();
-        let result = new CompanyUserCache();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface ICompanyUserCache {
-    companyId: number;
-    totalJobPosted: number;
-    userId: number;
-    isAdmin: boolean;
-    isTenantAdmin: boolean;
-    isSuperAdmin: boolean;
-    name: string | undefined;
-    contactPerson: string | undefined;
-    firstName: string | undefined;
-    lastname: string | undefined;
-    email: string | undefined;
-    mobile: string | undefined;
-    nowRecruiting: boolean;
-    employerTypeId: number;
-    registered: boolean;
-    sectorId: number;
-    subsidiaryId: number;
-    subscriptionPlanId: number;
-    subscriptionPlanName: string | undefined;
-    lastBillingDate: Date | undefined;
-    lastPaymentDate: Date | undefined;
-    userDisplayName: string | undefined;
-    isTrial: boolean;
-    isPlanActivated: boolean;
-    hasPostedJob: boolean;
-    hasActivePremiumJob: boolean;
+    companyId?: number;
+    totalJobPosted?: number;
+    userId?: number;
+    isAdmin?: boolean;
+    isTenantAdmin?: boolean;
+    isSuperAdmin?: boolean;
+    name?: string | undefined;
+    contactPerson?: string | undefined;
+    firstName?: string | undefined;
+    lastname?: string | undefined;
+    email?: string | undefined;
+    mobile?: string | undefined;
+    nowRecruiting?: boolean;
+    employerTypeId?: number;
+    registered?: boolean;
+    sectorId?: number;
+    subsidiaryId?: number;
+    subscriptionPlanId?: number;
+    subscriptionPlanName?: string | undefined;
+    lastBillingDate?: Date | undefined;
+    lastPaymentDate?: Date | undefined;
+    userDisplayName?: string | undefined;
+    isTrial?: boolean;
+    isPlanActivated?: boolean;
+    hasPostedJob?: boolean;
+    hasActivePremiumJob?: boolean;
 }
 
 export class VwUserObj implements IVwUserObj {
-    user_id!: number;
-    companyProfile!: CompanyUserCache;
-    first_name!: string | undefined;
-    last_name!: string | undefined;
-    readonly full_name!: string | undefined;
-    other_name!: string | undefined;
-    email!: string | undefined;
-    phone_number!: string | undefined;
-    email_confirmed!: boolean;
-    session_token!: string | undefined;
-    jwt_token!: string | undefined;
-    user_token!: string | undefined;
-    company_id!: number;
-    company_name!: string | undefined;
-    sub_id!: number;
-    isAdmin!: boolean;
-    isSuperAdmin!: boolean;
-    isTenantAdmin!: boolean;
-    isActiveBySysOrAdmin!: boolean;
-    lstPermissions!: string[] | undefined;
-    message!: string | undefined;
-    isSuccessful!: boolean;
-    retId!: number;
-    redirectUrl!: string | undefined;
-    referenceNumber!: string | undefined;
-    amount!: number;
-    errors!: string[] | undefined;
+    user_id?: number;
+    companyProfile?: CompanyUserCache;
+    first_name?: string | undefined;
+    last_name?: string | undefined;
+    readonly full_name?: string | undefined;
+    other_name?: string | undefined;
+    email?: string | undefined;
+    phone_number?: string | undefined;
+    email_confirmed?: boolean;
+    session_token?: string | undefined;
+    jwt_token?: string | undefined;
+    user_token?: string | undefined;
+    company_id?: number;
+    company_name?: string | undefined;
+    sub_id?: number;
+    isAdmin?: boolean;
+    isSuperAdmin?: boolean;
+    isTenantAdmin?: boolean;
+    isActiveBySysOrAdmin?: boolean;
+    lstPermissions?: string[] | undefined;
+    message?: string | undefined;
+    isSuccessful?: boolean;
+    retId?: number;
+    redirectUrl?: string | undefined;
+    referenceNumber?: string | undefined;
+    amount?: number;
+    errors?: string[] | undefined;
 
     constructor(data?: IVwUserObj) {
         if (data) {
@@ -11041,51 +11064,44 @@ export class VwUserObj implements IVwUserObj {
         }
         return data; 
     }
-
-    clone(): VwUserObj {
-        const json = this.toJSON();
-        let result = new VwUserObj();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IVwUserObj {
-    user_id: number;
-    companyProfile: CompanyUserCache;
-    first_name: string | undefined;
-    last_name: string | undefined;
-    full_name: string | undefined;
-    other_name: string | undefined;
-    email: string | undefined;
-    phone_number: string | undefined;
-    email_confirmed: boolean;
-    session_token: string | undefined;
-    jwt_token: string | undefined;
-    user_token: string | undefined;
-    company_id: number;
-    company_name: string | undefined;
-    sub_id: number;
-    isAdmin: boolean;
-    isSuperAdmin: boolean;
-    isTenantAdmin: boolean;
-    isActiveBySysOrAdmin: boolean;
-    lstPermissions: string[] | undefined;
-    message: string | undefined;
-    isSuccessful: boolean;
-    retId: number;
-    redirectUrl: string | undefined;
-    referenceNumber: string | undefined;
-    amount: number;
-    errors: string[] | undefined;
+    user_id?: number;
+    companyProfile?: CompanyUserCache;
+    first_name?: string | undefined;
+    last_name?: string | undefined;
+    full_name?: string | undefined;
+    other_name?: string | undefined;
+    email?: string | undefined;
+    phone_number?: string | undefined;
+    email_confirmed?: boolean;
+    session_token?: string | undefined;
+    jwt_token?: string | undefined;
+    user_token?: string | undefined;
+    company_id?: number;
+    company_name?: string | undefined;
+    sub_id?: number;
+    isAdmin?: boolean;
+    isSuperAdmin?: boolean;
+    isTenantAdmin?: boolean;
+    isActiveBySysOrAdmin?: boolean;
+    lstPermissions?: string[] | undefined;
+    message?: string | undefined;
+    isSuccessful?: boolean;
+    retId?: number;
+    redirectUrl?: string | undefined;
+    referenceNumber?: string | undefined;
+    amount?: number;
+    errors?: string[] | undefined;
 }
 
 export class VwUserObjApiResult implements IVwUserObjApiResult {
-    hasError!: boolean;
-    message!: string | undefined;
-    result!: VwUserObj;
-    totalCount!: number;
-    readonly totalRecord!: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: VwUserObj;
+    totalCount?: number;
+    readonly totalRecord?: number;
 
     constructor(data?: IVwUserObjApiResult) {
         if (data) {
@@ -11122,28 +11138,21 @@ export class VwUserObjApiResult implements IVwUserObjApiResult {
         data["totalRecord"] = this.totalRecord;
         return data; 
     }
-
-    clone(): VwUserObjApiResult {
-        const json = this.toJSON();
-        let result = new VwUserObjApiResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IVwUserObjApiResult {
-    hasError: boolean;
-    message: string | undefined;
-    result: VwUserObj;
-    totalCount: number;
-    totalRecord: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: VwUserObj;
+    totalCount?: number;
+    totalRecord?: number;
 }
 
 export class ResestPasswordDTO implements IResestPasswordDTO {
-    token!: string | undefined;
+    token?: string | undefined;
     email!: string;
     password!: string;
-    confirmPassword!: string | undefined;
+    confirmPassword?: string | undefined;
 
     constructor(data?: IResestPasswordDTO) {
         if (data) {
@@ -11178,40 +11187,33 @@ export class ResestPasswordDTO implements IResestPasswordDTO {
         data["confirmPassword"] = this.confirmPassword;
         return data; 
     }
-
-    clone(): ResestPasswordDTO {
-        const json = this.toJSON();
-        let result = new ResestPasswordDTO();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IResestPasswordDTO {
-    token: string | undefined;
+    token?: string | undefined;
     email: string;
     password: string;
-    confirmPassword: string | undefined;
+    confirmPassword?: string | undefined;
 }
 
 export class ActivityLog implements IActivityLog {
-    userId!: number | undefined;
-    moduleName!: string | undefined;
-    moduleAction!: string | undefined;
-    description!: string | undefined;
-    record!: string | undefined;
-    ipAdress!: string | undefined;
-    operationType!: string | undefined;
-    employeeId!: number;
-    id!: number;
-    companyID!: number;
-    subID!: number;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
+    userId?: number | undefined;
+    moduleName?: string | undefined;
+    moduleAction?: string | undefined;
+    description?: string | undefined;
+    record?: string | undefined;
+    ipAdress?: string | undefined;
+    operationType?: string | undefined;
+    employeeId?: number;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 
     constructor(data?: IActivityLog) {
         if (data) {
@@ -11272,41 +11274,34 @@ export class ActivityLog implements IActivityLog {
         data["modifiedById"] = this.modifiedById;
         return data; 
     }
-
-    clone(): ActivityLog {
-        const json = this.toJSON();
-        let result = new ActivityLog();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IActivityLog {
-    userId: number | undefined;
-    moduleName: string | undefined;
-    moduleAction: string | undefined;
-    description: string | undefined;
-    record: string | undefined;
-    ipAdress: string | undefined;
-    operationType: string | undefined;
-    employeeId: number;
-    id: number;
-    companyID: number;
-    subID: number;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
+    userId?: number | undefined;
+    moduleName?: string | undefined;
+    moduleAction?: string | undefined;
+    description?: string | undefined;
+    record?: string | undefined;
+    ipAdress?: string | undefined;
+    operationType?: string | undefined;
+    employeeId?: number;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 }
 
 export class ActivityLogIListApiResult implements IActivityLogIListApiResult {
-    hasError!: boolean;
-    message!: string | undefined;
-    result!: ActivityLog[] | undefined;
-    totalCount!: number;
-    readonly totalRecord!: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: ActivityLog[] | undefined;
+    totalCount?: number;
+    readonly totalRecord?: number;
 
     constructor(data?: IActivityLogIListApiResult) {
         if (data) {
@@ -11351,64 +11346,57 @@ export class ActivityLogIListApiResult implements IActivityLogIListApiResult {
         data["totalRecord"] = this.totalRecord;
         return data; 
     }
-
-    clone(): ActivityLogIListApiResult {
-        const json = this.toJSON();
-        let result = new ActivityLogIListApiResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IActivityLogIListApiResult {
-    hasError: boolean;
-    message: string | undefined;
-    result: ActivityLog[] | undefined;
-    totalCount: number;
-    totalRecord: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: ActivityLog[] | undefined;
+    totalCount?: number;
+    totalRecord?: number;
 }
 
 export class JobDTO implements IJobDTO {
-    id!: number;
-    companyID!: number;
-    details!: string | undefined;
-    requirements!: string | undefined;
-    position!: string | undefined;
-    recruiter!: string | undefined;
-    countryId!: number;
-    stateId!: number;
-    location!: string | undefined;
-    jobTypeId!: number;
-    minExpRequired!: number | undefined;
-    maxExpRequired!: number | undefined;
-    minSalary!: number | undefined;
-    maxSalary!: number | undefined;
-    minQualificationId!: number | undefined;
-    maxQualificationId!: number | undefined;
-    quizId!: number | undefined;
-    currencyId!: number | undefined;
-    skillAreaId!: number;
-    countryName!: string | undefined;
-    stateName!: string | undefined;
-    jobTypeName!: string | undefined;
-    skillAreaName!: string | undefined;
-    currencyName!: string | undefined;
-    minQualificationName!: string | undefined;
-    maxQualificationName!: string | undefined;
-    reviewers!: string | undefined;
-    clicks!: number;
-    endDate!: Date;
-    datePosted!: Date;
-    jobCloseInDays!: number;
-    totalCandidates!: number;
-    ref!: string | undefined;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
-    aboutCompany!: string | undefined;
+    id?: number;
+    companyID?: number;
+    details?: string | undefined;
+    requirements?: string | undefined;
+    position?: string | undefined;
+    recruiter?: string | undefined;
+    countryId?: number;
+    stateId?: number;
+    location?: string | undefined;
+    jobTypeId?: number;
+    minExpRequired?: number | undefined;
+    maxExpRequired?: number | undefined;
+    minSalary?: number | undefined;
+    maxSalary?: number | undefined;
+    minQualificationId?: number | undefined;
+    maxQualificationId?: number | undefined;
+    quizId?: number | undefined;
+    currencyId?: number | undefined;
+    skillAreaId?: number;
+    countryName?: string | undefined;
+    stateName?: string | undefined;
+    jobTypeName?: string | undefined;
+    skillAreaName?: string | undefined;
+    currencyName?: string | undefined;
+    minQualificationName?: string | undefined;
+    maxQualificationName?: string | undefined;
+    reviewers?: string | undefined;
+    clicks?: number;
+    endDate?: Date;
+    datePosted?: Date;
+    jobCloseInDays?: number;
+    totalCandidates?: number;
+    ref?: string | undefined;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
+    aboutCompany?: string | undefined;
 
     constructor(data?: IJobDTO) {
         if (data) {
@@ -11515,64 +11503,57 @@ export class JobDTO implements IJobDTO {
         data["aboutCompany"] = this.aboutCompany;
         return data; 
     }
-
-    clone(): JobDTO {
-        const json = this.toJSON();
-        let result = new JobDTO();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IJobDTO {
-    id: number;
-    companyID: number;
-    details: string | undefined;
-    requirements: string | undefined;
-    position: string | undefined;
-    recruiter: string | undefined;
-    countryId: number;
-    stateId: number;
-    location: string | undefined;
-    jobTypeId: number;
-    minExpRequired: number | undefined;
-    maxExpRequired: number | undefined;
-    minSalary: number | undefined;
-    maxSalary: number | undefined;
-    minQualificationId: number | undefined;
-    maxQualificationId: number | undefined;
-    quizId: number | undefined;
-    currencyId: number | undefined;
-    skillAreaId: number;
-    countryName: string | undefined;
-    stateName: string | undefined;
-    jobTypeName: string | undefined;
-    skillAreaName: string | undefined;
-    currencyName: string | undefined;
-    minQualificationName: string | undefined;
-    maxQualificationName: string | undefined;
-    reviewers: string | undefined;
-    clicks: number;
-    endDate: Date;
-    datePosted: Date;
-    jobCloseInDays: number;
-    totalCandidates: number;
-    ref: string | undefined;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
-    aboutCompany: string | undefined;
+    id?: number;
+    companyID?: number;
+    details?: string | undefined;
+    requirements?: string | undefined;
+    position?: string | undefined;
+    recruiter?: string | undefined;
+    countryId?: number;
+    stateId?: number;
+    location?: string | undefined;
+    jobTypeId?: number;
+    minExpRequired?: number | undefined;
+    maxExpRequired?: number | undefined;
+    minSalary?: number | undefined;
+    maxSalary?: number | undefined;
+    minQualificationId?: number | undefined;
+    maxQualificationId?: number | undefined;
+    quizId?: number | undefined;
+    currencyId?: number | undefined;
+    skillAreaId?: number;
+    countryName?: string | undefined;
+    stateName?: string | undefined;
+    jobTypeName?: string | undefined;
+    skillAreaName?: string | undefined;
+    currencyName?: string | undefined;
+    minQualificationName?: string | undefined;
+    maxQualificationName?: string | undefined;
+    reviewers?: string | undefined;
+    clicks?: number;
+    endDate?: Date;
+    datePosted?: Date;
+    jobCloseInDays?: number;
+    totalCandidates?: number;
+    ref?: string | undefined;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
+    aboutCompany?: string | undefined;
 }
 
 export class JobDTOIListOdataResult implements IJobDTOIListOdataResult {
-    id!: number;
-    hasError!: boolean;
-    message!: string | undefined;
-    value!: JobDTO[] | undefined;
-    totalCount!: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: JobDTO[] | undefined;
+    totalCount?: number;
 
     constructor(data?: IJobDTOIListOdataResult) {
         if (data) {
@@ -11617,68 +11598,61 @@ export class JobDTOIListOdataResult implements IJobDTOIListOdataResult {
         data["totalCount"] = this.totalCount;
         return data; 
     }
-
-    clone(): JobDTOIListOdataResult {
-        const json = this.toJSON();
-        let result = new JobDTOIListOdataResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IJobDTOIListOdataResult {
-    id: number;
-    hasError: boolean;
-    message: string | undefined;
-    value: JobDTO[] | undefined;
-    totalCount: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: JobDTO[] | undefined;
+    totalCount?: number;
 }
 
 export class JobApplicationDTO implements IJobApplicationDTO {
-    id!: number;
-    jobId!: number;
-    position!: string | undefined;
-    firstName!: string | undefined;
-    lastName!: string | undefined;
-    otherName!: string | undefined;
-    skillArea!: string | undefined;
-    jobType!: string | undefined;
-    state!: string | undefined;
-    nationality!: string | undefined;
-    mobile!: string | undefined;
-    applicantLocation!: string | undefined;
-    age!: number;
-    gender!: number;
-    birthDate!: Date;
-    skillAreaId!: number;
-    jobTypeId!: number;
-    stateId!: number;
-    recruitmentStageId!: number;
-    requireTest!: boolean;
-    testDuration!: number | undefined;
-    testPassCode!: string | undefined;
-    totalQuestion!: number;
-    hashedJobId!: string | undefined;
-    applicantCode!: string | undefined;
-    registeredUserId!: number;
-    applicantEmail!: string | undefined;
-    applicantFullName!: string | undefined;
-    dateApplied!: Date;
-    alertSent!: boolean;
-    coverLetter!: string | undefined;
-    cvPath!: string | undefined;
-    cvName!: string | undefined;
-    photoName!: string | undefined;
-    jobLocation!: string | undefined;
-    testUrl!: string | undefined;
-    videoUrl!: string | undefined;
-    companyId!: number;
-    company!: string | undefined;
-    companyContactPerson!: string | undefined;
-    companyEmail!: string | undefined;
-    lastUpdate!: Date | undefined;
-    readonly genderName!: string | undefined;
-    readonly recruitmentStage!: string | undefined;
+    id?: number;
+    jobId?: number;
+    position?: string | undefined;
+    firstName?: string | undefined;
+    lastName?: string | undefined;
+    otherName?: string | undefined;
+    skillArea?: string | undefined;
+    jobType?: string | undefined;
+    state?: string | undefined;
+    nationality?: string | undefined;
+    mobile?: string | undefined;
+    applicantLocation?: string | undefined;
+    age?: number;
+    gender?: number;
+    birthDate?: Date;
+    skillAreaId?: number;
+    jobTypeId?: number;
+    stateId?: number;
+    recruitmentStageId?: number;
+    requireTest?: boolean;
+    testDuration?: number | undefined;
+    testPassCode?: string | undefined;
+    totalQuestion?: number;
+    hashedJobId?: string | undefined;
+    applicantCode?: string | undefined;
+    registeredUserId?: number;
+    applicantEmail?: string | undefined;
+    applicantFullName?: string | undefined;
+    dateApplied?: Date;
+    alertSent?: boolean;
+    coverLetter?: string | undefined;
+    cvPath?: string | undefined;
+    cvName?: string | undefined;
+    photoName?: string | undefined;
+    jobLocation?: string | undefined;
+    testUrl?: string | undefined;
+    videoUrl?: string | undefined;
+    companyId?: number;
+    company?: string | undefined;
+    companyContactPerson?: string | undefined;
+    companyEmail?: string | undefined;
+    lastUpdate?: Date | undefined;
+    readonly genderName?: string | undefined;
+    readonly recruitmentStage?: string | undefined;
 
     constructor(data?: IJobApplicationDTO) {
         if (data) {
@@ -11793,68 +11767,61 @@ export class JobApplicationDTO implements IJobApplicationDTO {
         data["recruitmentStage"] = this.recruitmentStage;
         return data; 
     }
-
-    clone(): JobApplicationDTO {
-        const json = this.toJSON();
-        let result = new JobApplicationDTO();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IJobApplicationDTO {
-    id: number;
-    jobId: number;
-    position: string | undefined;
-    firstName: string | undefined;
-    lastName: string | undefined;
-    otherName: string | undefined;
-    skillArea: string | undefined;
-    jobType: string | undefined;
-    state: string | undefined;
-    nationality: string | undefined;
-    mobile: string | undefined;
-    applicantLocation: string | undefined;
-    age: number;
-    gender: number;
-    birthDate: Date;
-    skillAreaId: number;
-    jobTypeId: number;
-    stateId: number;
-    recruitmentStageId: number;
-    requireTest: boolean;
-    testDuration: number | undefined;
-    testPassCode: string | undefined;
-    totalQuestion: number;
-    hashedJobId: string | undefined;
-    applicantCode: string | undefined;
-    registeredUserId: number;
-    applicantEmail: string | undefined;
-    applicantFullName: string | undefined;
-    dateApplied: Date;
-    alertSent: boolean;
-    coverLetter: string | undefined;
-    cvPath: string | undefined;
-    cvName: string | undefined;
-    photoName: string | undefined;
-    jobLocation: string | undefined;
-    testUrl: string | undefined;
-    videoUrl: string | undefined;
-    companyId: number;
-    company: string | undefined;
-    companyContactPerson: string | undefined;
-    companyEmail: string | undefined;
-    lastUpdate: Date | undefined;
-    genderName: string | undefined;
-    recruitmentStage: string | undefined;
+    id?: number;
+    jobId?: number;
+    position?: string | undefined;
+    firstName?: string | undefined;
+    lastName?: string | undefined;
+    otherName?: string | undefined;
+    skillArea?: string | undefined;
+    jobType?: string | undefined;
+    state?: string | undefined;
+    nationality?: string | undefined;
+    mobile?: string | undefined;
+    applicantLocation?: string | undefined;
+    age?: number;
+    gender?: number;
+    birthDate?: Date;
+    skillAreaId?: number;
+    jobTypeId?: number;
+    stateId?: number;
+    recruitmentStageId?: number;
+    requireTest?: boolean;
+    testDuration?: number | undefined;
+    testPassCode?: string | undefined;
+    totalQuestion?: number;
+    hashedJobId?: string | undefined;
+    applicantCode?: string | undefined;
+    registeredUserId?: number;
+    applicantEmail?: string | undefined;
+    applicantFullName?: string | undefined;
+    dateApplied?: Date;
+    alertSent?: boolean;
+    coverLetter?: string | undefined;
+    cvPath?: string | undefined;
+    cvName?: string | undefined;
+    photoName?: string | undefined;
+    jobLocation?: string | undefined;
+    testUrl?: string | undefined;
+    videoUrl?: string | undefined;
+    companyId?: number;
+    company?: string | undefined;
+    companyContactPerson?: string | undefined;
+    companyEmail?: string | undefined;
+    lastUpdate?: Date | undefined;
+    genderName?: string | undefined;
+    recruitmentStage?: string | undefined;
 }
 
 export class JobApplicationDTOIListOdataResult implements IJobApplicationDTOIListOdataResult {
-    id!: number;
-    hasError!: boolean;
-    message!: string | undefined;
-    value!: JobApplicationDTO[] | undefined;
-    totalCount!: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: JobApplicationDTO[] | undefined;
+    totalCount?: number;
 
     constructor(data?: IJobApplicationDTOIListOdataResult) {
         if (data) {
@@ -11899,27 +11866,20 @@ export class JobApplicationDTOIListOdataResult implements IJobApplicationDTOILis
         data["totalCount"] = this.totalCount;
         return data; 
     }
-
-    clone(): JobApplicationDTOIListOdataResult {
-        const json = this.toJSON();
-        let result = new JobApplicationDTOIListOdataResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IJobApplicationDTOIListOdataResult {
-    id: number;
-    hasError: boolean;
-    message: string | undefined;
-    value: JobApplicationDTO[] | undefined;
-    totalCount: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: JobApplicationDTO[] | undefined;
+    totalCount?: number;
 }
 
 export class JobApplicationStage implements IJobApplicationStage {
-    id!: number;
-    recruitmentStageId!: number | undefined;
-    readonly recruitmentStageName!: string | undefined;
+    id?: number;
+    recruitmentStageId?: number | undefined;
+    readonly recruitmentStageName?: string | undefined;
 
     constructor(data?: IJobApplicationStage) {
         if (data) {
@@ -11952,34 +11912,27 @@ export class JobApplicationStage implements IJobApplicationStage {
         data["recruitmentStageName"] = this.recruitmentStageName;
         return data; 
     }
-
-    clone(): JobApplicationStage {
-        const json = this.toJSON();
-        let result = new JobApplicationStage();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IJobApplicationStage {
-    id: number;
-    recruitmentStageId: number | undefined;
-    recruitmentStageName: string | undefined;
+    id?: number;
+    recruitmentStageId?: number | undefined;
+    recruitmentStageName?: string | undefined;
 }
 
 export class JobSeekerEducation implements IJobSeekerEducation {
-    id!: number;
-    registeredUserId!: number;
-    institutionName!: string | undefined;
-    qualificationName!: string | undefined;
-    courseName!: string | undefined;
-    gradeName!: string | undefined;
-    qualificationId!: number;
-    startDate!: Date;
-    endDate!: Date;
-    gradeId!: number;
-    institutionId!: number;
-    courseId!: number;
+    id?: number;
+    registeredUserId?: number;
+    institutionName?: string | undefined;
+    qualificationName?: string | undefined;
+    courseName?: string | undefined;
+    gradeName?: string | undefined;
+    qualificationId?: number;
+    startDate?: Date;
+    endDate?: Date;
+    gradeId?: number;
+    institutionId?: number;
+    courseId?: number;
 
     constructor(data?: IJobSeekerEducation) {
         if (data) {
@@ -12030,39 +11983,32 @@ export class JobSeekerEducation implements IJobSeekerEducation {
         data["courseId"] = this.courseId;
         return data; 
     }
-
-    clone(): JobSeekerEducation {
-        const json = this.toJSON();
-        let result = new JobSeekerEducation();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IJobSeekerEducation {
-    id: number;
-    registeredUserId: number;
-    institutionName: string | undefined;
-    qualificationName: string | undefined;
-    courseName: string | undefined;
-    gradeName: string | undefined;
-    qualificationId: number;
-    startDate: Date;
-    endDate: Date;
-    gradeId: number;
-    institutionId: number;
-    courseId: number;
+    id?: number;
+    registeredUserId?: number;
+    institutionName?: string | undefined;
+    qualificationName?: string | undefined;
+    courseName?: string | undefined;
+    gradeName?: string | undefined;
+    qualificationId?: number;
+    startDate?: Date;
+    endDate?: Date;
+    gradeId?: number;
+    institutionId?: number;
+    courseId?: number;
 }
 
 export class JobSeekerExperience implements IJobSeekerExperience {
-    id!: number;
-    registeredUserId!: number;
-    startDate!: Date;
-    from!: number | undefined;
-    to!: number | undefined;
-    position!: string | undefined;
-    company!: string | undefined;
-    isPresentEmployment!: boolean | undefined;
+    id?: number;
+    registeredUserId?: number;
+    startDate?: Date;
+    from?: number | undefined;
+    to?: number | undefined;
+    position?: string | undefined;
+    company?: string | undefined;
+    isPresentEmployment?: boolean | undefined;
 
     constructor(data?: IJobSeekerExperience) {
         if (data) {
@@ -12105,31 +12051,24 @@ export class JobSeekerExperience implements IJobSeekerExperience {
         data["isPresentEmployment"] = this.isPresentEmployment;
         return data; 
     }
-
-    clone(): JobSeekerExperience {
-        const json = this.toJSON();
-        let result = new JobSeekerExperience();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IJobSeekerExperience {
-    id: number;
-    registeredUserId: number;
-    startDate: Date;
-    from: number | undefined;
-    to: number | undefined;
-    position: string | undefined;
-    company: string | undefined;
-    isPresentEmployment: boolean | undefined;
+    id?: number;
+    registeredUserId?: number;
+    startDate?: Date;
+    from?: number | undefined;
+    to?: number | undefined;
+    position?: string | undefined;
+    company?: string | undefined;
+    isPresentEmployment?: boolean | undefined;
 }
 
 export class JobSeekerResume implements IJobSeekerResume {
-    id!: number;
-    registeredUserId!: number;
-    cvResume!: string | undefined;
-    videoResume!: string | undefined;
+    id?: number;
+    registeredUserId?: number;
+    cvResume?: string | undefined;
+    videoResume?: string | undefined;
 
     constructor(data?: IJobSeekerResume) {
         if (data) {
@@ -12164,55 +12103,48 @@ export class JobSeekerResume implements IJobSeekerResume {
         data["videoResume"] = this.videoResume;
         return data; 
     }
-
-    clone(): JobSeekerResume {
-        const json = this.toJSON();
-        let result = new JobSeekerResume();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IJobSeekerResume {
-    id: number;
-    registeredUserId: number;
-    cvResume: string | undefined;
-    videoResume: string | undefined;
+    id?: number;
+    registeredUserId?: number;
+    cvResume?: string | undefined;
+    videoResume?: string | undefined;
 }
 
 export class JobSeekerDTO implements IJobSeekerDTO {
-    id!: number;
-    jobId!: number;
-    positionApplied!: string | undefined;
-    titleId!: number;
-    firstName!: string | undefined;
-    lastname!: string | undefined;
-    otherName!: string | undefined;
-    email!: string | undefined;
-    dateOfBirth!: Date;
-    genderId!: number;
-    nationalityId!: number;
-    residentialStateId!: number;
-    phoneNumber!: string | undefined;
-    residentialState!: string | undefined;
-    stateOfInterest!: string | undefined;
-    nationality!: string | undefined;
-    jobApplicantRefCode!: string | undefined;
-    age!: number;
-    gender!: number;
-    fieldOfInterestId!: number;
-    stateOfInterestId!: number;
-    yearOfExperience!: number;
-    availabilityDuration!: number;
-    applicationStages!: JobApplicationStage[] | undefined;
-    educations!: JobSeekerEducation[] | undefined;
-    experiences!: JobSeekerExperience[] | undefined;
-    resumes!: JobSeekerResume[] | undefined;
-    resume!: string | undefined;
-    videoResume!: string | undefined;
-    briefDescription!: string | undefined;
-    readonly title!: string | undefined;
-    readonly sex!: string | undefined;
+    id?: number;
+    jobId?: number;
+    positionApplied?: string | undefined;
+    titleId?: number;
+    firstName?: string | undefined;
+    lastname?: string | undefined;
+    otherName?: string | undefined;
+    email?: string | undefined;
+    dateOfBirth?: Date;
+    genderId?: number;
+    nationalityId?: number;
+    residentialStateId?: number;
+    phoneNumber?: string | undefined;
+    residentialState?: string | undefined;
+    stateOfInterest?: string | undefined;
+    nationality?: string | undefined;
+    jobApplicantRefCode?: string | undefined;
+    age?: number;
+    gender?: number;
+    fieldOfInterestId?: number;
+    stateOfInterestId?: number;
+    yearOfExperience?: number;
+    availabilityDuration?: number;
+    applicationStages?: JobApplicationStage[] | undefined;
+    educations?: JobSeekerEducation[] | undefined;
+    experiences?: JobSeekerExperience[] | undefined;
+    resumes?: JobSeekerResume[] | undefined;
+    resume?: string | undefined;
+    videoResume?: string | undefined;
+    briefDescription?: string | undefined;
+    readonly title?: string | undefined;
+    readonly sex?: string | undefined;
 
     constructor(data?: IJobSeekerDTO) {
         if (data) {
@@ -12335,56 +12267,49 @@ export class JobSeekerDTO implements IJobSeekerDTO {
         data["sex"] = this.sex;
         return data; 
     }
-
-    clone(): JobSeekerDTO {
-        const json = this.toJSON();
-        let result = new JobSeekerDTO();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IJobSeekerDTO {
-    id: number;
-    jobId: number;
-    positionApplied: string | undefined;
-    titleId: number;
-    firstName: string | undefined;
-    lastname: string | undefined;
-    otherName: string | undefined;
-    email: string | undefined;
-    dateOfBirth: Date;
-    genderId: number;
-    nationalityId: number;
-    residentialStateId: number;
-    phoneNumber: string | undefined;
-    residentialState: string | undefined;
-    stateOfInterest: string | undefined;
-    nationality: string | undefined;
-    jobApplicantRefCode: string | undefined;
-    age: number;
-    gender: number;
-    fieldOfInterestId: number;
-    stateOfInterestId: number;
-    yearOfExperience: number;
-    availabilityDuration: number;
-    applicationStages: JobApplicationStage[] | undefined;
-    educations: JobSeekerEducation[] | undefined;
-    experiences: JobSeekerExperience[] | undefined;
-    resumes: JobSeekerResume[] | undefined;
-    resume: string | undefined;
-    videoResume: string | undefined;
-    briefDescription: string | undefined;
-    title: string | undefined;
-    sex: string | undefined;
+    id?: number;
+    jobId?: number;
+    positionApplied?: string | undefined;
+    titleId?: number;
+    firstName?: string | undefined;
+    lastname?: string | undefined;
+    otherName?: string | undefined;
+    email?: string | undefined;
+    dateOfBirth?: Date;
+    genderId?: number;
+    nationalityId?: number;
+    residentialStateId?: number;
+    phoneNumber?: string | undefined;
+    residentialState?: string | undefined;
+    stateOfInterest?: string | undefined;
+    nationality?: string | undefined;
+    jobApplicantRefCode?: string | undefined;
+    age?: number;
+    gender?: number;
+    fieldOfInterestId?: number;
+    stateOfInterestId?: number;
+    yearOfExperience?: number;
+    availabilityDuration?: number;
+    applicationStages?: JobApplicationStage[] | undefined;
+    educations?: JobSeekerEducation[] | undefined;
+    experiences?: JobSeekerExperience[] | undefined;
+    resumes?: JobSeekerResume[] | undefined;
+    resume?: string | undefined;
+    videoResume?: string | undefined;
+    briefDescription?: string | undefined;
+    title?: string | undefined;
+    sex?: string | undefined;
 }
 
 export class JobSeekerDTOOdataResult implements IJobSeekerDTOOdataResult {
-    id!: number;
-    hasError!: boolean;
-    message!: string | undefined;
-    value!: JobSeekerDTO;
-    totalCount!: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: JobSeekerDTO;
+    totalCount?: number;
 
     constructor(data?: IJobSeekerDTOOdataResult) {
         if (data) {
@@ -12421,27 +12346,20 @@ export class JobSeekerDTOOdataResult implements IJobSeekerDTOOdataResult {
         data["totalCount"] = this.totalCount;
         return data; 
     }
-
-    clone(): JobSeekerDTOOdataResult {
-        const json = this.toJSON();
-        let result = new JobSeekerDTOOdataResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IJobSeekerDTOOdataResult {
-    id: number;
-    hasError: boolean;
-    message: string | undefined;
-    value: JobSeekerDTO;
-    totalCount: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: JobSeekerDTO;
+    totalCount?: number;
 }
 
 export class ProcessApplicationDTO implements IProcessApplicationDTO {
-    jobId!: number;
-    stageId!: number;
-    selectedApplicantIds!: string | undefined;
+    jobId?: number;
+    stageId?: number;
+    selectedApplicantIds?: string | undefined;
 
     constructor(data?: IProcessApplicationDTO) {
         if (data) {
@@ -12474,29 +12392,22 @@ export class ProcessApplicationDTO implements IProcessApplicationDTO {
         data["selectedApplicantIds"] = this.selectedApplicantIds;
         return data; 
     }
-
-    clone(): ProcessApplicationDTO {
-        const json = this.toJSON();
-        let result = new ProcessApplicationDTO();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IProcessApplicationDTO {
-    jobId: number;
-    stageId: number;
-    selectedApplicantIds: string | undefined;
+    jobId?: number;
+    stageId?: number;
+    selectedApplicantIds?: string | undefined;
 }
 
 export class ManageArtisanDTO implements IManageArtisanDTO {
-    id!: number;
+    id?: number;
     name!: string;
-    email!: string | undefined;
+    email?: string | undefined;
     mobile!: string;
     specialty!: string;
     locationId!: number;
-    yearOfExperience!: number | undefined;
+    yearOfExperience?: number | undefined;
     description!: string;
     brandLogo!: string;
 
@@ -12543,45 +12454,38 @@ export class ManageArtisanDTO implements IManageArtisanDTO {
         data["brandLogo"] = this.brandLogo;
         return data; 
     }
-
-    clone(): ManageArtisanDTO {
-        const json = this.toJSON();
-        let result = new ManageArtisanDTO();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IManageArtisanDTO {
-    id: number;
+    id?: number;
     name: string;
-    email: string | undefined;
+    email?: string | undefined;
     mobile: string;
     specialty: string;
     locationId: number;
-    yearOfExperience: number | undefined;
+    yearOfExperience?: number | undefined;
     description: string;
     brandLogo: string;
 }
 
 export class ArtisanDTO implements IArtisanDTO {
-    id!: number;
-    name!: string | undefined;
-    email!: string | undefined;
-    mobile!: string | undefined;
-    specialty!: string | undefined;
-    locationId!: number;
-    location!: string | undefined;
-    yearOfExperience!: number | undefined;
-    rating!: number | undefined;
-    description!: string | undefined;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
-    brandLogo!: string | undefined;
+    id?: number;
+    name?: string | undefined;
+    email?: string | undefined;
+    mobile?: string | undefined;
+    specialty?: string | undefined;
+    locationId?: number;
+    location?: string | undefined;
+    yearOfExperience?: number | undefined;
+    rating?: number | undefined;
+    description?: string | undefined;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
+    brandLogo?: string | undefined;
 
     constructor(data?: IArtisanDTO) {
         if (data) {
@@ -12642,41 +12546,34 @@ export class ArtisanDTO implements IArtisanDTO {
         data["brandLogo"] = this.brandLogo;
         return data; 
     }
-
-    clone(): ArtisanDTO {
-        const json = this.toJSON();
-        let result = new ArtisanDTO();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IArtisanDTO {
-    id: number;
-    name: string | undefined;
-    email: string | undefined;
-    mobile: string | undefined;
-    specialty: string | undefined;
-    locationId: number;
-    location: string | undefined;
-    yearOfExperience: number | undefined;
-    rating: number | undefined;
-    description: string | undefined;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
-    brandLogo: string | undefined;
+    id?: number;
+    name?: string | undefined;
+    email?: string | undefined;
+    mobile?: string | undefined;
+    specialty?: string | undefined;
+    locationId?: number;
+    location?: string | undefined;
+    yearOfExperience?: number | undefined;
+    rating?: number | undefined;
+    description?: string | undefined;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
+    brandLogo?: string | undefined;
 }
 
 export class ArtisanDTOIListOdataResult implements IArtisanDTOIListOdataResult {
-    id!: number;
-    hasError!: boolean;
-    message!: string | undefined;
-    value!: ArtisanDTO[] | undefined;
-    totalCount!: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: ArtisanDTO[] | undefined;
+    totalCount?: number;
 
     constructor(data?: IArtisanDTOIListOdataResult) {
         if (data) {
@@ -12721,29 +12618,22 @@ export class ArtisanDTOIListOdataResult implements IArtisanDTOIListOdataResult {
         data["totalCount"] = this.totalCount;
         return data; 
     }
-
-    clone(): ArtisanDTOIListOdataResult {
-        const json = this.toJSON();
-        let result = new ArtisanDTOIListOdataResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IArtisanDTOIListOdataResult {
-    id: number;
-    hasError: boolean;
-    message: string | undefined;
-    value: ArtisanDTO[] | undefined;
-    totalCount: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: ArtisanDTO[] | undefined;
+    totalCount?: number;
 }
 
 export class ArtisanDTOOdataResult implements IArtisanDTOOdataResult {
-    id!: number;
-    hasError!: boolean;
-    message!: string | undefined;
-    value!: ArtisanDTO;
-    totalCount!: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: ArtisanDTO;
+    totalCount?: number;
 
     constructor(data?: IArtisanDTOOdataResult) {
         if (data) {
@@ -12780,21 +12670,14 @@ export class ArtisanDTOOdataResult implements IArtisanDTOOdataResult {
         data["totalCount"] = this.totalCount;
         return data; 
     }
-
-    clone(): ArtisanDTOOdataResult {
-        const json = this.toJSON();
-        let result = new ArtisanDTOOdataResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IArtisanDTOOdataResult {
-    id: number;
-    hasError: boolean;
-    message: string | undefined;
-    value: ArtisanDTO;
-    totalCount: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: ArtisanDTO;
+    totalCount?: number;
 }
 
 export class ReviewArtisanDTO implements IReviewArtisanDTO {
@@ -12836,13 +12719,6 @@ export class ReviewArtisanDTO implements IReviewArtisanDTO {
         data["review"] = this.review;
         return data; 
     }
-
-    clone(): ReviewArtisanDTO {
-        const json = this.toJSON();
-        let result = new ReviewArtisanDTO();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IReviewArtisanDTO {
@@ -12853,11 +12729,11 @@ export interface IReviewArtisanDTO {
 }
 
 export class ManageCertificationDTO implements IManageCertificationDTO {
-    id!: number;
-    professionalBodyId!: number;
-    name!: string | undefined;
-    code!: string | undefined;
-    point!: number;
+    id?: number;
+    professionalBodyId?: number;
+    name?: string | undefined;
+    code?: string | undefined;
+    point?: number;
 
     constructor(data?: IManageCertificationDTO) {
         if (data) {
@@ -12894,38 +12770,31 @@ export class ManageCertificationDTO implements IManageCertificationDTO {
         data["point"] = this.point;
         return data; 
     }
-
-    clone(): ManageCertificationDTO {
-        const json = this.toJSON();
-        let result = new ManageCertificationDTO();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IManageCertificationDTO {
-    id: number;
-    professionalBodyId: number;
-    name: string | undefined;
-    code: string | undefined;
-    point: number;
+    id?: number;
+    professionalBodyId?: number;
+    name?: string | undefined;
+    code?: string | undefined;
+    point?: number;
 }
 
 export class CertificationDTO implements ICertificationDTO {
-    id!: number;
-    companyID!: number;
-    subID!: number;
-    professionalBodyId!: number;
-    professionalBody!: string | undefined;
-    name!: string | undefined;
-    code!: string | undefined;
-    point!: number | undefined;
-    isActive!: boolean;
-    isDeleted!: boolean;
-    dateCreated!: Date;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    professionalBodyId?: number;
+    professionalBody?: string | undefined;
+    name?: string | undefined;
+    code?: string | undefined;
+    point?: number | undefined;
+    isActive?: boolean;
+    isDeleted?: boolean;
+    dateCreated?: Date;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 
     constructor(data?: ICertificationDTO) {
         if (data) {
@@ -12980,38 +12849,31 @@ export class CertificationDTO implements ICertificationDTO {
         data["modifiedById"] = this.modifiedById;
         return data; 
     }
-
-    clone(): CertificationDTO {
-        const json = this.toJSON();
-        let result = new CertificationDTO();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface ICertificationDTO {
-    id: number;
-    companyID: number;
-    subID: number;
-    professionalBodyId: number;
-    professionalBody: string | undefined;
-    name: string | undefined;
-    code: string | undefined;
-    point: number | undefined;
-    isActive: boolean;
-    isDeleted: boolean;
-    dateCreated: Date;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    professionalBodyId?: number;
+    professionalBody?: string | undefined;
+    name?: string | undefined;
+    code?: string | undefined;
+    point?: number | undefined;
+    isActive?: boolean;
+    isDeleted?: boolean;
+    dateCreated?: Date;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 }
 
 export class CertificationDTOListApiResult implements ICertificationDTOListApiResult {
-    hasError!: boolean;
-    message!: string | undefined;
-    result!: CertificationDTO[] | undefined;
-    totalCount!: number;
-    readonly totalRecord!: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: CertificationDTO[] | undefined;
+    totalCount?: number;
+    readonly totalRecord?: number;
 
     constructor(data?: ICertificationDTOListApiResult) {
         if (data) {
@@ -13056,29 +12918,22 @@ export class CertificationDTOListApiResult implements ICertificationDTOListApiRe
         data["totalRecord"] = this.totalRecord;
         return data; 
     }
-
-    clone(): CertificationDTOListApiResult {
-        const json = this.toJSON();
-        let result = new CertificationDTOListApiResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface ICertificationDTOListApiResult {
-    hasError: boolean;
-    message: string | undefined;
-    result: CertificationDTO[] | undefined;
-    totalCount: number;
-    totalRecord: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: CertificationDTO[] | undefined;
+    totalCount?: number;
+    totalRecord?: number;
 }
 
 export class CertificationDTOApiResult implements ICertificationDTOApiResult {
-    hasError!: boolean;
-    message!: string | undefined;
-    result!: CertificationDTO;
-    totalCount!: number;
-    readonly totalRecord!: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: CertificationDTO;
+    totalCount?: number;
+    readonly totalRecord?: number;
 
     constructor(data?: ICertificationDTOApiResult) {
         if (data) {
@@ -13115,26 +12970,19 @@ export class CertificationDTOApiResult implements ICertificationDTOApiResult {
         data["totalRecord"] = this.totalRecord;
         return data; 
     }
-
-    clone(): CertificationDTOApiResult {
-        const json = this.toJSON();
-        let result = new CertificationDTOApiResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface ICertificationDTOApiResult {
-    hasError: boolean;
-    message: string | undefined;
-    result: CertificationDTO;
-    totalCount: number;
-    totalRecord: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: CertificationDTO;
+    totalCount?: number;
+    totalRecord?: number;
 }
 
 export class IDTextViewModel implements IIDTextViewModel {
-    id!: number;
-    text!: string | undefined;
+    id?: number;
+    text?: string | undefined;
 
     constructor(data?: IIDTextViewModel) {
         if (data) {
@@ -13165,26 +13013,19 @@ export class IDTextViewModel implements IIDTextViewModel {
         data["text"] = this.text;
         return data; 
     }
-
-    clone(): IDTextViewModel {
-        const json = this.toJSON();
-        let result = new IDTextViewModel();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IIDTextViewModel {
-    id: number;
-    text: string | undefined;
+    id?: number;
+    text?: string | undefined;
 }
 
 export class IDTextViewModelIListOdataResult implements IIDTextViewModelIListOdataResult {
-    id!: number;
-    hasError!: boolean;
-    message!: string | undefined;
-    value!: IDTextViewModel[] | undefined;
-    totalCount!: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: IDTextViewModel[] | undefined;
+    totalCount?: number;
 
     constructor(data?: IIDTextViewModelIListOdataResult) {
         if (data) {
@@ -13229,39 +13070,32 @@ export class IDTextViewModelIListOdataResult implements IIDTextViewModelIListOda
         data["totalCount"] = this.totalCount;
         return data; 
     }
-
-    clone(): IDTextViewModelIListOdataResult {
-        const json = this.toJSON();
-        let result = new IDTextViewModelIListOdataResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IIDTextViewModelIListOdataResult {
-    id: number;
-    hasError: boolean;
-    message: string | undefined;
-    value: IDTextViewModel[] | undefined;
-    totalCount: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: IDTextViewModel[] | undefined;
+    totalCount?: number;
 }
 
 export class EmailSetting implements IEmailSetting {
-    emailUserName!: string | undefined;
-    emailHost!: string | undefined;
-    emailPort!: number;
-    emailPassword!: string | undefined;
-    enableSSLForEmail!: boolean;
-    emailFromAddress!: string | undefined;
-    id!: number;
-    companyID!: number;
-    subID!: number;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
+    emailUserName?: string | undefined;
+    emailHost?: string | undefined;
+    emailPort?: number;
+    emailPassword?: string | undefined;
+    enableSSLForEmail?: boolean;
+    emailFromAddress?: string | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 
     constructor(data?: IEmailSetting) {
         if (data) {
@@ -13318,39 +13152,32 @@ export class EmailSetting implements IEmailSetting {
         data["modifiedById"] = this.modifiedById;
         return data; 
     }
-
-    clone(): EmailSetting {
-        const json = this.toJSON();
-        let result = new EmailSetting();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IEmailSetting {
-    emailUserName: string | undefined;
-    emailHost: string | undefined;
-    emailPort: number;
-    emailPassword: string | undefined;
-    enableSSLForEmail: boolean;
-    emailFromAddress: string | undefined;
-    id: number;
-    companyID: number;
-    subID: number;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
+    emailUserName?: string | undefined;
+    emailHost?: string | undefined;
+    emailPort?: number;
+    emailPassword?: string | undefined;
+    enableSSLForEmail?: boolean;
+    emailFromAddress?: string | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 }
 
 export class EmailSettingListApiResult implements IEmailSettingListApiResult {
-    hasError!: boolean;
-    message!: string | undefined;
-    result!: EmailSetting[] | undefined;
-    totalCount!: number;
-    readonly totalRecord!: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: EmailSetting[] | undefined;
+    totalCount?: number;
+    readonly totalRecord?: number;
 
     constructor(data?: IEmailSettingListApiResult) {
         if (data) {
@@ -13395,29 +13222,22 @@ export class EmailSettingListApiResult implements IEmailSettingListApiResult {
         data["totalRecord"] = this.totalRecord;
         return data; 
     }
-
-    clone(): EmailSettingListApiResult {
-        const json = this.toJSON();
-        let result = new EmailSettingListApiResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IEmailSettingListApiResult {
-    hasError: boolean;
-    message: string | undefined;
-    result: EmailSetting[] | undefined;
-    totalCount: number;
-    totalRecord: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: EmailSetting[] | undefined;
+    totalCount?: number;
+    totalRecord?: number;
 }
 
 export class EmailSettingApiResult implements IEmailSettingApiResult {
-    hasError!: boolean;
-    message!: string | undefined;
-    result!: EmailSetting;
-    totalCount!: number;
-    readonly totalRecord!: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: EmailSetting;
+    totalCount?: number;
+    readonly totalRecord?: number;
 
     constructor(data?: IEmailSettingApiResult) {
         if (data) {
@@ -13454,29 +13274,22 @@ export class EmailSettingApiResult implements IEmailSettingApiResult {
         data["totalRecord"] = this.totalRecord;
         return data; 
     }
-
-    clone(): EmailSettingApiResult {
-        const json = this.toJSON();
-        let result = new EmailSettingApiResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IEmailSettingApiResult {
-    hasError: boolean;
-    message: string | undefined;
-    result: EmailSetting;
-    totalCount: number;
-    totalRecord: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: EmailSetting;
+    totalCount?: number;
+    totalRecord?: number;
 }
 
 export class IDTextViewModelListApiResult implements IIDTextViewModelListApiResult {
-    hasError!: boolean;
-    message!: string | undefined;
-    result!: IDTextViewModel[] | undefined;
-    totalCount!: number;
-    readonly totalRecord!: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: IDTextViewModel[] | undefined;
+    totalCount?: number;
+    readonly totalRecord?: number;
 
     constructor(data?: IIDTextViewModelListApiResult) {
         if (data) {
@@ -13521,27 +13334,20 @@ export class IDTextViewModelListApiResult implements IIDTextViewModelListApiResu
         data["totalRecord"] = this.totalRecord;
         return data; 
     }
-
-    clone(): IDTextViewModelListApiResult {
-        const json = this.toJSON();
-        let result = new IDTextViewModelListApiResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IIDTextViewModelListApiResult {
-    hasError: boolean;
-    message: string | undefined;
-    result: IDTextViewModel[] | undefined;
-    totalCount: number;
-    totalRecord: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: IDTextViewModel[] | undefined;
+    totalCount?: number;
+    totalRecord?: number;
 }
 
 export class ManageMailTemplateDTO implements IManageMailTemplateDTO {
     id!: number;
     emailTemplateTypeId!: number;
-    name!: string | undefined;
+    name?: string | undefined;
     subject!: string;
     body!: string;
 
@@ -13580,38 +13386,31 @@ export class ManageMailTemplateDTO implements IManageMailTemplateDTO {
         data["body"] = this.body;
         return data; 
     }
-
-    clone(): ManageMailTemplateDTO {
-        const json = this.toJSON();
-        let result = new ManageMailTemplateDTO();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IManageMailTemplateDTO {
     id: number;
     emailTemplateTypeId: number;
-    name: string | undefined;
+    name?: string | undefined;
     subject: string;
     body: string;
 }
 
 export class MailTemplateDTO implements IMailTemplateDTO {
-    id!: number;
-    name!: string | undefined;
-    subject!: string | undefined;
-    body!: string | undefined;
-    emailTemplateTypeId!: number;
-    templateType!: string | undefined;
-    companyID!: number;
-    subID!: number;
-    isActive!: boolean;
-    isDeleted!: boolean;
-    dateCreated!: Date;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
+    id?: number;
+    name?: string | undefined;
+    subject?: string | undefined;
+    body?: string | undefined;
+    emailTemplateTypeId?: number;
+    templateType?: string | undefined;
+    companyID?: number;
+    subID?: number;
+    isActive?: boolean;
+    isDeleted?: boolean;
+    dateCreated?: Date;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 
     constructor(data?: IMailTemplateDTO) {
         if (data) {
@@ -13666,38 +13465,31 @@ export class MailTemplateDTO implements IMailTemplateDTO {
         data["modifiedById"] = this.modifiedById;
         return data; 
     }
-
-    clone(): MailTemplateDTO {
-        const json = this.toJSON();
-        let result = new MailTemplateDTO();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IMailTemplateDTO {
-    id: number;
-    name: string | undefined;
-    subject: string | undefined;
-    body: string | undefined;
-    emailTemplateTypeId: number;
-    templateType: string | undefined;
-    companyID: number;
-    subID: number;
-    isActive: boolean;
-    isDeleted: boolean;
-    dateCreated: Date;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
+    id?: number;
+    name?: string | undefined;
+    subject?: string | undefined;
+    body?: string | undefined;
+    emailTemplateTypeId?: number;
+    templateType?: string | undefined;
+    companyID?: number;
+    subID?: number;
+    isActive?: boolean;
+    isDeleted?: boolean;
+    dateCreated?: Date;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 }
 
 export class MailTemplateDTOListApiResult implements IMailTemplateDTOListApiResult {
-    hasError!: boolean;
-    message!: string | undefined;
-    result!: MailTemplateDTO[] | undefined;
-    totalCount!: number;
-    readonly totalRecord!: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: MailTemplateDTO[] | undefined;
+    totalCount?: number;
+    readonly totalRecord?: number;
 
     constructor(data?: IMailTemplateDTOListApiResult) {
         if (data) {
@@ -13742,29 +13534,22 @@ export class MailTemplateDTOListApiResult implements IMailTemplateDTOListApiResu
         data["totalRecord"] = this.totalRecord;
         return data; 
     }
-
-    clone(): MailTemplateDTOListApiResult {
-        const json = this.toJSON();
-        let result = new MailTemplateDTOListApiResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IMailTemplateDTOListApiResult {
-    hasError: boolean;
-    message: string | undefined;
-    result: MailTemplateDTO[] | undefined;
-    totalCount: number;
-    totalRecord: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: MailTemplateDTO[] | undefined;
+    totalCount?: number;
+    totalRecord?: number;
 }
 
 export class MailTemplateDTOApiResult implements IMailTemplateDTOApiResult {
-    hasError!: boolean;
-    message!: string | undefined;
-    result!: MailTemplateDTO;
-    totalCount!: number;
-    readonly totalRecord!: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: MailTemplateDTO;
+    totalCount?: number;
+    readonly totalRecord?: number;
 
     constructor(data?: IMailTemplateDTOApiResult) {
         if (data) {
@@ -13801,45 +13586,38 @@ export class MailTemplateDTOApiResult implements IMailTemplateDTOApiResult {
         data["totalRecord"] = this.totalRecord;
         return data; 
     }
-
-    clone(): MailTemplateDTOApiResult {
-        const json = this.toJSON();
-        let result = new MailTemplateDTOApiResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IMailTemplateDTOApiResult {
-    hasError: boolean;
-    message: string | undefined;
-    result: MailTemplateDTO;
-    totalCount: number;
-    totalRecord: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: MailTemplateDTO;
+    totalCount?: number;
+    totalRecord?: number;
 }
 
 export class EmailLog implements IEmailLog {
-    sender!: string | undefined;
-    receiver!: string | undefined;
-    cc!: string | undefined;
-    bcc!: string | undefined;
-    subject!: string | undefined;
-    messageBody!: string | undefined;
-    hasAttachment!: boolean;
-    isSent!: boolean;
-    retires!: number;
-    dateSent!: Date | undefined;
-    dateToSend!: Date | undefined;
-    emailAttachments!: EmailLogAttachment[] | undefined;
-    id!: number;
-    companyID!: number;
-    subID!: number;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
+    sender?: string | undefined;
+    receiver?: string | undefined;
+    cc?: string | undefined;
+    bcc?: string | undefined;
+    subject?: string | undefined;
+    messageBody?: string | undefined;
+    hasAttachment?: boolean;
+    isSent?: boolean;
+    retires?: number;
+    dateSent?: Date | undefined;
+    dateToSend?: Date | undefined;
+    emailAttachments?: EmailLogAttachment[] | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 
     constructor(data?: IEmailLog) {
         if (data) {
@@ -13916,47 +13694,40 @@ export class EmailLog implements IEmailLog {
         data["modifiedById"] = this.modifiedById;
         return data; 
     }
-
-    clone(): EmailLog {
-        const json = this.toJSON();
-        let result = new EmailLog();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IEmailLog {
-    sender: string | undefined;
-    receiver: string | undefined;
-    cc: string | undefined;
-    bcc: string | undefined;
-    subject: string | undefined;
-    messageBody: string | undefined;
-    hasAttachment: boolean;
-    isSent: boolean;
-    retires: number;
-    dateSent: Date | undefined;
-    dateToSend: Date | undefined;
-    emailAttachments: EmailLogAttachment[] | undefined;
-    id: number;
-    companyID: number;
-    subID: number;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
+    sender?: string | undefined;
+    receiver?: string | undefined;
+    cc?: string | undefined;
+    bcc?: string | undefined;
+    subject?: string | undefined;
+    messageBody?: string | undefined;
+    hasAttachment?: boolean;
+    isSent?: boolean;
+    retires?: number;
+    dateSent?: Date | undefined;
+    dateToSend?: Date | undefined;
+    emailAttachments?: EmailLogAttachment[] | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 }
 
 export class EmailLogAttachment implements IEmailLogAttachment {
-    id!: number;
-    emailLogID!: number;
-    emailLog!: EmailLog;
-    folderOnServer!: string | undefined;
-    fileNameOnServer!: string | undefined;
-    emailFileName!: string | undefined;
-    dateCreated!: Date;
+    id?: number;
+    emailLogID?: number;
+    emailLog?: EmailLog;
+    folderOnServer?: string | undefined;
+    fileNameOnServer?: string | undefined;
+    emailFileName?: string | undefined;
+    dateCreated?: Date;
 
     constructor(data?: IEmailLogAttachment) {
         if (data) {
@@ -13997,47 +13768,40 @@ export class EmailLogAttachment implements IEmailLogAttachment {
         data["dateCreated"] = this.dateCreated ? this.dateCreated.toISOString() : <any>undefined;
         return data; 
     }
-
-    clone(): EmailLogAttachment {
-        const json = this.toJSON();
-        let result = new EmailLogAttachment();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IEmailLogAttachment {
-    id: number;
-    emailLogID: number;
-    emailLog: EmailLog;
-    folderOnServer: string | undefined;
-    fileNameOnServer: string | undefined;
-    emailFileName: string | undefined;
-    dateCreated: Date;
+    id?: number;
+    emailLogID?: number;
+    emailLog?: EmailLog;
+    folderOnServer?: string | undefined;
+    fileNameOnServer?: string | undefined;
+    emailFileName?: string | undefined;
+    dateCreated?: Date;
 }
 
 export class EmailLogDTO implements IEmailLogDTO {
-    id!: number;
-    companyID!: number;
-    subID!: number;
-    sender!: string | undefined;
-    receiver!: string | undefined;
-    cc!: string | undefined;
-    bcc!: string | undefined;
-    subject!: string | undefined;
-    messageBody!: string | undefined;
-    hasAttachment!: boolean;
-    isSent!: boolean;
-    retires!: number;
-    dateSent!: Date | undefined;
-    dateToSend!: Date | undefined;
-    isActive!: boolean;
-    isDeleted!: boolean;
-    dateCreated!: Date;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
-    emailAttachments!: EmailLogAttachment[] | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    sender?: string | undefined;
+    receiver?: string | undefined;
+    cc?: string | undefined;
+    bcc?: string | undefined;
+    subject?: string | undefined;
+    messageBody?: string | undefined;
+    hasAttachment?: boolean;
+    isSent?: boolean;
+    retires?: number;
+    dateSent?: Date | undefined;
+    dateToSend?: Date | undefined;
+    isActive?: boolean;
+    isDeleted?: boolean;
+    dateCreated?: Date;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
+    emailAttachments?: EmailLogAttachment[] | undefined;
 
     constructor(data?: IEmailLogDTO) {
         if (data) {
@@ -14114,45 +13878,38 @@ export class EmailLogDTO implements IEmailLogDTO {
         }
         return data; 
     }
-
-    clone(): EmailLogDTO {
-        const json = this.toJSON();
-        let result = new EmailLogDTO();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IEmailLogDTO {
-    id: number;
-    companyID: number;
-    subID: number;
-    sender: string | undefined;
-    receiver: string | undefined;
-    cc: string | undefined;
-    bcc: string | undefined;
-    subject: string | undefined;
-    messageBody: string | undefined;
-    hasAttachment: boolean;
-    isSent: boolean;
-    retires: number;
-    dateSent: Date | undefined;
-    dateToSend: Date | undefined;
-    isActive: boolean;
-    isDeleted: boolean;
-    dateCreated: Date;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
-    emailAttachments: EmailLogAttachment[] | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    sender?: string | undefined;
+    receiver?: string | undefined;
+    cc?: string | undefined;
+    bcc?: string | undefined;
+    subject?: string | undefined;
+    messageBody?: string | undefined;
+    hasAttachment?: boolean;
+    isSent?: boolean;
+    retires?: number;
+    dateSent?: Date | undefined;
+    dateToSend?: Date | undefined;
+    isActive?: boolean;
+    isDeleted?: boolean;
+    dateCreated?: Date;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
+    emailAttachments?: EmailLogAttachment[] | undefined;
 }
 
 export class EmailLogDTOIListApiResult implements IEmailLogDTOIListApiResult {
-    hasError!: boolean;
-    message!: string | undefined;
-    result!: EmailLogDTO[] | undefined;
-    totalCount!: number;
-    readonly totalRecord!: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: EmailLogDTO[] | undefined;
+    totalCount?: number;
+    readonly totalRecord?: number;
 
     constructor(data?: IEmailLogDTOIListApiResult) {
         if (data) {
@@ -14197,29 +13954,22 @@ export class EmailLogDTOIListApiResult implements IEmailLogDTOIListApiResult {
         data["totalRecord"] = this.totalRecord;
         return data; 
     }
-
-    clone(): EmailLogDTOIListApiResult {
-        const json = this.toJSON();
-        let result = new EmailLogDTOIListApiResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IEmailLogDTOIListApiResult {
-    hasError: boolean;
-    message: string | undefined;
-    result: EmailLogDTO[] | undefined;
-    totalCount: number;
-    totalRecord: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: EmailLogDTO[] | undefined;
+    totalCount?: number;
+    totalRecord?: number;
 }
 
 export class EmailLogDTOApiResult implements IEmailLogDTOApiResult {
-    hasError!: boolean;
-    message!: string | undefined;
-    result!: EmailLogDTO;
-    totalCount!: number;
-    readonly totalRecord!: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: EmailLogDTO;
+    totalCount?: number;
+    readonly totalRecord?: number;
 
     constructor(data?: IEmailLogDTOApiResult) {
         if (data) {
@@ -14256,43 +14006,36 @@ export class EmailLogDTOApiResult implements IEmailLogDTOApiResult {
         data["totalRecord"] = this.totalRecord;
         return data; 
     }
-
-    clone(): EmailLogDTOApiResult {
-        const json = this.toJSON();
-        let result = new EmailLogDTOApiResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IEmailLogDTOApiResult {
-    hasError: boolean;
-    message: string | undefined;
-    result: EmailLogDTO;
-    totalCount: number;
-    totalRecord: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: EmailLogDTO;
+    totalCount?: number;
+    totalRecord?: number;
 }
 
 export class TrainingDTO implements ITrainingDTO {
-    id!: number;
-    title!: string | undefined;
-    descriptions!: string | undefined;
-    consultantId!: number;
-    consultantName!: string | undefined;
-    ref!: string | undefined;
-    state!: string | undefined;
-    stateId!: number;
-    location!: string | undefined;
-    fee!: number;
-    duration!: number;
-    totalCandidates!: number;
-    isActive!: boolean;
-    durationLength!: number;
-    startDate!: Date;
-    endDate!: Date;
-    datePosted!: Date;
-    dateApproved!: Date | undefined;
-    readonly durationLengthName!: string | undefined;
+    id?: number;
+    title?: string | undefined;
+    descriptions?: string | undefined;
+    consultantId?: number;
+    consultantName?: string | undefined;
+    ref?: string | undefined;
+    state?: string | undefined;
+    stateId?: number;
+    location?: string | undefined;
+    fee?: number;
+    duration?: number;
+    totalCandidates?: number;
+    isActive?: boolean;
+    durationLength?: number;
+    startDate?: Date;
+    endDate?: Date;
+    datePosted?: Date;
+    dateApproved?: Date | undefined;
+    readonly durationLengthName?: string | undefined;
 
     constructor(data?: ITrainingDTO) {
         if (data) {
@@ -14357,43 +14100,36 @@ export class TrainingDTO implements ITrainingDTO {
         data["durationLengthName"] = this.durationLengthName;
         return data; 
     }
-
-    clone(): TrainingDTO {
-        const json = this.toJSON();
-        let result = new TrainingDTO();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface ITrainingDTO {
-    id: number;
-    title: string | undefined;
-    descriptions: string | undefined;
-    consultantId: number;
-    consultantName: string | undefined;
-    ref: string | undefined;
-    state: string | undefined;
-    stateId: number;
-    location: string | undefined;
-    fee: number;
-    duration: number;
-    totalCandidates: number;
-    isActive: boolean;
-    durationLength: number;
-    startDate: Date;
-    endDate: Date;
-    datePosted: Date;
-    dateApproved: Date | undefined;
-    durationLengthName: string | undefined;
+    id?: number;
+    title?: string | undefined;
+    descriptions?: string | undefined;
+    consultantId?: number;
+    consultantName?: string | undefined;
+    ref?: string | undefined;
+    state?: string | undefined;
+    stateId?: number;
+    location?: string | undefined;
+    fee?: number;
+    duration?: number;
+    totalCandidates?: number;
+    isActive?: boolean;
+    durationLength?: number;
+    startDate?: Date;
+    endDate?: Date;
+    datePosted?: Date;
+    dateApproved?: Date | undefined;
+    durationLengthName?: string | undefined;
 }
 
 export class TrainingDTOIListOdataResult implements ITrainingDTOIListOdataResult {
-    id!: number;
-    hasError!: boolean;
-    message!: string | undefined;
-    value!: TrainingDTO[] | undefined;
-    totalCount!: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: TrainingDTO[] | undefined;
+    totalCount?: number;
 
     constructor(data?: ITrainingDTOIListOdataResult) {
         if (data) {
@@ -14438,29 +14174,22 @@ export class TrainingDTOIListOdataResult implements ITrainingDTOIListOdataResult
         data["totalCount"] = this.totalCount;
         return data; 
     }
-
-    clone(): TrainingDTOIListOdataResult {
-        const json = this.toJSON();
-        let result = new TrainingDTOIListOdataResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface ITrainingDTOIListOdataResult {
-    id: number;
-    hasError: boolean;
-    message: string | undefined;
-    value: TrainingDTO[] | undefined;
-    totalCount: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: TrainingDTO[] | undefined;
+    totalCount?: number;
 }
 
 export class TrainingDTOOdataResult implements ITrainingDTOOdataResult {
-    id!: number;
-    hasError!: boolean;
-    message!: string | undefined;
-    value!: TrainingDTO;
-    totalCount!: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: TrainingDTO;
+    totalCount?: number;
 
     constructor(data?: ITrainingDTOOdataResult) {
         if (data) {
@@ -14497,21 +14226,14 @@ export class TrainingDTOOdataResult implements ITrainingDTOOdataResult {
         data["totalCount"] = this.totalCount;
         return data; 
     }
-
-    clone(): TrainingDTOOdataResult {
-        const json = this.toJSON();
-        let result = new TrainingDTOOdataResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface ITrainingDTOOdataResult {
-    id: number;
-    hasError: boolean;
-    message: string | undefined;
-    value: TrainingDTO;
-    totalCount: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: TrainingDTO;
+    totalCount?: number;
 }
 
 export class TrainingApplicantDTO implements ITrainingApplicantDTO {
@@ -14520,7 +14242,7 @@ export class TrainingApplicantDTO implements ITrainingApplicantDTO {
     email!: string;
     phone!: string;
     attendees!: number;
-    enquiry!: string | undefined;
+    enquiry?: string | undefined;
 
     constructor(data?: ITrainingApplicantDTO) {
         if (data) {
@@ -14559,13 +14281,6 @@ export class TrainingApplicantDTO implements ITrainingApplicantDTO {
         data["enquiry"] = this.enquiry;
         return data; 
     }
-
-    clone(): TrainingApplicantDTO {
-        const json = this.toJSON();
-        let result = new TrainingApplicantDTO();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface ITrainingApplicantDTO {
@@ -14574,22 +14289,22 @@ export interface ITrainingApplicantDTO {
     email: string;
     phone: string;
     attendees: number;
-    enquiry: string | undefined;
+    enquiry?: string | undefined;
 }
 
 export class ManageTrainingDTO implements IManageTrainingDTO {
-    id!: number;
+    id?: number;
     title!: string;
     descriptions!: string;
-    ref!: string | undefined;
+    ref?: string | undefined;
     stateId!: number;
     location!: string;
     fee!: number;
     duration!: number;
     durationLength!: number;
-    startDate!: Date;
-    endDate!: Date;
-    referenceNumber!: string | undefined;
+    startDate?: Date;
+    endDate?: Date;
+    referenceNumber?: string | undefined;
 
     constructor(data?: IManageTrainingDTO) {
         if (data) {
@@ -14640,42 +14355,35 @@ export class ManageTrainingDTO implements IManageTrainingDTO {
         data["referenceNumber"] = this.referenceNumber;
         return data; 
     }
-
-    clone(): ManageTrainingDTO {
-        const json = this.toJSON();
-        let result = new ManageTrainingDTO();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IManageTrainingDTO {
-    id: number;
+    id?: number;
     title: string;
     descriptions: string;
-    ref: string | undefined;
+    ref?: string | undefined;
     stateId: number;
     location: string;
     fee: number;
     duration: number;
     durationLength: number;
-    startDate: Date;
-    endDate: Date;
-    referenceNumber: string | undefined;
+    startDate?: Date;
+    endDate?: Date;
+    referenceNumber?: string | undefined;
 }
 
 export class Alertmode implements IAlertmode {
-    id!: number;
-    name!: string | undefined;
-    registeredUsers!: RegisteredUser[] | undefined;
-    companyID!: number;
-    subID!: number;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
+    id?: number;
+    name?: string | undefined;
+    registeredUsers?: RegisteredUser[] | undefined;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 
     constructor(data?: IAlertmode) {
         if (data) {
@@ -14732,61 +14440,54 @@ export class Alertmode implements IAlertmode {
         data["modifiedById"] = this.modifiedById;
         return data; 
     }
-
-    clone(): Alertmode {
-        const json = this.toJSON();
-        let result = new Alertmode();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IAlertmode {
-    id: number;
-    name: string | undefined;
-    registeredUsers: RegisteredUser[] | undefined;
-    companyID: number;
-    subID: number;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
+    id?: number;
+    name?: string | undefined;
+    registeredUsers?: RegisteredUser[] | undefined;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 }
 
 export class Job implements IJob {
-    details!: string | undefined;
-    requirements!: string | undefined;
-    position!: string | undefined;
-    recruiter!: string | undefined;
-    countryId!: number;
-    stateId!: number;
-    location!: string | undefined;
-    jobTypeId!: number;
-    minExpRequired!: number | undefined;
-    maxExpRequired!: number | undefined;
-    minSalary!: number | undefined;
-    maxSalary!: number | undefined;
-    minQualificationId!: number | undefined;
-    maxQualificationId!: number | undefined;
-    quizId!: number | undefined;
-    currencyId!: number | undefined;
-    skillAreaId!: number;
-    reviewers!: string | undefined;
-    clicks!: number;
-    endDate!: Date;
-    datePosted!: Date;
-    ref!: string | undefined;
-    id!: number;
-    companyID!: number;
-    subID!: number;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
+    details?: string | undefined;
+    requirements?: string | undefined;
+    position?: string | undefined;
+    recruiter?: string | undefined;
+    countryId?: number;
+    stateId?: number;
+    location?: string | undefined;
+    jobTypeId?: number;
+    minExpRequired?: number | undefined;
+    maxExpRequired?: number | undefined;
+    minSalary?: number | undefined;
+    maxSalary?: number | undefined;
+    minQualificationId?: number | undefined;
+    maxQualificationId?: number | undefined;
+    quizId?: number | undefined;
+    currencyId?: number | undefined;
+    skillAreaId?: number;
+    reviewers?: string | undefined;
+    clicks?: number;
+    endDate?: Date;
+    datePosted?: Date;
+    ref?: string | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 
     constructor(data?: IJob) {
         if (data) {
@@ -14875,63 +14576,56 @@ export class Job implements IJob {
         data["modifiedById"] = this.modifiedById;
         return data; 
     }
-
-    clone(): Job {
-        const json = this.toJSON();
-        let result = new Job();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IJob {
-    details: string | undefined;
-    requirements: string | undefined;
-    position: string | undefined;
-    recruiter: string | undefined;
-    countryId: number;
-    stateId: number;
-    location: string | undefined;
-    jobTypeId: number;
-    minExpRequired: number | undefined;
-    maxExpRequired: number | undefined;
-    minSalary: number | undefined;
-    maxSalary: number | undefined;
-    minQualificationId: number | undefined;
-    maxQualificationId: number | undefined;
-    quizId: number | undefined;
-    currencyId: number | undefined;
-    skillAreaId: number;
-    reviewers: string | undefined;
-    clicks: number;
-    endDate: Date;
-    datePosted: Date;
-    ref: string | undefined;
-    id: number;
-    companyID: number;
-    subID: number;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
+    details?: string | undefined;
+    requirements?: string | undefined;
+    position?: string | undefined;
+    recruiter?: string | undefined;
+    countryId?: number;
+    stateId?: number;
+    location?: string | undefined;
+    jobTypeId?: number;
+    minExpRequired?: number | undefined;
+    maxExpRequired?: number | undefined;
+    minSalary?: number | undefined;
+    maxSalary?: number | undefined;
+    minQualificationId?: number | undefined;
+    maxQualificationId?: number | undefined;
+    quizId?: number | undefined;
+    currencyId?: number | undefined;
+    skillAreaId?: number;
+    reviewers?: string | undefined;
+    clicks?: number;
+    endDate?: Date;
+    datePosted?: Date;
+    ref?: string | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 }
 
 export class AppliedApplicantStage implements IAppliedApplicantStage {
-    appliedApplicantId!: number;
-    jobId!: number;
-    registeredUserId!: number;
-    recruitmentStageId!: number | undefined;
-    id!: number;
-    companyID!: number;
-    subID!: number;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
+    appliedApplicantId?: number;
+    jobId?: number;
+    registeredUserId?: number;
+    recruitmentStageId?: number | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 
     constructor(data?: IAppliedApplicantStage) {
         if (data) {
@@ -14984,54 +14678,47 @@ export class AppliedApplicantStage implements IAppliedApplicantStage {
         data["modifiedById"] = this.modifiedById;
         return data; 
     }
-
-    clone(): AppliedApplicantStage {
-        const json = this.toJSON();
-        let result = new AppliedApplicantStage();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IAppliedApplicantStage {
-    appliedApplicantId: number;
-    jobId: number;
-    registeredUserId: number;
-    recruitmentStageId: number | undefined;
-    id: number;
-    companyID: number;
-    subID: number;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
+    appliedApplicantId?: number;
+    jobId?: number;
+    registeredUserId?: number;
+    recruitmentStageId?: number | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 }
 
 export class AppliedApplicant implements IAppliedApplicant {
-    jobId!: number;
-    applicantCode!: string | undefined;
-    registeredUserId!: number;
-    dateApplied!: Date;
-    lastUpdate!: Date | undefined;
-    alertSent!: boolean;
-    coverLetter!: string | undefined;
-    jobLocation!: number | undefined;
-    recruitmentStageId!: number | undefined;
-    testPassCode!: string | undefined;
-    job!: Job;
-    registeredUser!: RegisteredUser;
-    appliedApplicantStages!: AppliedApplicantStage[] | undefined;
-    id!: number;
-    companyID!: number;
-    subID!: number;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
+    jobId?: number;
+    applicantCode?: string | undefined;
+    registeredUserId?: number;
+    dateApplied?: Date;
+    lastUpdate?: Date | undefined;
+    alertSent?: boolean;
+    coverLetter?: string | undefined;
+    jobLocation?: number | undefined;
+    recruitmentStageId?: number | undefined;
+    testPassCode?: string | undefined;
+    job?: Job;
+    registeredUser?: RegisteredUser;
+    appliedApplicantStages?: AppliedApplicantStage[] | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 
     constructor(data?: IAppliedApplicant) {
         if (data) {
@@ -15110,54 +14797,47 @@ export class AppliedApplicant implements IAppliedApplicant {
         data["modifiedById"] = this.modifiedById;
         return data; 
     }
-
-    clone(): AppliedApplicant {
-        const json = this.toJSON();
-        let result = new AppliedApplicant();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IAppliedApplicant {
-    jobId: number;
-    applicantCode: string | undefined;
-    registeredUserId: number;
-    dateApplied: Date;
-    lastUpdate: Date | undefined;
-    alertSent: boolean;
-    coverLetter: string | undefined;
-    jobLocation: number | undefined;
-    recruitmentStageId: number | undefined;
-    testPassCode: string | undefined;
-    job: Job;
-    registeredUser: RegisteredUser;
-    appliedApplicantStages: AppliedApplicantStage[] | undefined;
-    id: number;
-    companyID: number;
-    subID: number;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
+    jobId?: number;
+    applicantCode?: string | undefined;
+    registeredUserId?: number;
+    dateApplied?: Date;
+    lastUpdate?: Date | undefined;
+    alertSent?: boolean;
+    coverLetter?: string | undefined;
+    jobLocation?: number | undefined;
+    recruitmentStageId?: number | undefined;
+    testPassCode?: string | undefined;
+    job?: Job;
+    registeredUser?: RegisteredUser;
+    appliedApplicantStages?: AppliedApplicantStage[] | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 }
 
 export class JobCourse implements IJobCourse {
-    courseId!: number;
-    jobId!: number;
-    course!: Course;
-    job!: Job;
-    id!: number;
-    companyID!: number;
-    subID!: number;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
+    courseId?: number;
+    jobId?: number;
+    course?: Course;
+    job?: Job;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 
     constructor(data?: IJobCourse) {
         if (data) {
@@ -15210,43 +14890,36 @@ export class JobCourse implements IJobCourse {
         data["modifiedById"] = this.modifiedById;
         return data; 
     }
-
-    clone(): JobCourse {
-        const json = this.toJSON();
-        let result = new JobCourse();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IJobCourse {
-    courseId: number;
-    jobId: number;
-    course: Course;
-    job: Job;
-    id: number;
-    companyID: number;
-    subID: number;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
+    courseId?: number;
+    jobId?: number;
+    course?: Course;
+    job?: Job;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 }
 
 export class Course implements ICourse {
-    name!: string | undefined;
-    jobCourses!: JobCourse[] | undefined;
-    id!: number;
-    companyID!: number;
-    subID!: number;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
+    name?: string | undefined;
+    jobCourses?: JobCourse[] | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 
     constructor(data?: ICourse) {
         if (data) {
@@ -15303,43 +14976,36 @@ export class Course implements ICourse {
         data["modifiedById"] = this.modifiedById;
         return data; 
     }
-
-    clone(): Course {
-        const json = this.toJSON();
-        let result = new Course();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface ICourse {
-    name: string | undefined;
-    jobCourses: JobCourse[] | undefined;
-    id: number;
-    companyID: number;
-    subID: number;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
+    name?: string | undefined;
+    jobCourses?: JobCourse[] | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 }
 
 export class Qualification implements IQualification {
-    categoryId!: number;
-    name!: string | undefined;
-    code!: string | undefined;
-    point!: number | undefined;
-    id!: number;
-    companyID!: number;
-    subID!: number;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
+    categoryId?: number;
+    name?: string | undefined;
+    code?: string | undefined;
+    point?: number | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 
     constructor(data?: IQualification) {
         if (data) {
@@ -15392,42 +15058,35 @@ export class Qualification implements IQualification {
         data["modifiedById"] = this.modifiedById;
         return data; 
     }
-
-    clone(): Qualification {
-        const json = this.toJSON();
-        let result = new Qualification();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IQualification {
-    categoryId: number;
-    name: string | undefined;
-    code: string | undefined;
-    point: number | undefined;
-    id: number;
-    companyID: number;
-    subID: number;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
+    categoryId?: number;
+    name?: string | undefined;
+    code?: string | undefined;
+    point?: number | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 }
 
 export class Institution implements IInstitution {
-    name!: string | undefined;
-    id!: number;
-    companyID!: number;
-    subID!: number;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
+    name?: string | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 
     constructor(data?: IInstitution) {
         if (data) {
@@ -15474,51 +15133,44 @@ export class Institution implements IInstitution {
         data["modifiedById"] = this.modifiedById;
         return data; 
     }
-
-    clone(): Institution {
-        const json = this.toJSON();
-        let result = new Institution();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IInstitution {
-    name: string | undefined;
-    id: number;
-    companyID: number;
-    subID: number;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
+    name?: string | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 }
 
 export class Education implements IEducation {
-    registeredUserId!: number;
-    qualificationId!: number | undefined;
-    disciplineId!: number | undefined;
-    startDate!: Date;
-    endDate!: Date;
-    gradeId!: number | undefined;
-    institutionId!: number | undefined;
-    institutionName!: string | undefined;
-    courseId!: number | undefined;
-    course!: Course;
-    qualification!: Qualification;
-    institution!: Institution;
-    registeredUser!: RegisteredUser;
-    id!: number;
-    companyID!: number;
-    subID!: number;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
+    registeredUserId?: number;
+    qualificationId?: number | undefined;
+    disciplineId?: number | undefined;
+    startDate?: Date;
+    endDate?: Date;
+    gradeId?: number | undefined;
+    institutionId?: number | undefined;
+    institutionName?: string | undefined;
+    courseId?: number | undefined;
+    course?: Course;
+    qualification?: Qualification;
+    institution?: Institution;
+    registeredUser?: RegisteredUser;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 
     constructor(data?: IEducation) {
         if (data) {
@@ -15589,53 +15241,46 @@ export class Education implements IEducation {
         data["modifiedById"] = this.modifiedById;
         return data; 
     }
-
-    clone(): Education {
-        const json = this.toJSON();
-        let result = new Education();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IEducation {
-    registeredUserId: number;
-    qualificationId: number | undefined;
-    disciplineId: number | undefined;
-    startDate: Date;
-    endDate: Date;
-    gradeId: number | undefined;
-    institutionId: number | undefined;
-    institutionName: string | undefined;
-    courseId: number | undefined;
-    course: Course;
-    qualification: Qualification;
-    institution: Institution;
-    registeredUser: RegisteredUser;
-    id: number;
-    companyID: number;
-    subID: number;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
+    registeredUserId?: number;
+    qualificationId?: number | undefined;
+    disciplineId?: number | undefined;
+    startDate?: Date;
+    endDate?: Date;
+    gradeId?: number | undefined;
+    institutionId?: number | undefined;
+    institutionName?: string | undefined;
+    courseId?: number | undefined;
+    course?: Course;
+    qualification?: Qualification;
+    institution?: Institution;
+    registeredUser?: RegisteredUser;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 }
 
 export class RegisteredUserResume implements IRegisteredUserResume {
-    registeredUserId!: number;
-    cvResume!: string | undefined;
-    videoResume!: string | undefined;
-    id!: number;
-    companyID!: number;
-    subID!: number;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
+    registeredUserId?: number;
+    cvResume?: string | undefined;
+    videoResume?: string | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 
     constructor(data?: IRegisteredUserResume) {
         if (data) {
@@ -15686,60 +15331,53 @@ export class RegisteredUserResume implements IRegisteredUserResume {
         data["modifiedById"] = this.modifiedById;
         return data; 
     }
-
-    clone(): RegisteredUserResume {
-        const json = this.toJSON();
-        let result = new RegisteredUserResume();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IRegisteredUserResume {
-    registeredUserId: number;
-    cvResume: string | undefined;
-    videoResume: string | undefined;
-    id: number;
-    companyID: number;
-    subID: number;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
+    registeredUserId?: number;
+    cvResume?: string | undefined;
+    videoResume?: string | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 }
 
 export class Company implements ICompany {
-    id!: number;
-    administratorId!: number;
-    name!: string | undefined;
-    contactPerson!: string | undefined;
-    email!: string | undefined;
-    mobile!: string | undefined;
-    nowRecruiting!: boolean;
-    registered!: boolean;
-    sectorId!: number;
-    stateId!: number;
-    address!: string | undefined;
-    logo!: string | undefined;
-    employerTypeId!: number | undefined;
-    accountTypeId!: number;
-    isPlanActivated!: boolean;
-    isTrial!: boolean;
-    clicks!: number | undefined;
-    subscriptionPlanId!: number | undefined;
-    lastBillingDate!: Date | undefined;
-    lastPaymentDate!: Date | undefined;
-    trialDueDate!: Date | undefined;
-    licenseUsage!: number;
-    aboutCompany!: string | undefined;
-    code!: string | undefined;
-    modified!: Date | undefined;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    jobs!: Job[] | undefined;
+    id?: number;
+    administratorId?: number;
+    name?: string | undefined;
+    contactPerson?: string | undefined;
+    email?: string | undefined;
+    mobile?: string | undefined;
+    nowRecruiting?: boolean;
+    registered?: boolean;
+    sectorId?: number;
+    stateId?: number;
+    address?: string | undefined;
+    logo?: string | undefined;
+    employerTypeId?: number | undefined;
+    accountTypeId?: number;
+    isPlanActivated?: boolean;
+    isTrial?: boolean;
+    clicks?: number | undefined;
+    subscriptionPlanId?: number | undefined;
+    lastBillingDate?: Date | undefined;
+    lastPaymentDate?: Date | undefined;
+    trialDueDate?: Date | undefined;
+    licenseUsage?: number;
+    aboutCompany?: string | undefined;
+    code?: string | undefined;
+    modified?: Date | undefined;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    jobs?: Job[] | undefined;
 
     constructor(data?: ICompany) {
         if (data) {
@@ -15832,59 +15470,52 @@ export class Company implements ICompany {
         }
         return data; 
     }
-
-    clone(): Company {
-        const json = this.toJSON();
-        let result = new Company();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface ICompany {
-    id: number;
-    administratorId: number;
-    name: string | undefined;
-    contactPerson: string | undefined;
-    email: string | undefined;
-    mobile: string | undefined;
-    nowRecruiting: boolean;
-    registered: boolean;
-    sectorId: number;
-    stateId: number;
-    address: string | undefined;
-    logo: string | undefined;
-    employerTypeId: number | undefined;
-    accountTypeId: number;
-    isPlanActivated: boolean;
-    isTrial: boolean;
-    clicks: number | undefined;
-    subscriptionPlanId: number | undefined;
-    lastBillingDate: Date | undefined;
-    lastPaymentDate: Date | undefined;
-    trialDueDate: Date | undefined;
-    licenseUsage: number;
-    aboutCompany: string | undefined;
-    code: string | undefined;
-    modified: Date | undefined;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
-    jobs: Job[] | undefined;
+    id?: number;
+    administratorId?: number;
+    name?: string | undefined;
+    contactPerson?: string | undefined;
+    email?: string | undefined;
+    mobile?: string | undefined;
+    nowRecruiting?: boolean;
+    registered?: boolean;
+    sectorId?: number;
+    stateId?: number;
+    address?: string | undefined;
+    logo?: string | undefined;
+    employerTypeId?: number | undefined;
+    accountTypeId?: number;
+    isPlanActivated?: boolean;
+    isTrial?: boolean;
+    clicks?: number | undefined;
+    subscriptionPlanId?: number | undefined;
+    lastBillingDate?: Date | undefined;
+    lastPaymentDate?: Date | undefined;
+    trialDueDate?: Date | undefined;
+    licenseUsage?: number;
+    aboutCompany?: string | undefined;
+    code?: string | undefined;
+    modified?: Date | undefined;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    jobs?: Job[] | undefined;
 }
 
 export class CompanyGroup implements ICompanyGroup {
-    id!: number;
-    name!: string | undefined;
-    company!: Company;
-    companyID!: number;
-    subID!: number;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
+    id?: number;
+    name?: string | undefined;
+    company?: Company;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 
     constructor(data?: ICompanyGroup) {
         if (data) {
@@ -15933,43 +15564,36 @@ export class CompanyGroup implements ICompanyGroup {
         data["modifiedById"] = this.modifiedById;
         return data; 
     }
-
-    clone(): CompanyGroup {
-        const json = this.toJSON();
-        let result = new CompanyGroup();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface ICompanyGroup {
-    id: number;
-    name: string | undefined;
-    company: Company;
-    companyID: number;
-    subID: number;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
+    id?: number;
+    name?: string | undefined;
+    company?: Company;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 }
 
 export class GroupApplicant implements IGroupApplicant {
-    registeredUserId!: number;
-    companyGroupId!: number;
-    companyGroup!: CompanyGroup;
-    registeredUser!: RegisteredUser;
-    id!: number;
-    companyID!: number;
-    subID!: number;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
+    registeredUserId?: number;
+    companyGroupId?: number;
+    companyGroup?: CompanyGroup;
+    registeredUser?: RegisteredUser;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 
     constructor(data?: IGroupApplicant) {
         if (data) {
@@ -16022,46 +15646,39 @@ export class GroupApplicant implements IGroupApplicant {
         data["modifiedById"] = this.modifiedById;
         return data; 
     }
-
-    clone(): GroupApplicant {
-        const json = this.toJSON();
-        let result = new GroupApplicant();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IGroupApplicant {
-    registeredUserId: number;
-    companyGroupId: number;
-    companyGroup: CompanyGroup;
-    registeredUser: RegisteredUser;
-    id: number;
-    companyID: number;
-    subID: number;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
+    registeredUserId?: number;
+    companyGroupId?: number;
+    companyGroup?: CompanyGroup;
+    registeredUser?: RegisteredUser;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 }
 
 export class ProfessionalBody implements IProfessionalBody {
-    sectorId!: number;
-    name!: string | undefined;
-    code!: string | undefined;
-    website!: string | undefined;
-    certifications!: Certification[] | undefined;
-    id!: number;
-    companyID!: number;
-    subID!: number;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
+    sectorId?: number;
+    name?: string | undefined;
+    code?: string | undefined;
+    website?: string | undefined;
+    certifications?: Certification[] | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 
     constructor(data?: IProfessionalBody) {
         if (data) {
@@ -16124,48 +15741,41 @@ export class ProfessionalBody implements IProfessionalBody {
         data["modifiedById"] = this.modifiedById;
         return data; 
     }
-
-    clone(): ProfessionalBody {
-        const json = this.toJSON();
-        let result = new ProfessionalBody();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IProfessionalBody {
-    sectorId: number;
-    name: string | undefined;
-    code: string | undefined;
-    website: string | undefined;
-    certifications: Certification[] | undefined;
-    id: number;
-    companyID: number;
-    subID: number;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
+    sectorId?: number;
+    name?: string | undefined;
+    code?: string | undefined;
+    website?: string | undefined;
+    certifications?: Certification[] | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 }
 
 export class ApplicantCertification implements IApplicantCertification {
-    registeredUserId!: number;
-    year!: number;
-    certificationId!: number;
-    certificationName!: string | undefined;
-    certification!: Certification;
-    registeredUser!: RegisteredUser;
-    id!: number;
-    companyID!: number;
-    subID!: number;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
+    registeredUserId?: number;
+    year?: number;
+    certificationId?: number;
+    certificationName?: string | undefined;
+    certification?: Certification;
+    registeredUser?: RegisteredUser;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 
     constructor(data?: IApplicantCertification) {
         if (data) {
@@ -16222,49 +15832,42 @@ export class ApplicantCertification implements IApplicantCertification {
         data["modifiedById"] = this.modifiedById;
         return data; 
     }
-
-    clone(): ApplicantCertification {
-        const json = this.toJSON();
-        let result = new ApplicantCertification();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IApplicantCertification {
-    registeredUserId: number;
-    year: number;
-    certificationId: number;
-    certificationName: string | undefined;
-    certification: Certification;
-    registeredUser: RegisteredUser;
-    id: number;
-    companyID: number;
-    subID: number;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
+    registeredUserId?: number;
+    year?: number;
+    certificationId?: number;
+    certificationName?: string | undefined;
+    certification?: Certification;
+    registeredUser?: RegisteredUser;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 }
 
 export class Certification implements ICertification {
-    professionalBodyId!: number;
-    name!: string | undefined;
-    code!: string | undefined;
-    point!: number | undefined;
-    professionalBody!: ProfessionalBody;
-    applicantCertifications!: ApplicantCertification[] | undefined;
-    id!: number;
-    companyID!: number;
-    subID!: number;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
+    professionalBodyId?: number;
+    name?: string | undefined;
+    code?: string | undefined;
+    point?: number | undefined;
+    professionalBody?: ProfessionalBody;
+    applicantCertifications?: ApplicantCertification[] | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 
     constructor(data?: ICertification) {
         if (data) {
@@ -16329,47 +15932,40 @@ export class Certification implements ICertification {
         data["modifiedById"] = this.modifiedById;
         return data; 
     }
-
-    clone(): Certification {
-        const json = this.toJSON();
-        let result = new Certification();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface ICertification {
-    professionalBodyId: number;
-    name: string | undefined;
-    code: string | undefined;
-    point: number | undefined;
-    professionalBody: ProfessionalBody;
-    applicantCertifications: ApplicantCertification[] | undefined;
-    id: number;
-    companyID: number;
-    subID: number;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
+    professionalBodyId?: number;
+    name?: string | undefined;
+    code?: string | undefined;
+    point?: number | undefined;
+    professionalBody?: ProfessionalBody;
+    applicantCertifications?: ApplicantCertification[] | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 }
 
 export class CoverLetter implements ICoverLetter {
-    registeredUserId!: number;
-    name!: string | undefined;
-    content!: string | undefined;
-    registeredUser!: RegisteredUser;
-    id!: number;
-    companyID!: number;
-    subID!: number;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
+    registeredUserId?: number;
+    name?: string | undefined;
+    content?: string | undefined;
+    registeredUser?: RegisteredUser;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 
     constructor(data?: ICoverLetter) {
         if (data) {
@@ -16422,42 +16018,35 @@ export class CoverLetter implements ICoverLetter {
         data["modifiedById"] = this.modifiedById;
         return data; 
     }
-
-    clone(): CoverLetter {
-        const json = this.toJSON();
-        let result = new CoverLetter();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface ICoverLetter {
-    registeredUserId: number;
-    name: string | undefined;
-    content: string | undefined;
-    registeredUser: RegisteredUser;
-    id: number;
-    companyID: number;
-    subID: number;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
+    registeredUserId?: number;
+    name?: string | undefined;
+    content?: string | undefined;
+    registeredUser?: RegisteredUser;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 }
 
 export class SkillArea implements ISkillArea {
-    name!: string | undefined;
-    id!: number;
-    companyID!: number;
-    subID!: number;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
+    name?: string | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 
     constructor(data?: ISkillArea) {
         if (data) {
@@ -16504,42 +16093,35 @@ export class SkillArea implements ISkillArea {
         data["modifiedById"] = this.modifiedById;
         return data; 
     }
-
-    clone(): SkillArea {
-        const json = this.toJSON();
-        let result = new SkillArea();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface ISkillArea {
-    name: string | undefined;
-    id: number;
-    companyID: number;
-    subID: number;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
+    name?: string | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 }
 
 export class DesiredFunctionalArea implements IDesiredFunctionalArea {
-    registeredUserId!: number;
-    skillAreaId!: number;
-    registeredUser!: RegisteredUser;
-    skillArea!: SkillArea;
-    id!: number;
-    companyID!: number;
-    subID!: number;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
+    registeredUserId?: number;
+    skillAreaId?: number;
+    registeredUser?: RegisteredUser;
+    skillArea?: SkillArea;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 
     constructor(data?: IDesiredFunctionalArea) {
         if (data) {
@@ -16592,44 +16174,37 @@ export class DesiredFunctionalArea implements IDesiredFunctionalArea {
         data["modifiedById"] = this.modifiedById;
         return data; 
     }
-
-    clone(): DesiredFunctionalArea {
-        const json = this.toJSON();
-        let result = new DesiredFunctionalArea();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IDesiredFunctionalArea {
-    registeredUserId: number;
-    skillAreaId: number;
-    registeredUser: RegisteredUser;
-    skillArea: SkillArea;
-    id: number;
-    companyID: number;
-    subID: number;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
+    registeredUserId?: number;
+    skillAreaId?: number;
+    registeredUser?: RegisteredUser;
+    skillArea?: SkillArea;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 }
 
 export class State implements IState {
-    name!: string | undefined;
-    visibleToJobSeekers!: boolean | undefined;
-    countryId!: number | undefined;
-    id!: number;
-    companyID!: number;
-    subID!: number;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
+    name?: string | undefined;
+    visibleToJobSeekers?: boolean | undefined;
+    countryId?: number | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 
     constructor(data?: IState) {
         if (data) {
@@ -16680,44 +16255,37 @@ export class State implements IState {
         data["modifiedById"] = this.modifiedById;
         return data; 
     }
-
-    clone(): State {
-        const json = this.toJSON();
-        let result = new State();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IState {
-    name: string | undefined;
-    visibleToJobSeekers: boolean | undefined;
-    countryId: number | undefined;
-    id: number;
-    companyID: number;
-    subID: number;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
+    name?: string | undefined;
+    visibleToJobSeekers?: boolean | undefined;
+    countryId?: number | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 }
 
 export class DesiredJobLocation implements IDesiredJobLocation {
-    registeredUserId!: number;
-    stateId!: number;
-    registeredUser!: RegisteredUser;
-    state!: State;
-    id!: number;
-    companyID!: number;
-    subID!: number;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
+    registeredUserId?: number;
+    stateId?: number;
+    registeredUser?: RegisteredUser;
+    state?: State;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 
     constructor(data?: IDesiredJobLocation) {
         if (data) {
@@ -16770,39 +16338,32 @@ export class DesiredJobLocation implements IDesiredJobLocation {
         data["modifiedById"] = this.modifiedById;
         return data; 
     }
-
-    clone(): DesiredJobLocation {
-        const json = this.toJSON();
-        let result = new DesiredJobLocation();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IDesiredJobLocation {
-    registeredUserId: number;
-    stateId: number;
-    registeredUser: RegisteredUser;
-    state: State;
-    id: number;
-    companyID: number;
-    subID: number;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
+    registeredUserId?: number;
+    stateId?: number;
+    registeredUser?: RegisteredUser;
+    state?: State;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 }
 
 export class JobType implements IJobType {
-    id!: number;
-    name!: string | undefined;
-    dateCreated!: Date;
-    modified!: Date | undefined;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    jobs!: Job[] | undefined;
+    id?: number;
+    name?: string | undefined;
+    dateCreated?: Date;
+    modified?: Date | undefined;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    jobs?: Job[] | undefined;
 
     constructor(data?: IJobType) {
         if (data) {
@@ -16851,39 +16412,32 @@ export class JobType implements IJobType {
         }
         return data; 
     }
-
-    clone(): JobType {
-        const json = this.toJSON();
-        let result = new JobType();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IJobType {
-    id: number;
-    name: string | undefined;
-    dateCreated: Date;
-    modified: Date | undefined;
-    isDeleted: boolean;
-    isActive: boolean;
-    jobs: Job[] | undefined;
+    id?: number;
+    name?: string | undefined;
+    dateCreated?: Date;
+    modified?: Date | undefined;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    jobs?: Job[] | undefined;
 }
 
 export class DesiredJobType implements IDesiredJobType {
-    registeredUserId!: number;
-    jobTypeId!: number;
-    jobType!: JobType;
-    registeredUser!: RegisteredUser;
-    id!: number;
-    companyID!: number;
-    subID!: number;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
+    registeredUserId?: number;
+    jobTypeId?: number;
+    jobType?: JobType;
+    registeredUser?: RegisteredUser;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 
     constructor(data?: IDesiredJobType) {
         if (data) {
@@ -16936,43 +16490,36 @@ export class DesiredJobType implements IDesiredJobType {
         data["modifiedById"] = this.modifiedById;
         return data; 
     }
-
-    clone(): DesiredJobType {
-        const json = this.toJSON();
-        let result = new DesiredJobType();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IDesiredJobType {
-    registeredUserId: number;
-    jobTypeId: number;
-    jobType: JobType;
-    registeredUser: RegisteredUser;
-    id: number;
-    companyID: number;
-    subID: number;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
+    registeredUserId?: number;
+    jobTypeId?: number;
+    jobType?: JobType;
+    registeredUser?: RegisteredUser;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 }
 
 export class VisibilityMode implements IVisibilityMode {
-    id!: number;
-    name!: string | undefined;
-    registeredUsers!: RegisteredUser[] | undefined;
-    companyID!: number;
-    subID!: number;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
+    id?: number;
+    name?: string | undefined;
+    registeredUsers?: RegisteredUser[] | undefined;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 
     constructor(data?: IVisibilityMode) {
         if (data) {
@@ -17029,42 +16576,35 @@ export class VisibilityMode implements IVisibilityMode {
         data["modifiedById"] = this.modifiedById;
         return data; 
     }
-
-    clone(): VisibilityMode {
-        const json = this.toJSON();
-        let result = new VisibilityMode();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IVisibilityMode {
-    id: number;
-    name: string | undefined;
-    registeredUsers: RegisteredUser[] | undefined;
-    companyID: number;
-    subID: number;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
+    id?: number;
+    name?: string | undefined;
+    registeredUsers?: RegisteredUser[] | undefined;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 }
 
 export class WarehouseSection implements IWarehouseSection {
-    name!: string | undefined;
-    description!: string | undefined;
-    company!: Company;
-    id!: number;
-    companyID!: number;
-    subID!: number;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
+    name?: string | undefined;
+    description?: string | undefined;
+    company?: Company;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 
     constructor(data?: IWarehouseSection) {
         if (data) {
@@ -17115,44 +16655,37 @@ export class WarehouseSection implements IWarehouseSection {
         data["modifiedById"] = this.modifiedById;
         return data; 
     }
-
-    clone(): WarehouseSection {
-        const json = this.toJSON();
-        let result = new WarehouseSection();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IWarehouseSection {
-    name: string | undefined;
-    description: string | undefined;
-    company: Company;
-    id: number;
-    companyID: number;
-    subID: number;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
+    name?: string | undefined;
+    description?: string | undefined;
+    company?: Company;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 }
 
 export class UserWarehouseSection implements IUserWarehouseSection {
-    registeredUserId!: number;
-    warehouseSectionId!: number;
-    registeredUser!: RegisteredUser;
-    warehouseSection!: WarehouseSection;
-    id!: number;
-    companyID!: number;
-    subID!: number;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
+    registeredUserId?: number;
+    warehouseSectionId?: number;
+    registeredUser?: RegisteredUser;
+    warehouseSection?: WarehouseSection;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 
     constructor(data?: IUserWarehouseSection) {
         if (data) {
@@ -17205,51 +16738,44 @@ export class UserWarehouseSection implements IUserWarehouseSection {
         data["modifiedById"] = this.modifiedById;
         return data; 
     }
-
-    clone(): UserWarehouseSection {
-        const json = this.toJSON();
-        let result = new UserWarehouseSection();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IUserWarehouseSection {
-    registeredUserId: number;
-    warehouseSectionId: number;
-    registeredUser: RegisteredUser;
-    warehouseSection: WarehouseSection;
-    id: number;
-    companyID: number;
-    subID: number;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
+    registeredUserId?: number;
+    warehouseSectionId?: number;
+    registeredUser?: RegisteredUser;
+    warehouseSection?: WarehouseSection;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 }
 
 export class WorkExprience implements IWorkExprience {
-    jobDescription!: string | undefined;
-    startDate!: Date;
-    from!: number | undefined;
-    to!: number | undefined;
-    registeredUserId!: number;
-    position!: string | undefined;
-    skillAreaId!: number | undefined;
-    company!: string | undefined;
-    sectorId!: number | undefined;
-    isPresentEmployment!: boolean | undefined;
-    id!: number;
-    companyID!: number;
-    subID!: number;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
+    jobDescription?: string | undefined;
+    startDate?: Date;
+    from?: number | undefined;
+    to?: number | undefined;
+    registeredUserId?: number;
+    position?: string | undefined;
+    skillAreaId?: number | undefined;
+    company?: string | undefined;
+    sectorId?: number | undefined;
+    isPresentEmployment?: boolean | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 
     constructor(data?: IWorkExprience) {
         if (data) {
@@ -17314,106 +16840,99 @@ export class WorkExprience implements IWorkExprience {
         data["modifiedById"] = this.modifiedById;
         return data; 
     }
-
-    clone(): WorkExprience {
-        const json = this.toJSON();
-        let result = new WorkExprience();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IWorkExprience {
-    jobDescription: string | undefined;
-    startDate: Date;
-    from: number | undefined;
-    to: number | undefined;
-    registeredUserId: number;
-    position: string | undefined;
-    skillAreaId: number | undefined;
-    company: string | undefined;
-    sectorId: number | undefined;
-    isPresentEmployment: boolean | undefined;
-    id: number;
-    companyID: number;
-    subID: number;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
+    jobDescription?: string | undefined;
+    startDate?: Date;
+    from?: number | undefined;
+    to?: number | undefined;
+    registeredUserId?: number;
+    position?: string | undefined;
+    skillAreaId?: number | undefined;
+    company?: string | undefined;
+    sectorId?: number | undefined;
+    isPresentEmployment?: boolean | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 }
 
 export class RegisteredUser implements IRegisteredUser {
-    isSocialUser!: boolean;
-    titleId!: number | undefined;
-    firstName!: string | undefined;
-    lastName!: string | undefined;
-    otherName!: string | undefined;
-    email!: string | undefined;
-    mobile!: string | undefined;
-    birthDate!: Date | undefined;
-    fieldOfInterestId!: number;
-    stateOfResidentId!: number | undefined;
-    stateOfInterestId!: number | undefined;
-    nationalityId!: number | undefined;
-    yearOfExperience!: number | undefined;
-    gender!: number | undefined;
-    sex!: string | undefined;
-    title!: string | undefined;
-    userId!: number;
-    age!: number | undefined;
-    applicantType!: number;
-    briefDescription!: string | undefined;
-    countryId!: number | undefined;
-    skills!: string | undefined;
-    educationId!: number | undefined;
-    lastUpdate!: Date | undefined;
-    password!: string | undefined;
-    nyscStatus!: number | undefined;
-    activated!: Date | undefined;
-    workAchievements!: string | undefined;
-    cvName!: string | undefined;
-    cvMimeType!: string | undefined;
-    alertModeId!: number | undefined;
-    desiredSalaryCurrency!: string | undefined;
-    desiredSalaryAnnum!: number | undefined;
-    desiredSalaryNegotiable!: number | undefined;
-    willingToRelocate!: number | undefined;
-    photoName!: string | undefined;
-    videoUrl!: string | undefined;
-    youtubeVideoUrl!: string | undefined;
-    photoMimeType!: string | undefined;
-    visibilityModeId!: number | undefined;
-    activationCode!: string | undefined;
-    jobMatchAlertId!: number | undefined;
-    considerExpForJobAlert!: boolean | undefined;
-    completeProfile!: boolean | undefined;
-    minJobExpForAlert!: number | undefined;
-    alertmode!: Alertmode;
-    appliedApplicants!: AppliedApplicant[] | undefined;
-    country!: Country;
-    educations!: Education[] | undefined;
-    registeredUserResumes!: RegisteredUserResume[] | undefined;
-    groupApplicants!: GroupApplicant[] | undefined;
-    certifications!: Certification[] | undefined;
-    coverLetters!: CoverLetter[] | undefined;
-    desiredFunctionalAreas!: DesiredFunctionalArea[] | undefined;
-    desiredJobLocations!: DesiredJobLocation[] | undefined;
-    desiredJobTypes!: DesiredJobType[] | undefined;
-    visibilityMode!: VisibilityMode;
-    userWarehouseSections!: UserWarehouseSection[] | undefined;
-    workExpriences!: WorkExprience[] | undefined;
-    id!: number;
-    companyID!: number;
-    subID!: number;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
+    isSocialUser?: boolean;
+    titleId?: number | undefined;
+    firstName?: string | undefined;
+    lastName?: string | undefined;
+    otherName?: string | undefined;
+    email?: string | undefined;
+    mobile?: string | undefined;
+    birthDate?: Date | undefined;
+    fieldOfInterestId?: number;
+    stateOfResidentId?: number | undefined;
+    stateOfInterestId?: number | undefined;
+    nationalityId?: number | undefined;
+    yearOfExperience?: number | undefined;
+    gender?: number | undefined;
+    sex?: string | undefined;
+    title?: string | undefined;
+    userId?: number;
+    age?: number | undefined;
+    applicantType?: number;
+    briefDescription?: string | undefined;
+    countryId?: number | undefined;
+    skills?: string | undefined;
+    educationId?: number | undefined;
+    lastUpdate?: Date | undefined;
+    password?: string | undefined;
+    nyscStatus?: number | undefined;
+    activated?: Date | undefined;
+    workAchievements?: string | undefined;
+    cvName?: string | undefined;
+    cvMimeType?: string | undefined;
+    alertModeId?: number | undefined;
+    desiredSalaryCurrency?: string | undefined;
+    desiredSalaryAnnum?: number | undefined;
+    desiredSalaryNegotiable?: number | undefined;
+    willingToRelocate?: number | undefined;
+    photoName?: string | undefined;
+    videoUrl?: string | undefined;
+    youtubeVideoUrl?: string | undefined;
+    photoMimeType?: string | undefined;
+    visibilityModeId?: number | undefined;
+    activationCode?: string | undefined;
+    jobMatchAlertId?: number | undefined;
+    considerExpForJobAlert?: boolean | undefined;
+    completeProfile?: boolean | undefined;
+    minJobExpForAlert?: number | undefined;
+    alertmode?: Alertmode;
+    appliedApplicants?: AppliedApplicant[] | undefined;
+    country?: Country;
+    educations?: Education[] | undefined;
+    registeredUserResumes?: RegisteredUserResume[] | undefined;
+    groupApplicants?: GroupApplicant[] | undefined;
+    certifications?: Certification[] | undefined;
+    coverLetters?: CoverLetter[] | undefined;
+    desiredFunctionalAreas?: DesiredFunctionalArea[] | undefined;
+    desiredJobLocations?: DesiredJobLocation[] | undefined;
+    desiredJobTypes?: DesiredJobType[] | undefined;
+    visibilityMode?: VisibilityMode;
+    userWarehouseSections?: UserWarehouseSection[] | undefined;
+    workExpriences?: WorkExprience[] | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 
     constructor(data?: IRegisteredUser) {
         if (data) {
@@ -17664,100 +17183,93 @@ export class RegisteredUser implements IRegisteredUser {
         data["modifiedById"] = this.modifiedById;
         return data; 
     }
-
-    clone(): RegisteredUser {
-        const json = this.toJSON();
-        let result = new RegisteredUser();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IRegisteredUser {
-    isSocialUser: boolean;
-    titleId: number | undefined;
-    firstName: string | undefined;
-    lastName: string | undefined;
-    otherName: string | undefined;
-    email: string | undefined;
-    mobile: string | undefined;
-    birthDate: Date | undefined;
-    fieldOfInterestId: number;
-    stateOfResidentId: number | undefined;
-    stateOfInterestId: number | undefined;
-    nationalityId: number | undefined;
-    yearOfExperience: number | undefined;
-    gender: number | undefined;
-    sex: string | undefined;
-    title: string | undefined;
-    userId: number;
-    age: number | undefined;
-    applicantType: number;
-    briefDescription: string | undefined;
-    countryId: number | undefined;
-    skills: string | undefined;
-    educationId: number | undefined;
-    lastUpdate: Date | undefined;
-    password: string | undefined;
-    nyscStatus: number | undefined;
-    activated: Date | undefined;
-    workAchievements: string | undefined;
-    cvName: string | undefined;
-    cvMimeType: string | undefined;
-    alertModeId: number | undefined;
-    desiredSalaryCurrency: string | undefined;
-    desiredSalaryAnnum: number | undefined;
-    desiredSalaryNegotiable: number | undefined;
-    willingToRelocate: number | undefined;
-    photoName: string | undefined;
-    videoUrl: string | undefined;
-    youtubeVideoUrl: string | undefined;
-    photoMimeType: string | undefined;
-    visibilityModeId: number | undefined;
-    activationCode: string | undefined;
-    jobMatchAlertId: number | undefined;
-    considerExpForJobAlert: boolean | undefined;
-    completeProfile: boolean | undefined;
-    minJobExpForAlert: number | undefined;
-    alertmode: Alertmode;
-    appliedApplicants: AppliedApplicant[] | undefined;
-    country: Country;
-    educations: Education[] | undefined;
-    registeredUserResumes: RegisteredUserResume[] | undefined;
-    groupApplicants: GroupApplicant[] | undefined;
-    certifications: Certification[] | undefined;
-    coverLetters: CoverLetter[] | undefined;
-    desiredFunctionalAreas: DesiredFunctionalArea[] | undefined;
-    desiredJobLocations: DesiredJobLocation[] | undefined;
-    desiredJobTypes: DesiredJobType[] | undefined;
-    visibilityMode: VisibilityMode;
-    userWarehouseSections: UserWarehouseSection[] | undefined;
-    workExpriences: WorkExprience[] | undefined;
-    id: number;
-    companyID: number;
-    subID: number;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
+    isSocialUser?: boolean;
+    titleId?: number | undefined;
+    firstName?: string | undefined;
+    lastName?: string | undefined;
+    otherName?: string | undefined;
+    email?: string | undefined;
+    mobile?: string | undefined;
+    birthDate?: Date | undefined;
+    fieldOfInterestId?: number;
+    stateOfResidentId?: number | undefined;
+    stateOfInterestId?: number | undefined;
+    nationalityId?: number | undefined;
+    yearOfExperience?: number | undefined;
+    gender?: number | undefined;
+    sex?: string | undefined;
+    title?: string | undefined;
+    userId?: number;
+    age?: number | undefined;
+    applicantType?: number;
+    briefDescription?: string | undefined;
+    countryId?: number | undefined;
+    skills?: string | undefined;
+    educationId?: number | undefined;
+    lastUpdate?: Date | undefined;
+    password?: string | undefined;
+    nyscStatus?: number | undefined;
+    activated?: Date | undefined;
+    workAchievements?: string | undefined;
+    cvName?: string | undefined;
+    cvMimeType?: string | undefined;
+    alertModeId?: number | undefined;
+    desiredSalaryCurrency?: string | undefined;
+    desiredSalaryAnnum?: number | undefined;
+    desiredSalaryNegotiable?: number | undefined;
+    willingToRelocate?: number | undefined;
+    photoName?: string | undefined;
+    videoUrl?: string | undefined;
+    youtubeVideoUrl?: string | undefined;
+    photoMimeType?: string | undefined;
+    visibilityModeId?: number | undefined;
+    activationCode?: string | undefined;
+    jobMatchAlertId?: number | undefined;
+    considerExpForJobAlert?: boolean | undefined;
+    completeProfile?: boolean | undefined;
+    minJobExpForAlert?: number | undefined;
+    alertmode?: Alertmode;
+    appliedApplicants?: AppliedApplicant[] | undefined;
+    country?: Country;
+    educations?: Education[] | undefined;
+    registeredUserResumes?: RegisteredUserResume[] | undefined;
+    groupApplicants?: GroupApplicant[] | undefined;
+    certifications?: Certification[] | undefined;
+    coverLetters?: CoverLetter[] | undefined;
+    desiredFunctionalAreas?: DesiredFunctionalArea[] | undefined;
+    desiredJobLocations?: DesiredJobLocation[] | undefined;
+    desiredJobTypes?: DesiredJobType[] | undefined;
+    visibilityMode?: VisibilityMode;
+    userWarehouseSections?: UserWarehouseSection[] | undefined;
+    workExpriences?: WorkExprience[] | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 }
 
 export class Country implements ICountry {
-    name!: string | undefined;
-    code!: string | undefined;
-    isDefault!: boolean;
-    registeredUsers!: RegisteredUser[] | undefined;
-    id!: number;
-    companyID!: number;
-    subID!: number;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
+    name?: string | undefined;
+    code?: string | undefined;
+    isDefault?: boolean;
+    registeredUsers?: RegisteredUser[] | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 
     constructor(data?: ICountry) {
         if (data) {
@@ -17818,37 +17330,30 @@ export class Country implements ICountry {
         data["modifiedById"] = this.modifiedById;
         return data; 
     }
-
-    clone(): Country {
-        const json = this.toJSON();
-        let result = new Country();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface ICountry {
-    name: string | undefined;
-    code: string | undefined;
-    isDefault: boolean;
-    registeredUsers: RegisteredUser[] | undefined;
-    id: number;
-    companyID: number;
-    subID: number;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
+    name?: string | undefined;
+    code?: string | undefined;
+    isDefault?: boolean;
+    registeredUsers?: RegisteredUser[] | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 }
 
 export class CountryIListOdataResult implements ICountryIListOdataResult {
-    id!: number;
-    hasError!: boolean;
-    message!: string | undefined;
-    value!: Country[] | undefined;
-    totalCount!: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: Country[] | undefined;
+    totalCount?: number;
 
     constructor(data?: ICountryIListOdataResult) {
         if (data) {
@@ -17893,29 +17398,22 @@ export class CountryIListOdataResult implements ICountryIListOdataResult {
         data["totalCount"] = this.totalCount;
         return data; 
     }
-
-    clone(): CountryIListOdataResult {
-        const json = this.toJSON();
-        let result = new CountryIListOdataResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface ICountryIListOdataResult {
-    id: number;
-    hasError: boolean;
-    message: string | undefined;
-    value: Country[] | undefined;
-    totalCount: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: Country[] | undefined;
+    totalCount?: number;
 }
 
 export class CourseIListOdataResult implements ICourseIListOdataResult {
-    id!: number;
-    hasError!: boolean;
-    message!: string | undefined;
-    value!: Course[] | undefined;
-    totalCount!: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: Course[] | undefined;
+    totalCount?: number;
 
     constructor(data?: ICourseIListOdataResult) {
         if (data) {
@@ -17960,34 +17458,27 @@ export class CourseIListOdataResult implements ICourseIListOdataResult {
         data["totalCount"] = this.totalCount;
         return data; 
     }
-
-    clone(): CourseIListOdataResult {
-        const json = this.toJSON();
-        let result = new CourseIListOdataResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface ICourseIListOdataResult {
-    id: number;
-    hasError: boolean;
-    message: string | undefined;
-    value: Course[] | undefined;
-    totalCount: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: Course[] | undefined;
+    totalCount?: number;
 }
 
 export class Currency implements ICurrency {
-    name!: string | undefined;
-    id!: number;
-    companyID!: number;
-    subID!: number;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
+    name?: string | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 
     constructor(data?: ICurrency) {
         if (data) {
@@ -18034,34 +17525,27 @@ export class Currency implements ICurrency {
         data["modifiedById"] = this.modifiedById;
         return data; 
     }
-
-    clone(): Currency {
-        const json = this.toJSON();
-        let result = new Currency();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface ICurrency {
-    name: string | undefined;
-    id: number;
-    companyID: number;
-    subID: number;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
+    name?: string | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 }
 
 export class CurrencyIListOdataResult implements ICurrencyIListOdataResult {
-    id!: number;
-    hasError!: boolean;
-    message!: string | undefined;
-    value!: Currency[] | undefined;
-    totalCount!: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: Currency[] | undefined;
+    totalCount?: number;
 
     constructor(data?: ICurrencyIListOdataResult) {
         if (data) {
@@ -18106,26 +17590,19 @@ export class CurrencyIListOdataResult implements ICurrencyIListOdataResult {
         data["totalCount"] = this.totalCount;
         return data; 
     }
-
-    clone(): CurrencyIListOdataResult {
-        const json = this.toJSON();
-        let result = new CurrencyIListOdataResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface ICurrencyIListOdataResult {
-    id: number;
-    hasError: boolean;
-    message: string | undefined;
-    value: Currency[] | undefined;
-    totalCount: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: Currency[] | undefined;
+    totalCount?: number;
 }
 
 export class CvScoreDTO implements ICvScoreDTO {
-    cv!: string | undefined;
-    extension!: string | undefined;
+    cv?: string | undefined;
+    extension?: string | undefined;
 
     constructor(data?: ICvScoreDTO) {
         if (data) {
@@ -18156,45 +17633,38 @@ export class CvScoreDTO implements ICvScoreDTO {
         data["extension"] = this.extension;
         return data; 
     }
-
-    clone(): CvScoreDTO {
-        const json = this.toJSON();
-        let result = new CvScoreDTO();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface ICvScoreDTO {
-    cv: string | undefined;
-    extension: string | undefined;
+    cv?: string | undefined;
+    extension?: string | undefined;
 }
 
 export class RezScore implements IRezScore {
-    id!: number;
-    companyID!: number;
-    subID!: number;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    gradeField!: string | undefined;
-    gradeHeadlineField!: string | undefined;
-    gradeBlurbField!: string | undefined;
-    percentileField!: number | undefined;
-    percentileSuffixField!: string | undefined;
-    normalImgField!: string | undefined;
-    brevityScoreField!: number | undefined;
-    impactScoreField!: number | undefined;
-    depthScoreField!: number | undefined;
-    emailField!: string | undefined;
-    phoneField!: string | undefined;
-    rezIdField!: string | undefined;
-    numericIdField!: number | undefined;
-    adviceShort!: string | undefined;
-    adviceLong!: string | undefined;
-    scoreImg!: string | undefined;
-    scoreImgUrl!: string | undefined;
-    email!: string | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    gradeField?: string | undefined;
+    gradeHeadlineField?: string | undefined;
+    gradeBlurbField?: string | undefined;
+    percentileField?: number | undefined;
+    percentileSuffixField?: string | undefined;
+    normalImgField?: string | undefined;
+    brevityScoreField?: number | undefined;
+    impactScoreField?: number | undefined;
+    depthScoreField?: number | undefined;
+    emailField?: string | undefined;
+    phoneField?: string | undefined;
+    rezIdField?: string | undefined;
+    numericIdField?: number | undefined;
+    adviceShort?: string | undefined;
+    adviceLong?: string | undefined;
+    scoreImg?: string | undefined;
+    scoreImgUrl?: string | undefined;
+    email?: string | undefined;
 
     constructor(data?: IRezScore) {
         if (data) {
@@ -18269,48 +17739,41 @@ export class RezScore implements IRezScore {
         data["email"] = this.email;
         return data; 
     }
-
-    clone(): RezScore {
-        const json = this.toJSON();
-        let result = new RezScore();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IRezScore {
-    id: number;
-    companyID: number;
-    subID: number;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
-    gradeField: string | undefined;
-    gradeHeadlineField: string | undefined;
-    gradeBlurbField: string | undefined;
-    percentileField: number | undefined;
-    percentileSuffixField: string | undefined;
-    normalImgField: string | undefined;
-    brevityScoreField: number | undefined;
-    impactScoreField: number | undefined;
-    depthScoreField: number | undefined;
-    emailField: string | undefined;
-    phoneField: string | undefined;
-    rezIdField: string | undefined;
-    numericIdField: number | undefined;
-    adviceShort: string | undefined;
-    adviceLong: string | undefined;
-    scoreImg: string | undefined;
-    scoreImgUrl: string | undefined;
-    email: string | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    gradeField?: string | undefined;
+    gradeHeadlineField?: string | undefined;
+    gradeBlurbField?: string | undefined;
+    percentileField?: number | undefined;
+    percentileSuffixField?: string | undefined;
+    normalImgField?: string | undefined;
+    brevityScoreField?: number | undefined;
+    impactScoreField?: number | undefined;
+    depthScoreField?: number | undefined;
+    emailField?: string | undefined;
+    phoneField?: string | undefined;
+    rezIdField?: string | undefined;
+    numericIdField?: number | undefined;
+    adviceShort?: string | undefined;
+    adviceLong?: string | undefined;
+    scoreImg?: string | undefined;
+    scoreImgUrl?: string | undefined;
+    email?: string | undefined;
 }
 
 export class RezScoreApiResult implements IRezScoreApiResult {
-    hasError!: boolean;
-    message!: string | undefined;
-    result!: RezScore;
-    totalCount!: number;
-    readonly totalRecord!: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: RezScore;
+    totalCount?: number;
+    readonly totalRecord?: number;
 
     constructor(data?: IRezScoreApiResult) {
         if (data) {
@@ -18347,28 +17810,21 @@ export class RezScoreApiResult implements IRezScoreApiResult {
         data["totalRecord"] = this.totalRecord;
         return data; 
     }
-
-    clone(): RezScoreApiResult {
-        const json = this.toJSON();
-        let result = new RezScoreApiResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IRezScoreApiResult {
-    hasError: boolean;
-    message: string | undefined;
-    result: RezScore;
-    totalCount: number;
-    totalRecord: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: RezScore;
+    totalCount?: number;
+    totalRecord?: number;
 }
 
 export class VwDashboard implements IVwDashboard {
-    jobPosted!: number;
-    totalApplicants!: number;
-    totalEmployers!: number;
-    totalConsultants!: number;
+    jobPosted?: number;
+    totalApplicants?: number;
+    totalEmployers?: number;
+    totalConsultants?: number;
 
     constructor(data?: IVwDashboard) {
         if (data) {
@@ -18403,26 +17859,19 @@ export class VwDashboard implements IVwDashboard {
         data["totalConsultants"] = this.totalConsultants;
         return data; 
     }
-
-    clone(): VwDashboard {
-        const json = this.toJSON();
-        let result = new VwDashboard();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IVwDashboard {
-    jobPosted: number;
-    totalApplicants: number;
-    totalEmployers: number;
-    totalConsultants: number;
+    jobPosted?: number;
+    totalApplicants?: number;
+    totalEmployers?: number;
+    totalConsultants?: number;
 }
 
 export class DashboardData implements IDashboardData {
-    category!: string | undefined;
-    name!: string | undefined;
-    value!: number;
+    category?: string | undefined;
+    name?: string | undefined;
+    value?: number;
 
     constructor(data?: IDashboardData) {
         if (data) {
@@ -18455,26 +17904,19 @@ export class DashboardData implements IDashboardData {
         data["value"] = this.value;
         return data; 
     }
-
-    clone(): DashboardData {
-        const json = this.toJSON();
-        let result = new DashboardData();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IDashboardData {
-    category: string | undefined;
-    name: string | undefined;
-    value: number;
+    category?: string | undefined;
+    name?: string | undefined;
+    value?: number;
 }
 
 export class DashboardDTO implements IDashboardDTO {
-    aggregateData!: VwDashboard;
-    lstSkillSetData!: DashboardData[] | undefined;
-    lstApplicantAgeRangeData!: DashboardData[] | undefined;
-    lstRecruitmentOverTimeData!: DashboardData[] | undefined;
+    aggregateData?: VwDashboard;
+    lstSkillSetData?: DashboardData[] | undefined;
+    lstApplicantAgeRangeData?: DashboardData[] | undefined;
+    lstRecruitmentOverTimeData?: DashboardData[] | undefined;
 
     constructor(data?: IDashboardDTO) {
         if (data) {
@@ -18533,28 +17975,21 @@ export class DashboardDTO implements IDashboardDTO {
         }
         return data; 
     }
-
-    clone(): DashboardDTO {
-        const json = this.toJSON();
-        let result = new DashboardDTO();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IDashboardDTO {
-    aggregateData: VwDashboard;
-    lstSkillSetData: DashboardData[] | undefined;
-    lstApplicantAgeRangeData: DashboardData[] | undefined;
-    lstRecruitmentOverTimeData: DashboardData[] | undefined;
+    aggregateData?: VwDashboard;
+    lstSkillSetData?: DashboardData[] | undefined;
+    lstApplicantAgeRangeData?: DashboardData[] | undefined;
+    lstRecruitmentOverTimeData?: DashboardData[] | undefined;
 }
 
 export class DashboardDTOOdataResult implements IDashboardDTOOdataResult {
-    id!: number;
-    hasError!: boolean;
-    message!: string | undefined;
-    value!: DashboardDTO;
-    totalCount!: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: DashboardDTO;
+    totalCount?: number;
 
     constructor(data?: IDashboardDTOOdataResult) {
         if (data) {
@@ -18591,56 +18026,49 @@ export class DashboardDTOOdataResult implements IDashboardDTOOdataResult {
         data["totalCount"] = this.totalCount;
         return data; 
     }
-
-    clone(): DashboardDTOOdataResult {
-        const json = this.toJSON();
-        let result = new DashboardDTOOdataResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IDashboardDTOOdataResult {
-    id: number;
-    hasError: boolean;
-    message: string | undefined;
-    value: DashboardDTO;
-    totalCount: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: DashboardDTO;
+    totalCount?: number;
 }
 
 export class EmployerDTO implements IEmployerDTO {
-    id!: number;
-    name!: string | undefined;
-    firstName!: string | undefined;
-    lastName!: string | undefined;
-    readonly administrator!: string | undefined;
-    accountTypeId!: number;
-    readonly accountType!: string | undefined;
-    subscriptionPlanId!: number;
-    isTrial!: boolean;
-    contactPerson!: string | undefined;
-    email!: string | undefined;
-    mobile!: string | undefined;
-    address!: string | undefined;
-    stateId!: number;
-    sectorId!: number;
-    logo!: string | undefined;
-    employerTypeId!: number;
-    sector!: string | undefined;
-    locationState!: string | undefined;
-    employerType!: string | undefined;
-    subscriptionPlan!: string | undefined;
-    isPlanActivated!: boolean;
-    trialDueDate!: Date | undefined;
-    lastBillingDate!: Date | undefined;
-    lastPaymentDate!: Date | undefined;
-    licenseUsage!: number;
-    modified!: Date | undefined;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    totalJobs!: number | undefined;
-    aboutCompany!: string | undefined;
+    id?: number;
+    name?: string | undefined;
+    firstName?: string | undefined;
+    lastName?: string | undefined;
+    readonly administrator?: string | undefined;
+    accountTypeId?: number;
+    readonly accountType?: string | undefined;
+    subscriptionPlanId?: number;
+    isTrial?: boolean;
+    contactPerson?: string | undefined;
+    email?: string | undefined;
+    mobile?: string | undefined;
+    address?: string | undefined;
+    stateId?: number;
+    sectorId?: number;
+    logo?: string | undefined;
+    employerTypeId?: number;
+    sector?: string | undefined;
+    locationState?: string | undefined;
+    employerType?: string | undefined;
+    subscriptionPlan?: string | undefined;
+    isPlanActivated?: boolean;
+    trialDueDate?: Date | undefined;
+    lastBillingDate?: Date | undefined;
+    lastPaymentDate?: Date | undefined;
+    licenseUsage?: number;
+    modified?: Date | undefined;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    totalJobs?: number | undefined;
+    aboutCompany?: string | undefined;
 
     constructor(data?: IEmployerDTO) {
         if (data) {
@@ -18731,56 +18159,49 @@ export class EmployerDTO implements IEmployerDTO {
         data["aboutCompany"] = this.aboutCompany;
         return data; 
     }
-
-    clone(): EmployerDTO {
-        const json = this.toJSON();
-        let result = new EmployerDTO();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IEmployerDTO {
-    id: number;
-    name: string | undefined;
-    firstName: string | undefined;
-    lastName: string | undefined;
-    administrator: string | undefined;
-    accountTypeId: number;
-    accountType: string | undefined;
-    subscriptionPlanId: number;
-    isTrial: boolean;
-    contactPerson: string | undefined;
-    email: string | undefined;
-    mobile: string | undefined;
-    address: string | undefined;
-    stateId: number;
-    sectorId: number;
-    logo: string | undefined;
-    employerTypeId: number;
-    sector: string | undefined;
-    locationState: string | undefined;
-    employerType: string | undefined;
-    subscriptionPlan: string | undefined;
-    isPlanActivated: boolean;
-    trialDueDate: Date | undefined;
-    lastBillingDate: Date | undefined;
-    lastPaymentDate: Date | undefined;
-    licenseUsage: number;
-    modified: Date | undefined;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
-    totalJobs: number | undefined;
-    aboutCompany: string | undefined;
+    id?: number;
+    name?: string | undefined;
+    firstName?: string | undefined;
+    lastName?: string | undefined;
+    administrator?: string | undefined;
+    accountTypeId?: number;
+    accountType?: string | undefined;
+    subscriptionPlanId?: number;
+    isTrial?: boolean;
+    contactPerson?: string | undefined;
+    email?: string | undefined;
+    mobile?: string | undefined;
+    address?: string | undefined;
+    stateId?: number;
+    sectorId?: number;
+    logo?: string | undefined;
+    employerTypeId?: number;
+    sector?: string | undefined;
+    locationState?: string | undefined;
+    employerType?: string | undefined;
+    subscriptionPlan?: string | undefined;
+    isPlanActivated?: boolean;
+    trialDueDate?: Date | undefined;
+    lastBillingDate?: Date | undefined;
+    lastPaymentDate?: Date | undefined;
+    licenseUsage?: number;
+    modified?: Date | undefined;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    totalJobs?: number | undefined;
+    aboutCompany?: string | undefined;
 }
 
 export class EmployerDTOIListOdataResult implements IEmployerDTOIListOdataResult {
-    id!: number;
-    hasError!: boolean;
-    message!: string | undefined;
-    value!: EmployerDTO[] | undefined;
-    totalCount!: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: EmployerDTO[] | undefined;
+    totalCount?: number;
 
     constructor(data?: IEmployerDTOIListOdataResult) {
         if (data) {
@@ -18825,29 +18246,22 @@ export class EmployerDTOIListOdataResult implements IEmployerDTOIListOdataResult
         data["totalCount"] = this.totalCount;
         return data; 
     }
-
-    clone(): EmployerDTOIListOdataResult {
-        const json = this.toJSON();
-        let result = new EmployerDTOIListOdataResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IEmployerDTOIListOdataResult {
-    id: number;
-    hasError: boolean;
-    message: string | undefined;
-    value: EmployerDTO[] | undefined;
-    totalCount: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: EmployerDTO[] | undefined;
+    totalCount?: number;
 }
 
 export class EmployerDTOOdataResult implements IEmployerDTOOdataResult {
-    id!: number;
-    hasError!: boolean;
-    message!: string | undefined;
-    value!: EmployerDTO;
-    totalCount!: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: EmployerDTO;
+    totalCount?: number;
 
     constructor(data?: IEmployerDTOOdataResult) {
         if (data) {
@@ -18884,34 +18298,27 @@ export class EmployerDTOOdataResult implements IEmployerDTOOdataResult {
         data["totalCount"] = this.totalCount;
         return data; 
     }
-
-    clone(): EmployerDTOOdataResult {
-        const json = this.toJSON();
-        let result = new EmployerDTOOdataResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IEmployerDTOOdataResult {
-    id: number;
-    hasError: boolean;
-    message: string | undefined;
-    value: EmployerDTO;
-    totalCount: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: EmployerDTO;
+    totalCount?: number;
 }
 
 export class EmployerType implements IEmployerType {
-    name!: string | undefined;
-    id!: number;
-    companyID!: number;
-    subID!: number;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
+    name?: string | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 
     constructor(data?: IEmployerType) {
         if (data) {
@@ -18958,34 +18365,27 @@ export class EmployerType implements IEmployerType {
         data["modifiedById"] = this.modifiedById;
         return data; 
     }
-
-    clone(): EmployerType {
-        const json = this.toJSON();
-        let result = new EmployerType();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IEmployerType {
-    name: string | undefined;
-    id: number;
-    companyID: number;
-    subID: number;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
+    name?: string | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 }
 
 export class EmployerTypeIListOdataResult implements IEmployerTypeIListOdataResult {
-    id!: number;
-    hasError!: boolean;
-    message!: string | undefined;
-    value!: EmployerType[] | undefined;
-    totalCount!: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: EmployerType[] | undefined;
+    totalCount?: number;
 
     constructor(data?: IEmployerTypeIListOdataResult) {
         if (data) {
@@ -19030,34 +18430,27 @@ export class EmployerTypeIListOdataResult implements IEmployerTypeIListOdataResu
         data["totalCount"] = this.totalCount;
         return data; 
     }
-
-    clone(): EmployerTypeIListOdataResult {
-        const json = this.toJSON();
-        let result = new EmployerTypeIListOdataResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IEmployerTypeIListOdataResult {
-    id: number;
-    hasError: boolean;
-    message: string | undefined;
-    value: EmployerType[] | undefined;
-    totalCount: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: EmployerType[] | undefined;
+    totalCount?: number;
 }
 
 export class Grade implements IGrade {
-    name!: string | undefined;
-    id!: number;
-    companyID!: number;
-    subID!: number;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
+    name?: string | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 
     constructor(data?: IGrade) {
         if (data) {
@@ -19104,34 +18497,27 @@ export class Grade implements IGrade {
         data["modifiedById"] = this.modifiedById;
         return data; 
     }
-
-    clone(): Grade {
-        const json = this.toJSON();
-        let result = new Grade();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IGrade {
-    name: string | undefined;
-    id: number;
-    companyID: number;
-    subID: number;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
+    name?: string | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 }
 
 export class GradeIListOdataResult implements IGradeIListOdataResult {
-    id!: number;
-    hasError!: boolean;
-    message!: string | undefined;
-    value!: Grade[] | undefined;
-    totalCount!: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: Grade[] | undefined;
+    totalCount?: number;
 
     constructor(data?: IGradeIListOdataResult) {
         if (data) {
@@ -19176,29 +18562,22 @@ export class GradeIListOdataResult implements IGradeIListOdataResult {
         data["totalCount"] = this.totalCount;
         return data; 
     }
-
-    clone(): GradeIListOdataResult {
-        const json = this.toJSON();
-        let result = new GradeIListOdataResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IGradeIListOdataResult {
-    id: number;
-    hasError: boolean;
-    message: string | undefined;
-    value: Grade[] | undefined;
-    totalCount: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: Grade[] | undefined;
+    totalCount?: number;
 }
 
 export class InstitutionIListOdataResult implements IInstitutionIListOdataResult {
-    id!: number;
-    hasError!: boolean;
-    message!: string | undefined;
-    value!: Institution[] | undefined;
-    totalCount!: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: Institution[] | undefined;
+    totalCount?: number;
 
     constructor(data?: IInstitutionIListOdataResult) {
         if (data) {
@@ -19243,29 +18622,22 @@ export class InstitutionIListOdataResult implements IInstitutionIListOdataResult
         data["totalCount"] = this.totalCount;
         return data; 
     }
-
-    clone(): InstitutionIListOdataResult {
-        const json = this.toJSON();
-        let result = new InstitutionIListOdataResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IInstitutionIListOdataResult {
-    id: number;
-    hasError: boolean;
-    message: string | undefined;
-    value: Institution[] | undefined;
-    totalCount: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: Institution[] | undefined;
+    totalCount?: number;
 }
 
 export class JobIListOdataResult implements IJobIListOdataResult {
-    id!: number;
-    hasError!: boolean;
-    message!: string | undefined;
-    value!: Job[] | undefined;
-    totalCount!: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: Job[] | undefined;
+    totalCount?: number;
 
     constructor(data?: IJobIListOdataResult) {
         if (data) {
@@ -19310,29 +18682,22 @@ export class JobIListOdataResult implements IJobIListOdataResult {
         data["totalCount"] = this.totalCount;
         return data; 
     }
-
-    clone(): JobIListOdataResult {
-        const json = this.toJSON();
-        let result = new JobIListOdataResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IJobIListOdataResult {
-    id: number;
-    hasError: boolean;
-    message: string | undefined;
-    value: Job[] | undefined;
-    totalCount: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: Job[] | undefined;
+    totalCount?: number;
 }
 
 export class JobDTOOdataResult implements IJobDTOOdataResult {
-    id!: number;
-    hasError!: boolean;
-    message!: string | undefined;
-    value!: JobDTO;
-    totalCount!: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: JobDTO;
+    totalCount?: number;
 
     constructor(data?: IJobDTOOdataResult) {
         if (data) {
@@ -19369,29 +18734,22 @@ export class JobDTOOdataResult implements IJobDTOOdataResult {
         data["totalCount"] = this.totalCount;
         return data; 
     }
-
-    clone(): JobDTOOdataResult {
-        const json = this.toJSON();
-        let result = new JobDTOOdataResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IJobDTOOdataResult {
-    id: number;
-    hasError: boolean;
-    message: string | undefined;
-    value: JobDTO;
-    totalCount: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: JobDTO;
+    totalCount?: number;
 }
 
 export class JobTypeIListOdataResult implements IJobTypeIListOdataResult {
-    id!: number;
-    hasError!: boolean;
-    message!: string | undefined;
-    value!: JobType[] | undefined;
-    totalCount!: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: JobType[] | undefined;
+    totalCount?: number;
 
     constructor(data?: IJobTypeIListOdataResult) {
         if (data) {
@@ -19436,29 +18794,22 @@ export class JobTypeIListOdataResult implements IJobTypeIListOdataResult {
         data["totalCount"] = this.totalCount;
         return data; 
     }
-
-    clone(): JobTypeIListOdataResult {
-        const json = this.toJSON();
-        let result = new JobTypeIListOdataResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IJobTypeIListOdataResult {
-    id: number;
-    hasError: boolean;
-    message: string | undefined;
-    value: JobType[] | undefined;
-    totalCount: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: JobType[] | undefined;
+    totalCount?: number;
 }
 
 export class ManageProfessionalBodyDTO implements IManageProfessionalBodyDTO {
-    id!: number;
-    sectorId!: number;
-    name!: string | undefined;
-    code!: string | undefined;
-    website!: string | undefined;
+    id?: number;
+    sectorId?: number;
+    name?: string | undefined;
+    code?: string | undefined;
+    website?: string | undefined;
 
     constructor(data?: IManageProfessionalBodyDTO) {
         if (data) {
@@ -19495,38 +18846,31 @@ export class ManageProfessionalBodyDTO implements IManageProfessionalBodyDTO {
         data["website"] = this.website;
         return data; 
     }
-
-    clone(): ManageProfessionalBodyDTO {
-        const json = this.toJSON();
-        let result = new ManageProfessionalBodyDTO();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IManageProfessionalBodyDTO {
-    id: number;
-    sectorId: number;
-    name: string | undefined;
-    code: string | undefined;
-    website: string | undefined;
+    id?: number;
+    sectorId?: number;
+    name?: string | undefined;
+    code?: string | undefined;
+    website?: string | undefined;
 }
 
 export class ProfessionalBodyDTO implements IProfessionalBodyDTO {
-    id!: number;
-    companyID!: number;
-    subID!: number;
-    sectorId!: number;
-    sector!: string | undefined;
-    name!: string | undefined;
-    code!: string | undefined;
-    website!: string | undefined;
-    isActive!: boolean;
-    isDeleted!: boolean;
-    dateCreated!: Date;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    sectorId?: number;
+    sector?: string | undefined;
+    name?: string | undefined;
+    code?: string | undefined;
+    website?: string | undefined;
+    isActive?: boolean;
+    isDeleted?: boolean;
+    dateCreated?: Date;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 
     constructor(data?: IProfessionalBodyDTO) {
         if (data) {
@@ -19581,38 +18925,31 @@ export class ProfessionalBodyDTO implements IProfessionalBodyDTO {
         data["modifiedById"] = this.modifiedById;
         return data; 
     }
-
-    clone(): ProfessionalBodyDTO {
-        const json = this.toJSON();
-        let result = new ProfessionalBodyDTO();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IProfessionalBodyDTO {
-    id: number;
-    companyID: number;
-    subID: number;
-    sectorId: number;
-    sector: string | undefined;
-    name: string | undefined;
-    code: string | undefined;
-    website: string | undefined;
-    isActive: boolean;
-    isDeleted: boolean;
-    dateCreated: Date;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    sectorId?: number;
+    sector?: string | undefined;
+    name?: string | undefined;
+    code?: string | undefined;
+    website?: string | undefined;
+    isActive?: boolean;
+    isDeleted?: boolean;
+    dateCreated?: Date;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 }
 
 export class ProfessionalBodyDTOListApiResult implements IProfessionalBodyDTOListApiResult {
-    hasError!: boolean;
-    message!: string | undefined;
-    result!: ProfessionalBodyDTO[] | undefined;
-    totalCount!: number;
-    readonly totalRecord!: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: ProfessionalBodyDTO[] | undefined;
+    totalCount?: number;
+    readonly totalRecord?: number;
 
     constructor(data?: IProfessionalBodyDTOListApiResult) {
         if (data) {
@@ -19657,29 +18994,22 @@ export class ProfessionalBodyDTOListApiResult implements IProfessionalBodyDTOLis
         data["totalRecord"] = this.totalRecord;
         return data; 
     }
-
-    clone(): ProfessionalBodyDTOListApiResult {
-        const json = this.toJSON();
-        let result = new ProfessionalBodyDTOListApiResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IProfessionalBodyDTOListApiResult {
-    hasError: boolean;
-    message: string | undefined;
-    result: ProfessionalBodyDTO[] | undefined;
-    totalCount: number;
-    totalRecord: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: ProfessionalBodyDTO[] | undefined;
+    totalCount?: number;
+    totalRecord?: number;
 }
 
 export class ProfessionalBodyDTOApiResult implements IProfessionalBodyDTOApiResult {
-    hasError!: boolean;
-    message!: string | undefined;
-    result!: ProfessionalBodyDTO;
-    totalCount!: number;
-    readonly totalRecord!: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: ProfessionalBodyDTO;
+    totalCount?: number;
+    readonly totalRecord?: number;
 
     constructor(data?: IProfessionalBodyDTOApiResult) {
         if (data) {
@@ -19716,29 +19046,22 @@ export class ProfessionalBodyDTOApiResult implements IProfessionalBodyDTOApiResu
         data["totalRecord"] = this.totalRecord;
         return data; 
     }
-
-    clone(): ProfessionalBodyDTOApiResult {
-        const json = this.toJSON();
-        let result = new ProfessionalBodyDTOApiResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IProfessionalBodyDTOApiResult {
-    hasError: boolean;
-    message: string | undefined;
-    result: ProfessionalBodyDTO;
-    totalCount: number;
-    totalRecord: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: ProfessionalBodyDTO;
+    totalCount?: number;
+    totalRecord?: number;
 }
 
 export class QualificationIListOdataResult implements IQualificationIListOdataResult {
-    id!: number;
-    hasError!: boolean;
-    message!: string | undefined;
-    value!: Qualification[] | undefined;
-    totalCount!: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: Qualification[] | undefined;
+    totalCount?: number;
 
     constructor(data?: IQualificationIListOdataResult) {
         if (data) {
@@ -19783,29 +19106,22 @@ export class QualificationIListOdataResult implements IQualificationIListOdataRe
         data["totalCount"] = this.totalCount;
         return data; 
     }
-
-    clone(): QualificationIListOdataResult {
-        const json = this.toJSON();
-        let result = new QualificationIListOdataResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IQualificationIListOdataResult {
-    id: number;
-    hasError: boolean;
-    message: string | undefined;
-    value: Qualification[] | undefined;
-    totalCount: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: Qualification[] | undefined;
+    totalCount?: number;
 }
 
 export class IDTextViewModelIListApiResult implements IIDTextViewModelIListApiResult {
-    hasError!: boolean;
-    message!: string | undefined;
-    result!: IDTextViewModel[] | undefined;
-    totalCount!: number;
-    readonly totalRecord!: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: IDTextViewModel[] | undefined;
+    totalCount?: number;
+    readonly totalRecord?: number;
 
     constructor(data?: IIDTextViewModelIListApiResult) {
         if (data) {
@@ -19850,28 +19166,21 @@ export class IDTextViewModelIListApiResult implements IIDTextViewModelIListApiRe
         data["totalRecord"] = this.totalRecord;
         return data; 
     }
-
-    clone(): IDTextViewModelIListApiResult {
-        const json = this.toJSON();
-        let result = new IDTextViewModelIListApiResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IIDTextViewModelIListApiResult {
-    hasError: boolean;
-    message: string | undefined;
-    result: IDTextViewModel[] | undefined;
-    totalCount: number;
-    totalRecord: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: IDTextViewModel[] | undefined;
+    totalCount?: number;
+    totalRecord?: number;
 }
 
 export class ManageQuizDTO implements IManageQuizDTO {
-    id!: number;
-    name!: string | undefined;
-    typeId!: number;
-    questions!: string | undefined;
+    id?: number;
+    name?: string | undefined;
+    typeId?: number;
+    questions?: string | undefined;
 
     constructor(data?: IManageQuizDTO) {
         if (data) {
@@ -19906,28 +19215,21 @@ export class ManageQuizDTO implements IManageQuizDTO {
         data["questions"] = this.questions;
         return data; 
     }
-
-    clone(): ManageQuizDTO {
-        const json = this.toJSON();
-        let result = new ManageQuizDTO();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IManageQuizDTO {
-    id: number;
-    name: string | undefined;
-    typeId: number;
-    questions: string | undefined;
+    id?: number;
+    name?: string | undefined;
+    typeId?: number;
+    questions?: string | undefined;
 }
 
 export class QuestionOptionDTO implements IQuestionOptionDTO {
-    id!: number;
-    questionId!: number;
-    question!: string | undefined;
-    value!: string | undefined;
-    isAnswer!: boolean;
+    id?: number;
+    questionId?: number;
+    question?: string | undefined;
+    value?: string | undefined;
+    isAnswer?: boolean;
 
     constructor(data?: IQuestionOptionDTO) {
         if (data) {
@@ -19964,32 +19266,25 @@ export class QuestionOptionDTO implements IQuestionOptionDTO {
         data["isAnswer"] = this.isAnswer;
         return data; 
     }
-
-    clone(): QuestionOptionDTO {
-        const json = this.toJSON();
-        let result = new QuestionOptionDTO();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IQuestionOptionDTO {
-    id: number;
-    questionId: number;
-    question: string | undefined;
-    value: string | undefined;
-    isAnswer: boolean;
+    id?: number;
+    questionId?: number;
+    question?: string | undefined;
+    value?: string | undefined;
+    isAnswer?: boolean;
 }
 
 export class QuestionDTO implements IQuestionDTO {
-    id!: number;
-    questionText!: string | undefined;
-    typeId!: number;
-    type!: string | undefined;
-    quizId!: number;
-    quizName!: string | undefined;
-    questionOptions!: QuestionOptionDTO[] | undefined;
-    readonly totalAnswers!: number;
+    id?: number;
+    questionText?: string | undefined;
+    typeId?: number;
+    type?: string | undefined;
+    quizId?: number;
+    quizName?: string | undefined;
+    questionOptions?: QuestionOptionDTO[] | undefined;
+    readonly totalAnswers?: number;
 
     constructor(data?: IQuestionDTO) {
         if (data) {
@@ -20040,41 +19335,34 @@ export class QuestionDTO implements IQuestionDTO {
         data["totalAnswers"] = this.totalAnswers;
         return data; 
     }
-
-    clone(): QuestionDTO {
-        const json = this.toJSON();
-        let result = new QuestionDTO();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IQuestionDTO {
-    id: number;
-    questionText: string | undefined;
-    typeId: number;
-    type: string | undefined;
-    quizId: number;
-    quizName: string | undefined;
-    questionOptions: QuestionOptionDTO[] | undefined;
-    totalAnswers: number;
+    id?: number;
+    questionText?: string | undefined;
+    typeId?: number;
+    type?: string | undefined;
+    quizId?: number;
+    quizName?: string | undefined;
+    questionOptions?: QuestionOptionDTO[] | undefined;
+    totalAnswers?: number;
 }
 
 export class QuizDTO implements IQuizDTO {
-    id!: number;
-    name!: string | undefined;
-    type!: string | undefined;
-    typeId!: number;
-    companyID!: number;
-    subID!: number;
-    questions!: QuestionDTO[] | undefined;
-    readonly totalQuestions!: number;
-    isActive!: boolean;
-    isDeleted!: boolean;
-    dateCreated!: Date;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
+    id?: number;
+    name?: string | undefined;
+    type?: string | undefined;
+    typeId?: number;
+    companyID?: number;
+    subID?: number;
+    questions?: QuestionDTO[] | undefined;
+    readonly totalQuestions?: number;
+    isActive?: boolean;
+    isDeleted?: boolean;
+    dateCreated?: Date;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 
     constructor(data?: IQuizDTO) {
         if (data) {
@@ -20137,38 +19425,31 @@ export class QuizDTO implements IQuizDTO {
         data["modifiedById"] = this.modifiedById;
         return data; 
     }
-
-    clone(): QuizDTO {
-        const json = this.toJSON();
-        let result = new QuizDTO();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IQuizDTO {
-    id: number;
-    name: string | undefined;
-    type: string | undefined;
-    typeId: number;
-    companyID: number;
-    subID: number;
-    questions: QuestionDTO[] | undefined;
-    totalQuestions: number;
-    isActive: boolean;
-    isDeleted: boolean;
-    dateCreated: Date;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
+    id?: number;
+    name?: string | undefined;
+    type?: string | undefined;
+    typeId?: number;
+    companyID?: number;
+    subID?: number;
+    questions?: QuestionDTO[] | undefined;
+    totalQuestions?: number;
+    isActive?: boolean;
+    isDeleted?: boolean;
+    dateCreated?: Date;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 }
 
 export class QuizDTOListApiResult implements IQuizDTOListApiResult {
-    hasError!: boolean;
-    message!: string | undefined;
-    result!: QuizDTO[] | undefined;
-    totalCount!: number;
-    readonly totalRecord!: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: QuizDTO[] | undefined;
+    totalCount?: number;
+    readonly totalRecord?: number;
 
     constructor(data?: IQuizDTOListApiResult) {
         if (data) {
@@ -20213,29 +19494,22 @@ export class QuizDTOListApiResult implements IQuizDTOListApiResult {
         data["totalRecord"] = this.totalRecord;
         return data; 
     }
-
-    clone(): QuizDTOListApiResult {
-        const json = this.toJSON();
-        let result = new QuizDTOListApiResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IQuizDTOListApiResult {
-    hasError: boolean;
-    message: string | undefined;
-    result: QuizDTO[] | undefined;
-    totalCount: number;
-    totalRecord: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: QuizDTO[] | undefined;
+    totalCount?: number;
+    totalRecord?: number;
 }
 
 export class QuizDTOApiResult implements IQuizDTOApiResult {
-    hasError!: boolean;
-    message!: string | undefined;
-    result!: QuizDTO;
-    totalCount!: number;
-    readonly totalRecord!: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: QuizDTO;
+    totalCount?: number;
+    readonly totalRecord?: number;
 
     constructor(data?: IQuizDTOApiResult) {
         if (data) {
@@ -20272,28 +19546,21 @@ export class QuizDTOApiResult implements IQuizDTOApiResult {
         data["totalRecord"] = this.totalRecord;
         return data; 
     }
-
-    clone(): QuizDTOApiResult {
-        const json = this.toJSON();
-        let result = new QuizDTOApiResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IQuizDTOApiResult {
-    hasError: boolean;
-    message: string | undefined;
-    result: QuizDTO;
-    totalCount: number;
-    totalRecord: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: QuizDTO;
+    totalCount?: number;
+    totalRecord?: number;
 }
 
 export class ApplicationRoleDTO implements IApplicationRoleDTO {
-    id!: number;
+    id?: number;
     name!: string;
-    description!: string | undefined;
-    isSystemRole!: boolean;
+    description?: string | undefined;
+    isSystemRole?: boolean;
 
     constructor(data?: IApplicationRoleDTO) {
         if (data) {
@@ -20328,28 +19595,21 @@ export class ApplicationRoleDTO implements IApplicationRoleDTO {
         data["isSystemRole"] = this.isSystemRole;
         return data; 
     }
-
-    clone(): ApplicationRoleDTO {
-        const json = this.toJSON();
-        let result = new ApplicationRoleDTO();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IApplicationRoleDTO {
-    id: number;
+    id?: number;
     name: string;
-    description: string | undefined;
-    isSystemRole: boolean;
+    description?: string | undefined;
+    isSystemRole?: boolean;
 }
 
 export class ApplicationRoleDTOOdataResult implements IApplicationRoleDTOOdataResult {
-    id!: number;
-    hasError!: boolean;
-    message!: string | undefined;
-    value!: ApplicationRoleDTO;
-    totalCount!: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: ApplicationRoleDTO;
+    totalCount?: number;
 
     constructor(data?: IApplicationRoleDTOOdataResult) {
         if (data) {
@@ -20386,28 +19646,21 @@ export class ApplicationRoleDTOOdataResult implements IApplicationRoleDTOOdataRe
         data["totalCount"] = this.totalCount;
         return data; 
     }
-
-    clone(): ApplicationRoleDTOOdataResult {
-        const json = this.toJSON();
-        let result = new ApplicationRoleDTOOdataResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IApplicationRoleDTOOdataResult {
-    id: number;
-    hasError: boolean;
-    message: string | undefined;
-    value: ApplicationRoleDTO;
-    totalCount: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: ApplicationRoleDTO;
+    totalCount?: number;
 }
 
 export class PermissionDTO implements IPermissionDTO {
-    id!: number;
-    name!: string | undefined;
-    applicationName!: string | undefined;
-    code!: string | undefined;
+    id?: number;
+    name?: string | undefined;
+    applicationName?: string | undefined;
+    code?: string | undefined;
 
     constructor(data?: IPermissionDTO) {
         if (data) {
@@ -20442,26 +19695,19 @@ export class PermissionDTO implements IPermissionDTO {
         data["code"] = this.code;
         return data; 
     }
-
-    clone(): PermissionDTO {
-        const json = this.toJSON();
-        let result = new PermissionDTO();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IPermissionDTO {
-    id: number;
-    name: string | undefined;
-    applicationName: string | undefined;
-    code: string | undefined;
+    id?: number;
+    name?: string | undefined;
+    applicationName?: string | undefined;
+    code?: string | undefined;
 }
 
 export class RolePermissionDTO implements IRolePermissionDTO {
-    roleId!: number;
-    roleName!: string | undefined;
-    permissions!: PermissionDTO[] | undefined;
+    roleId?: number;
+    roleName?: string | undefined;
+    permissions?: PermissionDTO[] | undefined;
 
     constructor(data?: IRolePermissionDTO) {
         if (data) {
@@ -20502,27 +19748,20 @@ export class RolePermissionDTO implements IRolePermissionDTO {
         }
         return data; 
     }
-
-    clone(): RolePermissionDTO {
-        const json = this.toJSON();
-        let result = new RolePermissionDTO();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IRolePermissionDTO {
-    roleId: number;
-    roleName: string | undefined;
-    permissions: PermissionDTO[] | undefined;
+    roleId?: number;
+    roleName?: string | undefined;
+    permissions?: PermissionDTO[] | undefined;
 }
 
 export class RolePermissionDTOIListApiResult implements IRolePermissionDTOIListApiResult {
-    hasError!: boolean;
-    message!: string | undefined;
-    result!: RolePermissionDTO[] | undefined;
-    totalCount!: number;
-    readonly totalRecord!: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: RolePermissionDTO[] | undefined;
+    totalCount?: number;
+    readonly totalRecord?: number;
 
     constructor(data?: IRolePermissionDTOIListApiResult) {
         if (data) {
@@ -20567,29 +19806,22 @@ export class RolePermissionDTOIListApiResult implements IRolePermissionDTOIListA
         data["totalRecord"] = this.totalRecord;
         return data; 
     }
-
-    clone(): RolePermissionDTOIListApiResult {
-        const json = this.toJSON();
-        let result = new RolePermissionDTOIListApiResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IRolePermissionDTOIListApiResult {
-    hasError: boolean;
-    message: string | undefined;
-    result: RolePermissionDTO[] | undefined;
-    totalCount: number;
-    totalRecord: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: RolePermissionDTO[] | undefined;
+    totalCount?: number;
+    totalRecord?: number;
 }
 
 export class RolePermissionDTOApiResult implements IRolePermissionDTOApiResult {
-    hasError!: boolean;
-    message!: string | undefined;
-    result!: RolePermissionDTO;
-    totalCount!: number;
-    readonly totalRecord!: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: RolePermissionDTO;
+    totalCount?: number;
+    readonly totalRecord?: number;
 
     constructor(data?: IRolePermissionDTOApiResult) {
         if (data) {
@@ -20626,25 +19858,18 @@ export class RolePermissionDTOApiResult implements IRolePermissionDTOApiResult {
         data["totalRecord"] = this.totalRecord;
         return data; 
     }
-
-    clone(): RolePermissionDTOApiResult {
-        const json = this.toJSON();
-        let result = new RolePermissionDTOApiResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IRolePermissionDTOApiResult {
-    hasError: boolean;
-    message: string | undefined;
-    result: RolePermissionDTO;
-    totalCount: number;
-    totalRecord: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: RolePermissionDTO;
+    totalCount?: number;
+    totalRecord?: number;
 }
 
 export class RolePermissionMappingDTO implements IRolePermissionMappingDTO {
-    roleId!: number;
+    roleId?: number;
     permissionIds!: number[];
 
     constructor(data?: IRolePermissionMappingDTO) {
@@ -20687,31 +19912,24 @@ export class RolePermissionMappingDTO implements IRolePermissionMappingDTO {
         }
         return data; 
     }
-
-    clone(): RolePermissionMappingDTO {
-        const json = this.toJSON();
-        let result = new RolePermissionMappingDTO();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IRolePermissionMappingDTO {
-    roleId: number;
+    roleId?: number;
     permissionIds: number[];
 }
 
 export class Sector implements ISector {
-    name!: string | undefined;
-    id!: number;
-    companyID!: number;
-    subID!: number;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
+    name?: string | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 
     constructor(data?: ISector) {
         if (data) {
@@ -20758,34 +19976,27 @@ export class Sector implements ISector {
         data["modifiedById"] = this.modifiedById;
         return data; 
     }
-
-    clone(): Sector {
-        const json = this.toJSON();
-        let result = new Sector();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface ISector {
-    name: string | undefined;
-    id: number;
-    companyID: number;
-    subID: number;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
+    name?: string | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 }
 
 export class SectorIListOdataResult implements ISectorIListOdataResult {
-    id!: number;
-    hasError!: boolean;
-    message!: string | undefined;
-    value!: Sector[] | undefined;
-    totalCount!: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: Sector[] | undefined;
+    totalCount?: number;
 
     constructor(data?: ISectorIListOdataResult) {
         if (data) {
@@ -20830,28 +20041,21 @@ export class SectorIListOdataResult implements ISectorIListOdataResult {
         data["totalCount"] = this.totalCount;
         return data; 
     }
-
-    clone(): SectorIListOdataResult {
-        const json = this.toJSON();
-        let result = new SectorIListOdataResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface ISectorIListOdataResult {
-    id: number;
-    hasError: boolean;
-    message: string | undefined;
-    value: Sector[] | undefined;
-    totalCount: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: Sector[] | undefined;
+    totalCount?: number;
 }
 
 export class ManageSkillDTO implements IManageSkillDTO {
-    id!: number;
-    categoryId!: number;
-    category!: string | undefined;
-    skills!: string | undefined;
+    id?: number;
+    categoryId?: number;
+    category?: string | undefined;
+    skills?: string | undefined;
 
     constructor(data?: IManageSkillDTO) {
         if (data) {
@@ -20886,36 +20090,29 @@ export class ManageSkillDTO implements IManageSkillDTO {
         data["skills"] = this.skills;
         return data; 
     }
-
-    clone(): ManageSkillDTO {
-        const json = this.toJSON();
-        let result = new ManageSkillDTO();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IManageSkillDTO {
-    id: number;
-    categoryId: number;
-    category: string | undefined;
-    skills: string | undefined;
+    id?: number;
+    categoryId?: number;
+    category?: string | undefined;
+    skills?: string | undefined;
 }
 
 export class Skill implements ISkill {
-    sectorId!: number;
-    name!: string | undefined;
-    sector!: string | undefined;
-    point!: number | undefined;
-    id!: number;
-    companyID!: number;
-    subID!: number;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
+    sectorId?: number;
+    name?: string | undefined;
+    sector?: string | undefined;
+    point?: number | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 
     constructor(data?: ISkill) {
         if (data) {
@@ -20968,37 +20165,30 @@ export class Skill implements ISkill {
         data["modifiedById"] = this.modifiedById;
         return data; 
     }
-
-    clone(): Skill {
-        const json = this.toJSON();
-        let result = new Skill();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface ISkill {
-    sectorId: number;
-    name: string | undefined;
-    sector: string | undefined;
-    point: number | undefined;
-    id: number;
-    companyID: number;
-    subID: number;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
+    sectorId?: number;
+    name?: string | undefined;
+    sector?: string | undefined;
+    point?: number | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 }
 
 export class SkillListApiResult implements ISkillListApiResult {
-    hasError!: boolean;
-    message!: string | undefined;
-    result!: Skill[] | undefined;
-    totalCount!: number;
-    readonly totalRecord!: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: Skill[] | undefined;
+    totalCount?: number;
+    readonly totalRecord?: number;
 
     constructor(data?: ISkillListApiResult) {
         if (data) {
@@ -21043,29 +20233,22 @@ export class SkillListApiResult implements ISkillListApiResult {
         data["totalRecord"] = this.totalRecord;
         return data; 
     }
-
-    clone(): SkillListApiResult {
-        const json = this.toJSON();
-        let result = new SkillListApiResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface ISkillListApiResult {
-    hasError: boolean;
-    message: string | undefined;
-    result: Skill[] | undefined;
-    totalCount: number;
-    totalRecord: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: Skill[] | undefined;
+    totalCount?: number;
+    totalRecord?: number;
 }
 
 export class SkillApiResult implements ISkillApiResult {
-    hasError!: boolean;
-    message!: string | undefined;
-    result!: Skill;
-    totalCount!: number;
-    readonly totalRecord!: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: Skill;
+    totalCount?: number;
+    readonly totalRecord?: number;
 
     constructor(data?: ISkillApiResult) {
         if (data) {
@@ -21102,29 +20285,22 @@ export class SkillApiResult implements ISkillApiResult {
         data["totalRecord"] = this.totalRecord;
         return data; 
     }
-
-    clone(): SkillApiResult {
-        const json = this.toJSON();
-        let result = new SkillApiResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface ISkillApiResult {
-    hasError: boolean;
-    message: string | undefined;
-    result: Skill;
-    totalCount: number;
-    totalRecord: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: Skill;
+    totalCount?: number;
+    totalRecord?: number;
 }
 
 export class SkillAreaIListOdataResult implements ISkillAreaIListOdataResult {
-    id!: number;
-    hasError!: boolean;
-    message!: string | undefined;
-    value!: SkillArea[] | undefined;
-    totalCount!: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: SkillArea[] | undefined;
+    totalCount?: number;
 
     constructor(data?: ISkillAreaIListOdataResult) {
         if (data) {
@@ -21169,29 +20345,22 @@ export class SkillAreaIListOdataResult implements ISkillAreaIListOdataResult {
         data["totalCount"] = this.totalCount;
         return data; 
     }
-
-    clone(): SkillAreaIListOdataResult {
-        const json = this.toJSON();
-        let result = new SkillAreaIListOdataResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface ISkillAreaIListOdataResult {
-    id: number;
-    hasError: boolean;
-    message: string | undefined;
-    value: SkillArea[] | undefined;
-    totalCount: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: SkillArea[] | undefined;
+    totalCount?: number;
 }
 
 export class StateIListOdataResult implements IStateIListOdataResult {
-    id!: number;
-    hasError!: boolean;
-    message!: string | undefined;
-    value!: State[] | undefined;
-    totalCount!: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: State[] | undefined;
+    totalCount?: number;
 
     constructor(data?: IStateIListOdataResult) {
         if (data) {
@@ -21236,28 +20405,21 @@ export class StateIListOdataResult implements IStateIListOdataResult {
         data["totalCount"] = this.totalCount;
         return data; 
     }
-
-    clone(): StateIListOdataResult {
-        const json = this.toJSON();
-        let result = new StateIListOdataResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IStateIListOdataResult {
-    id: number;
-    hasError: boolean;
-    message: string | undefined;
-    value: State[] | undefined;
-    totalCount: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: State[] | undefined;
+    totalCount?: number;
 }
 
 export class SubscriptionPlanFeatureDTO implements ISubscriptionPlanFeatureDTO {
-    id!: number;
-    planName!: string | undefined;
-    amount!: number;
-    isCheck!: boolean;
+    id?: number;
+    planName?: string | undefined;
+    amount?: number;
+    isCheck?: boolean;
 
     constructor(data?: ISubscriptionPlanFeatureDTO) {
         if (data) {
@@ -21292,26 +20454,19 @@ export class SubscriptionPlanFeatureDTO implements ISubscriptionPlanFeatureDTO {
         data["isCheck"] = this.isCheck;
         return data; 
     }
-
-    clone(): SubscriptionPlanFeatureDTO {
-        const json = this.toJSON();
-        let result = new SubscriptionPlanFeatureDTO();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface ISubscriptionPlanFeatureDTO {
-    id: number;
-    planName: string | undefined;
-    amount: number;
-    isCheck: boolean;
+    id?: number;
+    planName?: string | undefined;
+    amount?: number;
+    isCheck?: boolean;
 }
 
 export class SubscriptionFeatureDTO implements ISubscriptionFeatureDTO {
-    id!: number;
-    name!: string | undefined;
-    plans!: SubscriptionPlanFeatureDTO[] | undefined;
+    id?: number;
+    name?: string | undefined;
+    plans?: SubscriptionPlanFeatureDTO[] | undefined;
 
     constructor(data?: ISubscriptionFeatureDTO) {
         if (data) {
@@ -21352,27 +20507,20 @@ export class SubscriptionFeatureDTO implements ISubscriptionFeatureDTO {
         }
         return data; 
     }
-
-    clone(): SubscriptionFeatureDTO {
-        const json = this.toJSON();
-        let result = new SubscriptionFeatureDTO();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface ISubscriptionFeatureDTO {
-    id: number;
-    name: string | undefined;
-    plans: SubscriptionPlanFeatureDTO[] | undefined;
+    id?: number;
+    name?: string | undefined;
+    plans?: SubscriptionPlanFeatureDTO[] | undefined;
 }
 
 export class SubscriptionFeatureDTOIListOdataResult implements ISubscriptionFeatureDTOIListOdataResult {
-    id!: number;
-    hasError!: boolean;
-    message!: string | undefined;
-    value!: SubscriptionFeatureDTO[] | undefined;
-    totalCount!: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: SubscriptionFeatureDTO[] | undefined;
+    totalCount?: number;
 
     constructor(data?: ISubscriptionFeatureDTOIListOdataResult) {
         if (data) {
@@ -21417,40 +20565,33 @@ export class SubscriptionFeatureDTOIListOdataResult implements ISubscriptionFeat
         data["totalCount"] = this.totalCount;
         return data; 
     }
-
-    clone(): SubscriptionFeatureDTOIListOdataResult {
-        const json = this.toJSON();
-        let result = new SubscriptionFeatureDTOIListOdataResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface ISubscriptionFeatureDTOIListOdataResult {
-    id: number;
-    hasError: boolean;
-    message: string | undefined;
-    value: SubscriptionFeatureDTO[] | undefined;
-    totalCount: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: SubscriptionFeatureDTO[] | undefined;
+    totalCount?: number;
 }
 
 export class ClientTempOrder implements IClientTempOrder {
-    trasancationEntryId!: number;
-    quantity!: number;
-    subscriptionId!: number;
-    unitCost!: number;
-    totalCost!: number;
-    temporaryTransactionId!: number | undefined;
-    subscription!: Subscription;
-    id!: number;
-    companyID!: number;
-    subID!: number;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
+    trasancationEntryId?: number;
+    quantity?: number;
+    subscriptionId?: number;
+    unitCost?: number;
+    totalCost?: number;
+    temporaryTransactionId?: number | undefined;
+    subscription?: Subscription;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 
     constructor(data?: IClientTempOrder) {
         if (data) {
@@ -21509,68 +20650,61 @@ export class ClientTempOrder implements IClientTempOrder {
         data["modifiedById"] = this.modifiedById;
         return data; 
     }
-
-    clone(): ClientTempOrder {
-        const json = this.toJSON();
-        let result = new ClientTempOrder();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IClientTempOrder {
-    trasancationEntryId: number;
-    quantity: number;
-    subscriptionId: number;
-    unitCost: number;
-    totalCost: number;
-    temporaryTransactionId: number | undefined;
-    subscription: Subscription;
-    id: number;
-    companyID: number;
-    subID: number;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
+    trasancationEntryId?: number;
+    quantity?: number;
+    subscriptionId?: number;
+    unitCost?: number;
+    totalCost?: number;
+    temporaryTransactionId?: number | undefined;
+    subscription?: Subscription;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 }
 
 export class PaymentLog implements IPaymentLog {
-    id!: number;
-    itemId!: number;
-    paymentTypeId!: number;
-    paymentType!: string | undefined;
-    status!: boolean;
-    message!: string | undefined;
-    amount!: string | undefined;
-    currency!: string | undefined;
-    transactionDate!: string | undefined;
-    reference!: string | undefined;
-    plan!: string | undefined;
-    domain!: string | undefined;
-    channel!: string | undefined;
-    ipAddress!: string | undefined;
-    authorizationCode!: string | undefined;
-    cardType!: string | undefined;
-    lastFourDigit!: string | undefined;
-    expMonth!: string | undefined;
-    expYear!: string | undefined;
-    bin!: string | undefined;
-    bank!: string | undefined;
-    signature!: string | undefined;
-    countryCode!: string | undefined;
-    accountName!: string | undefined;
-    customerId!: string | undefined;
-    customerCode!: string | undefined;
-    firstName!: string | undefined;
-    lastName!: string | undefined;
-    email!: string | undefined;
-    phone!: string | undefined;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
+    id?: number;
+    itemId?: number;
+    paymentTypeId?: number;
+    paymentType?: string | undefined;
+    status?: boolean;
+    message?: string | undefined;
+    amount?: string | undefined;
+    currency?: string | undefined;
+    transactionDate?: string | undefined;
+    reference?: string | undefined;
+    plan?: string | undefined;
+    domain?: string | undefined;
+    channel?: string | undefined;
+    ipAddress?: string | undefined;
+    authorizationCode?: string | undefined;
+    cardType?: string | undefined;
+    lastFourDigit?: string | undefined;
+    expMonth?: string | undefined;
+    expYear?: string | undefined;
+    bin?: string | undefined;
+    bank?: string | undefined;
+    signature?: string | undefined;
+    countryCode?: string | undefined;
+    accountName?: string | undefined;
+    customerId?: string | undefined;
+    customerCode?: string | undefined;
+    firstName?: string | undefined;
+    lastName?: string | undefined;
+    email?: string | undefined;
+    phone?: string | undefined;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
 
     constructor(data?: IPaymentLog) {
         if (data) {
@@ -21663,77 +20797,70 @@ export class PaymentLog implements IPaymentLog {
         data["isActive"] = this.isActive;
         return data; 
     }
-
-    clone(): PaymentLog {
-        const json = this.toJSON();
-        let result = new PaymentLog();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IPaymentLog {
-    id: number;
-    itemId: number;
-    paymentTypeId: number;
-    paymentType: string | undefined;
-    status: boolean;
-    message: string | undefined;
-    amount: string | undefined;
-    currency: string | undefined;
-    transactionDate: string | undefined;
-    reference: string | undefined;
-    plan: string | undefined;
-    domain: string | undefined;
-    channel: string | undefined;
-    ipAddress: string | undefined;
-    authorizationCode: string | undefined;
-    cardType: string | undefined;
-    lastFourDigit: string | undefined;
-    expMonth: string | undefined;
-    expYear: string | undefined;
-    bin: string | undefined;
-    bank: string | undefined;
-    signature: string | undefined;
-    countryCode: string | undefined;
-    accountName: string | undefined;
-    customerId: string | undefined;
-    customerCode: string | undefined;
-    firstName: string | undefined;
-    lastName: string | undefined;
-    email: string | undefined;
-    phone: string | undefined;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
+    id?: number;
+    itemId?: number;
+    paymentTypeId?: number;
+    paymentType?: string | undefined;
+    status?: boolean;
+    message?: string | undefined;
+    amount?: string | undefined;
+    currency?: string | undefined;
+    transactionDate?: string | undefined;
+    reference?: string | undefined;
+    plan?: string | undefined;
+    domain?: string | undefined;
+    channel?: string | undefined;
+    ipAddress?: string | undefined;
+    authorizationCode?: string | undefined;
+    cardType?: string | undefined;
+    lastFourDigit?: string | undefined;
+    expMonth?: string | undefined;
+    expYear?: string | undefined;
+    bin?: string | undefined;
+    bank?: string | undefined;
+    signature?: string | undefined;
+    countryCode?: string | undefined;
+    accountName?: string | undefined;
+    customerId?: string | undefined;
+    customerCode?: string | undefined;
+    firstName?: string | undefined;
+    lastName?: string | undefined;
+    email?: string | undefined;
+    phone?: string | undefined;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
 }
 
 export class SubscriptionPayment implements ISubscriptionPayment {
-    isPaid!: boolean;
-    paymentTypeId!: number;
-    paymentType!: string | undefined;
-    datePaid!: Date | undefined;
-    modified!: Date | undefined;
-    subscriptionId!: number;
-    transactionReference!: string | undefined;
-    quantityPurchased!: number | undefined;
-    amountPaid!: number;
-    email!: string | undefined;
-    paymentLogId!: number;
-    paymentById!: number | undefined;
-    paymentBy!: string | undefined;
-    paymentSource!: number;
-    subscription!: Subscription;
-    paymentLog!: PaymentLog;
-    id!: number;
-    companyID!: number;
-    subID!: number;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
+    isPaid?: boolean;
+    paymentTypeId?: number;
+    paymentType?: string | undefined;
+    datePaid?: Date | undefined;
+    modified?: Date | undefined;
+    subscriptionId?: number;
+    transactionReference?: string | undefined;
+    quantityPurchased?: number | undefined;
+    amountPaid?: number;
+    email?: string | undefined;
+    paymentLogId?: number;
+    paymentById?: number | undefined;
+    paymentBy?: string | undefined;
+    paymentSource?: number;
+    subscription?: Subscription;
+    paymentLog?: PaymentLog;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 
     constructor(data?: ISubscriptionPayment) {
         if (data) {
@@ -21810,67 +20937,60 @@ export class SubscriptionPayment implements ISubscriptionPayment {
         data["modifiedById"] = this.modifiedById;
         return data; 
     }
-
-    clone(): SubscriptionPayment {
-        const json = this.toJSON();
-        let result = new SubscriptionPayment();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface ISubscriptionPayment {
-    isPaid: boolean;
-    paymentTypeId: number;
-    paymentType: string | undefined;
-    datePaid: Date | undefined;
-    modified: Date | undefined;
-    subscriptionId: number;
-    transactionReference: string | undefined;
-    quantityPurchased: number | undefined;
-    amountPaid: number;
-    email: string | undefined;
-    paymentLogId: number;
-    paymentById: number | undefined;
-    paymentBy: string | undefined;
-    paymentSource: number;
-    subscription: Subscription;
-    paymentLog: PaymentLog;
-    id: number;
-    companyID: number;
-    subID: number;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
+    isPaid?: boolean;
+    paymentTypeId?: number;
+    paymentType?: string | undefined;
+    datePaid?: Date | undefined;
+    modified?: Date | undefined;
+    subscriptionId?: number;
+    transactionReference?: string | undefined;
+    quantityPurchased?: number | undefined;
+    amountPaid?: number;
+    email?: string | undefined;
+    paymentLogId?: number;
+    paymentById?: number | undefined;
+    paymentBy?: string | undefined;
+    paymentSource?: number;
+    subscription?: Subscription;
+    paymentLog?: PaymentLog;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 }
 
 export class Subscription implements ISubscription {
-    id!: number;
-    name!: string | undefined;
-    description!: string | undefined;
-    features!: string | undefined;
-    planCode!: string | undefined;
-    licenseCount!: number | undefined;
-    typeId!: number;
-    amount!: number;
-    paymentUrl!: string | undefined;
-    canPostJob!: boolean | undefined;
-    isRecommended!: boolean | undefined;
-    receiveCVAttachment!: boolean | undefined;
-    canAccessProfile!: boolean | undefined;
-    fullProfileAccess!: boolean | undefined;
-    canFilterShortlist!: boolean | undefined;
-    canHideIdentity!: boolean | undefined;
-    maxQualifiedCandidateForPositionAlert!: number | undefined;
-    dateCreated!: Date;
-    modified!: Date | undefined;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    clientTempOrders!: ClientTempOrder[] | undefined;
-    subscriptionPayments!: SubscriptionPayment[] | undefined;
+    id?: number;
+    name?: string | undefined;
+    description?: string | undefined;
+    features?: string | undefined;
+    planCode?: string | undefined;
+    licenseCount?: number | undefined;
+    typeId?: number;
+    amount?: number;
+    paymentUrl?: string | undefined;
+    canPostJob?: boolean | undefined;
+    isRecommended?: boolean | undefined;
+    receiveCVAttachment?: boolean | undefined;
+    canAccessProfile?: boolean | undefined;
+    fullProfileAccess?: boolean | undefined;
+    canFilterShortlist?: boolean | undefined;
+    canHideIdentity?: boolean | undefined;
+    maxQualifiedCandidateForPositionAlert?: number | undefined;
+    dateCreated?: Date;
+    modified?: Date | undefined;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    clientTempOrders?: ClientTempOrder[] | undefined;
+    subscriptionPayments?: SubscriptionPayment[] | undefined;
 
     constructor(data?: ISubscription) {
         if (data) {
@@ -21959,47 +21079,40 @@ export class Subscription implements ISubscription {
         }
         return data; 
     }
-
-    clone(): Subscription {
-        const json = this.toJSON();
-        let result = new Subscription();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface ISubscription {
-    id: number;
-    name: string | undefined;
-    description: string | undefined;
-    features: string | undefined;
-    planCode: string | undefined;
-    licenseCount: number | undefined;
-    typeId: number;
-    amount: number;
-    paymentUrl: string | undefined;
-    canPostJob: boolean | undefined;
-    isRecommended: boolean | undefined;
-    receiveCVAttachment: boolean | undefined;
-    canAccessProfile: boolean | undefined;
-    fullProfileAccess: boolean | undefined;
-    canFilterShortlist: boolean | undefined;
-    canHideIdentity: boolean | undefined;
-    maxQualifiedCandidateForPositionAlert: number | undefined;
-    dateCreated: Date;
-    modified: Date | undefined;
-    isDeleted: boolean;
-    isActive: boolean;
-    clientTempOrders: ClientTempOrder[] | undefined;
-    subscriptionPayments: SubscriptionPayment[] | undefined;
+    id?: number;
+    name?: string | undefined;
+    description?: string | undefined;
+    features?: string | undefined;
+    planCode?: string | undefined;
+    licenseCount?: number | undefined;
+    typeId?: number;
+    amount?: number;
+    paymentUrl?: string | undefined;
+    canPostJob?: boolean | undefined;
+    isRecommended?: boolean | undefined;
+    receiveCVAttachment?: boolean | undefined;
+    canAccessProfile?: boolean | undefined;
+    fullProfileAccess?: boolean | undefined;
+    canFilterShortlist?: boolean | undefined;
+    canHideIdentity?: boolean | undefined;
+    maxQualifiedCandidateForPositionAlert?: number | undefined;
+    dateCreated?: Date;
+    modified?: Date | undefined;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    clientTempOrders?: ClientTempOrder[] | undefined;
+    subscriptionPayments?: SubscriptionPayment[] | undefined;
 }
 
 export class SubscriptionIListOdataResult implements ISubscriptionIListOdataResult {
-    id!: number;
-    hasError!: boolean;
-    message!: string | undefined;
-    value!: Subscription[] | undefined;
-    totalCount!: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: Subscription[] | undefined;
+    totalCount?: number;
 
     constructor(data?: ISubscriptionIListOdataResult) {
         if (data) {
@@ -22044,30 +21157,23 @@ export class SubscriptionIListOdataResult implements ISubscriptionIListOdataResu
         data["totalCount"] = this.totalCount;
         return data; 
     }
-
-    clone(): SubscriptionIListOdataResult {
-        const json = this.toJSON();
-        let result = new SubscriptionIListOdataResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface ISubscriptionIListOdataResult {
-    id: number;
-    hasError: boolean;
-    message: string | undefined;
-    value: Subscription[] | undefined;
-    totalCount: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: Subscription[] | undefined;
+    totalCount?: number;
 }
 
 export class ManageSubscriptionDTO implements IManageSubscriptionDTO {
-    id!: number;
-    planCode!: string | undefined;
-    name!: string | undefined;
-    typeId!: number;
-    amount!: number;
-    paymentUrl!: string | undefined;
+    id?: number;
+    planCode?: string | undefined;
+    name?: string | undefined;
+    typeId?: number;
+    amount?: number;
+    paymentUrl?: string | undefined;
     selectedFeatures!: string[];
 
     constructor(data?: IManageSubscriptionDTO) {
@@ -22120,32 +21226,25 @@ export class ManageSubscriptionDTO implements IManageSubscriptionDTO {
         }
         return data; 
     }
-
-    clone(): ManageSubscriptionDTO {
-        const json = this.toJSON();
-        let result = new ManageSubscriptionDTO();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IManageSubscriptionDTO {
-    id: number;
-    planCode: string | undefined;
-    name: string | undefined;
-    typeId: number;
-    amount: number;
-    paymentUrl: string | undefined;
+    id?: number;
+    planCode?: string | undefined;
+    name?: string | undefined;
+    typeId?: number;
+    amount?: number;
+    paymentUrl?: string | undefined;
     selectedFeatures: string[];
 }
 
 export class Title implements ITitle {
-    id!: number;
-    name!: string | undefined;
-    dateCreated!: Date;
-    modified!: Date | undefined;
-    isDeleted!: boolean;
-    isActive!: boolean;
+    id?: number;
+    name?: string | undefined;
+    dateCreated?: Date;
+    modified?: Date | undefined;
+    isDeleted?: boolean;
+    isActive?: boolean;
 
     constructor(data?: ITitle) {
         if (data) {
@@ -22184,30 +21283,23 @@ export class Title implements ITitle {
         data["isActive"] = this.isActive;
         return data; 
     }
-
-    clone(): Title {
-        const json = this.toJSON();
-        let result = new Title();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface ITitle {
-    id: number;
-    name: string | undefined;
-    dateCreated: Date;
-    modified: Date | undefined;
-    isDeleted: boolean;
-    isActive: boolean;
+    id?: number;
+    name?: string | undefined;
+    dateCreated?: Date;
+    modified?: Date | undefined;
+    isDeleted?: boolean;
+    isActive?: boolean;
 }
 
 export class TitleIListOdataResult implements ITitleIListOdataResult {
-    id!: number;
-    hasError!: boolean;
-    message!: string | undefined;
-    value!: Title[] | undefined;
-    totalCount!: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: Title[] | undefined;
+    totalCount?: number;
 
     constructor(data?: ITitleIListOdataResult) {
         if (data) {
@@ -22252,29 +21344,22 @@ export class TitleIListOdataResult implements ITitleIListOdataResult {
         data["totalCount"] = this.totalCount;
         return data; 
     }
-
-    clone(): TitleIListOdataResult {
-        const json = this.toJSON();
-        let result = new TitleIListOdataResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface ITitleIListOdataResult {
-    id: number;
-    hasError: boolean;
-    message: string | undefined;
-    value: Title[] | undefined;
-    totalCount: number;
+    id?: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    value?: Title[] | undefined;
+    totalCount?: number;
 }
 
 export class ApplicationPermission implements IApplicationPermission {
-    id!: number;
-    name!: string | undefined;
-    code!: string | undefined;
-    moduleID!: number;
-    applicationRolePermissions!: ApplicationRolePermission[] | undefined;
+    id?: number;
+    name?: string | undefined;
+    code?: string | undefined;
+    moduleID?: number;
+    applicationRolePermissions?: ApplicationRolePermission[] | undefined;
 
     constructor(data?: IApplicationPermission) {
         if (data) {
@@ -22319,30 +21404,23 @@ export class ApplicationPermission implements IApplicationPermission {
         }
         return data; 
     }
-
-    clone(): ApplicationPermission {
-        const json = this.toJSON();
-        let result = new ApplicationPermission();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IApplicationPermission {
-    id: number;
-    name: string | undefined;
-    code: string | undefined;
-    moduleID: number;
-    applicationRolePermissions: ApplicationRolePermission[] | undefined;
+    id?: number;
+    name?: string | undefined;
+    code?: string | undefined;
+    moduleID?: number;
+    applicationRolePermissions?: ApplicationRolePermission[] | undefined;
 }
 
 export class ApplicationRolePermission implements IApplicationRolePermission {
-    id!: number;
-    dateCreated!: Date;
-    applicationRoleId!: number;
-    applicationPermissionId!: number;
-    applicationRole!: ApplicationRole;
-    applicationPermission!: ApplicationPermission;
+    id?: number;
+    dateCreated?: Date;
+    applicationRoleId?: number;
+    applicationPermissionId?: number;
+    applicationRole?: ApplicationRole;
+    applicationPermission?: ApplicationPermission;
 
     constructor(data?: IApplicationRolePermission) {
         if (data) {
@@ -22381,32 +21459,25 @@ export class ApplicationRolePermission implements IApplicationRolePermission {
         data["applicationPermission"] = this.applicationPermission ? this.applicationPermission.toJSON() : <any>undefined;
         return data; 
     }
-
-    clone(): ApplicationRolePermission {
-        const json = this.toJSON();
-        let result = new ApplicationRolePermission();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IApplicationRolePermission {
-    id: number;
-    dateCreated: Date;
-    applicationRoleId: number;
-    applicationPermissionId: number;
-    applicationRole: ApplicationRole;
-    applicationPermission: ApplicationPermission;
+    id?: number;
+    dateCreated?: Date;
+    applicationRoleId?: number;
+    applicationPermissionId?: number;
+    applicationRole?: ApplicationRole;
+    applicationPermission?: ApplicationPermission;
 }
 
 export class ApplicationRole implements IApplicationRole {
-    description!: string | undefined;
-    isSystemRole!: boolean;
-    applicationRolePermissions!: ApplicationRolePermission[] | undefined;
-    id!: number;
-    name!: string | undefined;
-    normalizedName!: string | undefined;
-    concurrencyStamp!: string | undefined;
+    description?: string | undefined;
+    isSystemRole?: boolean;
+    applicationRolePermissions?: ApplicationRolePermission[] | undefined;
+    id?: number;
+    name?: string | undefined;
+    normalizedName?: string | undefined;
+    concurrencyStamp?: string | undefined;
 
     constructor(data?: IApplicationRole) {
         if (data) {
@@ -22455,42 +21526,35 @@ export class ApplicationRole implements IApplicationRole {
         data["concurrencyStamp"] = this.concurrencyStamp;
         return data; 
     }
-
-    clone(): ApplicationRole {
-        const json = this.toJSON();
-        let result = new ApplicationRole();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IApplicationRole {
-    description: string | undefined;
-    isSystemRole: boolean;
-    applicationRolePermissions: ApplicationRolePermission[] | undefined;
-    id: number;
-    name: string | undefined;
-    normalizedName: string | undefined;
-    concurrencyStamp: string | undefined;
+    description?: string | undefined;
+    isSystemRole?: boolean;
+    applicationRolePermissions?: ApplicationRolePermission[] | undefined;
+    id?: number;
+    name?: string | undefined;
+    normalizedName?: string | undefined;
+    concurrencyStamp?: string | undefined;
 }
 
 export class RegisterUserDTO implements IRegisterUserDTO {
     firstName!: string;
     lastName!: string;
     email!: string;
-    password!: string | undefined;
-    phoneNumber!: string | undefined;
+    password?: string | undefined;
+    phoneNumber?: string | undefined;
     selectedRoles!: string[];
-    applicationRoles!: ApplicationRole[] | undefined;
-    id!: number;
-    companyID!: number;
-    subID!: number;
-    dateCreated!: Date;
-    isDeleted!: boolean;
-    isActive!: boolean;
-    createdById!: number;
-    dateModified!: Date | undefined;
-    modifiedById!: number | undefined;
+    applicationRoles?: ApplicationRole[] | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 
     constructor(data?: IRegisterUserDTO) {
         if (data) {
@@ -22568,49 +21632,42 @@ export class RegisterUserDTO implements IRegisterUserDTO {
         data["modifiedById"] = this.modifiedById;
         return data; 
     }
-
-    clone(): RegisterUserDTO {
-        const json = this.toJSON();
-        let result = new RegisterUserDTO();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IRegisterUserDTO {
     firstName: string;
     lastName: string;
     email: string;
-    password: string | undefined;
-    phoneNumber: string | undefined;
+    password?: string | undefined;
+    phoneNumber?: string | undefined;
     selectedRoles: string[];
-    applicationRoles: ApplicationRole[] | undefined;
-    id: number;
-    companyID: number;
-    subID: number;
-    dateCreated: Date;
-    isDeleted: boolean;
-    isActive: boolean;
-    createdById: number;
-    dateModified: Date | undefined;
-    modifiedById: number | undefined;
+    applicationRoles?: ApplicationRole[] | undefined;
+    id?: number;
+    companyID?: number;
+    subID?: number;
+    dateCreated?: Date;
+    isDeleted?: boolean;
+    isActive?: boolean;
+    createdById?: number;
+    dateModified?: Date | undefined;
+    modifiedById?: number | undefined;
 }
 
 export class ApplicationUserDTO implements IApplicationUserDTO {
-    id!: number;
-    email!: string | undefined;
-    username!: string | undefined;
-    firstName!: string | undefined;
-    lastName!: string | undefined;
-    isAdmin!: boolean;
-    isTenantAdmin!: boolean;
-    isEnabled!: boolean | undefined;
-    lastLogin!: Date | undefined;
-    companyId!: number;
-    subsidiaryId!: number;
-    token!: string | undefined;
-    apiSessionId!: string | undefined;
-    lastComputerName!: string | undefined;
+    id?: number;
+    email?: string | undefined;
+    username?: string | undefined;
+    firstName?: string | undefined;
+    lastName?: string | undefined;
+    isAdmin?: boolean;
+    isTenantAdmin?: boolean;
+    isEnabled?: boolean | undefined;
+    lastLogin?: Date | undefined;
+    companyId?: number;
+    subsidiaryId?: number;
+    token?: string | undefined;
+    apiSessionId?: string | undefined;
+    lastComputerName?: string | undefined;
 
     constructor(data?: IApplicationUserDTO) {
         if (data) {
@@ -22665,38 +21722,31 @@ export class ApplicationUserDTO implements IApplicationUserDTO {
         data["lastComputerName"] = this.lastComputerName;
         return data; 
     }
-
-    clone(): ApplicationUserDTO {
-        const json = this.toJSON();
-        let result = new ApplicationUserDTO();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IApplicationUserDTO {
-    id: number;
-    email: string | undefined;
-    username: string | undefined;
-    firstName: string | undefined;
-    lastName: string | undefined;
-    isAdmin: boolean;
-    isTenantAdmin: boolean;
-    isEnabled: boolean | undefined;
-    lastLogin: Date | undefined;
-    companyId: number;
-    subsidiaryId: number;
-    token: string | undefined;
-    apiSessionId: string | undefined;
-    lastComputerName: string | undefined;
+    id?: number;
+    email?: string | undefined;
+    username?: string | undefined;
+    firstName?: string | undefined;
+    lastName?: string | undefined;
+    isAdmin?: boolean;
+    isTenantAdmin?: boolean;
+    isEnabled?: boolean | undefined;
+    lastLogin?: Date | undefined;
+    companyId?: number;
+    subsidiaryId?: number;
+    token?: string | undefined;
+    apiSessionId?: string | undefined;
+    lastComputerName?: string | undefined;
 }
 
 export class ApplicationUserDTOIListApiResult implements IApplicationUserDTOIListApiResult {
-    hasError!: boolean;
-    message!: string | undefined;
-    result!: ApplicationUserDTO[] | undefined;
-    totalCount!: number;
-    readonly totalRecord!: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: ApplicationUserDTO[] | undefined;
+    totalCount?: number;
+    readonly totalRecord?: number;
 
     constructor(data?: IApplicationUserDTOIListApiResult) {
         if (data) {
@@ -22741,21 +21791,14 @@ export class ApplicationUserDTOIListApiResult implements IApplicationUserDTOILis
         data["totalRecord"] = this.totalRecord;
         return data; 
     }
-
-    clone(): ApplicationUserDTOIListApiResult {
-        const json = this.toJSON();
-        let result = new ApplicationUserDTOIListApiResult();
-        result.init(json);
-        return result;
-    }
 }
 
 export interface IApplicationUserDTOIListApiResult {
-    hasError: boolean;
-    message: string | undefined;
-    result: ApplicationUserDTO[] | undefined;
-    totalCount: number;
-    totalRecord: number;
+    hasError?: boolean;
+    message?: string | undefined;
+    result?: ApplicationUserDTO[] | undefined;
+    totalCount?: number;
+    totalRecord?: number;
 }
 
 export class ApiException extends Error {

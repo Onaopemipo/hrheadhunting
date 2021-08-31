@@ -32,7 +32,11 @@
           <a class="nav-link"[routerLink]="['/applicants/training']">Training Board</a>
         </li>
 
-        <li class="nav-item active">
+        <li *ngIf="!(authenService.authStatus | async)" class="nav-item active">
+          <a class="nav-link" [routerLink]="['/auth/login']">Score CV </a>
+        </li>
+
+        <li *ngIf="authenService.authStatus | async" class="nav-item active">
           <a class="nav-link" [routerLink]="['/applicants/scorecv']">Score CV </a>
         </li>
 

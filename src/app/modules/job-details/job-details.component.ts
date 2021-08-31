@@ -15,7 +15,7 @@ export class JobDetailsComponent implements OnInit {
   jobId: number = 0;
   applicantId: number = 1;
   checkStatus: boolean = false;
-  jobDetails: JobDTO = new JobDTO().clone();
+  jobDetails: JobDTO = new JobDTO();
   // applicationDetails: JobDTO = new JobDTO();
   // application: ApplyForJobDto = new ApplyForJobDto();
   constructor(private job: JobServiceProxy, private route: ActivatedRoute, private alertMe: AlertserviceService,

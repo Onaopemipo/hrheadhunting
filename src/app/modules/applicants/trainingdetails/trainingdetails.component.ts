@@ -11,7 +11,7 @@ import { ConsultantServiceProxy, TrainingApplicantDTO, TrainingDTO } from 'app/_
 })
 export class TrainingdetailsComponent implements OnInit {
   trainingId: number = 0;
-  singleTraining: TrainingDTO = new TrainingDTO().clone();
+  singleTraining: TrainingDTO = new TrainingDTO();
   btnProcessing: boolean = false;
   attendeeForm: boolean = false;
   attendeeModel: TrainingApplicantDTO = new TrainingApplicantDTO();

@@ -76,7 +76,7 @@ export class JobsComponent implements OnInit {
   certificationData:  [] = [];
   jobAvailability:  []= [];
   allJobRoles:  [] = [];
-  singleJob: JobDTO = new JobDTO().clone();
+  singleJob: JobDTO = new JobDTO();
   tableData: string = '';
   awaitingJobsCounter: number = 0;
   draftCounter: number = 0;

@@ -31,7 +31,11 @@
           <a class="nav-link"[routerLink]="['/applicants/training']">Training Board</a>
         </li>
 
-        <li class="nav-item active">
+        <li *ngIf="!(authenService.authStatus | async)" class="nav-item active">
+          <a class="nav-link" [routerLink]="['/auth/login']">Score CV </a>
+        </li>
+
+        <li *ngIf="authenService.authStatus | async" class="nav-item active">
           <a class="nav-link" [routerLink]="['/applicants/scorecv']">Score CV </a>
         </li>
 
@@ -84,12 +88,29 @@
               <div class="col-sm-8 col-md-4 col-lg-4">
                 <img src="assets/images/jobs.png" style="width:5rem;">
               </div>
+
               <div class="col-sm-12 col-md-8 col-lg-8">
-                  <span style="font-weight: 600; padding-right:5px;"> {{employerData.name}}</span><br>
-                  <div style="padding-top: 5px;"></div>
-                  <span>{{employerData.sector}}</span><br>
-                  <span>{{employerData.employerType}}</span><br>
-                  <!-- <span>{{employerData.state}}</span><br> -->
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Name:</td>
+                      <td>{{employerData.name}}</td>
+                    </tr>
+                    <tr>
+                      <td>Sector:</td>
+                      <td>{{employerData.sector}}</td>
+                    </tr>
+                    <tr>
+                      <td>Employer Type:</td>
+                      <td>{{employerData.employerType}}</td>
+                    </tr>
+
+                  </tbody>
+                </table>
               </div>
             </div>
 

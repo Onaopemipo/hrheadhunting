@@ -54,10 +54,15 @@ export class JobboardsComponent implements OnInit {
   sectorData: IDTextViewModel [] = [];
   artisanCounter:number = 0;
   artisanData: ArtisanDTO [] = [];
-  sectorJobsData: IDTextViewModel [] = [];
   filteredSkill = [];
   filteredArtisans = [];
   filteredSector = [];
+  skillJobsData: IDTextViewModel [] = [];
+  skillAreaJobsCounter: number = 0;
+  locationJobsData: IDTextViewModel [] = [];
+  locationJobsCounter: number = 0;
+  filteredSkillArea = [];
+  filteredLocation = [];
 
   filter = {
     searchText: '',
@@ -118,8 +123,8 @@ employerFilter = {
     this.fetchAllEmployers();
     this.getMyUsers();
     this.authUser();
-    this.fetchSectorJobs();
-    // this.fetchSectorJob();
+    this.fetchSkillAreaJobs();
+    this.fetchJobsLocation()
   }
 
  async getMyUsers(){
@@ -136,12 +141,6 @@ employerFilter = {
     this.employerFilter.searchText = '';
   }
 
-  async fetchSectorJobs(){
-    const data = await this.sector.fetchSectorJobs().toPromise();
-    this.sectorJobsData = data.value;
-    this.sectorCounter = data.totalCount;
-    console.log('My sector jobs data:', this.sectorJobsData)
-  }
 
 
   // getImage(){
@@ -236,22 +235,34 @@ employerFilter = {
   async fetchJobsLocation(){
     const data = await this.state.fetchLocationJobs().toPromise();
     if(!data.hasError){
-      this.sectorJobsData = data.value;
-      this.sectorCounter = data.totalCount;
+      this.locationJobsData = data.value;
+      this.locationJobsCounter = data.totalCount;
+      console.log('See your data', this.skillJobsData)
     }
   }
 
+  async fetchSkillAreaJobs(){
+    const data = await this.skill.fetchSkillAreaJobs().toPromise();
+    this.skillJobsData = data.value;
+    this.skillAreaJobsCounter = data.totalCount;
+  }
+
+
   fetchAllJobs(){
     this.loading = true;
-    this.job.fetchJobs(this.jobFilter.companyId, this.jobFilter.skillAreaId,
-    this.jobFilter.countryId, this.jobFilter.stateId, this.jobFilter.isNewlyAdded,
+    this.filteredSkillArea[0];
+    this.filteredLocation[0];
+    const locationId = Number(this.filteredLocation.join());
+    const skillAreaId = Number(this.filteredSkillArea.join())
+    this.job.fetchJobs(this.jobFilter.companyId, skillAreaId,
+    this.jobFilter.countryId, locationId, this.jobFilter.isNewlyAdded,
     this.jobFilter.isPopular,this.jobFilter.searchText, this.jobFilter.pageSize,
     this.jobFilter.pageNumber).subscribe(data => {
       this.loading = false;
       if(!data.hasError){
         this.allJobs = data.value;
         this.jobsCounter = data.totalCount;
-        console.log('My Jobs:',this.allJobs)
+        console.log('My Jobs:',this.allJobs);
      }
     });
 

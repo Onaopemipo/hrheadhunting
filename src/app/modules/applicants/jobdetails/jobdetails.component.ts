@@ -18,9 +18,9 @@ export class JobdetailsComponent implements OnInit {
   loading:boolean = false;
   recruiterData: IDTextViewModel [] = [];
   jobsCounter:number = 0;
-  singleJob: JobDTO = new JobDTO().clone();
+  singleJob: JobDTO = new JobDTO();
   btnProcessing: boolean = false;
-  employerData: EmployerDTO = new EmployerDTO().clone();
+  employerData: EmployerDTO = new EmployerDTO();
   skillData: IDTextViewModel [] = [];
   stateData: IDTextViewModel [] = [];
   sectorData: IDTextViewModel [] = [];

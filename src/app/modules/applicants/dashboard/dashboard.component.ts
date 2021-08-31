@@ -55,10 +55,12 @@ export class DashboardComponent implements OnInit {
   skillData: IDTextViewModel [] = [];
   stateData: IDTextViewModel [] = [];
   sectorData: IDTextViewModel [] = [];
-  sectorJobsData: IDTextViewModel [] = [];
   skillJobsData: IDTextViewModel [] = [];
   skillAreaJobsCounter: number = 0;
+  locationJobsData: IDTextViewModel [] = [];
+  locationJobsCounter: number = 0;
   filteredSkillArea = [];
+  filteredLocation = [];
   filteredEmployer = [];
 
 
@@ -91,7 +93,7 @@ searchFilter = {
     this.getMyUsers();
     this.authUser();
     this.fetchJobsLocation();
-    // this.fetchSectorJobs();
+    this. fetchSkillAreaJobs();
   }
 
   logOut(){
@@ -154,10 +156,12 @@ searchFilter = {
 
   fetchAllJobs(){
     this.loading = true;
-    this.filteredSkillArea[0]
-    const sectorId = this.filteredSkillArea.join()
-    this.job.fetchJobs(this.jobFilter.companyId, this.jobFilter.skillAreaId,
-    this.jobFilter.countryId, this.jobFilter.stateId, this.jobFilter.isNewlyAdded,
+    this.filteredSkillArea[0];
+    this.filteredLocation[0];
+    const locationId = Number(this.filteredLocation.join());
+    const skillAreaId = Number(this.filteredSkillArea.join())
+    this.job.fetchJobs(this.jobFilter.companyId, skillAreaId,
+    this.jobFilter.countryId, locationId, this.jobFilter.isNewlyAdded,
     this.jobFilter.isPopular,this.jobFilter.searchText, this.jobFilter.pageSize,
     this.jobFilter.pageNumber).subscribe(data => {
       this.loading = false;
@@ -177,12 +181,11 @@ searchFilter = {
 
   }
 
-  // async fetchSectorJobs(){
-  //   const data = await this.sector.fetchSectorJobs().toPromise();
-  //   this.sectorJobsData = data.value;
-  //   this.sectorCounter = data.totalCount;
-  //   console.log('My sector jobs data:', this.sectorJobsData)
-  // }
+  async fetchSkillAreaJobs(){
+    const data = await this.skill.fetchSkillAreaJobs().toPromise();
+    this.skillJobsData = data.value;
+    this.skillAreaJobsCounter = data.totalCount;
+  }
 
  async fetchStates(countryId){
     const data = await this.state.fetchStates().toPromise();
@@ -192,14 +195,16 @@ searchFilter = {
 
  async fetchSkillAreas(){
     const data = await this.skill.fetchSkillAreas().toPromise();
-    this.skillData = data.value;
+    if(!data.hasError){
+      this.skillData = data.value;
+    }
   }
 
   async fetchJobsLocation(){
     const data = await this.state.fetchLocationJobs().toPromise();
     if(!data.hasError){
-      this.skillJobsData = data.value;
-      this.skillAreaJobsCounter = data.totalCount;
+      this.locationJobsData = data.value;
+      this.locationJobsCounter = data.totalCount;
       console.log('See your data', this.skillJobsData)
     }
   }

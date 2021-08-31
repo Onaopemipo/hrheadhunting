@@ -30,7 +30,11 @@
           <a class="nav-link"[routerLink]="['/applicants/training']">Training Board</a>
         </li>
 
-        <li class="nav-item active">
+        <li *ngIf="!(authenService.authStatus | async)" class="nav-item active">
+          <a class="nav-link" [routerLink]="['/auth/login']">Score CV </a>
+        </li>
+
+        <li *ngIf="authenService.authStatus | async" class="nav-item active">
           <a class="nav-link" [routerLink]="['/applicants/scorecv']">Score CV </a>
         </li>
 
@@ -261,7 +265,20 @@
 
             <div style="padding: 20px;"></div>
           </div>
-          <ngx-filter-box [data]="skillJobsData" [(value)]="filteredSkillArea" (valueChange)="filterUpdated($event)"></ngx-filter-box>
+          <div class="row">
+            <ngx-filter-box [data]="skillJobsData" [(value)]="filteredSkillArea" (valueChange)="filterUpdated($event)"></ngx-filter-box>
+          </div>
+          <div class="row">
+            <div class="col">
+            <h6>Jobs by Location</h6>
+            </div>
+
+            <div style="padding: 20px;"></div>
+          </div>
+          <div class="row">
+            <ngx-filter-box [data]="locationJobsData" [(value)]="filteredLocation" (valueChange)="filterUpdated($event)"></ngx-filter-box>
+
+          </div>
          </nb-card-body>
        </nb-card>
   </div>

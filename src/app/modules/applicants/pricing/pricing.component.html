@@ -1,7 +1,7 @@
 <div class="bg-img">
   <div class="container">
-    <ngx-navigator></ngx-navigator>
-    <!-- <nav *ngFor="let i of [1,2]" [class]="{'fixed-Menu':i == 1}" class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%; padding: 0; background-color: #6495ED !important;">
+    <!-- <ngx-navigator></ngx-navigator> -->
+    <nav *ngFor="let i of [1,2]" [class]="{'fixed-Menu':i == 1}" class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%; padding: 0; background-color: #6495ED !important;">
       <button class="navbar-toggler" type="button" (click)="toggleMenu()" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon" style="color: #ffffff; display: none;"></span><i class="fa fa-bars" style="color: #ffffff;" aria-hidden="true"></i>
       </button>
@@ -31,7 +31,11 @@
           <a class="nav-link"[routerLink]="['/applicants/training']">Training Board</a>
         </li>
 
-        <li class="nav-item active">
+        <li *ngIf="!(authenService.authStatus | async)" class="nav-item active">
+          <a class="nav-link" [routerLink]="['/auth/login']">Score CV </a>
+        </li>
+
+        <li *ngIf="authenService.authStatus | async" class="nav-item active">
           <a class="nav-link" [routerLink]="['/applicants/scorecv']">Score CV </a>
         </li>
 
@@ -66,7 +70,7 @@
         </ul>
       </div>
     </div>
-  </nav> -->
+  </nav>
    <div class="limiter" style="margin: 3% 0;">
     <div style="padding-top: 30px;">
       <h6 style="text-align: center; color: #fff; font-family: 'Rubik';">Our Pricing Plan</h6>

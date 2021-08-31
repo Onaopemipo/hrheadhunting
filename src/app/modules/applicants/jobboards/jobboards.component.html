@@ -31,7 +31,11 @@
           <a class="nav-link"[routerLink]="['/applicants/training']">Training Board</a>
         </li>
 
-        <li class="nav-item active">
+        <li *ngIf="!(authenService.authStatus | async)" class="nav-item active">
+          <a class="nav-link" [routerLink]="['/auth/login']">Score CV </a>
+        </li>
+
+        <li *ngIf="authenService.authStatus | async" class="nav-item active">
           <a class="nav-link" [routerLink]="['/applicants/scorecv']">Score CV </a>
         </li>
 
@@ -251,14 +255,13 @@
     </div>
 
     <!-- <div class="col-sm-12 col-md-4 col-lg-4"> -->
-
-       <nb-card class="col-sm-12 col-md-4 col-lg-4  shadow p-3 mb-5 bg-white rounded">
+      <nb-card class="col-sm-4  shadow p-3 mb-5 bg-white rounded">
         <nb-card-body>
          <div class="row">
            <div class="col">
-           <h6>Top jobs in Nigeria</h6>
+           <h6>Top Jobs in Nigeria</h6>
            <div style="padding: 5px;"></div>
-           <span>{{jobsCounter}} jobs found</span>
+           <span *ngIf="jobsCounter > 0">{{jobsCounter}} jobs found</span>
            <div style="padding: 10px;"></div>
            <div class="form-group has-search">
              <div style="display: flex; justify-content: space-between; flex-direction: row; padding-bottom: 3px;">
@@ -267,7 +270,7 @@
              </div>
              <div class="input-group">
              <span class="fa fa-search form-control-feedback"></span>
-             <input type="text" class="form-control" placeholder="Search" (keyup.enter)="filterUpdated($event)" name="searchText" #searchText="ngModel" [(ngModel)]="employerFilter.searchText" style="height: 45px">
+             <input type="text" class="form-control" placeholder="Search" (keyup.enter)="filterUpdated($event)" name="searchText" #searchText="ngModel" [(ngModel)]="jobFilter.searchText" style="height: 45px">
              <div class="input-group-append">
              </div>
            </div>
@@ -276,38 +279,20 @@
 
            <div style="padding: 20px;"></div>
          </div>
-
-         <ngx-filter-box [data]="sectorJobsData" [(value)]="filteredSector" (valueChange)="filterUpdated($event)"></ngx-filter-box>
-
-<!--
-           <form #filterForm="ngForm">
-             <div class="form-group">
-               <nb-checkbox *ngFor="let sector of sectorJobsData" style="display: block;" name="sector" #sector="ngModel" [(ngModel)]="jobFilter.sectorId" (change)="filterUpdated($event.value)">{{sector.text}}</nb-checkbox><br>
-             </div>
-           </form> -->
-
-
-       <!-- <div class="row" style="display: flex; justify-content: flex-start; flex-direction: row; padding: 10px;">
-         <div class="col" style="padding: 10px;">
-         <h6>Places</h6>
-         <div style="padding: 5px;"></div>
-         <span>{{employerCounter}} employers found</span>
-         <div style="padding: 10px;"></div>
-         <input type="text" class="form-control" nbInput fullWidth placeholder="Enter Keyword" (keyup.enter)="filterUpdated($event)" name="searchText" #searchText="ngModel" [(ngModel)]="employerFilter.searchText" style="background-color: #ffffff; color:#95A8B8;">
+         <div class="row">
+           <ngx-filter-box [data]="skillJobsData" [(value)]="filteredSkillArea" (valueChange)="filterUpdated($event)"></ngx-filter-box>
          </div>
-         <div style="padding: 20px;"></div>
-       </div> -->
+         <div class="row">
+           <div class="col">
+           <h6>Jobs by Location</h6>
+           </div>
 
-         <!-- <div class="form-group">
-           <nb-checkbox *ngFor="let skill of skillData" (change)="filterUpdated($event)">{{skill.text}}</nb-checkbox><br>
-           <input type="button" (click)="LoadMore()" value="showMore">
-           <nb-checkbox>Akwa Ibom</nb-checkbox><br>
-           <nb-checkbox>Anambra</nb-checkbox><br>
-           <nb-checkbox>Bauchi</nb-checkbox><br>
+           <div style="padding: 20px;"></div>
+         </div>
+         <div class="row">
+           <ngx-filter-box [data]="locationJobsData" [(value)]="filteredLocation" (valueChange)="filterUpdated($event)"></ngx-filter-box>
 
-         </div> -->
-         <!-- <ngx-filter-box [data]="skillData" [(value)]="filteredSkill" (valueChange)="filterUpdated()"></ngx-filter-box> -->
-
+         </div>
         </nb-card-body>
       </nb-card>
 

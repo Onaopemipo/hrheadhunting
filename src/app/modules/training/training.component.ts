@@ -52,7 +52,7 @@ tableActions: TableAction [] = [
   }
 
   trainingId: number = 0;
-  singleTraining: TrainingDTO = new TrainingDTO().clone();
+  singleTraining: TrainingDTO = new TrainingDTO();
   attendeeForm: boolean = false;
   paymentLoading: boolean = false;
   attendeeModel: TrainingApplicantDTO = new TrainingApplicantDTO();
