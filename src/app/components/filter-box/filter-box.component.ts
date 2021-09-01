@@ -37,4 +37,8 @@ export class FilterBoxComponent implements OnInit {
     return this.selectedItem.find(x => x == item)
    }
 
+   showWhat(aaa){
+    alert(aaa)
+   }
+
 }

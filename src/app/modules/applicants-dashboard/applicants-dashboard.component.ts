@@ -27,7 +27,14 @@ export class ApplicantsDashboardComponent implements OnInit {
     },
 
     {
-      title: 'Download CV',
+      title: 'Quiz',
+      icon: '/assets/icons/test.png',
+      link: '/appdash/quiz',
+
+    },
+
+    {
+      title: 'Upload CV',
       icon: '/assets/icons/cvrewrite.png',
       link: '/appdash/uploadcv',
     },
@@ -55,7 +62,7 @@ export class ApplicantsDashboardComponent implements OnInit {
   async getPrivilege(){
     this.privilege = await this.auth.globalUser;
     // console.log('Yes ke',this.privilege[0].value.lstPermissions);
-    console.log('Hey guy',this.privilege[0].lstPermissions[0]);
+    // console.log('Hey guy',this.privilege[0].lstPermissions[0]);
   }
 
 }

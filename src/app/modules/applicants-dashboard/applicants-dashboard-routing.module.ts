@@ -8,6 +8,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { Path } from 'leaflet';
 import { DashboardComponent } from '../applicants-dashboard/dashboard/dashboard.component';
+import { QuizComponent } from './quiz/quiz.component';
 
 const routes: Routes = [
   {
@@ -35,11 +36,16 @@ const routes: Routes = [
   },
 
   {
+    path: 'quiz',
+    component: QuizComponent
+  },
+
+  {
     path: 'profile',
     component: ProfileComponent
   },
 
- 
+
 
   ]
 }];

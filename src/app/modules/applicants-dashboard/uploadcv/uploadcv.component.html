@@ -1,23 +1,49 @@
 <ngx-componentsheader pageName='CV Upload'></ngx-componentsheader>
-
+<!--
 <div class="container" style="background-color: #ffffff;">
   <nb-card>
-    <form action="">
-      <div class="row">
-        <div class="col-sm-8 col-md-6 col-lg-6">
-          <label for="Descripion">Upload your CV in PDF format, not more than 512Kb</label>
-          <input type="file" class="form-control-file" name="resume" id="" (change)="handleFileSelect($event)">
+    <nb-card-body>
+      <form action="">
+        <div class="row">
+          <div class="col-sm-8 col-md-6 col-lg-6">
+            <label for="Descripion">Upload your CV in PDF format, not more than 512Kb</label>
+            <input type="file" class="form-control-file" name="resume" id="" (change)="handleFileSelect($event)">
+          </div>
         </div>
-      </div>
 
-      <div class="row">
-        <div class="col-sm-8 col-md-6 col-lg-6">
-          <label style="font-weight: bold;"></label>
-            <button *ngIf="!btnProcessing" nbButton status="primary" (click)="uploadCV()">Upload</button>
-            <button *ngIf="btnProcessing" nbButton status="primary">Now Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button>
-            <span style="padding: 8px;"></span>
+        <div class="row">
+          <div class="col-sm-8 col-md-6 col-lg-6">
+            <label style="font-weight: bold;"></label>
+              <button *ngIf="!btnProcessing" nbButton status="primary" (click)="uploadCV()">Upload</button>
+              <button *ngIf="btnProcessing" nbButton status="primary">Now Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button>
+              <span style="padding: 8px;"></span>
+          </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </nb-card-body>
   </nb-card>
+</div> -->
+
+<div class="row">
+  <div class="col-sm-12 col-md-8 col-lg-8" style="border-radius: 5px; font-family: 'Rubik';">
+    <nb-card>
+      <nb-card-body>
+        <form>
+          <h5>Upload your CV now</h5>
+          <div class="form-group">
+            <label for="Allowed Formats">Allowed Formats: PDF DOC DOCX</label>
+            <!-- <ngx-file-upload (change)="handleFileSelect($event)"></ngx-file-upload> -->
+            <input type="file" class="form-control-file" name="cv" (change)="handleFileSelect($event)" accept=".pdf,.doc,.docx">
+            <div style="padding: 10px;"></div>
+          </div>
+
+          <div style="display: flex; flex-direction: row; justify-content: right; align-items: flex-end;">
+          <button *ngIf="!btnProcessing"  type="button" nbButton status="primary" (click) ="uploadCV()">Upload</button>
+          <button *ngIf="btnProcessing" type="button" nbButton status="primary">Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button>
+          <div style="padding: 5px;"></div>
+          </div>
+        </form>
+      </nb-card-body>
+    </nb-card>
+    </div>
 </div>

@@ -22,7 +22,7 @@ export class AccountServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://headhunting-api.midrasolutions.com";
     }
 
     /**
@@ -568,7 +568,7 @@ export class ActivityLogServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://headhunting-api.midrasolutions.com";
     }
 
     /**
@@ -672,7 +672,7 @@ export class ApplicationsServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://headhunting-api.midrasolutions.com";
     }
 
     /**
@@ -1235,7 +1235,7 @@ export class ArtisanServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://headhunting-api.midrasolutions.com";
     }
 
     /**
@@ -1621,7 +1621,7 @@ export class CertificationServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://headhunting-api.midrasolutions.com";
     }
 
     /**
@@ -1875,7 +1875,7 @@ export class CommonServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://headhunting-api.midrasolutions.com";
     }
 
     /**
@@ -2250,7 +2250,7 @@ export class CommunicationServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://headhunting-api.midrasolutions.com";
     }
 
     /**
@@ -2952,7 +2952,7 @@ export class ConsultantServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://headhunting-api.midrasolutions.com";
     }
 
     /**
@@ -3286,7 +3286,7 @@ export class CountriesServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://headhunting-api.midrasolutions.com";
     }
 
     /**
@@ -3567,7 +3567,7 @@ export class CourseServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://headhunting-api.midrasolutions.com";
     }
 
     /**
@@ -3848,7 +3848,7 @@ export class CurrenciesServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://headhunting-api.midrasolutions.com";
     }
 
     /**
@@ -4129,7 +4129,7 @@ export class CvScoreServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://headhunting-api.midrasolutions.com";
     }
 
     /**
@@ -4218,7 +4218,7 @@ export class DashboardServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://headhunting-api.midrasolutions.com";
     }
 
     /**
@@ -4307,7 +4307,7 @@ export class EmployerServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://headhunting-api.midrasolutions.com";
     }
 
     /**
@@ -4501,7 +4501,7 @@ export class EmployerTypesServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://headhunting-api.midrasolutions.com";
     }
 
     /**
@@ -4782,7 +4782,7 @@ export class GradesServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://headhunting-api.midrasolutions.com";
     }
 
     /**
@@ -5063,7 +5063,7 @@ export class InstitutionServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://headhunting-api.midrasolutions.com";
     }
 
     /**
@@ -5344,7 +5344,7 @@ export class JobServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://headhunting-api.midrasolutions.com";
     }
 
     /**
@@ -6080,7 +6080,7 @@ export class JobTypesServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://headhunting-api.midrasolutions.com";
     }
 
     /**
@@ -6361,7 +6361,7 @@ export class PaymentServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://headhunting-api.midrasolutions.com";
     }
 
     /**
@@ -6529,7 +6529,7 @@ export class ProfessionalBodyServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://headhunting-api.midrasolutions.com";
     }
 
     /**
@@ -6783,7 +6783,7 @@ export class QualificationServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://headhunting-api.midrasolutions.com";
     }
 
     /**
@@ -7064,7 +7064,7 @@ export class QuizServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://headhunting-api.midrasolutions.com";
     }
 
     /**
@@ -7525,7 +7525,7 @@ export class ReportServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://headhunting-api.midrasolutions.com";
     }
 
     /**
@@ -7628,7 +7628,7 @@ export class RoleServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://headhunting-api.midrasolutions.com";
     }
 
     /**
@@ -7790,7 +7790,7 @@ export class RolePermissionServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://headhunting-api.midrasolutions.com";
     }
 
     /**
@@ -8025,7 +8025,7 @@ export class SectorsServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://headhunting-api.midrasolutions.com";
     }
 
     /**
@@ -8378,7 +8378,7 @@ export class SkillServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://headhunting-api.midrasolutions.com";
     }
 
     /**
@@ -8632,7 +8632,7 @@ export class SkillAreasServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://headhunting-api.midrasolutions.com";
     }
 
     /**
@@ -8985,7 +8985,7 @@ export class StatesServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://headhunting-api.midrasolutions.com";
     }
 
     /**
@@ -9415,7 +9415,7 @@ export class SubscriptionsServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://headhunting-api.midrasolutions.com";
     }
 
     /**
@@ -9840,7 +9840,7 @@ export class TitlesServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://headhunting-api.midrasolutions.com";
     }
 
     /**
@@ -10121,7 +10121,7 @@ export class UserManagementServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://recruit-api.midrasolutions.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://headhunting-api.midrasolutions.com";
     }
 
     /**
@@ -14479,6 +14479,42 @@ export class Job implements IJob {
     endDate?: Date;
     datePosted?: Date;
     ref?: string | undefined;
+    source?: string | undefined;
+    alertSent?: boolean | undefined;
+    companyAccountId?: number | undefined;
+    alertSentForProfileMatch?: boolean;
+    views?: number | undefined;
+    applicationURL?: string | undefined;
+    hasJobCourses?: boolean | undefined;
+    advertTypeId?: number | undefined;
+    hideCompany?: boolean | undefined;
+    hasSalary?: boolean | undefined;
+    salaryType?: string | undefined;
+    requiresCV?: boolean | undefined;
+    emailCount?: number | undefined;
+    preferredExpRequired?: boolean | undefined;
+    applicationEmail?: string | undefined;
+    coverLetterRequired?: boolean | undefined;
+    applicationSubjectReqFname?: boolean | undefined;
+    applicationSubjectReqLname?: boolean | undefined;
+    applicationEmailSubject?: string | undefined;
+    photoRequired?: boolean | undefined;
+    hasApplicationURL?: boolean | undefined;
+    noPhotoRequired?: number | undefined;
+    hasOtherLocation?: boolean | undefined;
+    isFeatured?: boolean | undefined;
+    document?: string | undefined;
+    skillRequires?: string | undefined;
+    requireTest?: boolean | undefined;
+    testDuration?: number | undefined;
+    datePaid?: Date | undefined;
+    dueDate?: Date | undefined;
+    isDue?: boolean | undefined;
+    subscriptionId?: number | undefined;
+    postType?: number | undefined;
+    isOfflinePaymentComfirmed?: boolean | undefined;
+    offlineJobStatus?: number | undefined;
+    offlinePaymentEvidence?: string | undefined;
     id?: number;
     companyID?: number;
     subID?: number;
@@ -14522,6 +14558,42 @@ export class Job implements IJob {
             this.endDate = _data["endDate"] ? new Date(_data["endDate"].toString()) : <any>undefined;
             this.datePosted = _data["datePosted"] ? new Date(_data["datePosted"].toString()) : <any>undefined;
             this.ref = _data["ref"];
+            this.source = _data["source"];
+            this.alertSent = _data["alertSent"];
+            this.companyAccountId = _data["companyAccountId"];
+            this.alertSentForProfileMatch = _data["alertSentForProfileMatch"];
+            this.views = _data["views"];
+            this.applicationURL = _data["applicationURL"];
+            this.hasJobCourses = _data["hasJobCourses"];
+            this.advertTypeId = _data["advertTypeId"];
+            this.hideCompany = _data["hideCompany"];
+            this.hasSalary = _data["hasSalary"];
+            this.salaryType = _data["salaryType"];
+            this.requiresCV = _data["requiresCV"];
+            this.emailCount = _data["emailCount"];
+            this.preferredExpRequired = _data["preferredExpRequired"];
+            this.applicationEmail = _data["applicationEmail"];
+            this.coverLetterRequired = _data["coverLetterRequired"];
+            this.applicationSubjectReqFname = _data["applicationSubjectReqFname"];
+            this.applicationSubjectReqLname = _data["applicationSubjectReqLname"];
+            this.applicationEmailSubject = _data["applicationEmailSubject"];
+            this.photoRequired = _data["photoRequired"];
+            this.hasApplicationURL = _data["hasApplicationURL"];
+            this.noPhotoRequired = _data["noPhotoRequired"];
+            this.hasOtherLocation = _data["hasOtherLocation"];
+            this.isFeatured = _data["isFeatured"];
+            this.document = _data["document"];
+            this.skillRequires = _data["skillRequires"];
+            this.requireTest = _data["requireTest"];
+            this.testDuration = _data["testDuration"];
+            this.datePaid = _data["datePaid"] ? new Date(_data["datePaid"].toString()) : <any>undefined;
+            this.dueDate = _data["dueDate"] ? new Date(_data["dueDate"].toString()) : <any>undefined;
+            this.isDue = _data["isDue"];
+            this.subscriptionId = _data["subscriptionId"];
+            this.postType = _data["postType"];
+            this.isOfflinePaymentComfirmed = _data["isOfflinePaymentComfirmed"];
+            this.offlineJobStatus = _data["offlineJobStatus"];
+            this.offlinePaymentEvidence = _data["offlinePaymentEvidence"];
             this.id = _data["id"];
             this.companyID = _data["companyID"];
             this.subID = _data["subID"];
@@ -14565,6 +14637,42 @@ export class Job implements IJob {
         data["endDate"] = this.endDate ? this.endDate.toISOString() : <any>undefined;
         data["datePosted"] = this.datePosted ? this.datePosted.toISOString() : <any>undefined;
         data["ref"] = this.ref;
+        data["source"] = this.source;
+        data["alertSent"] = this.alertSent;
+        data["companyAccountId"] = this.companyAccountId;
+        data["alertSentForProfileMatch"] = this.alertSentForProfileMatch;
+        data["views"] = this.views;
+        data["applicationURL"] = this.applicationURL;
+        data["hasJobCourses"] = this.hasJobCourses;
+        data["advertTypeId"] = this.advertTypeId;
+        data["hideCompany"] = this.hideCompany;
+        data["hasSalary"] = this.hasSalary;
+        data["salaryType"] = this.salaryType;
+        data["requiresCV"] = this.requiresCV;
+        data["emailCount"] = this.emailCount;
+        data["preferredExpRequired"] = this.preferredExpRequired;
+        data["applicationEmail"] = this.applicationEmail;
+        data["coverLetterRequired"] = this.coverLetterRequired;
+        data["applicationSubjectReqFname"] = this.applicationSubjectReqFname;
+        data["applicationSubjectReqLname"] = this.applicationSubjectReqLname;
+        data["applicationEmailSubject"] = this.applicationEmailSubject;
+        data["photoRequired"] = this.photoRequired;
+        data["hasApplicationURL"] = this.hasApplicationURL;
+        data["noPhotoRequired"] = this.noPhotoRequired;
+        data["hasOtherLocation"] = this.hasOtherLocation;
+        data["isFeatured"] = this.isFeatured;
+        data["document"] = this.document;
+        data["skillRequires"] = this.skillRequires;
+        data["requireTest"] = this.requireTest;
+        data["testDuration"] = this.testDuration;
+        data["datePaid"] = this.datePaid ? this.datePaid.toISOString() : <any>undefined;
+        data["dueDate"] = this.dueDate ? this.dueDate.toISOString() : <any>undefined;
+        data["isDue"] = this.isDue;
+        data["subscriptionId"] = this.subscriptionId;
+        data["postType"] = this.postType;
+        data["isOfflinePaymentComfirmed"] = this.isOfflinePaymentComfirmed;
+        data["offlineJobStatus"] = this.offlineJobStatus;
+        data["offlinePaymentEvidence"] = this.offlinePaymentEvidence;
         data["id"] = this.id;
         data["companyID"] = this.companyID;
         data["subID"] = this.subID;
@@ -14601,6 +14709,42 @@ export interface IJob {
     endDate?: Date;
     datePosted?: Date;
     ref?: string | undefined;
+    source?: string | undefined;
+    alertSent?: boolean | undefined;
+    companyAccountId?: number | undefined;
+    alertSentForProfileMatch?: boolean;
+    views?: number | undefined;
+    applicationURL?: string | undefined;
+    hasJobCourses?: boolean | undefined;
+    advertTypeId?: number | undefined;
+    hideCompany?: boolean | undefined;
+    hasSalary?: boolean | undefined;
+    salaryType?: string | undefined;
+    requiresCV?: boolean | undefined;
+    emailCount?: number | undefined;
+    preferredExpRequired?: boolean | undefined;
+    applicationEmail?: string | undefined;
+    coverLetterRequired?: boolean | undefined;
+    applicationSubjectReqFname?: boolean | undefined;
+    applicationSubjectReqLname?: boolean | undefined;
+    applicationEmailSubject?: string | undefined;
+    photoRequired?: boolean | undefined;
+    hasApplicationURL?: boolean | undefined;
+    noPhotoRequired?: number | undefined;
+    hasOtherLocation?: boolean | undefined;
+    isFeatured?: boolean | undefined;
+    document?: string | undefined;
+    skillRequires?: string | undefined;
+    requireTest?: boolean | undefined;
+    testDuration?: number | undefined;
+    datePaid?: Date | undefined;
+    dueDate?: Date | undefined;
+    isDue?: boolean | undefined;
+    subscriptionId?: number | undefined;
+    postType?: number | undefined;
+    isOfflinePaymentComfirmed?: boolean | undefined;
+    offlineJobStatus?: number | undefined;
+    offlinePaymentEvidence?: string | undefined;
     id?: number;
     companyID?: number;
     subID?: number;

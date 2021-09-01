@@ -127,7 +127,7 @@
           <nb-tabset>
             <nb-tab tabTitle="All">
               <div class="row" style="display: flex; flex-direction: row; justify-content: space-between;">
-                <div *ngFor="let job of allJobs" class="col-sm-12 col-md-6 col-lg-6" [routerLink]="['/applicants/details', job.id]" style="cursor:pointer; margin-top: 20px;">
+                <div *ngFor="let job of allJobs" class="col-sm-12 col-md-6 col-lg-6 overflowJobs" [routerLink]="['/applicants/details', job.id]" style="cursor:pointer; margin-top: 20px;">
                   <div class="row">
                     <div class="col-sm-12 col-md-4 col-lg-4">
                       <img src="assets/images/jobs.png" style="width: 100%;">
@@ -176,74 +176,14 @@
                 </div>
               </div>
             </nb-tab>
-            <!-- <nb-tab tabTitle="Newly Added Jobs">
-              <div class="row">
-                <div class="col-sm-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
-                  <div class="col-sm-4">
-                    <img src="assets/images/jobs.png" style="width:5rem;">
-                  </div>
-                  <div class="col-sm-8">
-                      <span style="font-weight: 600; padding-right:25px;">UI/UX Designer</span><br>
-                      <div style="padding-top: 5px;"></div>
-                      <span>Amplifire Digital Agency</span><br>
-                      <span>Lekki, Lagos | Full-time</span><br>
-                      <span>Closes in 5 days</span><br>
-                  </div>
-                </div>
-
-                <div class="col-sm-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
-                  <div class="col-sm-4">
-                    <img src="assets/images/jobs.png" style="width:5rem;">
-                  </div>
-                  <div class="col-sm-8">
-                      <span style="font-weight: 600; padding-right:25px;">UI/UX Designer</span><br>
-                      <div style="padding-top: 5px;"></div>
-                      <span>Amplifire Digital Agency</span><br>
-                      <span>Lekki, Lagos | Full-time</span><br>
-                      <span>Closes in 5 days</span><br>
-                  </div>
-                </div>
-              </div>
-            </nb-tab>
-            <nb-tab tabTitle="Popular Jobs">
-              <div class="row">
-                <div class="col-sm-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
-                  <div class="col-sm-4">
-                    <img src="assets/images/jobs.png" style="width:5rem;">
-                  </div>
-                  <div class="col-sm-8">
-                      <span style="font-weight: 600; padding-right:25px;">UI/UX Designer</span><br>
-                      <div style="padding-top: 5px;"></div>
-                      <span>Amplifire Digital Agency</span><br>
-                      <span>Lekki, Lagos | Full-time</span><br>
-                      <span>Closes in 5 days</span><br>
-                  </div>
-                </div>
-
-                <div class="col-sm-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
-                  <div class="col-sm-4">
-                    <img src="assets/images/jobs.png" style="width:5rem;">
-                  </div>
-                  <div class="col-sm-8">
-                      <span style="font-weight: 600; padding-right:25px;">UI/UX Designer</span><br>
-                      <div style="padding-top: 5px;"></div>
-                      <span>Amplifire Digital Agency</span><br>
-                      <span>Lekki, Lagos | Full-time</span><br>
-                      <span>Closes in 5 days</span><br>
-                  </div>
-                </div>
-              </div>
-            </nb-tab> -->
-          </nb-tabset>
+      </nb-tabset>
         </nb-card-body>
       </nb-card>
     </div>
 
-    <!-- <div class="col-sm-4"> -->
-
        <nb-card class="col-sm-4  shadow p-3 mb-5 bg-white rounded">
          <nb-card-body>
-          <div class="row">
+          <div class="row" >
             <div class="col">
             <h6>Top Jobs in Nigeria</h6>
             <div style="padding: 5px;"></div>
@@ -263,19 +203,19 @@
             </div>
             </div>
 
-            <div style="padding: 20px;"></div>
+            <!-- <div style="padding: 20px;"></div> -->
           </div>
-          <div class="row">
+          <div class="row overflow">
             <ngx-filter-box [data]="skillJobsData" [(value)]="filteredSkillArea" (valueChange)="filterUpdated($event)"></ngx-filter-box>
           </div>
-          <div class="row">
+          <div class="row" style="margin-top: 10px;">
             <div class="col">
             <h6>Jobs by Location</h6>
             </div>
 
             <div style="padding: 20px;"></div>
           </div>
-          <div class="row">
+          <div class="row overflow">
             <ngx-filter-box [data]="locationJobsData" [(value)]="filteredLocation" (valueChange)="filterUpdated($event)"></ngx-filter-box>
 
           </div>
@@ -306,7 +246,7 @@
 
     </div>
     <div class="col-sm-8 col-md-6 col-lg-4 dashImage">
-      <img src="assets/images/Artisan_Listing.png" class="imageDivs" style="width: 300px; height: 300px; margin-top: -15%; margin-bottom: -12%;" alt="">
+      <img src="assets/images/Artisan_Listing.png" class="imageDivs" style="width: 300px; height: 300px; margin-top: -10%; margin-bottom: -10%;" alt="">
     </div>
     </div>
 
@@ -314,7 +254,7 @@
 <div class="container" style="margin-top: 2%; background-color: transparent;">
   <div class="row row-cols-2">
 
-    <div class="col-sm-8 col-md-8 col-lg-8">
+    <div class="col-sm-12 col-md-8 col-lg-8">
       <nb-card *ngIf="employerCounter < 1">
         <nb-card-header  style="font-weight:900;">
           Places to Work
@@ -331,7 +271,7 @@
 
           <nb-tabset>
              <nb-tab tabTitle="All">
-              <div class="row" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
+              <div class="row overflowJobs" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
                 <div *ngFor="let employer of employerData" class="col-sm-12 col-md-6 col-lg-4" style="text-align: left; width:100%; margin-bottom: 20px;">
                   <div class="row" style="width: 100%;">
                     <div class="col" style="width: 100%;">
@@ -346,80 +286,34 @@
             </nb-tab>
             <nb-tab tabTitle="Featured Places">
               <div class="row" style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
-                <div class="col-sm-3" style="text-align: center;">
+                <div class="col-sm-12 col-md-6 col-lg-3" style="text-align: center;">
                   <img src="assets/images/jobs.png" style="width:5rem; margin-bottom: 5px;"><br>
                   <span>Amplifire Digital Agency</span><br>
                 </div>
 
-                <div class="col-sm-3" style="text-align: center;">
+                <div class="col-sm-12 col-md-6 col-lg-3" style="text-align: center;">
                   <img src="assets/images/jobs.png" style="width:5rem; margin-bottom: 5px;"><br>
                   <span>Amplifire Digital Agency</span><br>
                 </div>
 
-                <div class="col-sm-3" style="text-align: center;">
+                <div class="col-sm-12 col-md-6 col-lg-3" style="text-align: center;">
                   <img src="assets/images/jobs.png" style="width:5rem; margin-bottom: 5px;"><br>
                   <span>Amplifire Digital Agency</span><br>
                 </div>
 
-                <div class="col-sm-3" style="text-align: center;">
+                <div class="col-sm-12 col-md-6 col-lg-3" style="text-align: center;">
                   <img src="assets/images/jobs.png" style="width:5rem; margin-bottom: 5px;"><br>
                   <span>Amplifire Digital Agency</span><br>
                 </div>
             </div>
             </nb-tab>
-            <!-- <nb-tab tabTitle="Newly Added Places">
-              <div class="row" style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
-                <div class="col-sm-3" style="text-align: center;">
-                  <img src="assets/images/jobs.png" style="width:5rem; margin-bottom: 5px;"><br>
-                  <span>Amplifire Digital Agency</span><br>
-                </div>
-
-                <div class="col-sm-3" style="text-align: center;">
-                  <img src="assets/images/jobs.png" style="width:5rem; margin-bottom: 5px;"><br>
-                  <span>Amplifire Digital Agency</span><br>
-                </div>
-
-                <div class="col-sm-3" style="text-align: center;">
-                  <img src="assets/images/jobs.png" style="width:5rem; margin-bottom: 5px;"><br>
-                  <span>Amplifire Digital Agency</span><br>
-                </div>
-
-                <div class="col-sm-3" style="text-align: center;">
-                  <img src="assets/images/jobs.png" style="width:5rem; margin-bottom: 5px;"><br>
-                  <span>Amplifire Digital Agency</span><br>
-                </div>
-            </div>
-            </nb-tab>
-            <nb-tab tabTitle="Popular Places">
-              <div class="row" style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
-                <div class="col-sm-3" style="text-align: center;">
-                  <img src="assets/images/jobs.png" style="width:5rem; margin-bottom: 5px;"><br>
-                  <span>Amplifire Digital Agency</span><br>
-                </div>
-
-                <div class="col-sm-3" style="text-align: center;">
-                  <img src="assets/images/jobs.png" style="width:5rem; margin-bottom: 5px;"><br>
-                  <span>Amplifire Digital Agency</span><br>
-                </div>
-
-                <div class="col-sm-3" style="text-align: center;">
-                  <img src="assets/images/jobs.png" style="width:5rem; margin-bottom: 5px;"><br>
-                  <span>Amplifire Digital Agency</span><br>
-                </div>
-
-                <div class="col-sm-3" style="text-align: center;">
-                  <img src="assets/images/jobs.png" style="width:5rem; margin-bottom: 5px;"><br>
-                  <span>Amplifire Digital Agency</span><br>
-                </div>
-            </div>
-            </nb-tab> -->
           </nb-tabset>
 
         </nb-card-body>
       </nb-card>
     </div>
 
-      <nb-card class="col-sm-8 col-md-4 col-lg-4 shadow p-3 mb-5 bg-white rounded">
+      <nb-card class="col-sm-12 col-md-4 col-lg-4 shadow p-3 mb-5 bg-white rounded">
 
         <nb-card-body>
           <div class="row" style="display: flex; justify-content: flex-start; flex-direction: row; padding: 10px;">
@@ -432,25 +326,7 @@
           </div>
           </div>
 
-          <!-- <ngx-filter-box [data]="employerData" [(value)]="filteredEmployer" (valueChange)="filterUpdated()"></ngx-filter-box> -->
-        <!-- <div class="row" style="display: flex; justify-content: flex-start; flex-direction: row; padding: 10px;">
-          <div class="col" style="padding: 10px;">
-          <h6>Jobs by Locations</h6>
-          <div style="padding: 5px;"></div>
-          <span>3,234 companies found</span>
-          <div style="padding: 10px;"></div>
-          <input type="text" class="form-control" nbInput fullWidth placeholder="Enter Keyword" style="background-color: #ffffff; color:#95A8B8;">
-          </div>
-          <div style="padding: 20px;"></div>
-        </div>
-
-          <div class="form-group">
-            <nb-checkbox>Abia</nb-checkbox><br>
-            <nb-checkbox>Akwa Ibom</nb-checkbox><br>
-            <nb-checkbox>Anambra</nb-checkbox><br>
-            <nb-checkbox>Bauchi</nb-checkbox><br>
-          </div> -->
-        </nb-card-body>
+       </nb-card-body>
       </nb-card>
   </div>
 

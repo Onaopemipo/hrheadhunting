@@ -41,13 +41,13 @@
 
             <div *ngIf="awaitingJobsCounter > 0">
             <ngx-tablecomponent
-            [tableColum]="scheduledJobsTable"
+            [tableColum]="awaitingJobsTable"
             (filterChange)="filterUpdated($event)"
             [showFilter]="true"
             [userData]="pendingJobs"
             [showActions]="true"
             [actions]="tableActions"
-            (actionClick)="tableActionClicked($event)"></ngx-tablecomponent>
+            (actionClick)="awaitingtableActionClicked($event)"></ngx-tablecomponent>
             </div>
         </nb-tab>
       </nb-tabset>

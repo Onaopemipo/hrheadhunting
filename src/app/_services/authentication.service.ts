@@ -11,6 +11,7 @@ import { Observable, of, BehaviorSubject } from 'rxjs';
 export class  AuthenticationService {
     main_id = 0;
     user: User;
+    myRole: string = '';
     users: User[] = [];
     public globalUser = new BehaviorSubject<User>({});
     public authStatus = new BehaviorSubject<Boolean>(false);
@@ -41,6 +42,14 @@ export class  AuthenticationService {
       return user.length > 0;
       console.log(user.length)
      } else return false;
+    }
+
+    async userRole(){
+      let user = [];
+      user = await this.getuser();
+      if(user){
+       return this.myRole = user[0].lstPermissions
+      }
     }
 
 

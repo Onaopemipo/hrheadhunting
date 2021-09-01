@@ -129,7 +129,7 @@
           <nb-tabset>
             <nb-tab tabTitle="All">
               <div class="row" style="display: flex; flex-direction: row; justify-content: space-between;">
-                <div *ngFor="let job of allJobs" class="col-sm-12 col-md-6 col-lg-6">
+                <div *ngFor="let job of allJobs" class="col-sm-12 col-md-6 col-lg-6 overflowJobs" [routerLink]="['/applicants/details', job.id]" style="cursor:pointer; margin-top: 20px;">
                   <div class="row" [routerLink]="['/applicants/details', job.id]" style="cursor:pointer;">
                     <div class="col-sm-12 col-md-4 col-lg-4">
                       <img src="assets/images/jobs.png" style="width:5rem;">
@@ -145,21 +145,6 @@
                 </div>
 
               </div>
-
-              <!-- <nb-card>
-                <nb-list
-                  nbInfiniteList
-                  listenWindowScroll
-                  [threshold]="500"
-                  (bottomThreshold)="loadNext()">
-                  <nb-list-item *ngFor="let job of allJobs">
-                    <nb-news-post [post]="newsPost"></nb-news-post>
-                  </nb-list-item>
-                  <nb-list-item *ngFor="let _ of placeholders">
-                    <nb-news-post-placeholder></nb-news-post-placeholder>
-                  </nb-list-item>
-                </nb-list>
-              </nb-card> -->
 
             </nb-tab>
             <nb-tab tabTitle="Featured Jobs">
@@ -277,19 +262,18 @@
            </div>
            </div>
 
-           <div style="padding: 20px;"></div>
          </div>
-         <div class="row">
+         <div class="row overflow">
            <ngx-filter-box [data]="skillJobsData" [(value)]="filteredSkillArea" (valueChange)="filterUpdated($event)"></ngx-filter-box>
          </div>
-         <div class="row">
+         <div class="row" style="margin-top: 10px;">
            <div class="col">
            <h6>Jobs by Location</h6>
            </div>
 
            <div style="padding: 20px;"></div>
          </div>
-         <div class="row">
+         <div class="row overflow">
            <ngx-filter-box [data]="locationJobsData" [(value)]="filteredLocation" (valueChange)="filterUpdated($event)"></ngx-filter-box>
 
          </div>
@@ -319,13 +303,13 @@
         <nb-card-body>
           <nb-tabset>
             <nb-tab tabTitle="All">
-              <div class="row" style="display: flex; flex-direction: row; justify-content: space-between;">
-                <div *ngFor="let artisan of artisanData" class="col-sm-12 col-md-6 col-lg-6" style="margin: 10px 0;">
-                  <div class="row">
-                    <div class="col-sm-12 col-md-4 col-lg-4" style="display: inline-block; width: 40%; height: 40%;">
+              <div class="row overflowJobs" style="display: flex; flex-direction: row; justify-content: space-between;">
+                <div *ngFor="let artisan of artisanData" class="col-sm-12 col-md-6 col-lg-6">
+                  <div class="row" style="width: 100%;">
+                    <div class="col-sm-12 col-md-4 col-lg-4" style="display: inline-block;">
                       <img src="{{'data:image/jpg;base64,' + artisan.brandLogo}}" onError="this.onerror=null;this.src='assets/images/jobs.png';" style="width:7rem; height: 7rem;">
                     </div>
-                    <div class="col-sm-12 col-md-8 col-lg-8" style="display: inline-block; width: 60%; height: 60%;">
+                    <div class="col-sm-12 col-md-8 col-lg-8" style="display: inline-block; ">
                         <span style="display: block; font-weight: 600;"><a [routerLink]="['/artisandetails', artisan.id]">{{artisan.name}}</a></span>
                         <span style="display: block;">{{artisan.specialty}}</span>
                         <span style="display: block;">{{artisan.yearOfExperience}} of experience</span>
@@ -338,7 +322,6 @@
                 </div>
 
               </div>
-              <div style="padding: 10px;"></div>
 
             </nb-tab>
             <nb-tab tabTitle="Featured Artisans">

@@ -1,0 +1,91 @@
+<ngx-componentsheader pageName='Test'></ngx-componentsheader>
+
+  <div *ngIf="!quizStart" class="row" style="min-height: 75vh; display: flex; flex-direction: row; align-content: center; align-self: center; align-items: center; justify-content:center;">
+    <div class="col-sm-12 col-md-4 col=lg-4">
+      <div style="background-color: #ffffff; display: flex; flex-direction: column; justify-content: flex-start;">
+        <img src="assets/icons/stages.jpg" style="margin: 20px; width:3rem;">
+        <div style="padding: 20px;">
+          <h6>Psychometric Test</h6>
+        <span>
+         Take your psychometric test here
+        </span>
+        </div>
+        <div style="padding: 20px;">
+          <button nbButton status="primary" (click)="startTest()" style="align-items: flex-start">Start now</button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="col-sm-12 col-md-4 col=lg-4">
+      <div style="background-color: #ffffff; display: flex; flex-direction: column; justify-content: flex-start;">
+        <img src="assets/icons/template.jpg" style="margin: 20px; width:3rem;">
+        <div style="padding: 20px;">
+          <h6>Aptitude Test</h6>
+        <span>
+          Take your aptitude test here
+        </span>
+        </div>
+        <div style="padding: 20px;">
+          <button sty nbButton status="primary" (click)="startTest()" style="align-items: flex-start">Start now</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+ <!-- *ngFor="let question of allQuestions" -->
+  <div *ngIf="quizStart" class="row">
+    <nb-card style="width: 100%;">
+      <nb-card-body *ngIf="!nextQuestion">
+        <div class="row" style="display: flex; justify-content:space-around;">
+          <div class="col-sm-12 col-md-12 col-lg-12">
+            <h6>1. What is the capital city of Nigeria?</h6>
+            <div>
+              <div style="display: flex; flex-direction:column">
+                <nb-radio-group style="display:flex; flex-direction: column; justify-content: flex-start;">
+                  <nb-radio value="1"><span>A. Lagos</span></nb-radio>
+                  <nb-radio value="2"><span>B. Abuja</span></nb-radio>
+                  <nb-radio value="3"><span>C. Kano</span></nb-radio>
+                  <nb-radio value="4"><span>D. Lokoja</span></nb-radio>
+                  <nb-radio value="5"><span>E. Ibadan</span></nb-radio>
+                </nb-radio-group>
+              </div>
+              <div>
+                <button nbButton (click)="gotoNextQuestion()" status="primary" style="align-items: flex-start">Next</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nb-card-body>
+
+      <nb-card-body *ngIf="nextQuestion">
+        <div class="row" style="display: flex; justify-content:space-around;">
+          <div class="col-sm-12 col-md-12 col-lg-12">
+            <h6>2. There are 7 continents in the world?</h6>
+            <div>
+              <div style="display: flex; flex-direction:column">
+                <nb-radio-group style="display:flex; flex-direction: column; justify-content: flex-start;">
+                  <nb-radio value="1"><span>A. True</span></nb-radio>
+                  <nb-radio value="2"><span>B. False</span></nb-radio>
+                </nb-radio-group>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <button nbButton style="align-items: flex-start; margin-right: 20px;" (click)="goback()">Previous</button>
+                <button nbButton status="primary" style="align-items: flex-start">Next</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nb-card-body>
+      <div class="row" style="justify-content: flex-end;">
+        <div class="col-sm-12 col-md-8 col-lg-6">
+          <!-- <nb-card-footer> -->
+            <nb-progress-bar [value]="70" status="primary" size="tiny" displayValue="60"></nb-progress-bar>
+          <!-- </nb-card-footer> -->
+        </div>
+
+      </div>
+    </nb-card>
+
+
+  </div>

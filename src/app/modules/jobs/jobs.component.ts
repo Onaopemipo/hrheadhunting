@@ -13,6 +13,10 @@ PROCESS = "2",
 DELETE = '3'
 }
 
+enum PJ  {
+  POST = '1',
+  }
+
 enum draftEnum  {
   EDIT ='1',DELETE = '2',POST = '3'
   }
@@ -112,7 +116,7 @@ export class JobsComponent implements OnInit {
     {name: 'scheduledDate', title: 'Scheduled Date'},
   ];
 
-  draftedJobsTable: TableColumn [] = [
+  awaitingJobsTable: TableColumn [] = [
     {name: 'jobTitle', title: 'Job Title'},
     {name: 'department', title: 'Department'},
   ];
@@ -129,6 +133,23 @@ draftTableActions: TableAction [] = [
   {name: draftEnum.DELETE, label: 'Delete'},
 ]
 
+// awaitingtableActionClicked(event: TableActionEvent) {
+//   if (event.name == PJ.POST) {
+//     this.job.PostPendingJobs(event.data.id).subscribe(data => {
+//       if (!data.hasError) {
+//         this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, data.message, 'OK');
+//       }
+//     });
+//     }
+awaitingtableActionClicked(event: TableActionEvent){
+  if (event.name == PJ.POST) {
+    //     this.job.PostPendingJobs(event.data.id).subscribe(data => {
+    //       if (!data.hasError) {
+    //         this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, data.message, 'OK');
+    //       }
+    //     });
+  }
+}
 
 tableActionClicked(event: TableActionEvent){
   if(event.name==TP.VIEW){

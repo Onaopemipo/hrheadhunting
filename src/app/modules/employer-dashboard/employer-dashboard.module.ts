@@ -8,6 +8,7 @@ import { NbLayoutModule } from '@nebular/theme';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DashboardData, DashboardServiceProxy } from 'app/_services/service-proxies';
 import { JobsComponent } from './jobs/jobs.component';
+import { AlertserviceService } from 'app/_services/alertservice.service';
 
 
 @NgModule({

@@ -1006,11 +1006,10 @@
 
 <ngx-side-modal [(show)]="servicePayment" [position]="'Center'">
   <div modal-header>Payment Method</div>
-  <div modal-body>
-        <div class="row">
-          <div class="col-sm-12">
+  <div modal-body style="padding: 5%;">
             <p>Dear Employer, you have selected a plan of {{ planAmount }}</p>
-            <button  angular4-paystack
+            <div style="display: flex; flex-direction: row; justify-content: flex-end;">
+              <button  angular4-paystack
             [email]="employer.email"
             [amount]="planAmount * 100"
             [ref]="reference"
@@ -1020,58 +1019,12 @@
             [channels]="['bank','card'] "
             style="width: 144px;" type="submit" nbButton status="primary">
             <span style="color: #fff;">Pay Now</span>
-            <!-- <span *ngIf="paymentLoading" style="color: #fff;"><i class="fa fa-spin fa-spinner"></i> Loading...</span> -->
           </button>
           <button nbButton outline status="primary" (click)="cancelPay()" style="margin-left: 20px;">Cancel</button>
-          </div>
-        </div>
- <!-- <nb-card>
-        <nb-card-body>
-              <nb-radio-group name="MultiOption" >
-                <nb-radio>Card Payment</nb-radio>
-                <nb-radio>USSD Transfer</nb-radio>
-              </nb-radio-group>
-              <ngx-file-upload></ngx-file-upload>
-              <div style="padding: 10px;"></div>
-
-        </nb-card-body>
-      </nb-card>
-         <div modal-actions style="display: flex; flex-direction: row; justify-content: flex-end;">
-          <button nbButton status="primary" (click)="registerApplicant()" style="margin-right: 20px;">Proceed</button>
-          <button nbButton outline status="primary" (click)="cancel()" >Cancel</button>
-          <angular4-paystack
-          [email]="'mailexample@mail.com'"
-          [amount]="5000000"
-          [ref]="reference"
-          [channels]="['bank']"
-          [class]="'btn btn-primary'"
-          (onClose)="paymentCancel()"
-          (callback)="paymentDone($event)"
-        >
-          Pay with Paystack
-        </angular4-paystack>
-         </div> -->
+            </div>
         </div>
 </ngx-side-modal>
 
-
-<!-- <div class="row">
-  <div class="col-sm-12">
-    <button  angular4-paystack
-    [email]="companyDTO.email"
-    [amount]="selectedPlan.amount * 100"
-    [ref]="reference"
-    (paymentInit)="paymentInit()"
-    (close)="paymentCancel()"
-    (callback)="paymentDone()"
-    [channels]="['bank','card'] "
-    style="width: 144px;" type="submit" nbButton status="primary">
-    <span *ngIf="!paymentLoading" style="color: #fff;">Pay</span>
-    <span *ngIf="paymentLoading" style="color: #fff;"><i class="fa fa-spin fa-spinner"></i> Loading...</span>
-  </button>
-
-  </div>
-</div> -->
 <ngx-side-modal [(show)]="emailPrompt" style="width: 600px;">
   <div modal-header>Update Profile</div>
   <div modal-body>
