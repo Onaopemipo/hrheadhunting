@@ -10,9 +10,10 @@ import { OrdersChartData } from 'app/@core/data/orders-chart';
 import { ApplicantsComponent } from 'app/modules/applicants/applicants.component';
 import { AuthService } from 'app/_services/auth.service';
 import { PaystackOptions } from 'angular4-paystack';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 import { AuthenticationService } from 'app/_services/authentication.service';
 import { NgForm } from '@angular/forms';
+import { initializeApp } from 'firebase/app';
 @Component({
   selector: 'ngx-signup',
   templateUrl: './signup.component.html',
@@ -343,7 +344,7 @@ _handleReaderLoaded(readerEvt) {
 
   doGoogle(){
     this.social.doGoogleLogin().then(data => {
-      this.googleData = data.providerData[0];
+      this.googleData = data;
       console.log('You are', this.googleData);
       this.socialLogin.isSocial = true;
       this.socialLogin.email = this.googleData.email;
@@ -373,7 +374,7 @@ _handleReaderLoaded(readerEvt) {
 
   doFacebook(){
     this.social.doFacebookLogin().then(data => {
-      this.facebookData = data.providerData[0];
+      this.facebookData = data;
       console.log('See your Facebook data',this.facebookData.displayName);
       this.socialLogin.isSocial = true;
       this.socialLogin.email = this.facebookData.email;
@@ -403,7 +404,7 @@ _handleReaderLoaded(readerEvt) {
 
    doTwitter(){
      this.social.doTwitterLogin().then(data => {
-       this.twitterData = data.providerData[0];
+       this.twitterData = data;
        console.log('Here is you Twitter', this.twitterData);
        this.socialLogin.isSocial = true;
        this.socialLogin.email = this.twitterData.email;
@@ -514,27 +515,27 @@ async fetchCVPlan(){
     applicant.email = this.jobSeeker.email;
     applicant.nationalityId = Number(this.jobSeeker.nationalityId);
     applicant.genderId = Number(this.jobSeeker.genderId);
-    applicant.gradeId = Number(this.jobSeeker.gradeId);
-    applicant.institutionId = Number(this.jobSeeker.institutionId);
-    applicant.isPresentEmployment = this.jobSeeker.isPresentEmployment;
+    // applicant.gradeId = Number(this.jobSeeker.gradeId);
+    // applicant.institutionId = Number(this.jobSeeker.institutionId);
+    // applicant.isPresentEmployment = this.jobSeeker.isPresentEmployment;
     applicant.phoneNumber = this.jobSeeker.phoneNumber;
-    applicant.stateOfInterestId = Number(this.jobSeeker.stateOfInterestId);
-    applicant.yearOfExperience = this.jobSeeker.yearOfExperience;
-    applicant.workStartDate = this.jobSeeker.workStartDate;
-    applicant.workEndDate = this.jobSeeker.workEndDate;
-    applicant.availabilityDuration = this.jobSeeker.availabilityDuration;
-    applicant.briefDescription = this.jobSeeker.briefDescription;
-    applicant.videoResume = this.jobSeeker.videoResume;
-    applicant.resume = this.jobSeeker.resume;
+    // applicant.stateOfInterestId = Number(this.jobSeeker.stateOfInterestId);
+    // applicant.yearOfExperience = this.jobSeeker.yearOfExperience;
+    // applicant.workStartDate = this.jobSeeker.workStartDate;
+    // applicant.workEndDate = this.jobSeeker.workEndDate;
+    // applicant.availabilityDuration = this.jobSeeker.availabilityDuration;
+    // applicant.briefDescription = this.jobSeeker.briefDescription;
+    // applicant.videoResume = this.jobSeeker.videoResume;
+    // applicant.resume = this.jobSeeker.resume;
     applicant.password = this.jobSeeker.password;
     applicant.residentialStateId =  Number(this.jobSeeker.residentialStateId);
-    applicant.institutionName = this.jobSeeker.institutionName;
-    applicant.qualificationId =  Number(this.jobSeeker.qualificationId);
-    applicant.qualificationStartDate = this.jobSeeker.qualificationStartDate;
-    applicant.qualificationEndDate = this.jobSeeker.qualificationEndDate;
-    applicant.fieldOfInterestId = Number(this.jobSeeker.fieldOfInterestId);
+    // applicant.institutionName = this.jobSeeker.institutionName;
+    // applicant.qualificationId =  Number(this.jobSeeker.qualificationId);
+    // applicant.qualificationStartDate = this.jobSeeker.qualificationStartDate;
+    // applicant.qualificationEndDate = this.jobSeeker.qualificationEndDate;
+    // applicant.fieldOfInterestId = Number(this.jobSeeker.fieldOfInterestId);
     applicant.dateOfBirth = this.jobSeeker.dateOfBirth;
-    applicant.courseOfStudyId = Number(this.jobSeeker.courseOfStudyId);
+    // applicant.courseOfStudyId = Number(this.jobSeeker.courseOfStudyId);
     this.loginServices.applicantSignUp(applicant).subscribe(data => {
       this.btnProcessing = false;
       this.loading = false;

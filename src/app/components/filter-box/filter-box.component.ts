@@ -23,22 +23,21 @@ export class FilterBoxComponent implements OnInit {
   }
 
    filterUpdated(filter: any) {
-    const selectedIndex = this.selectedItem.findIndex(item => item == filter);
-    if(selectedIndex > -1){
-      this.selectedItem.splice(selectedIndex, 1)
-    } else {
-      this.selectedItem.push(filter)
-    }
+    // const selectedIndex = this.selectedItem.findIndex(item => item == filter);
+    this.selectedItem = filter;
+    // if(selectedIndex > -1){
+    //   this.selectedItem.splice(selectedIndex, 1)
+    // } else {
+    //   this.selectedItem.push(filter)
+    // }
 
     this.valueChange.emit(this.selectedItem)
    }
 
    isSelected(item){
-    return this.selectedItem.find(x => x == item)
+    // return this.selectedItem.find(x => x == item);
+    return this.selectedItem == item;
    }
 
-   showWhat(aaa){
-    alert(aaa)
-   }
 
 }

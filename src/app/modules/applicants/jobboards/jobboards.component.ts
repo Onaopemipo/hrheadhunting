@@ -1,4 +1,4 @@
-import { ArtisanDTO } from './../../../_services/service-proxies';
+import { ArtisanDTO, EmployerServiceProxy } from './../../../_services/service-proxies';
 import { ReportServiceProxy, EmployerDTO, SkillAreasServiceProxy, SectorsServiceProxy, StatesServiceProxy, ArtisanServiceProxy } from '../../../_services/service-proxies';
 import { Component, OnInit } from '@angular/core';
 import { IDTextViewModel, Job, JobServiceProxy, JobDTO } from 'app/_services/service-proxies';
@@ -19,14 +19,6 @@ export class JobboardsComponent implements OnInit {
   myPlanDesc: string = "No data available yet";
 
   jobFilter = {
-    // skillAreaId: undefined,
-    // sectorId: undefined,
-    // countryId: undefined,
-    // stateId: undefined,
-    // isNewlyAdded: false,
-    // isPopular: false,
-    // pageSize:10,
-    // pageNumber:1
     companyId: undefined,
     skillAreaId:undefined,
     countryId:undefined,
@@ -108,8 +100,11 @@ employerFilter = {
   pageSize = 10;
   pageToLoadNext = 1;
   loader = false;
+  currentPage:number = 1;
+  totalPage:number = 1000;
+  showingPages = [1,2,3,4,5,6,7,8,9,10];
 
-  constructor(private job: JobServiceProxy, private employer: ReportServiceProxy, private skill: SkillAreasServiceProxy,
+  constructor(private job: JobServiceProxy, private employer: EmployerServiceProxy, private skill: SkillAreasServiceProxy,
     private state: StatesServiceProxy, private sector: SectorsServiceProxy, public authenService: AuthenticationService,
     private artisan: ArtisanServiceProxy, private _sanitizer: DomSanitizer) { }
 
@@ -125,6 +120,12 @@ employerFilter = {
     this.authUser();
     this.fetchSkillAreaJobs();
     this.fetchJobsLocation()
+  }
+
+  selectPage(num:number){
+    this.jobFilter.pageNumber = num;
+    this.fetchAllJobs();
+    this.currentPage = num;
   }
 
  async getMyUsers(){
@@ -204,6 +205,15 @@ employerFilter = {
     this.jobFilter = {...this.jobFilter, ...filter};
     console.log('Updated filter', this.jobFilter)
     this.fetchAllJobs();
+  }
+
+  filterPageUpdated(filter: any){
+    this.jobFilter.pageNumber = filter;
+    // console.log('See me',filter)
+    // this.jobFilter = {...this.jobFilter, ...filter};
+    console.log('Updated filter', this.jobFilter)
+    this.fetchAllJobs();
+
   }
 
   toggleMenu(){
@@ -288,13 +298,26 @@ employerFilter = {
   }
 
   fetchAllEmployers(){
-    this.employer.fetchAllEmployers(this.filter.searchText, this.filter.dateFrom,
-      this.filter.dateTo, this.filter.pageSize, this.filter.pageNo).subscribe(data => {
+    this.loading = true;
+    this.employer.fetchAllEmployers(this.employerFilter.sectorId,this.employerFilter.stateId, this.employerFilter.isNewlyAdded,
+      this.employerFilter.isPopular,this.employerFilter.searchText,this.employerFilter.pageSize, this.employerFilter.pageNumber).subscribe(data => {
+       this.loading = false;
         if(!data.hasError){
           this.employerData = data.value;
           this.employerCounter = data.totalCount;
-          console.log('My employers:',this.employerData)
+          console.log('My employers:',this.employerData);
         }
     })
   }
+
+  // fetchAllEmployers(){
+  //   this.employer.fetchAllEmployers(this.filter.searchText, this.filter.dateFrom,
+  //     this.filter.dateTo, this.filter.pageSize, this.filter.pageNo).subscribe(data => {
+  //       if(!data.hasError){
+  //         this.employerData = data.value;
+  //         this.employerCounter = data.totalCount;
+  //         console.log('My employers:',this.employerData)
+  //       }
+  //   })
+  // }
 }

@@ -15,10 +15,11 @@
         <div class="form-group">
           <div class="form-group">
             <label for="exampleInputEmail1" class="label">Email address</label>
-            <input type="email" nbInput fullWidth id="exampleInputEmail1" placeholder="Email">
+            <input type="email" nbInput fullWidth id="exampleInputEmail1" name="email" [(ngModel)]="userEmail.email" #email="ngModel" placeholder="Email">
           </div>
-          <button type="button" routerLink="/passwordreset" nbButton fullWidth (click)="resetPassword()" status="primary">Continue</button>
-      </div>
+          <button type="button" *ngIf="!btnProcessing" nbButton fullWidth (click)="resetPassword()" status="primary">Continue</button>
+          <button *ngIf="btnProcessing" type="button" nbButton status="primary" style="margin-left: 20px;">Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button>
+        </div>
       </form>
       <div style="padding: 5px;"></div>
       <p style="text-align: center;font-size: .9rem;color: #71727B;font-weight: 400; font-family: Rubik;">I don't have an account? <a routerLink="/auth/signup" style="font-weight: 700;">Sign Up</a></p>

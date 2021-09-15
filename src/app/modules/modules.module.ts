@@ -1,6 +1,6 @@
 import { environment } from '../environment';
 import { ConsultantDashboardComponent } from './consultant-dashboard/consultant-dashboard.component';
-import { ConsultantServiceProxy, PaymentServiceProxy } from './../_services/service-proxies';
+import { ConsultantServiceProxy, PaymentServiceProxy, SubscriptionsServiceProxy } from './../_services/service-proxies';
 import { AlertserviceService } from 'app/_services/alertservice.service';
 import { ApplicantquizComponent } from './applicantquiz/applicantquiz.component';
 import { ApplicationsServiceProxy, DashboardServiceProxy, ArtisanServiceProxy, QuizServiceProxy } from '../_services/service-proxies';
@@ -28,22 +28,23 @@ import { JobsComponent } from './jobs/jobs.component';
 import { ApplicantsComponent } from './applicants/applicants.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { JobServiceProxy, CommonServiceProxy, CommunicationServiceProxy, ReportServiceProxy } from 'app/_services/service-proxies';
-import { ApplicantProfileComponent } from './applicant-profile/applicant-profile.component';
 import { TrainingComponent } from './training/training.component';
 import { ArtisansComponent } from './artisans/artisans.component';
 import { ConsultantsComponent } from './consultants/consultants.component';
 import { ApplicantsDashboardComponent } from './applicants-dashboard/applicants-dashboard.component';
 import { EmployerDashboardComponent } from './employer-dashboard/employer-dashboard.component';
 import { Angular4PaystackModule } from 'angular4-paystack';
+import { PasswordComponent } from './password/password.component';
+import { SubscriptionComponent } from './subscription/subscription.component';
 
 
 
 
 @NgModule({
-  declarations: [ModulesComponent, JobsComponent, ApplicantProfileComponent, ApplicantquizComponent,
+  declarations: [ModulesComponent, JobsComponent, ApplicantquizComponent,
     DashboardComponent, QuizComponent, ReportsComponent, ApplicantsComponent, NewquizComponent,
     NewjobComponent, SettingsComponent, ApplicantselectionComponent, TrainingComponent,
-    ArtisansComponent, ConsultantsComponent, ApplicantsDashboardComponent, EmployerDashboardComponent, ConsultantDashboardComponent,],
+    ArtisansComponent, ConsultantsComponent, ApplicantsDashboardComponent, EmployerDashboardComponent, ConsultantDashboardComponent, PasswordComponent, SubscriptionComponent,],
   imports: [
     CommonModule,
     ComponentsModule,
@@ -84,7 +85,8 @@ import { Angular4PaystackModule } from 'angular4-paystack';
     QuizServiceProxy,
     ReportServiceProxy,
     ConsultantServiceProxy,
-    PaymentServiceProxy
+    PaymentServiceProxy,
+    SubscriptionsServiceProxy
   ]
 })
 export class ModulesModule { }

@@ -27,6 +27,8 @@ export class  AuthenticationService {
                 if (this.users.length > 0) {
                 this.globalUser.next(this.users[0]);
                 this.authStatus.next(true);
+                this.myRole = this.users[0].userType;
+                console.log('See your user:', this.myRole)
            } }
             resolve(this.users);
 

@@ -16,9 +16,10 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { JobsComponent } from './jobs/jobs.component';
 import { JobDetailsComponent } from './job-details/job-details.component';
 import { ApplicantsComponent } from './applicants/applicants.component';
-import { ApplicantProfileComponent } from './applicant-profile/applicant-profile.component';
 import { AuthGuardService as AuthGuard } from '../_services/auth-guard.service';
 import { NewquizComponent } from './newquiz/newquiz.component';
+import { PasswordComponent } from './password/password.component';
+import { SubscriptionComponent } from './subscription/subscription.component';
 const routes: Routes = [{
   path: '',
   component: ModulesComponent,
@@ -51,9 +52,14 @@ const routes: Routes = [{
       component: SettingsComponent
     },
 
+    // {
+    //   path: 'profile',
+    //   component: ApplicantProfileComponent
+    // },
+
     {
-      path: 'profile',
-      component: ApplicantProfileComponent
+      path: 'subscription',
+      component: SubscriptionComponent
     },
 
     {
@@ -101,6 +107,12 @@ const routes: Routes = [{
       path: 'consultants',
       component: ConsultantsComponent
     },
+
+    {
+      path: 'password',
+      component: PasswordComponent
+    },
+
 
 
     { path: '', redirectTo: 'dashboard', pathMatch: 'full' },

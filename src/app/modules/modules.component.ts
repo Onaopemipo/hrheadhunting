@@ -74,6 +74,12 @@ export class ModulesComponent implements OnInit {
           },
 
           {
+            title: 'Subscription',
+            icon: '/assets/icons/consultant.png',
+            link: '/modules/subscription',
+          },
+
+          {
             title: 'Report',
             icon: '/assets/icons/report.png',
             link: '/modules/report',
@@ -128,6 +134,12 @@ export class ModulesComponent implements OnInit {
             icon: '/assets/icons/consultant.png',
             link: '/modules/consultants',
             hidden: this.show
+          },
+
+          {
+            title: 'Subscription',
+            icon: '/assets/icons/consultant.png',
+            link: '/modules/subscription',
           },
 
           {

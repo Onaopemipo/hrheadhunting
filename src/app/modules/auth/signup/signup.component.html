@@ -60,251 +60,7 @@
   <div style="padding: 3% 7%; margin: 2% 7% 5% 5%; text-align:left;" class="shadow p-3 mb-5 bg-white rounded">
     <div class="row" style="display: flex; flex-direction: row; justify-content: left;">
       <div class="col">
-
-        <!-- <nb-card *ngIf="jobSeekerStatus">
-          <nb-card-body>
-            <nb-stepper orientation="horizontal" disableStepNavigation>
-              <nb-step [label]="labelOne">
-                <ng-template #labelOne>Personal Info</ng-template>
-                <div class="form-row" style="display: flex; flex-direction: row; justify-content: space-between;">
-                  <div class="col-sm-12 col-md-5 col-lg-5 form-group">
-                    <div>
-                      <label for="">Title</label>
-                    <select class="form-control" name="title" #title="ngModel" [(ngModel)]="jobSeeker.titleId" required>
-                      <option value="">Select Title</option>
-                      <option *ngFor="let mytitle of titleData" [value]="mytitle.id">{{mytitle.text}}</option>
-                    </select>
-                    </div>
-
-
-                    <div style="padding: 10px;"></div>
-
-                    <div>
-                      <label for="" style="padding-top: 5px;">Last name</label>
-                    <input type="text" class="form-control" name="lastName" #lastName="ngModel" [(ngModel)]="jobSeeker.lastname" placeholder="Last name">
-
-                    </div>
-                    <div style="padding: 10px;"></div>
-
-                    <label for="inputEmail4">Email</label>
-                      <input type="email" class="form-control" name="email" #email="ngModel" [(ngModel)]="jobSeeker.email">
-
-                      <div style="padding: 10px;"></div>
-
-                    <label for="">Nationality</label>
-                    <select class="form-control" name="nationality" #nationality="ngModel" [(ngModel)]="jobSeeker.nationalityId" (change)="fetchStates($event.target.value)" required>
-                      <option value="">Select</option>
-                      <option *ngFor="let country of countryData" [value]="country.id">{{country.text}}</option>
-                    </select>
-
-                      <div style="padding: 10px;"></div>
-
-                    <div>
-                      <label>Date of Birth</label>
-                      <ngx-date [(value)]="jobSeeker.dateOfBirth"> </ngx-date>
-                    </div>
-
-                    </div>
-
-                  <div style="padding: 10px;"></div>
-
-                  <div class="col-sm-12 col-md-5 col-lg-5 form-group">
-                    <div>
-                      <label for="" style="padding-top: 5px;">First name</label>
-                      <input type="text" class="form-control" name="firstName" #firstName="ngModel" [(ngModel)]="jobSeeker.firstName" placeholder="First name">
-
-                    </div>
-                    <div style="padding: 10px;"></div>
-
-                    <div>
-                      <label>Phone Number</label>
-                      <input type="tel" class="form-control" name="phone" #phone="ngModel" [(ngModel)]="jobSeeker.phoneNumber">
-                    </div>
-
-
-                    <label for="" style="padding-top: 5px;">Where do you want to work?</label>
-                    <select class="form-control" name="residenceState" #residenceState="ngModel" [(ngModel)]="jobSeeker.stateOfInterestId" required>
-                      <option value="">Select</option>
-                      <option *ngFor="let state of stateData" [value]="state.id">{{state.text}}</option>
-                    </select>
-
-
-                    <div style="padding: 10px;"></div>
-
-                    <label for="">Gender</label>
-                    <nb-radio-group [(ngModel)]="jobSeeker.genderId" (ngModelChange)="changeGend($event)" name="gender" #gender="ngModel" style="display: flex; flex-direction: row; justify-content:left; align-items: flex-start;">
-                      <nb-radio *ngFor="let gender of genderData" [value]="gender.id">{{gender.text}}</nb-radio>
-                    </nb-radio-group>
-
-                    <div style="padding: 10px;"></div>
-
-                    <label for="inputPassword4">Password</label>
-                    <div style="display: flex;border: 0.800000011920929px solid #CED4DA;border-radius: 3px;background-color: #f7f9fc;padding: 5px;">
-                      <input [type]="show ? 'text' : 'password'" nbInput fullWidth placeholder="Password" name="password" #password="ngModel" [(ngModel)]="jobSeeker.password" required style="border: none;">
-                      <nb-icon  (click)="viewpassword()" *ngIf="!show"  icon="eye-off-outline" style="font-size: 32px;color: #95A8B8;cursor: pointer;"></nb-icon>
-                      <nb-icon  (click)="viewpassword()" *ngIf="show"  icon="eye-outline" style="font-size: 32px;color: #95A8B8;cursor: pointer;"></nb-icon>
-                    </div>
-
-                    <div style="padding: 10px;"></div>
-
-                  </div>
-                </div>
-                <button nbButton disabled nbStepperNext>PREV</button>
-                <button nbButton nbStepperNext>NEXT</button>
-              </nb-step>
-              <nb-step [label]="labelTwo">
-                <ng-template #labelTwo>Work Experience</ng-template>
-                <div class="form-row" style="display: flex; flex-direction: row; justify-content: space-between;">
-                  <div class="col-sm-12 col-md-5 col-lg-5 form-group">
-                    <label for="" style="padding-top: 5px;">Field of Interest</label>
-                    <select class="form-control" name="interest" #interest="ngModel" [(ngModel)]="jobSeeker.fieldOfInterestId" required>
-                      <option value="">Select Field</option>
-                      <option *ngFor="let skill of skillData" [value]="skill.id">{{skill.text}}</option>
-                    </select>
-
-                    <div style="padding: 10px;"></div>
-
-                    <label for="" style="padding-top: 5px;">Where do you want to work?</label>
-                    <select class="form-control" name="residenceState" #residenceState="ngModel" [(ngModel)]="jobSeeker.stateOfInterestId" required>
-                      <option value="">Select</option>
-                      <option *ngFor="let state of stateData" [value]="state.id">{{state.text}}</option>
-                    </select>
-
-                    <div style="padding: 10px;"></div>
-
-                    <label for="" style="padding-top: 5px;">How available are you to resume a new role?</label>
-                    <input type="number" class="form-control" name="availability" #availability="ngModel" [(ngModel)]="jobSeeker.availabilityDuration" required>
-                  </div>
-
-                  <div style="padding: 10px;"></div>
-
-                  <div class="col-sm-12 col-md-5 col-lg-5 form-group">
-                    <label for="" style="padding-top: 5px;">Working Experience</label>
-                    <input type="number" class="form-control" name="experience" #experience="ngModel" [(ngModel)]="jobSeeker.yearOfExperience" placeholder="Experience in Years" required>
-
-                    <div style="padding: 10px;"></div>
-
-                    <label for="">Where are you based?</label>
-                    <select class="form-control" name="residence" #residence="ngModel" [(ngModel)]="jobSeeker.residentialStateId" required>
-                      <option value="">Select</option>
-                      <option *ngFor="let state of stateData" [value]="state.id">{{state.text}}</option>
-                    </select>
-
-                  </div>
-                </div>
-                <button nbButton nbStepperPrevious>PREV</button>
-                <button nbButton nbStepperNext>NEXT</button>
-              </nb-step>
-              <nb-step label="Qualification">
-                <div class="form-row" style="display: flex; flex-direction: row; justify-content: space-between;">
-                  <div class="col-sm-12 col-md-5 col-lg-5 form-group">
-                    <label for="" style="padding-top: 5px;">Highest Qualification</label>
-                    <select type="text" class="form-control" name="qualification" #qualification="ngModel" [(ngModel)]="jobSeeker.qualificationId" required>
-                      <option value="">Select</option>
-                      <option *ngFor="let myqual of qualificationData" [value]="myqual.id">{{myqual.text}}</option>
-                    </select>
-
-                    <div style="padding: 10px;"></div>
-
-                    <label for="" style="padding-top: 5px;">Institution Name</label>
-                    <select type="text" class="form-control" name="institution" #institution="ngModel" [(ngModel)]="jobSeeker.institutionId" required>
-                      <option value="">Select</option>
-                      <option *ngFor="let inst of institutionData" [value]="inst.id">{{inst.text}}</option>
-                    </select>
-
-                    <div style="padding: 10px;"></div>
-
-                    <label for="" style="padding-top: 5px;">Start Date</label>
-                    <ngx-date [(value)]="jobSeeker.qualificationStartDate">
-                    </ngx-date>
-                  </div>
-
-                  <div style="padding: 10px;"></div>
-
-                  <div class="col-sm-12 col-md-5 col-lg-5 form-group">
-                    <label for="" style="padding-top: 5px;">Course of study</label>
-                    <select type="text" class="form-control" name="course" #course="ngModel" [(ngModel)]="jobSeeker.courseOfStudyId" required>
-                      <option value="">Select</option>
-                      <option *ngFor="let mycourse of courseData" [value]="mycourse.id">{{mycourse.text}}</option>
-                    </select>
-
-                    <div style="padding: 10px;"></div>
-
-                    <label for="">Grade</label>
-                    <select type="text" class="form-control" name="grade" #grade="ngModel" [(ngModel)]="jobSeeker.gradeId" required>
-                      <option value="">Select</option>
-                      <option *ngFor="let mygrade of gradeData" [value]="mygrade.id">{{mygrade.text}}</option>
-                    </select>
-
-                    <div style="padding: 10px;"></div>
-
-                    <label for="">End Date</label>
-                    <ngx-date [(value)]="jobSeeker.qualificationEndDate" >
-                    </ngx-date>
-
-                  </div>
-                </div>
-                <button nbButton nbStepperPrevious>PREV</button>
-                <button nbButton nbStepperNext>NEXT</button>
-              </nb-step>
-              <nb-step [label]="labelFour">
-                <ng-template #labelFour>Experience</ng-template>
-                <div class="form-row" style="display: flex; flex-direction: row; justify-content: space-between;">
-                  <div class="col-sm-12 col-md-5 col-lg-5 form-group">
-                    <label for="" style="padding-top: 5px;">Current Job Title</label>
-                    <input type="text" class="form-control" name="jobTitle" #jobTitle="ngModel" [(ngModel)]="jobSeeker.currentJobTitle" placeholder="Current Job title">
-
-                    <div style="padding: 10px;"></div>
-
-                    <label for="" style="padding-top: 5px;">Start Date</label>
-                    <ngx-date [(value)]="jobSeeker.workStartDate">
-                    </ngx-date>
-                  </div>
-
-                  <div class="col-sm-12 col-md-5 col-lg-5 form-group">
-                    <label for="" style="padding-top: 5px;">Company Name</label>
-                    <input type="text" class="form-control" name="company" #company="ngModel" [(ngModel)]="jobSeeker.companyName" placeholder="Current Job title">
-
-                    <div style="padding: 10px;"></div>
-
-                    <label for="" *ngIf="!currentWork" style="padding-top: 50px;"></label>
-                    <nb-checkbox *ngIf="!currentWork" (checkedChange)="toggleJob($event)">Are you still working here?</nb-checkbox>
-
-                    <label *ngIf="currentWork" for="">End Date</label>
-                    <ngx-date *ngIf="currentWork" [(value)]="jobSeeker.workEndDate">
-                    </ngx-date>
-
-                  </div>
-                </div>
-                <button nbButton nbStepperPrevious>PREV</button>
-                <button nbButton disabled nbStepperNext>NEXT</button>
-              </nb-step>
-
-              <nb-step [label]="labelFour">
-                <ng-template #labelFour>Summary</ng-template>
-                <div class="form-row" style="display: flex; flex-direction: row; justify-content: space-between;">
-                  <div class="col-sm-12 col-md-5 col-lg-5 form-group">
-                    <label for="">About yourself</label><br>
-                    <textarea name="description" #description="ngModel" [(ngModel)]="jobSeeker.briefDescription" cols="30" rows="10" style="width: 100%;"></textarea>
-                  </div>
-
-
-                <div class="col-sm-12 col-md-5 col-lg-5 form-group">
-                  <label for="">Upload your CV in PDF format, not more than 512Kb</label><br>
-                  <ngx-file-upload></ngx-file-upload>
-                  <div style="padding: 10px;"></div>
-                  <label for="">Upload your video resume in MP4 format, not more than 2MB</label><br>
-                  <ngx-file-upload></ngx-file-upload>
-                  <div style="padding: 10px;"></div>
-                </div>
-              </div>
-                <button nbButton nbStepperPrevious>PREV</button>
-                <button nbButton disabled nbStepperNext>NEXT</button>
-              </nb-step>
-            </nb-stepper>
-          </nb-card-body>
-        </nb-card> -->
-      <nb-card>
+<nb-card>
       <nb-card-body *ngIf="jobSeekerStatus">
         <div class="form-row" style="display: flex; flex-direction: row; justify-content: space-between;">
           <div class="col-sm-12 col-md-5 col-lg-5 form-group">
@@ -348,7 +104,7 @@
               <h6>PERSONAL INFORMATION</h6>
               <div class="form-row" style="display: flex; flex-direction: row; justify-content: space-between;">
                 <div class="col-sm-12 col-md-5 col-lg-5 form-group">
-                  <div>
+                  <div style="padding-top: 10px;">
                     <label for="">Title</label>
                   <select class="form-control" name="title" #title="ngModel" [(ngModel)]="jobSeeker.titleId" required>
                     <option value="">Select Title</option>
@@ -360,27 +116,23 @@
                   </div>
 
 
-                  <div style="padding: 10px;"></div>
-
-                  <div>
+                  <div style="padding-top: 10px;">
                     <label for="" style="padding-top: 5px;">Last name</label>
                   <input type="text" class="form-control" name="lastName" #lastName="ngModel" [(ngModel)]="jobSeeker.lastname" placeholder="Last name" required>
                   <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="error">
                     <div *ngIf="lastName.errors.required">Last Name is required</div>
                   </div>
                   </div>
-                  <div style="padding: 10px;"></div>
 
-                  <div>
+                  <div style="padding-top: 10px;">
                     <label>Email</label>
                     <input type="email" class="form-control" name="email" #email="ngModel" [(ngModel)]="jobSeeker.email" required>
                     <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error">
                       <div *ngIf="email.errors.required">Email is required</div>
                     </div>
                   </div>
-                    <div style="padding: 10px;"></div>
 
-                  <div>
+                  <div style="padding-top: 10px;">
                     <label for="">Nationality</label>
                   <select class="form-control" name="nationality" #nationality="ngModel" [(ngModel)]="jobSeeker.nationalityId" (change)="fetchStates($event.target.value)" required>
                     <option value="">Select</option>
@@ -391,9 +143,7 @@
                   </div>
                   </div>
 
-                    <div style="padding: 10px;"></div>
-
-                  <div>
+                  <div style="padding-top: 10px;">
                     <label>Date of Birth</label>
                     <ngx-date [(value)]="jobSeeker.dateOfBirth" [max]="minDate"> </ngx-date>
 
@@ -401,9 +151,7 @@
 
                   </div>
 
-                <div style="padding: 10px;"></div>
-
-                <div class="col-sm-12 col-md-5 col-lg-5 form-group">
+                <div class="col-sm-12 col-md-5 col-lg-5 form-group" style="padding-top: 10px;">
                   <div>
                     <label for="" style="padding-top: 5px;">First name</label>
                     <input type="text" class="form-control" name="firstName" #firstName="ngModel" [(ngModel)]="jobSeeker.firstName" placeholder="First name" required>
@@ -412,9 +160,7 @@
                     </div>
                   </div>
 
-                  <div style="padding: 10px;"></div>
-
-                  <div>
+                  <div style="padding-top: 10px;">
                     <label>Phone Number</label>
                     <input type="tel" class="form-control" name="phone" #phone="ngModel" [(ngModel)]="jobSeeker.phoneNumber" required>
                     <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="error">
@@ -423,9 +169,9 @@
                   </div>
 
 
-                  <div>
-                    <label for="" style="padding-top: 5px;">Where do you want to work?</label>
-                  <select class="form-control" name="residenceState" #residenceState="ngModel" [(ngModel)]="jobSeeker.stateOfInterestId" required>
+                  <div style="padding-top: 10px;">
+                    <label for="" >State of Residence</label>
+                  <select class="form-control" name="residenceState" #residenceState="ngModel" [(ngModel)]="jobSeeker.residentialStateId" required>
                     <option value="">Select</option>
                     <option *ngFor="let state of stateData" [value]="state.id">{{state.text}}</option>
                   </select>
@@ -434,10 +180,7 @@
                   </div>
                   </div>
 
-
-                  <div style="padding: 10px;"></div>
-
-                 <div>
+                 <div style="padding-top: 10px;">
                   <label for="">Gender</label>
                   <nb-radio-group [(ngModel)]="jobSeeker.genderId" (ngModelChange)="changeGend($event)" name="gender" required #gender="ngModel" style="display: flex; flex-direction: row; justify-content:left; align-items: flex-start;">
                     <nb-radio *ngFor="let gender of genderData" [value]="gender.id">{{gender.text}}</nb-radio>
@@ -447,9 +190,8 @@
                   </div>
                  </div>
 
-                  <div style="padding: 10px;"></div>
 
-                  <div>
+                  <div style="padding-top: 10px;">
                     <label for="inputPassword4">Password</label>
                   <div style="display: flex;border: 0.800000011920929px solid #CED4DA;border-radius: 3px;background-color: #f7f9fc;padding: 5px;">
                     <input [type]="show ? 'text' : 'password'" nbInput fullWidth placeholder="Password" name="password" #password="ngModel" [(ngModel)]="jobSeeker.password" required style="border: none;">
@@ -465,7 +207,7 @@
 
                 </div>
               </div>
-              <h6>WORK PREFERENCE</h6><br>
+              <!-- <h6>WORK PREFERENCE</h6><br>
               <div class="form-row" style="display: flex; flex-direction: row; justify-content: space-between;">
                 <div class="col-sm-12 col-md-5 col-lg-5 form-group">
                  <div>
@@ -605,9 +347,9 @@
                   </div>
 
                 </div>
-              </div>
+              </div> -->
 
-              <div style="padding: 10px;"></div>
+              <!-- <div style="padding: 10px;"></div>
               <h6>EXPERIENCE</h6><br>
               <div class="form-row" style="display: flex; flex-direction: row; justify-content: space-between;">
                 <div class="col-sm-12 col-md-5 col-lg-5 form-group">
@@ -648,9 +390,9 @@
                     <nb-checkbox (checkedChange)="toggleJob($event)" style="margin-left: 5px;">Are you still working here?</nb-checkbox>
                   </div>
                 </div>
-              </div>
+              </div> -->
 
-              <div style="padding: 10px;"></div>
+              <!-- <div style="padding: 10px;"></div>
               <h6>SUMMARY</h6><br>
               <div class="form-row" style="display: flex; flex-direction: row; justify-content: space-between;">
                 <div class="col-sm-12 col-md-5 col-lg-5 form-group">
@@ -666,20 +408,16 @@
                 <div>
                   <label for="">Upload your CV in PDF format, not more than 512Kb</label><br>
                   <input type="file" class="form-control-file" name="resume" id="" (change)="handleCvFileSelect($event)">
-                <!-- <ngx-file-upload></ngx-file-upload> -->
                 </div>
 
                 <div style="padding: 10px;"></div>
                 <div>
                   <label for="">Upload your video resume in MP4 format, not more than 2MB</label><br>
                   <input type="file" class="form-control-file" name="video" id="" (change)="handleVideoFileSelect($event)">
-                <!-- <ngx-file-upload></ngx-file-upload> -->
                 </div>
                 <div style="padding: 10px;"></div>
-                <!-- <label for="">About yourself</label><br>
-                <textarea name="description" #description="ngModel" [(ngModel)]="jobSeeker.briefDescription" cols="30" rows="10" style="width: 100%;"></textarea> -->
               </div>
-            </div>
+            </div> -->
 
               <div class="form-group">
               <button *ngIf="!btnprocessing" (click)="toggleTest()" type="button" nbButton [disabled]="applicantForm.invalid" status="primary" style="float: right;">Get Started</button>

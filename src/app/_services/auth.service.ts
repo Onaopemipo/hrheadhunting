@@ -9,7 +9,8 @@ import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
-import "firebase/auth";
+import { Auth } from "firebase/auth";
+import { getAuth, signInWithPopup, FacebookAuthProvider, TwitterAuthProvider, GoogleAuthProvider } from "firebase/auth";
 
 @Injectable()
 export class AuthService {
@@ -63,127 +64,84 @@ export class AuthService {
   }
 
 
-  doGoogleLogin(){
-    return new Promise<any>((resolve, reject) => {
-      let provider = new firebase.auth.GoogleAuthProvider();
-      provider.addScope('profile');
-      provider.addScope('email');
-      this.afAuth.auth
-      .signInWithPopup(provider)
-      .then(res => {
-        resolve(res.user);
-        console.log('Google', res.user)
-      })
-    }).catch((error) => {
-      // Handle Errors here.
-      let errorCode = error.code;
-      console.log(errorCode)
-      let errorMessage = error.message;
-      // The email of the user's account used.
-      let email = error.email;
-      console.log(email)
-      // The firebase.auth.AuthCredential type that was used.
-      let credential = error.credential;
-      // ...
-      console.log(CredentialsContainer)
-    });
+ async doGoogleLogin(){
+    const auth = getAuth();
+    const provider = new GoogleAuthProvider();
+    const result = await signInWithPopup(auth, provider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        // ...
+      }).catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+      });
 
   }
 
 
-doTwitterLogin(){
-  return new Promise<any>((resolve, reject) => {
-    let provider = new firebase.auth.TwitterAuthProvider();
-    firebase
-    .auth()
-    .signInWithPopup(provider)
+async doTwitterLogin(){
+  const auth = getAuth();
+  const provider = new TwitterAuthProvider();
+    const result = await signInWithPopup(auth, provider)
     .then((result) => {
-      /** @type {firebase.auth.OAuthCredential} */
-      var credential = result.credential;
-      resolve(result.user);
-      console.log('Twitter', result.user)
       // This gives you a the Twitter OAuth 1.0 Access Token and Secret.
       // You can use these server side with your app's credentials to access the Twitter API.
-      // var token = credential.accessToken;
-      // var secret = credential.secret;
+      const credential = TwitterAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
+      const secret = credential.secret;
 
       // The signed-in user info.
-      var user = result.user;
+      const user = result.user;
       // ...
     }).catch((error) => {
       // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
+      const errorCode = error.code;
+      const errorMessage = error.message;
       // The email of the user's account used.
-      var email = error.email;
-      // The firebase.auth.AuthCredential type that was used.
-      var credential = error.credential;
+      const email = error.email;
+      // The AuthCredential type that was used.
+      const credential = TwitterAuthProvider.credentialFromError(error);
       // ...
     });
-  })
+
 
 }
 
-  doFacebookLogin(){
-    return new Promise<any>((resolve, reject) => {
-      let provider = new firebase.auth.FacebookAuthProvider();
-      this.afAuth.auth
-      .signInWithPopup(provider)
-      .then(res => {
-        resolve(res.user);
-        console.log('Facebook', res.user)
-      }, err => {
-        console.log(err);
-        reject(err);
+  async doFacebookLogin(){
+    const auth = getAuth();
+    const provider = new FacebookAuthProvider();
+    const result = await signInWithPopup(auth, provider)
+      .then((result) => {
+        // The signed-in user info.
+        const user = result.user;
+
+        // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+        const credential = FacebookAuthProvider.credentialFromResult(result);
+        const accessToken = credential.accessToken;
+
+        // ...
       })
-    })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.email;
+        // The AuthCredential type that was used.
+        const credential = FacebookAuthProvider.credentialFromError(error);
+
+        // ...
+      });
  }
-
-
-
-//  doFacebookLogin(){
-//   return new Promise<any>((resolve, reject) => {
-//     let provider = new firebase.auth.FacebookAuthProvider();
-//     this.afAuth.auth
-//     .signInWithPopup(provider)
-//     .then(res => {
-//       resolve(res);
-//     }, err => {
-//       console.log(err);
-//       reject(err);
-//     })
-//   })
-// }
-
-// doTwitterLogin(){
-//   return new Promise<any>((resolve, reject) => {
-//     let provider = new firebase.auth.TwitterAuthProvider();
-//     this.afAuth.auth
-//     .signInWithPopup(provider)
-//     .then(res => {
-//       resolve(res);
-//     }, err => {
-//       console.log(err);
-//       reject(err);
-//     })
-//   })
-// }
-
-// doGoogleLogin(){
-//   return new Promise<any>((resolve, reject) => {
-//     let provider = new firebase.auth.GoogleAuthProvider();
-//     provider.addScope('profile');
-//     provider.addScope('email');
-//     this.afAuth.auth
-//     .signInWithPopup(provider)
-//     .then(res => {
-//       resolve(res);
-//     }, err => {
-//       console.log(err);
-//       reject(err);
-//     })
-//   })
-// }
-
 
 }

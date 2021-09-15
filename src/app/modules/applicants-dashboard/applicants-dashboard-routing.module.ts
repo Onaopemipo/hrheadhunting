@@ -1,4 +1,3 @@
-import { ProfileComponent } from './profile/profile.component';
 import { PasswordComponent } from './password/password.component';
 import { UploadcvComponent } from './uploadcv/uploadcv.component';
 import { ApplicationsComponent } from './applications/applications.component';
@@ -9,6 +8,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { Path } from 'leaflet';
 import { DashboardComponent } from '../applicants-dashboard/dashboard/dashboard.component';
 import { QuizComponent } from './quiz/quiz.component';
+import { ApplicantProfileComponent } from '../applicants-dashboard/applicant-profile/applicant-profile.component';
+import { SubscriptionComponent } from './subscription/subscription.component';
 
 const routes: Routes = [
   {
@@ -41,8 +42,13 @@ const routes: Routes = [
   },
 
   {
+    path: 'subscription',
+    component: SubscriptionComponent
+  },
+
+  {
     path: 'profile',
-    component: ProfileComponent
+    component: ApplicantProfileComponent
   },
 
 

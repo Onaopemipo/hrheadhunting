@@ -3,7 +3,7 @@ import { Job } from '../../_services/service-proxies';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AlertserviceService } from 'app/_services/alertservice.service';
-import { CountriesServiceProxy, CurrenciesServiceProxy, GradesServiceProxy, JobServiceProxy, JobTypesServiceProxy, QualificationServiceProxy, SectorsServiceProxy, SkillAreasServiceProxy, StatesServiceProxy, IDTextViewModel, CommonServiceProxy } from 'app/_services/service-proxies';
+import { CountriesServiceProxy,ManageJobDTO, CurrenciesServiceProxy, GradesServiceProxy, JobServiceProxy, JobTypesServiceProxy, QualificationServiceProxy, SectorsServiceProxy, SkillAreasServiceProxy, StatesServiceProxy, IDTextViewModel, CommonServiceProxy } from 'app/_services/service-proxies';
 
 @Component({
   selector: 'ngx-newjob',
@@ -47,7 +47,7 @@ export class NewjobComponent implements OnInit {
   currencyData: IDTextViewModel [] = [];
   recruiterData: IDTextViewModel [] = [];
   jobTitleData: IDTextViewModel [] = [];
-  newJobModel: Job = new Job();
+  newJobModel: ManageJobDTO = new ManageJobDTO();
   titleFilter: {
     searchText: ''
   }
@@ -86,7 +86,7 @@ export class NewjobComponent implements OnInit {
   addNewJob() {
    this.btnProcessing = true;
    console.log(this.newJobModel)
-   let jobModel: Job = new Job();
+   let jobModel: ManageJobDTO = new ManageJobDTO();
    jobModel.position = this.newJobModel.position;
    jobModel.jobTypeId = Number(this.newJobModel.jobTypeId);
    jobModel.recruiter = this.newJobModel.recruiter;
@@ -105,13 +105,12 @@ export class NewjobComponent implements OnInit {
    jobModel.minSalary = this.newJobModel.minSalary;
    jobModel.maxSalary = this.newJobModel.maxSalary;
    jobModel.skillAreaId = Number(this.newJobModel.skillAreaId);
-   jobModel.reviewers = this.newJobModel.reviewers;
    this.job.postJob(jobModel).subscribe(data => {
       this.btnProcessing = false;
       this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'Success', 'Dismiss').subscribe(res => {
         if(res){
-          this.router.navigateByUrl('/recruitmentadmin/jobs/');
-          this.newJobModel = new Job();
+          this.router.navigateByUrl('modules/jobs');
+          this.newJobModel = new ManageJobDTO();
         }
       })
    }, (error) => {
@@ -177,10 +176,10 @@ export class NewjobComponent implements OnInit {
     //   this.jobTitleData = data.value;
     // }
 
-     getSelectedEmployee(event,selectType) {
-       if(selectType == 'employee'){
-        this.newJobModel.reviewers = event[0].employeeNumber;
-       }
-    }
+    //  getSelectedEmployee(event,selectType) {
+    //    if(selectType == 'employee'){
+    //     this.newJobModel.reviewers = event[0].employeeNumber;
+    //    }
+    // }
 
 }

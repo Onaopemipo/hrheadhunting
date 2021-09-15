@@ -132,6 +132,13 @@ export class EmployerDashboardComponent implements OnInit {
               link: '/modules/settings',
             },
 
+            {
+              title: 'Password',
+              icon: '/assets/icons/settings.png',
+              link: '/modules/password',
+            },
+
+
           ];
           console.log(this.show)
         } else {
@@ -194,6 +201,13 @@ export class EmployerDashboardComponent implements OnInit {
               icon: '/assets/icons/settings.png',
               link: '/modules/settings',
             },
+
+            {
+              title: 'Password',
+              icon: '/assets/icons/settings.png',
+              link: '/modules/password',
+            },
+
 
           ];
         }

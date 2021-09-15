@@ -8,10 +8,14 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ThemeModule } from 'app/@theme/theme.module';
 import { TrainingComponent } from './training/training.component';
 import { ConsultantServiceProxy, PaymentServiceProxy, StatesServiceProxy } from 'app/_services/service-proxies';
+import { ConsultantProfileComponent } from './consultant-profile/consultant-profile.component';
+import { PasswordComponent } from './password/password.component';
+import { TransactionComponent } from './transaction/transaction.component';
+import { SubscriptionComponent } from './subscription/subscription.component';
 
 
 @NgModule({
-  declarations: [DashboardComponent, TrainingComponent],
+  declarations: [DashboardComponent, TrainingComponent, ConsultantProfileComponent, PasswordComponent, TransactionComponent, SubscriptionComponent],
   imports: [
     CommonModule,
     ConsultantDashboardRoutingModule,
@@ -23,7 +27,8 @@ import { ConsultantServiceProxy, PaymentServiceProxy, StatesServiceProxy } from 
   providers: [
     ConsultantServiceProxy,
     StatesServiceProxy,
-    PaymentServiceProxy
+    PaymentServiceProxy,
+
   ]
 })
 export class ConsultantDashboardModule { }

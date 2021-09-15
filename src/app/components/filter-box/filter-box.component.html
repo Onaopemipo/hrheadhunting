@@ -5,8 +5,8 @@
 </form>
 
 <!-- <form>
-  <div class="form-group" name="skill">
-    <nb-radio-group [(value)]="data">
+  <div class="form-group" >
+    <nb-radio-group [(value)]="data" name="skill">
       <nb-radio *ngFor="let item of data" style="display: block;" (change)="showWhat(item.id)">{{item.text}}</nb-radio>
     </nb-radio-group>
   </div>

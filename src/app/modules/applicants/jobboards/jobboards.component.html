@@ -72,9 +72,9 @@
     </div>
   </nav>
    <div class="container" style="margin: 3% 0;">
-    <div style="padding-top: 20px;">
+    <!-- <div style="padding-top: 20px;">
       <h6 style="text-align: center; color: #fff;">Get hired for any job, any time.</h6>
-    </div>
+    </div> -->
     <div class="row" style="display: flex; flex-direction: row; justify-content: stretch; align-items:stretch; align-self: center; padding-top: 3%;">
       <div class="form-group col-sm-12 col-md-6 col-lg-4" >
          <select class="custom-select" name="functions" #functions="ngModel" [(ngModel)]="jobFilter.skillAreaId">
@@ -113,26 +113,25 @@
 <div class="container" style="margin-top: 2%; background-color: transparent;">
   <div class="row row-cols-2">
     <div class="col-sm-12 col-md-8 col-lg-8 ">
-      <nb-card *ngIf="jobsCounter < 1">
+      <nb-card>
         <nb-card-header  style="font-weight:900;">
           Top Jobs
         </nb-card-header>
-        <nb-card-body>
+        <nb-card-body *ngIf="jobsCounter < 1">
           <ngx-default-content pageHeader={{myPlanHeader}} pageDescription="{{myPlanDesc}}" [loading]="loading"></ngx-default-content>
         </nb-card-body>
-      </nb-card>
-      <nb-card *ngIf="jobsCounter > 0" style="background-color: transparent;">
-        <nb-card-header *ngIf="jobsCounter > 0" style="font-weight:900;">
-          Top Jobs
-        </nb-card-header>
-        <nb-card-body>
+
+        <nb-card-body *ngIf="jobsCounter > 0" >
           <nb-tabset>
             <nb-tab tabTitle="All">
               <div class="row" style="display: flex; flex-direction: row; justify-content: space-between;">
-                <div *ngFor="let job of allJobs" class="col-sm-12 col-md-6 col-lg-6 overflowJobs" [routerLink]="['/applicants/details', job.id]" style="cursor:pointer; margin-top: 20px;">
+                <div *ngFor="let job of allJobs | paginate: { id: jobFilter.companyId,
+                  itemsPerPage: jobFilter.pageSize,
+                  currentPage: jobFilter.pageNumber,
+                  totalItems: allJobs.length }" class="col-sm-12 col-md-6 col-lg-6" [routerLink]="['/applicants/details', job.id]" style="cursor:pointer; margin-top: 20px;">
                   <div class="row" [routerLink]="['/applicants/details', job.id]" style="cursor:pointer;">
                     <div class="col-sm-12 col-md-4 col-lg-4">
-                      <img src="assets/images/jobs.png" style="width:5rem;">
+                      <img src="assets/images/jobs.png" style="width:100%;">
                     </div>
                     <div class="col-sm-12 col-md-8 col-lg-8">
                         <span style="font-weight: 600; padding-right:25px;"><a [routerLink]="['/applicants/details', job.id]">{{job.position}}</a></span><br>
@@ -236,11 +235,26 @@
             </nb-tab>
           </nb-tabset>
         </nb-card-body>
+          <!-- <div class="row">
+                <div class="col">
+                  <input type="button" value="Prev" (click)="selectPage(currentPage - 1)" [disabled]="currentPage === 1">
+                </div>
+                <div *ngFor="let page of showingPages" class="col">
+                  <input type="button" [value]="page" (click)="selectPage(page)" [disabled]="page == currentPage">
+                </div>
+                <div class="col">
+                  <input type="button" value="Next" (click)="selectPage(currentPage + 1)" [disabled]="currentPage === totalPage">
+                </div>
+              </div> -->
+              <pagination-controls
+              class="pagi"
+              (pageChange)="filterPageUpdated($event)"
+            ></pagination-controls>
       </nb-card>
     </div>
 
     <!-- <div class="col-sm-12 col-md-4 col-lg-4"> -->
-      <nb-card class="col-sm-4  shadow p-3 mb-5 bg-white rounded">
+      <nb-card class="col-sm-12 col-md-4 col-lg-4 shadow p-3 mb-5 bg-white rounded">
         <nb-card-body>
          <div class="row">
            <div class="col">
@@ -277,131 +291,6 @@
            <ngx-filter-box [data]="locationJobsData" [(value)]="filteredLocation" (valueChange)="filterUpdated($event)"></ngx-filter-box>
 
          </div>
-        </nb-card-body>
-      </nb-card>
-
-    <!-- </div> -->
-  </div>
-
-</div>
-
-<div class="container" style="background-color: #ffffff;">
-  <div class="row row-cols-2">
-    <div class="col-sm-12 col-md-8 col-lg-8 ">
-      <nb-card *ngIf="artisanCounter < 1">
-        <nb-card-header  style="font-weight:900;">
-          Artisans
-        </nb-card-header>
-        <nb-card-body>
-          <ngx-default-content pageHeader={{myPlanHeader}} pageDescription="{{myPlanDesc}}" [loading]="loading1"></ngx-default-content>
-        </nb-card-body>
-      </nb-card>
-      <nb-card *ngIf="artisanCounter > 0" style="background-color: transparent;">
-        <nb-card-header *ngIf="artisanCounter > 0" style="font-weight:900;">
-          Artisans
-        </nb-card-header>
-        <nb-card-body>
-          <nb-tabset>
-            <nb-tab tabTitle="All">
-              <div class="row overflowJobs" style="display: flex; flex-direction: row; justify-content: space-between;">
-                <div *ngFor="let artisan of artisanData" class="col-sm-12 col-md-6 col-lg-6">
-                  <div class="row" style="width: 100%;">
-                    <div class="col-sm-12 col-md-4 col-lg-4" style="display: inline-block;">
-                      <img src="{{'data:image/jpg;base64,' + artisan.brandLogo}}" onError="this.onerror=null;this.src='assets/images/jobs.png';" style="width:7rem; height: 7rem;">
-                    </div>
-                    <div class="col-sm-12 col-md-8 col-lg-8" style="display: inline-block; ">
-                        <span style="display: block; font-weight: 600;"><a [routerLink]="['/artisandetails', artisan.id]">{{artisan.name}}</a></span>
-                        <span style="display: block;">{{artisan.specialty}}</span>
-                        <span style="display: block;">{{artisan.yearOfExperience}} of experience</span>
-                        <span style="display: block;">{{artisan.mobile}}</span>
-                        <span style="display: block;">{{artisan.location}}</span>
-                        <!-- <img [src]="imagePath">-->
-                       <!-- <img src="{{'data:image/jpg;base64,' + artisan.brandLogo}}" style="width:5rem; height: 5rem;"> -->
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-
-            </nb-tab>
-            <nb-tab tabTitle="Featured Artisans">
-              <div class="row">
-                <div class="col-sm-12 col-md-6 col-lg-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
-                  <div class="col-sm-12 col-md-4 col-lg-4">
-                    <img src="assets/images/jobs.png" style="width:5rem;">
-                  </div>
-                  <div class="col-sm-12 col-md-8 col-lg-8">
-                      <span style="font-weight: 600; padding-right:25px;">UI/UX Designer</span><br>
-                      <div style="padding-top: 5px;"></div>
-                      <span>Amplifire Digital Agency</span><br>
-                      <span>Lekki, Lagos | Full-time</span><br>
-                      <span>Closes in 5 days</span><br>
-                  </div>
-                </div>
-
-                <div class="col-sm-12 col-md-6 col-lg-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
-                  <div class="col-sm-12 col-md-4 col-lg-4">
-                    <img src="assets/images/jobs.png" style="width:5rem;">
-                  </div>
-                  <div class="col-sm-12 col-md-8 col-lg-8">
-                      <span style="font-weight: 600; padding-right:25px;">UI/UX Designer</span><br>
-                      <div style="padding-top: 5px;"></div>
-                      <span>Amplifire Digital Agency</span><br>
-                      <span>Lekki, Lagos | Full-time</span><br>
-                      <span>Closes in 5 days</span><br>
-                  </div>
-                </div>
-              </div>
-            </nb-tab>
-          </nb-tabset>
-        </nb-card-body>
-      </nb-card>
-    </div>
-
-    <!-- <div class="col-sm-12 col-md-4 col-lg-4"> -->
-      <nb-card class="col-sm-12 col-md-4 col-lg-4  shadow p-3 mb-5 bg-white rounded">
-        <nb-card-body>
-         <div class="row">
-           <div class="col">
-           <h6>Top artisans in Nigeria</h6>
-           <div style="padding: 5px;"></div>
-           <span>{{artisanCounter}} artisans found</span>
-           <div style="padding: 10px;"></div>
-           <div class="form-group has-search">
-             <div style="display: flex; justify-content: space-between; flex-direction: row; padding-bottom: 3px;">
-             <span style="font-weight: 600;">SPECIALTY</span>
-             <a href="javascript: void(0)" style="color: #0066F4;" (click)="resetFilter()">Reset Filter</a>
-             </div>
-             <div class="input-group">
-             <span class="fa fa-search form-control-feedback"></span>
-             <input type="text" class="form-control" placeholder="Search" (keyup.enter)="filterUpdated($event)" name="searchText" #searchText="ngModel" [(ngModel)]="employerFilter.searchText" style="height: 45px">
-             <div class="input-group-append">
-             </div>
-           </div>
-           </div>
-           </div>
-
-           <div style="padding: 20px;"></div>
-         </div>
-
-       <!-- <div class="row" style="display: flex; justify-content: flex-start; flex-direction: row; padding: 10px;">
-         <div class="col" style="padding: 10px;">
-         <h6>Places</h6>
-         <div style="padding: 5px;"></div>
-         <span>{{employerCounter}} employers found</span>
-         <div style="padding: 10px;"></div>
-         <input type="text" class="form-control" nbInput fullWidth placeholder="Enter Keyword" (keyup.enter)="filterUpdated($event)" name="searchText" #searchText="ngModel" [(ngModel)]="employerFilter.searchText" style="background-color: #ffffff; color:#95A8B8;">
-         </div>
-         <div style="padding: 20px;"></div>
-       </div> -->
-
-         <!-- <div class="form-group">
-           <nb-checkbox *ngFor="let skill of skillData" (change)="filterUpdated($event)">{{skill.text}}</nb-checkbox><br>
-           <input type="button" (click)="LoadMore()" value="showMore">
-           <nb-checkbox>Akwa Ibom</nb-checkbox><br>
-           <nb-checkbox>Anambra</nb-checkbox><br>
-           <nb-checkbox>Bauchi</nb-checkbox><br>
-         </div> -->
         </nb-card-body>
       </nb-card>
 

@@ -1,0 +1,40 @@
+<nb-card>
+  <nb-card-header>
+    <div style="flex: auto; display: flex;padding-top: 15px; background-color: #6495ED;">
+      <p style="color: #FFFFFF !important; padding-left: 10px;" class="listsubheader">My Subscriptions</p>
+    </div>
+  </nb-card-header>
+  <nb-card-body *ngIf="mySubData.length < 1">
+    <ngx-default-content pageHeader={{emptyHeader}} pageDescription="{{emptyDescription}}"  [loading]="loading"></ngx-default-content>
+  </nb-card-body>
+  <nb-card-body *ngIf="mySubData.length > 0">
+      <div
+        style="border-bottom: 0.800000011920929px solid #CED4DA;padding-bottom: 10px; display: flex;flex-direction: row;">
+        <div class="card col-sm-12 col-md-6 col-lg-4 shadow p-3 mb-5 bg-white rounded">
+          <span style="font-weight: 600; padding-right:25px;">CV Rewrite</span><br>
+          <div style="padding-top: 5px;"></div>
+          <span>N25,000</span><br>
+          <span>27/09/2020</span><br>
+          <span>cr0233</span><br>
+      </div>
+
+      <div class="card col-sm-12 col-md-6 col-lg-4 shadow p-3 mb-5 bg-white rounded">
+        <span style="font-weight: 600; padding-right:25px;">LinkedIn Optimization</span><br>
+        <div style="padding-top: 5px;"></div>
+        <span>N25,000</span><br>
+        <span>27/09/2020</span><br>
+        <span>cr0233</span><br>
+    </div>
+
+    <div class="card col-sm-12 col-md-6 col-lg-4 shadow p-3 mb-5 bg-white rounded">
+      <span style="font-weight: 600; padding-right:25px;">Training</span><br>
+      <div style="padding-top: 5px;"></div>
+      <span>N25,000</span><br>
+      <span>27/09/2020</span><br>
+      <span>cr0233</span><br>
+  </div>
+
+
+      </div>
+  </nb-card-body>
+</nb-card>

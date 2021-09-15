@@ -1,6 +1,6 @@
 import { AuthenticationService } from 'app/_services/authentication.service';
 import { AlertserviceService } from 'app/_services/alertservice.service';
-import { EmployerServiceProxy, EmployerDTO, SkillAreasServiceProxy, SectorsServiceProxy, StatesServiceProxy } from '../../../_services/service-proxies';
+import { EmployerServiceProxy, EmployerDTO, SkillAreasServiceProxy, SectorsServiceProxy, StatesServiceProxy, ApplicantServiceProxy, ApplicantProfileDTO } from '../../../_services/service-proxies';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonServiceProxy, IDTextViewModel, Job, JobServiceProxy, JobDTO } from 'app/_services/service-proxies';
@@ -13,7 +13,8 @@ import { CommonServiceProxy, IDTextViewModel, Job, JobServiceProxy, JobDTO } fro
 })
 export class JobdetailsComponent implements OnInit {
 
-  allJobs: Job []= [];
+  allJobs: JobDTO []= [];
+  popularJobs: JobDTO []= [];
   showMenu: boolean = false;
   loading:boolean = false;
   recruiterData: IDTextViewModel [] = [];
@@ -26,8 +27,10 @@ export class JobdetailsComponent implements OnInit {
   sectorData: IDTextViewModel [] = [];
   loggedIn:boolean = false;
   loggedInUser: any = [];
-  prevApplied: number[] = [];
+  prevApplied: string [] = [];
   flag:boolean = false;
+  applicantProfile: ApplicantProfileDTO = new ApplicantProfileDTO();
+  profileCompleteVal: number = 0;
 
   jobFilter = {
     companyId: undefined,
@@ -42,22 +45,25 @@ export class JobdetailsComponent implements OnInit {
 
   }
 
-  jobId:number = 0;
+  jobId:string = '';
   constructor( private job: JobServiceProxy, private employer: EmployerServiceProxy, private common: CommonServiceProxy,
     private alertMe:AlertserviceService, private router: ActivatedRoute, private skill: SkillAreasServiceProxy,
     private state: StatesServiceProxy, private sector: SectorsServiceProxy, public authenService: AuthenticationService,
-    private route: Router) { }
+    private route: Router, private applicant: ApplicantServiceProxy,) { }
 
   ngOnInit(): void {
-    this.job.getJobById(this.jobId = Number(this.router.snapshot.paramMap.get("id"))).subscribe(data => {
+    this.job.getJobById(this.jobId = this.router.snapshot.paramMap.get("id")).subscribe(data => {
       if(!data.hasError){
         this.singleJob = data.value;
         console.log('Your single job is here:', this.singleJob);
         this.fetchSingleEmployer();
+        this.fetchProfile();
       }
     })
 
-    this.checkPrevApplication()
+    this.checkPrevApplication();
+    this.fetchPopularJobs();
+    console.log('See your job ID:', this.jobId)
   }
 
   async getMyUsers(){
@@ -69,6 +75,16 @@ export class JobdetailsComponent implements OnInit {
      }
 
    }
+
+   async fetchProfile() {
+    const data = await this.applicant.getMyProfile().toPromise()
+    if(!data.hasError){
+      this.applicantProfile = data.value;
+      this.profileCompleteVal = data.value.profile_percent;
+      console.log('Here is my profile', this.applicantProfile);
+      console.log('Here is my completion percentage', this.profileCompleteVal)
+    }
+  }
 
    logOut(){
      this.authenService.clearusers();
@@ -96,7 +112,7 @@ export class JobdetailsComponent implements OnInit {
 
   async fetchAllJobs(){
     this.loading = true;
-   const data = await this.job.fetchAllJobs(this.jobFilter.companyId, this.jobFilter.skillAreaId,
+   const data = await this.job.fetchJobs(this.jobFilter.companyId, this.jobFilter.skillAreaId,
     this.jobFilter.countryId, this.jobFilter.stateId, this.jobFilter.isNewlyAdded,
     this.jobFilter.isPopular,this.jobFilter.searchText, this.jobFilter.pageSize,
     this.jobFilter.pageNumber).toPromise();
@@ -108,6 +124,21 @@ export class JobdetailsComponent implements OnInit {
    }
   }
 
+  async fetchPopularJobs(){
+    this.loading = true;
+   const data = await this.job.fetchJobs(this.jobFilter.companyId, this.jobFilter.skillAreaId,
+    this.jobFilter.countryId, this.jobFilter.stateId, this.jobFilter.isNewlyAdded,
+    true,this.jobFilter.searchText, this.jobFilter.pageSize,
+    this.jobFilter.pageNumber).toPromise();
+   this.loading = false;
+    if(!data.hasError){
+      this.popularJobs = data.value;
+      console.log('My Jobs:',this.allJobs)
+   }
+  }
+
+
+
   fetchSingleEmployer(){
     this.employer.getEmployerById(this.singleJob.companyID).subscribe(data => {
       if(!data.hasError){
@@ -117,8 +148,15 @@ export class JobdetailsComponent implements OnInit {
     })
   }
 
-  jobApplication(myJobId:number){
+  jobApplication(myJobId:string){
     this.btnProcessing = true;
+  if(this.profileCompleteVal < 85){
+    this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.FAILED, 'You need to complete your profile', 'Go to dashboard').subscribe(data => {
+      if(data){
+        this.route.navigateByUrl('/appdash/profile');
+      }
+    })
+  } else {
     this.job.applyJob(myJobId).subscribe(data => {
       this.btnProcessing = false;
       if(!data.hasError){
@@ -132,6 +170,7 @@ export class JobdetailsComponent implements OnInit {
         })
       }
     })
+  }
   }
 
   async fetchSectors(){

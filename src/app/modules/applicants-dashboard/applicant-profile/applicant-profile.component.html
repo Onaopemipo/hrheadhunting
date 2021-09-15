@@ -1,0 +1,790 @@
+<ngx-componentsheader pageName="My Profile"></ngx-componentsheader>
+<div>
+  <div class="container">
+    <!-- Main Card -->
+    <nb-card>
+      <nb-card-header>
+        <div style="display: flex;flex-direction: row;justify-self: center;">
+          <div style="flex: auto;"><span>Personal Information</span></div>
+          <div><a href="javascript:void(0)" (click)="editProfile()">Edit Profile</a></div>
+        </div>
+      </nb-card-header>
+      <div class="row">
+        <div class="col-lg-3 col-sm-6 col-xxxl-3"><img src="assets/images/nick.png" width="40%" style="background-size: cover;
+      margin-top: 20px; margin-left: 50px;" class="rounded-circle mb-1" alt="Cinque Terre">
+          <br>
+        </div>
+
+
+        <div class="col-lg-3 col-sm-6 col-xxxl-3">
+          <div class="d-flex mt-4" style="margin-left: 15px;">
+            <div class="ml-2" style="display: flex; flex-direction: column;">
+              <span><i class="fas fa-user" style="padding-right: 5px;"></i>Name</span>
+              <span>{{applicantProfile.firstName}} &nbsp; {{applicantProfile.lastname}}</span>
+            </div>
+
+
+          </div>
+          <div class="d-flex mt-3" style="margin-left: 15px;">
+            <div class="ml-2" style="display: flex; flex-direction: column;">
+               <span><i class="fas fa-envelope" style="padding-right: 5px;"></i>Email</span>
+              <span >{{applicantProfile.email}}</span>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-lg-3 col-sm-6 col-xxxl-3">
+          <div class="d-flex mt-4" style="margin-left: 15px;">
+            <div class="ml-2" style="display: flex; flex-direction: column;">
+              <span ><i class="fas fa-phone" style="padding-right: 5px;"></i>Phone</span>
+              <span >{{applicantProfile.phoneNumber}}</span>
+            </div>
+
+          </div>
+          <div class="d-flex mt-4" style="margin-left: 15px;">
+            <div class="ml-2" style="display: flex; flex-direction: column;">
+               <span><i class="fas fa-calendar" style="padding-right: 5px;"></i>Date of birth</span>
+              <span >{{applicantProfile.dateOfBirth | date: 'd MMM, yyyy' }}</span>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-lg-3 col-sm-6 col-xxxl-3">
+          <div class="d-flex mt-4" style="margin-left: 15px;">
+            <div class="ml-2" style="display: flex; flex-direction: column;">
+               <span><i class="fas fa-link" style="padding-right: 5px;"></i>Gender</span>
+              <span >{{applicantProfile.sex}}</span>
+            </div>
+
+          </div>
+          <div class="d-flex mt-4" style="margin-left: 15px;">
+            <div class="ml-2" style="display: flex; flex-direction: column;">
+              <span><i class="fas fa-map-marker" style="padding-right: 5px;"></i>Location</span>
+              <span >{{applicantProfile.residentialState}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nb-card>
+
+
+    <!-- Work Experience -->
+
+    <div class="row">
+      <div class="col-md-8 col-xxl-8">
+        <nb-card>
+          <nb-card-body>
+            <div>
+              <div
+                style="border-bottom: 0.800000011920929px solid #CED4DA;padding-bottom: 10px; display: flex;flex-direction: row;">
+                <div style="flex: auto; display: flex;padding-top: 15px;">
+                  <p style="color: #4847E0 !important; " class="listsubheader">Work Experience
+                  </p>
+                </div>
+                <button outline='true' nbButton status="primary" (click)="toggleNewWork()" style="min-width: unset !important;">
+                  <nb-icon icon="plus"></nb-icon>&nbsp;Add
+                </button>
+              </div>
+            </div>
+            <div *ngIf="applicantExperienceData.length < 1">
+              <nb-card>
+                <nb-card-body>
+                    <ngx-default-content pageHeader={{emptyHeader}} pageDescription="{{emptyDescription}}"
+                       [loading]="loading"></ngx-default-content>
+                </nb-card-body>
+              </nb-card>
+            </div>
+
+            <div *ngIf="applicantExperienceData.length > 0">
+              <div *ngFor="let experience of applicantExperienceData" class="WorkExperience">
+                <div>
+                  <span class="experienceCompany">{{experience.company}} -</span>
+                  <span>{{experience.position}}</span>
+                </div>
+                <div style="display: flex;flex-direction: row;justify-self: center;">endDate
+                  <div style="flex: auto;"><span class="employmentDate">{{experience.startDate | date: 'd MMM, y' }} - {{experience.endDate | date: 'd MMM, y' }}</span></div>
+                  <div><a href="javascript:void(0)">Edit</a><span style="padding:3px"></span><a href="javascript:void(0)" (click)="deleteExperience(experience.id)">Delete</a></div>
+                </div>
+
+                <!-- <div class="row">
+                  <div class="col-lg-8">
+                    <p>
+                      Wrote maintainable, responsive, and cross-browser code while updating
+                      existing code to improve web application's performance.
+                    </p>
+                    <p>
+                      Wrote maintainable, responsive, and cross-browser code while updating
+                      existing code to improve web application's performance.
+                    </p>
+                  </div>
+                </div> -->
+              </div>
+            </div>
+          </nb-card-body>
+        </nb-card>
+
+        <nb-card>
+          <nb-card-body>
+            <div>
+              <div
+                style="border-bottom: 0.800000011920929px solid #CED4DA;padding-bottom: 10px; display: flex;flex-direction: row;">
+                <div style="flex: auto; display: flex;padding-top: 15px;">
+                  <p style="color: #4847E0 !important; " class="listsubheader">Education</p>
+                </div>
+                <button outline='true' nbButton status="primary" (click)="toggleEducation()" style="min-width: unset !important;">
+                  <nb-icon icon="plus"></nb-icon>&nbsp;Add
+                </button>
+              </div>
+            </div>
+            <span style="padding: 10px;"></span>
+
+            <div *ngIf="applicantEducationData.length > 0">
+              <div *ngFor="let education of applicantEducationData">
+                <div  class="reference">
+                  <span style="font:bold;">{{education.qualificationName}}, {{education.courseName}} </span>
+                  <span>{{education.institutionName}}</span>
+                </div>
+                <div style="display: flex;flex-direction: row;justify-self: center;">
+                  <div style="flex: auto;"><span>{{education.startDate | date: 'd MMM, y'}} -  {{education.endDate | date: 'd MMM, y'}}</span></div>
+                  <div><a href="#">Edit</a><span style="padding:3px"></span><a href="#">Delete</a></div>
+                </div>
+
+              </div>
+            </div>
+
+            <div *ngIf="applicantEducationData.length < 1" >
+              <nb-card>
+                <!-- <nb-card-body> -->
+                  <p style="text-align: center;">No data here</p>
+                <!-- </nb-card-body> -->
+              </nb-card>
+            </div>
+
+          </nb-card-body>
+        </nb-card>
+
+        <!-- <nb-card>
+          <nb-card-body>
+            <div>
+              <div
+                style="border-bottom: 0.800000011920929px solid #CED4DA;padding-bottom: 10px; display: flex;flex-direction: row;">
+                <div style="flex: auto; display: flex;padding-top: 15px;">
+                  <p style="color: #4847E0 !important; " class="listsubheader">Documents</p>
+                </div>
+                <button outline='true' nbButton status="primary" style="min-width: unset !important;">
+                  <nb-icon icon="plus"></nb-icon>&nbsp;Add
+                </button>
+              </div>
+            </div>
+            <span style="padding: 10px;"></span>
+            <div class="form-row" style="display: flex; flex-direction: row; justify-content: space-between;">
+              <div class="col-sm-12 col-md-5 col-lg-5 form-group">
+                <label class="col-form-label mylabel">About yourself</label><br>
+                <textarea name="description" #description="ngModel" [(ngModel)]="userlogin.briefDescription" cols="30" rows="10" style="width: 100%;" required></textarea>
+                <div *ngIf="description.invalid && (description.dirty || description.touched)" class="error">
+                  <div *ngIf="description.errors.required">Description is required</div>
+                </div>
+              </div>
+
+
+            <div class="col-sm-12 col-md-5 col-lg-5 form-group">
+              <div>
+                <label class="col-form-label mylabel">Upload your CV in PDF format, not more than 512Kb</label><br>
+                <input type="file" class="form-control-file" name="resume" id="" (change)="handleCvFileSelect($event)">
+              </div>
+
+              <div style="padding: 10px;"></div>
+              <div>
+                <label class="col-form-label mylabel">Upload your video resume in MP4 format, not more than 2MB</label><br>
+                <input type="file" class="form-control-file" name="video" id="" (change)="handleVideoFileSelect($event)">
+              </div>
+              <div style="padding: 10px;"></div>
+            </div>
+          </div>
+
+          </nb-card-body>
+        </nb-card> -->
+
+      </div>
+
+
+      <!-- Evaluation Score Panel -->
+
+      <div class="col-md-4 col-xxl-4">
+        <div class="row">
+          <div class="col-md-12 col-xxl-12">
+            <nb-card>
+              <nb-card-body>
+                <div>
+                  <div
+                    style="border-bottom: 0.800000011920929px solid #CED4DA;padding-bottom: 10px; display: flex;flex-direction: row;">
+                    <div style="flex: auto; display: flex;padding-top: 15px;">
+                      <p style="color: #4847E0 !important; " class="listsubheader">Profile Completion</p>
+                    </div>
+
+                  </div>
+                </div>
+                <span style="padding: 20px;"></span>
+                <div>
+                  <div
+                    style="display: flex; flex-direction: column; justify-content: center; padding: 20px; background: rgba(72, 71, 224, 0.04);">
+                    <span
+                      style="font-size: 72px; padding-top: 30px; font-weight: 700; align-self: center;">{{applicantProfile.profile_percent}}%</span><br>
+                    <!-- <span
+                      style="text-align: center; padding-bottom: 20px; align-self: center; font-size: 18px; color:#6495ED">Average</span> -->
+                  </div>
+                </div>
+              </nb-card-body>
+            </nb-card>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 col-xxl-12">
+            <nb-card>
+              <nb-card-body *ngIf="isApplicant">
+                <div>
+                  <div
+                    style="border-bottom: 0.800000011920929px solid #CED4DA;padding-bottom: 10px; display: flex;flex-direction: row;">
+                    <div style="flex: auto; display: flex;padding-top: 15px;">
+                      <p style="color: #4847E0 !important; " class="listsubheader">Skills</p>
+                    </div>
+                    <button outline='true' (click)="toggleSkills()" nbButton status="primary" style="min-width: unset !important;">
+                      <nb-icon icon="plus"></nb-icon>&nbsp;Add
+                    </button>
+                  </div>
+                </div>
+                <div>
+                  <div style="flex: auto; color: #6495ED;"><span>Tenacity</span></div>
+                  <div style="flex: auto; color: #6495ED;"><span>Time Management</span></div>
+                  <div style="flex: auto; color: #6495ED;"><span>Complete Candor</span></div>
+                  <div style="flex: auto; color: #6495ED;"><span>Good communication skills.</span></div>
+                </div>
+              </nb-card-body>
+
+              <nb-card-body *ngIf="isInterviewer" style="background-color: transparent;">
+                <div class="form-group row mydiv" style="display: flex; justify-content: center; align-self:center; align-items: center;">
+                    <!-- <button (click)="openScorecard()" fullWidth nbButton status="primary">Open Scorecard</button> -->
+                    <button (click)="toggleJobPreference()" fullWidth nbButton status="primary">Add Preference</button>
+                </div>
+              </nb-card-body>
+            </nb-card>
+          </div>
+        </div>
+      </div>
+
+      <!-- Education Panel -->
+      <!-- <div class="col-md-8 col-xxl-8">
+
+      </div> -->
+
+      <!-- Document Panel -->
+      <!-- <div class="col-md-8 col-xxl-8">
+
+      </div> -->
+
+      <!-- References Panel -->
+
+    <!-- <div class="col-md-8 col-xxl-8">
+        <nb-card>
+          <nb-card-body>
+            <div>
+              <div
+                style="border-bottom: 0.800000011920929px solid #CED4DA;padding-bottom: 10px; display: flex;flex-direction: row;">
+                <div style="flex: auto; display: flex;padding-top: 15px;">
+                  <p style="color: #4847E0 !important; " class="listsubheader">Job Preference</p>
+                </div>
+                <button outline='true' (click)="toggleJobPreference()" nbButton status="primary" style="min-width: unset !important;">
+                  <nb-icon icon="plus"></nb-icon>&nbsp;Add
+                </button>
+                <div>
+                  <div style="flex: auto; color: #6495ED;"><span>Tenacity</span></div>
+                  <div style="flex: auto; color: #6495ED;"><span>Time Management</span></div>
+                  <div style="flex: auto; color: #6495ED;"><span>Complete Candor</span></div>
+                  <div style="flex: auto; color: #6495ED;"><span>Good communication skills.</span></div>
+                </div>
+              </div>
+            </div>
+          </nb-card-body>
+        </nb-card>
+      </div> -->
+
+    </div>
+
+  </div>
+
+ <ngx-side-modal [(show)]="newWork" style="margin-top: -75px;">
+    <div modal-header>Add Work Experience</div>
+    <div modal-body>
+      <form>
+        <div class="form-group row mydiv">
+          <div class="col">
+            <label class="col-form-label mylabel">Job Title</label>
+            <input type="text" class="form-control" name="jobTitle" #jobTitle="ngModel" [(ngModel)]="userlogin.currentJobTitle" placeholder="Name">
+          </div>
+        </div>
+
+        <div class="form-group row mydiv">
+          <div class="col">
+            <label class="col-form-label mylabel">Company</label>
+            <input type="text" class="form-control" name="company" #company="ngModel" [(ngModel)]="userlogin.companyName" style="width: 100%;">
+          </div>
+        </div>
+
+        <div class="form-group row mydiv">
+          <div class="col">
+            <label  class="col-form-label mylabel">Responsibilities</label><br>
+            <textarea name="responsibilities" id="" cols="30" rows="10" style="width: 100%;"></textarea>
+          </div>
+        </div>
+
+        <div class="form-group row mydiv">
+          <div class="col">
+            <label  class="col-form-label mylabel">Start Date</label><br>
+            <ngx-date type="date" class="input-group date" [(ngModel)]="userlogin.workStartDate"></ngx-date>
+          </div>
+        </div>
+
+        <div class="form-group row mydiv">
+          <div class="col">
+            <nb-checkbox status="basic" name="currentWork" #currentWork="ngModel" [(ngModel)]="userlogin.isPresentEmployment" (checkedChange)="toggle($event)">I currently work here</nb-checkbox>
+          </div>
+        </div>
+
+        <div *ngIf="workChecker == false" class="form-group row mydiv">
+          <div class="col">
+            <label  class="col-form-label mylabel">End Date</label><br>
+            <ngx-date class="input-group date"[(ngModel)]="userlogin.workendDate"></ngx-date>
+          </div>
+        </div>
+
+
+
+          <div class="form-group row mydiv">
+            <div class="col">
+              <button nbButton status="primary" (click)="updateWorkExperience()">Save Now</button>
+              <span style="padding: 8px;"></span>
+              <button nbButton>Cancel</button>
+            </div>
+          </div>
+        </form>
+          </div>
+
+          <div class="form-row" style="display: flex; flex-direction: row; justify-content: space-between;">
+            <div class="col-sm-12 col-md-5 col-lg-5 form-group">
+             <div>
+              <label class="col-form-label mylabel" style="padding-top: 5px;">Field of Interest</label>
+              <select class="form-control" name="interest" #interest="ngModel" [(ngModel)]="userlogin.fieldOfInterestId" required>
+                <option value="">Select Field</option>
+                <option *ngFor="let skill of skillData" [value]="skill.id">{{skill.text}}</option>
+              </select>
+              <div *ngIf="interest.invalid && (interest.dirty || interest.touched)" class="error">
+                <div *ngIf="interest.errors.required">Area of interest is required</div>
+              </div>
+             </div>
+
+              <div style="padding: 10px;"></div>
+
+              <div>
+                <label class="col-form-label mylabel" style="padding-top: 5px;">Where do you want to work?</label>
+              <select class="form-control" name="residenceState" #residenceState="ngModel" [(ngModel)]="userlogin.stateOfInterestId" required>
+                <option value="">Select</option>
+                <option *ngFor="let state of stateData" [value]="state.id">{{state.text}}</option>
+              </select>
+              <div *ngIf="residenceState.invalid && (residenceState.dirty || residenceState.touched)" class="error">
+                <div *ngIf="residenceState.errors.required">Residence state is required</div>
+              </div>
+              </div>
+
+              <div style="padding: 10px;"></div>
+
+              <div>
+                <label class="col-form-label mylabel" style="padding-top: 5px;">How available are you to resume a new role (Months)?</label>
+                <input type="number" class="form-control" name="availability" #availability="ngModel" [(ngModel)]="userlogin.availabilityDuration" required>
+                <div *ngIf="availability.invalid && (availability.dirty || availability.touched)" class="error">
+                  <div *ngIf="availability.errors.required">Availability is required</div>
+                </div>
+              </div>
+           </div>
+
+            <div style="padding: 10px;"></div>
+
+            <div class="col-sm-12 col-md-5 col-lg-5 form-group">
+             <div>
+              <label class="col-form-label mylabel" style="padding-top: 5px;">Work Experience</label>
+              <input type="number" class="form-control" name="experience" #experience="ngModel" [(ngModel)]="userlogin.yearOfExperience" placeholder="Experience in Years" required>
+              <div *ngIf="experience.invalid && (experience.dirty || experience.touched)" class="error">
+                <div *ngIf="experience.errors.required">Years of experience is required</div>
+              </div>
+             </div>
+              <div style="padding: 10px;"></div>
+
+              <div>
+                <label class="col-form-label mylabel">Where are you based?</label>
+              <select class="form-control" name="residence" #residence="ngModel" [(ngModel)]="userlogin.residentialStateId" required>
+                <option value="">Select</option>
+                <option *ngFor="let state of stateData" [value]="state.id">{{state.text}}</option>
+              </select>
+              <div *ngIf="residence.invalid && (residence.dirty || residence.touched)" class="error">
+                <div *ngIf="residence.errors.required">Residence state is required</div>
+              </div>
+              </div>
+
+            </div>
+          </div>
+
+  </ngx-side-modal>
+
+  <ngx-side-modal [(show)]="updateProfile" style="margin-top: -75px;">
+    <div modal-header>Personal Information</div>
+    <div modal-body>
+      <nb-card>
+      <nb-card-body>
+      <form>
+        <div class="form-group row mydiv">
+          <div class="col">
+            <label class="col-form-label mylabel">First Name</label>
+            <input type="text" class="form-control" name="firstName" #firstName="ngModel" [(ngModel)]="applicantProfile.firstName" placeholder="First Name">
+            <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="error">
+              <div *ngIf="firstName.errors.required">First Name is required</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row mydiv">
+          <div class="col">
+            <label class="col-form-label mylabel">Last Name</label>
+            <input type="text" class="form-control" name="lastName" #lastName="ngModel" [(ngModel)]="applicantProfile.lastname" placeholder="Last Name">
+            <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="error">
+              <div *ngIf="lastName.errors.required">Last Name is required</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row mydiv">
+          <div class="col">
+            <label class="col-form-label mylabel">Phone</label>
+            <input type="tel" class="form-control" name="phone" #phone="ngModel" [(ngModel)]="applicantProfile.phoneNumber" placeholder="phoneNumber">
+            <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="error">
+              <div *ngIf="phone.errors.required">Phone is required</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row mydiv">
+          <div class="col">
+            <label class="col-form-label mylabel">Email</label>
+            <input type="email" class="form-control" name="email" #email="ngModel" [(ngModel)]="applicantProfile.email" placeholder="Email" disabled>
+            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error">
+              <div *ngIf="email.errors.required">Email is required</div>
+            </div>
+          </div>
+        </div>
+
+            <div style="padding: 10px;"></div>
+
+              <div class="form-group row mydiv">
+            <div class="col">
+              <label class="col-form-label mylabel">Residential State</label>
+              <select class="form-control" name="state" #state="ngModel" [(ngModel)]="applicantProfile.residentialStateId" required>
+                <option value="">Select Field</option>
+                <option *ngFor="let resstate of stateData" [value]="resstate.id">{{resstate.text}}</option>
+              </select>
+              <div *ngIf="state.invalid && (state.dirty || state.touched)" class="error">
+                <div *ngIf="state.errors.required">Residential State is required</div>
+              </div>
+            </div>
+              </div>
+
+              <div style="padding: 10px;"></div>
+
+              <div class="form-group row mydiv">
+            <div class="col">
+              <label class="col-form-label mylabel">Field of Interest</label>
+              <select class="form-control" name="interest" #interest="ngModel" [(ngModel)]="applicantProfile.fieldOfInterestId" required>
+                <option value="">Select Field</option>
+                <option *ngFor="let skill of skillData" [value]="skill.id">{{skill.text}}</option>
+              </select>
+              <div *ngIf="interest.invalid && (interest.dirty || interest.touched)" class="error">
+                <div *ngIf="interest.errors.required">Field of interest is required</div>
+              </div>
+            </div>
+              </div>
+
+
+              <div class="form-group row mydiv">
+                <div class="col">
+                  <label class="col-form-label mylabel">Where do you want to work?</label>
+                  <select class="form-control" name="instereststate" #instereststate="ngModel" [(ngModel)]="applicantProfile.stateOfInterestId" required>
+                    <option value="">Select Field</option>
+                    <option *ngFor="let intstate of stateData" [value]="intstate.id">{{intstate.text}}</option>
+                  </select>
+                  <div *ngIf="instereststate.invalid && (instereststate.dirty || instereststate.touched)" class="error">
+                    <div *ngIf="instereststate.errors.required"> State of interest is required</div>
+                  </div>
+                </div>
+                  </div>
+
+              <div style="padding: 10px;"></div>
+
+              <div class="form-group row mydiv">
+                <div class="col">
+                  <label class="col-form-label mylabel">How available are you to resume a new role (Months)?</label>
+                <input type="number" class="form-control" name="availability" #availability="ngModel" [(ngModel)]="applicantProfile.availabilityDuration" required>
+                <div *ngIf="availability.invalid && (availability.dirty || availability.touched)" class="error">
+                  <div *ngIf="availability.errors.required">Availability is required</div>
+                </div>
+                </div>
+              </div>
+
+            <div style="padding: 10px;"></div>
+
+            <div class="form-group row mydiv">
+              <div class="col">
+                <label class="col-form-label mylabel">Work Experience</label>
+              <input type="number" class="form-control" name="experience" #experience="ngModel" [(ngModel)]="applicantProfile.yearOfExperience" placeholder="Experience in Years" required>
+              <div *ngIf="experience.invalid && (experience.dirty || experience.touched)" class="error">
+                <div *ngIf="experience.errors.required">Years of experience is required</div>
+              </div>
+              </div>
+             </div>
+              <div style="padding: 10px;"></div>
+
+            <!-- <div class="form-group row mydiv">
+                <button *ngIf="!btnprocessing" nbButton status="primary" (click)="addPreference()">Add Preference</button>
+                <button *ngIf="btnprocessing" type="button" nbButton status="primary">Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button>
+                <span style="padding: 8px;"></span>
+            </div> -->
+
+
+          <div class="form-group row mydiv">
+            <div class="col">
+              <button nbButton status="primary" (click)="updateMyProfile()">Save</button>
+              <span style="padding: 8px;"></span>
+              <button nbButton>Cancel</button>
+            </div>
+          </div>
+        </form>
+        </nb-card-body>
+      </nb-card>
+      </div>
+  </ngx-side-modal>
+
+
+
+  <ngx-side-modal [(show)]="addSkiils" style="margin-top: -75px;">
+    <div modal-header>Add Skills</div>
+    <div modal-body>
+      <form>
+        <div class="form-group row mydiv">
+          <div class="col">
+            <label class="col-form-label mylabel">Skill Name</label>
+            <input type="text" class="form-control" name="skillName" placeholder="Skill Name">
+          </div>
+        </div>
+
+          <div class="form-group row mydiv">
+            <div class="col">
+              <button nbButton status="primary" (click)="updateSkills()">Save</button>
+              <span style="padding: 8px;"></span>
+              <button nbButton>Cancel</button>
+            </div>
+          </div>
+        </form>
+          </div>
+  </ngx-side-modal>
+
+
+  <ngx-side-modal [(show)]="addEducation" style="margin-top: -75px;">
+    <div modal-header>Add Education</div>
+    <div modal-body style="margin: 15px;">
+      <nb-card>
+        <nb-card-body>
+          <div class="form-group row mydiv">
+            <label class="col-form-label mylabel" style="padding-top: 5px;">Highest Qualification</label>
+          <select type="text" class="form-control" name="qualification" #qualification="ngModel" [(ngModel)]="applicantQualification.qualificationId" required>
+            <option value="">Select</option>
+            <option *ngFor="let myqual of qualificationData" [value]="myqual.id">{{myqual.text}}</option>
+          </select>
+          <div *ngIf="qualification.invalid && (qualification.dirty || qualification.touched)" class="error">
+            <div *ngIf="qualification.errors.required">Qualification is required</div>
+          </div>
+          </div>
+
+          <div class="form-group row mydiv">
+            <label class="col-form-label mylabel" style="padding-top: 5px;">Institution Name</label>
+          <select type="text" class="form-control" name="institution" #institution="ngModel" [(ngModel)]="applicantQualification.institutionId" (change)="otherSchool(userlogin.institutionId)" required>
+            <option value="">Select</option>
+            <option *ngFor="let inst of institutionData" [value]="inst.id">{{inst.text}}</option>
+          </select>
+          <div *ngIf="institution.invalid && (institution.dirty || institution.touched)" class="error">
+            <div *ngIf="institution.errors.required">Institution Name is required</div>
+          </div>
+          </div>
+
+          <div class="form-group row mydiv" *ngIf="foreignInstitution < 0" style="padding-top: 10px;">
+            <input type="text" name="foreignSchool" #foreignSchool="ngModel" [(ngModel)]="applicantQualification.institutionName" class="form-control" placeholder="Enter name of school">
+          </div>
+
+
+
+        <div class="form-group row mydiv">
+            <label class="col-form-label mylabel" style="padding-top: 5px;">Course of study</label>
+          <select type="text" class="form-control" name="course" #course="ngModel" [(ngModel)]="applicantQualification.courseOfStudyId" required>
+            <option value="">Select</option>
+            <option *ngFor="let mycourse of courseData" [value]="mycourse.id">{{mycourse.text}}</option>
+          </select>
+          <div *ngIf="course.invalid && (course.dirty || course.touched)" class="error">
+            <div *ngIf="course.errors.required">Course is required</div>
+          </div>
+          </div>
+
+          <div class="form-group row mydiv">
+            <label class="col-form-label mylabel">Grade</label>
+          <select type="text" class="form-control" name="grade" #grade="ngModel" [(ngModel)]="applicantQualification.gradeId" required>
+            <option value="">Select</option>
+            <option *ngFor="let mygrade of gradeData" [value]="mygrade.id">{{mygrade.text}}</option>
+          </select>
+          <div *ngIf="grade.invalid && (grade.dirty || grade.touched)" class="error">
+            <div *ngIf="grade.errors.required">Grade is required</div>
+          </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label mylabel" >Start Date</label>
+          <div>
+            <ngx-date [(value)]="applicantQualification.qualificationStartDate" style="width: 100%;"></ngx-date>
+          </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label mylabel">End Date</label>
+          <ngx-date [(value)]="applicantQualification.qualificationEndDate" style="width: 100%;">
+          </ngx-date>
+          </div>
+
+          <div class="form-group row mydiv">
+              <button *ngIf="!btnprocessing" nbButton status="primary" (click)="addQualification()">Save</button>
+              <button *ngIf="btnprocessing" type="button" nbButton status="primary">Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button>
+              <span style="padding: 8px;"></span>
+              <button nbButton>Cancel</button>
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </ngx-side-modal>
+
+  <ngx-side-modal [(show)]="jobPreference" style="margin-top: -75px;">
+    <div modal-header>Add Job Preference</div>
+    <div modal-body>
+     <nb-card>
+       <nb-card-body>
+          <div class="form-group row mydiv">
+              <label class="col-form-label mylabel">Field of Interest</label>
+              <select class="form-control" name="interest" #interest="ngModel" [(ngModel)]="preferenceModel.fieldOfInterestId" required>
+                <option value="">Select Field</option>
+                <option *ngFor="let skill of skillData" [value]="skill.id">{{skill.text}}</option>
+              </select>
+              <div *ngIf="interest.invalid && (interest.dirty || interest.touched)" class="error">
+                <div *ngIf="interest.errors.required">Area of interest is required</div>
+              </div>
+             </div>
+
+              <div style="padding: 10px;"></div>
+
+              <div class="form-group row mydiv">
+                <label class="col-form-label mylabel">Where do you want to work?</label>
+              <select class="form-control" name="residenceState" #residenceState="ngModel" [(ngModel)]="preferenceModel.stateOfInterestId" required>
+                <option value="">Select</option>
+                <option *ngFor="let state of stateData" [value]="state.id">{{state.text}}</option>
+              </select>
+              <div *ngIf="residenceState.invalid && (residenceState.dirty || residenceState.touched)" class="error">
+                <div *ngIf="residenceState.errors.required">Residence state is required</div>
+              </div>
+              </div>
+
+              <div style="padding: 10px;"></div>
+
+              <div class="form-group row mydiv">
+                <label class="col-form-label mylabel">How available are you to resume a new role (Months)?</label>
+                <input type="number" class="form-control" name="availability" #availability="ngModel" [(ngModel)]="preferenceModel.availabilityDuration" required>
+                <div *ngIf="availability.invalid && (availability.dirty || availability.touched)" class="error">
+                  <div *ngIf="availability.errors.required">Availability is required</div>
+                </div>
+              </div>
+
+            <div style="padding: 10px;"></div>
+
+            <div class="form-group row mydiv">
+              <label class="col-form-label mylabel">Work Experience</label>
+              <input type="number" class="form-control" name="experience" #experience="ngModel" [(ngModel)]="preferenceModel.yearOfExperience" placeholder="Experience in Years" required>
+              <div *ngIf="experience.invalid && (experience.dirty || experience.touched)" class="error">
+                <div *ngIf="experience.errors.required">Years of experience is required</div>
+              </div>
+             </div>
+              <div style="padding: 10px;"></div>
+
+            <div class="form-group row mydiv">
+                <button *ngIf="!btnprocessing" nbButton status="primary" (click)="addPreference()">Save</button>
+                <button *ngIf="btnprocessing" type="button" nbButton status="primary">Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button>
+                <span style="padding: 8px;"></span>
+                <button nbButton>Cancel</button>
+            </div>
+          <!-- </div> -->
+       </nb-card-body>
+     </nb-card>
+          </div>
+
+ </ngx-side-modal>
+
+ <ngx-side-modal [(show)]="newWork">
+  <div modal-header>Add Work Experience</div>
+  <div modal-body>
+  <nb-card>
+    <nb-card-body>
+         <div  class="form-group row mydiv">
+          <label class="col-form-label mylabel" style="padding-top: 5px;">Current Job Title</label>
+          <input type="text" class="form-control" name="jobTitle" #jobTitle="ngModel" [(ngModel)]="applicantExperience.currentJobTitle" placeholder="Current Job title" required>
+          <div *ngIf="jobTitle.invalid && (jobTitle.dirty || jobTitle.touched)" class="error">
+            <div *ngIf="jobTitle.errors.required">Job Title is required</div>
+          </div>
+         </div>
+
+         <div  class="form-group row mydiv">
+          <label class="col-form-label mylabel" style="padding-top: 5px;">Company Name</label>
+          <input type="text" class="form-control" name="company" #company="ngModel" [(ngModel)]="applicantExperience.companyName" placeholder="Current Job title" required>
+          <div *ngIf="company.invalid && (company.dirty || company.touched)" class="error">
+            <div *ngIf="company.errors.required">Company Name is required</div>
+          </div>
+         </div>
+
+         <div class="form-group">
+          <label class="col-form-label mylabel" >Start Date</label>
+          <ngx-date [(value)]="applicantExperience.workStartDate">
+          </ngx-date>
+         </div>
+
+         <div *ngIf="!isPresentEmployment" class="form-group">
+            <label  class="col-form-label mylabel">End Date</label>
+          <ngx-date [(value)]="applicantExperience.workEndDate">
+          </ngx-date>
+         </div>
+
+
+          <div class="form-group row mydiv">
+            <label class="col-form-label mylabel" style="padding-top: 50px;"></label>
+            <nb-checkbox (checkedChange)="toggleJob($event)" style="margin-left: 5px;">Are you still working here?</nb-checkbox>
+          </div>
+
+          <div class="form-group row mydiv">
+            <button *ngIf="!btnprocessing" nbButton status="primary" (click)="addWorkExperience()">Save</button>
+            <button *ngIf="btnprocessing" type="button" nbButton status="primary">Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button>
+            <span style="padding: 8px;"></span>
+            <button nbButton>Cancel</button>
+        </div>
+    </nb-card-body>
+  </nb-card>
+  </div>
+ </ngx-side-modal>

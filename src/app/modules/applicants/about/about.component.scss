@@ -1,9 +1,6 @@
-// @import url('../../_responsive.scss');
+@import'../../_responsive.scss';
 .header {
   background: url(/assets/images/landing_banner.png);
-  // height: 354px;
-  // position: relative;
-  // top: 30%;
   height:50vh;
   min-height:400px;
   background-size:cover;
@@ -206,4 +203,10 @@ li {
     display: block;
   }
 }
+@media (min-width: 576px) {
+  .mobileres {
+    height: 40%;
+    width: 50%;
+  }
+ }
 

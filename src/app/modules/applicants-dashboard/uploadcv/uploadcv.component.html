@@ -25,7 +25,7 @@
 </div> -->
 
 <div class="row">
-  <div class="col-sm-12 col-md-8 col-lg-8" style="border-radius: 5px; font-family: 'Rubik';">
+  <div class="col-sm-12 col-md-7 col-lg-7" style="border-radius: 5px; font-family: 'Rubik';">
     <nb-card>
       <nb-card-body>
         <form>
@@ -45,5 +45,44 @@
         </form>
       </nb-card-body>
     </nb-card>
+    </div>
+
+    <div class="col-sm-12 col-md-5 col-lg-5">
+      <nb-card>
+        <nb-card-header>
+          Previous CVs
+          <!-- <div
+          style="border-bottom: 0.800000011920929px solid #CED4DA;padding-bottom: 10px; display: flex;flex-direction: row;">
+          <div style="flex: auto; display: flex;padding-top: 15px;">
+            <p style="color:#6495ED!important; text-transform: uppercase;" class="listsubheader">Previous CVs</p>
+          </div>
+
+        </div> -->
+        </nb-card-header>
+        <nb-card-body>
+            <div class="row" *ngIf="prevResume.length < 1">
+              <p>No data here</p>
+             </div>
+              <div class="row" *ngIf="prevResume.length > 0">
+                <object *ngFor="let resume of prevResume" data="[path to .doc]" type="application/msword">
+                  <p>It appears you do not have a Suitable plugin for this browser. You can download this file.
+                      <a href="[path to .doc]">
+                      <button type="button">download</button></a>
+                  </p>
+                </object>
+              </div>
+          <span style="padding: 10px;"></span>
+
+          <div class="documents">
+
+            <!-- <ngx-doc-viewer
+                    [url]="doc"
+                    viewer="google"
+                    style="width:100%;height:50vh;"
+                    ></ngx-doc-viewer> -->
+          </div>
+
+        </nb-card-body>
+      </nb-card>
     </div>
 </div>

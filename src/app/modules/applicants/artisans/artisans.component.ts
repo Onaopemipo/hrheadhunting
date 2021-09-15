@@ -23,7 +23,7 @@ export class ArtisansComponent implements OnInit {
     dateFrom: undefined,
     dateTo: undefined,
     pageSize: 10,
-    pageNo: 1
+    pageNumber: 1
   }
 
 
@@ -41,6 +41,15 @@ export class ArtisansComponent implements OnInit {
      this.fetchAllArtisans();
    }
 
+   filterPageUpdated(filter: any){
+    this.artisanFilter.pageNumber = filter;
+    // console.log('See me',filter)
+    // this.jobFilter = {...this.jobFilter, ...filter};
+    console.log('Updated filter', this.artisanFilter)
+    this.fetchAllArtisans();
+
+  }
+
   artisanDetails(id:number){
     this.route.navigate(['/applicants/artisandetails', id])
     // alert(id)
@@ -55,7 +64,7 @@ export class ArtisansComponent implements OnInit {
   fetchAllArtisans(){
     this.loading = true;
     this.artisan.fetchAllArtisans(this.artisanFilter.searchText, this.artisanFilter.dateFrom,
-      this.artisanFilter.dateTo, this.artisanFilter.pageSize, this.artisanFilter.pageNo).subscribe(data => {
+      this.artisanFilter.dateTo, this.artisanFilter.pageSize, this.artisanFilter.pageNumber).subscribe(data => {
         this.loading = false;
       if(!data.hasError){
         this.artisanData = data.value;

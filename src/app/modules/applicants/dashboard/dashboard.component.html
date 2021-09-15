@@ -72,9 +72,9 @@
   </nav>
   <!-- <ngx-navigator></ngx-navigator> -->
    <div class="container" style="margin: 3% 0;">
-    <div style="padding-top: 20px;">
+    <!-- <div style="padding-top: 20px;">
       <h6 style="text-align: center; color: #fff;">Get hired for any job, any time.</h6>
-    </div>
+    </div> -->
    <form #searchForm='ngForm'>
     <div class="row" style="display: flex; flex-direction: row; justify-content: stretch; align-items:stretch; align-self: center; padding-top: 3%;">
       <div class="form-group col-sm-8 col-md-6 col-lg-4" >
@@ -117,7 +117,7 @@
     <div class="col-sm-12 col-md-8 col-lg-8 ">
       <nb-card>
         <nb-card-header  style="font-weight:900;">
-          Top Jobs
+          Top jobs
         </nb-card-header>
         <nb-card-body *ngIf="jobsCounter < 1">
           <ngx-default-content pageHeader={{myPlanHeader}} pageDescription="{{myPlanDesc}}" [loading]="loading"></ngx-default-content>
@@ -127,7 +127,10 @@
           <nb-tabset>
             <nb-tab tabTitle="All">
               <div class="row" style="display: flex; flex-direction: row; justify-content: space-between;">
-                <div *ngFor="let job of allJobs" class="col-sm-12 col-md-6 col-lg-6 overflowJobs" [routerLink]="['/applicants/details', job.id]" style="cursor:pointer; margin-top: 20px;">
+                <div *ngFor="let job of allJobs | paginate: { id: jobFilter.companyId,
+                itemsPerPage: jobFilter.pageSize,
+                currentPage: jobFilter.pageNumber,
+                totalItems: jobsCounter }"  class="col-sm-12 col-md-6 col-lg-6" [routerLink]="['/applicants/details', job.id]" style="cursor:pointer; margin-top: 20px;">
                   <div class="row">
                     <div class="col-sm-12 col-md-4 col-lg-4">
                       <img src="assets/images/jobs.png" style="width: 100%;">
@@ -178,25 +181,59 @@
             </nb-tab>
       </nb-tabset>
         </nb-card-body>
+        <!-- <div class="row">
+          <div class="col">
+            <input class="btn" nbButton outline size="small"  type="button" value="Prev" (click)="selectPage(currentPage - 1)" [disabled]="currentPage === 1">
+          </div>
+
+          <ng-template [ngIf]="currentPage > 10">
+            <div *ngFor="let page of [1,2]" class="col">
+              <input type="button" class="form" [value]="page" (click)="selectPage(page)" [disabled]="page == currentPage">
+            </div>
+            <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+          </ng-template>
+
+          <div *ngFor="let page of showingPages" class="col">
+            <input type="button" [value]="page" (click)="selectPage(page)" [disabled]="page == currentPage">
+          </div>
+          <ng-template [ngIf]="totalPage - currentPage > 10">
+            <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+          <div *ngFor="let page of [totalPage-1, totalPage]" class="col">
+            <input type="button" [value]="page" (click)="selectPage(page)" [disabled]="page == currentPage">
+          </div>
+          </ng-template>
+          <div class="col">
+            <input type="button" value="Next" (click)="selectPage(currentPage + 1)" [disabled]="currentPage === totalPage">
+          </div>
+        </div> -->
+
+        <!-- <button *ngFor="let item of allJobs | paginate: { id: jobFilter.pageNumber,
+                                                      itemsPerPage: jobFilter.pageSize,
+                                                      currentPage: jobFilter.pageNumber,
+                                                      totalItems: totalPage }">
+                                                    </button> -->
+         <pagination-controls class="text-left"
+          (pageChange)="filterPageUpdated($event)"
+        ></pagination-controls>
       </nb-card>
     </div>
 
-       <nb-card class="col-sm-4  shadow p-3 mb-5 bg-white rounded">
+       <nb-card class="col-sm-12 col-md-4 col-lg-4  shadow p-3 mb-5 bg-white rounded">
          <nb-card-body>
           <div class="row" >
             <div class="col">
-            <h6>Top Jobs in Nigeria</h6>
+            <h6>Top jobs in Nigeria</h6>
             <div style="padding: 5px;"></div>
             <span *ngIf="jobsCounter > 0">{{jobsCounter}} jobs found</span>
             <div style="padding: 10px;"></div>
             <div class="form-group has-search">
               <div style="display: flex; justify-content: space-between; flex-direction: row; padding-bottom: 3px;">
-              <span style="font-weight: 600;">INDUSTRY</span>
+              <span style="font-weight: 600;">Industry</span>
               <a href="javascript: void(0)" style="color: #0066F4;" (click)="resetFilter()">Reset Filter</a>
               </div>
               <div class="input-group">
               <span class="fa fa-search form-control-feedback"></span>
-              <input type="text" class="form-control" placeholder="Search" (keyup.enter)="filterUpdated($event)" name="searchText" #searchText="ngModel" [(ngModel)]="jobFilter.searchText" style="height: 45px">
+              <input type="text" class="form-control" placeholder="Search" (keyup.enter)="searchUpdated()" name="searchText" #searchText="ngModel" [(ngModel)]="jobFilter.searchText" style="height: 45px">
               <div class="input-group-append">
               </div>
             </div>
@@ -210,7 +247,7 @@
           </div>
           <div class="row" style="margin-top: 10px;">
             <div class="col">
-            <h6>Jobs by Location</h6>
+            <h6>Jobs by location</h6>
             </div>
 
             <div style="padding: 20px;"></div>
@@ -265,17 +302,20 @@
       </nb-card>
       <nb-card *ngIf="employerCounter > 0" style="background-color: transparent;">
         <nb-card-header style="font-weight: 900;">
-          Places to Work
+          Places to work
         </nb-card-header>
         <nb-card-body>
 
           <nb-tabset>
              <nb-tab tabTitle="All">
               <div class="row overflowJobs" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
-                <div *ngFor="let employer of employerData" class="col-sm-12 col-md-6 col-lg-4" style="text-align: left; width:100%; margin-bottom: 20px;">
+                <div *ngFor="let employer of employerData | paginate: { id: employerFilter.companyId,
+                  itemsPerPage: employerFilter.pageSize,
+                  currentPage: employerFilter.pageNumber,
+                  totalItems: employerCounter }" class="col-sm-12 col-md-6 col-lg-4" style="text-align: left; width:100%; margin-bottom: 20px;">
                   <div class="row" style="width: 100%;">
                     <div class="col" style="width: 100%;">
-                      <img src="{{'data:image/jpg;base64,' + employer.logo}}" onError="this.onerror=null;this.src='assets/images/jobs.png';" style="width: 8rem;">
+                      <img src="{{'data:image/jpg;base64,' + employer.logo}}" onError="this.onerror=null;this.src='assets/images/jobs.png';" style="width: 100%;">
                       <span style="font-weight: 600; display: block;"><a [routerLink]="['/applicants/employerdetails', employer.id]">{{employer.name}}</a></span>
                         <span style="display: block;">{{employer.sector}}</span>
                    </div>
@@ -310,6 +350,10 @@
           </nb-tabset>
 
         </nb-card-body>
+        <pagination-controls
+          class="pagi"
+          (pageChange)="jobFilter.pageNumber = $event"
+        ></pagination-controls>
       </nb-card>
     </div>
 
@@ -318,7 +362,7 @@
         <nb-card-body>
           <div class="row" style="display: flex; justify-content: flex-start; flex-direction: row; padding: 10px;">
             <div class="col" style="padding: 10px;">
-            <h6>Filter Best workplaces By:</h6>
+            <h6>Filter best workplaces by:</h6>
             <div style="padding: 5px;"></div>
             <span>You can filter workplace here to get a more detailed search</span>
             <div style="padding: 10px;"></div>

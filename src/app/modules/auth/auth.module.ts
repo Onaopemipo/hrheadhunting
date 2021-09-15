@@ -23,11 +23,12 @@ import { FormsModule as ngFormsModule } from '@angular/forms';
 import { SignupComponent } from './signup/signup.component';
 import { ResetComponent } from './reset/reset.component';
 import { Angular4PaystackModule } from 'angular4-paystack';
+import { ConfirmationComponent } from './confirmation/confirmation.component';
 
 
 
 @NgModule({
-  declarations: [AuthComponent, LoginComponent, SignupComponent, ResetComponent],
+  declarations: [AuthComponent, LoginComponent, SignupComponent, ResetComponent, ConfirmationComponent],
   imports: [
     ThemeModule,
     CommonModule,

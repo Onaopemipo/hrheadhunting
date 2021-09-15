@@ -1,5 +1,5 @@
 import { AlertserviceService } from 'app/_services/alertservice.service';
-import { SkillAreasServiceProxy, StatesServiceProxy, SectorsServiceProxy, EmployerTypesServiceProxy, ArtisanServiceProxy, CvScoreServiceProxy, ConsultantServiceProxy } from '../../_services/service-proxies';
+import { SkillAreasServiceProxy, StatesServiceProxy, SectorsServiceProxy, EmployerTypesServiceProxy, ArtisanServiceProxy, CvScoreServiceProxy, ConsultantServiceProxy, ApplicantServiceProxy } from '../../_services/service-proxies';
 import { ComponentsModule } from 'app/components/components.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -23,6 +23,7 @@ import { EmployerdetailsComponent } from './employerdetails/employerdetails.comp
 import { TrainingdetailsComponent } from './trainingdetails/trainingdetails.component';
 import { RewriteplansComponent } from './rewriteplans/rewriteplans.component';
 import { FaqsComponent } from './faqs/faqs.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { FaqsComponent } from './faqs/faqs.component';
     NbCheckboxModule,
     ComponentsModule,
     NbAccordionModule,
+    NgxPaginationModule,
   ],
 
   providers: [
@@ -58,6 +60,7 @@ import { FaqsComponent } from './faqs/faqs.component';
     CvScoreServiceProxy,
     ConsultantServiceProxy,
     SubscriptionsServiceProxy,
+    ApplicantServiceProxy
 
   ]
 })

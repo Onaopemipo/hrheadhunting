@@ -72,9 +72,9 @@
     </div>
   </nav>
   <div class="container" style="margin: 3% 0;">
-    <div style="padding-top: 20px;">
+    <!-- <div style="padding-top: 20px;">
       <h6 style="text-align: center; color: #fff;">Get hired for any job, any time.</h6>
-    </div>
+    </div> -->
     <div class="row" style="display: flex; flex-direction: row; justify-content: stretch; align-items:stretch; align-self: center; padding-top: 3%;">
       <div class="form-group col-sm-8 col-md-6 col-lg-4" >
          <select class="custom-select" name="functions" #functions="ngModel" [(ngModel)]="jobFilter.skillAreaId">
@@ -130,18 +130,18 @@
             </div>
 
           <div class="row">
-            <div class="col-sm-8 col-md-6 col-lg-6" style="padding-top: 10px;">
+            <div class="col-sm-10 col-md-8 col-lg-8" style="padding-top: 10px;">
               <span style="font-weight: 700; padding-bottom: 20px;"> Salary Range </span><br><div style="padding:5px"></div>
               <span> &#8358;{{singleJob.minSalary}}  to &#8358;{{singleJob.maxSalary}} </span>
           </div>
-          <div class="col-sm-12 col-md-6 col-lg-6" style="display: flex; flex-direction: row; justify-content: space-between; padding: 20px;">
+          <!-- <div class="col-sm-12 col-md-4 col-lg-4" style="display: flex; flex-direction: row; justify-content: space-between; padding: 20px;">
             <div style="padding:5px"></div>
             <i class="fas fa-share-alt"></i>
             <i class="fab fa-linkedin-in"></i>
             <i class="fab fa-twitter"></i>
             <i class="fas fa-link"></i>
-         </div>
-            <div class="col-sm-6"></div>
+         </div> -->
+            <!-- <div class="col-sm-6"></div> -->
           </div>
 
           <div class="row" style="padding-top: 10px;">
@@ -169,8 +169,7 @@
            <div class="row" style="padding-top: 10px;">
             <div class="col">
              <span style="font-weight: 700; padding-bottom: 20px;">About Company</span><br><div style="padding:5px"></div>
-             <span style="text-align: justify; line-height: 1.6;">We are Nigeria top job portal, that makes the recruiting process seamless for recruiters and job seekers alike.
-              Job seekers can upload their video resumes and rate their resumes using Ai  to get the best positions. </span>
+             <span style="text-align: justify; line-height: 1.6;">{{singleJob.aboutCompany}} </span>
             </div>
            </div>
 
@@ -194,33 +193,25 @@
         <nb-card-header>
           Top Jobs
         </nb-card-header>
-        <nb-card-body>
+        <nb-card-body *ngIf="popularJobs.length > 0">
 
-                <div class="row" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;">
+                <div class="row" *ngFor="let job of popularJobs" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;">
                   <div class="col-sm-4">
                     <img src="assets/images/jobs.png" style="width:5rem;">
                   </div>
                   <div class="col-sm-8">
-                      <span style="font-weight: 600; padding-right:25px;">UI/UX Designer</span><br>
+                      <span style="font-weight: 600; padding-right:25px;">{{job.position}}</span><br>
                       <div style="padding-top: 5px;"></div>
-                      <span>Amplifire Digital Agency</span><br>
-                      <span>Lekki, Lagos | Full-time</span><br>
-                      <span>Closes in 5 days</span><br>
+                      <span>{{job.recruiter}}</span><br>
+                      <span>{{job.stateName}} | {{job.stateName}}</span><br>
+                      <!-- <span>Closes in {{job.position}} days</span><br> -->
                   </div>
                 </div>
-
-                <div class="row" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
-                  <div class="col-sm-4">
-                    <img src="assets/images/jobs.png" style="width:5rem;">
-                  </div>
-                  <div class="col-sm-8">
-                      <span style="font-weight: 600; padding-right:25px;">UI/UX Designer</span><br>
-                      <div style="padding-top: 5px;"></div>
-                      <span>Amplifire Digital Agency</span><br>
-                      <span>Lekki, Lagos | Full-time</span><br>
-                      <span>Closes in 5 days</span><br>
-                  </div>
-                </div>
+        </nb-card-body>
+        <nb-card-body *ngIf="popularJobs.length < 1">
+          <p>
+            No data here
+          </p>
         </nb-card-body>
       </nb-card>
     </div>

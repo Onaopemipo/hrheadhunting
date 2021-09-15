@@ -34,9 +34,29 @@ export class ApplicantsDashboardComponent implements OnInit {
     },
 
     {
+      title: 'My Subscription',
+      icon: '/assets/icons/consultant.png',
+      link: '/appdash/subscription',
+    },
+
+    {
+      title: 'CV Rewrite',
+      icon: '/assets/icons/test.png',
+      link: '/appdash/quiz',
+
+    },
+
+
+    {
       title: 'Upload CV',
       icon: '/assets/icons/cvrewrite.png',
       link: '/appdash/uploadcv',
+    },
+
+    {
+      title: 'My Profile',
+      icon: '/assets/icons/consultant.png',
+      link: '/appdash/profile',
     },
 
     {
@@ -50,13 +70,15 @@ export class ApplicantsDashboardComponent implements OnInit {
   ];
 
 
-  constructor(public auth: AuthenticationService) {
+  constructor(public auth: AuthenticationService,
+    ) {
     this.privilege = this.auth.globalUser.value;
     console.log('Hey', this.privilege)
   }
 
   ngOnInit(): void {
     this.getPrivilege();
+
   }
 
   async getPrivilege(){
@@ -64,5 +86,6 @@ export class ApplicantsDashboardComponent implements OnInit {
     // console.log('Yes ke',this.privilege[0].value.lstPermissions);
     // console.log('Hey guy',this.privilege[0].lstPermissions[0]);
   }
+
 
 }

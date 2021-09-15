@@ -30,6 +30,7 @@ export class DashboardComponent implements OnInit {
 
   }
 
+  popularJobs: JobDTO []= [];
   allJobs: JobDTO []= [];
   showMenu:boolean = false;
   btnProcessing:boolean = false;

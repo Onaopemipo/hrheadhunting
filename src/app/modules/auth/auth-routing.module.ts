@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { AuthComponent } from './auth.component';
 import { SignupComponent } from './signup/signup.component';
+import { ConfirmationComponent } from './confirmation/confirmation.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,11 @@ const routes: Routes = [
       {
         path: 'reset',
         component: ResetComponent,
+      },
+
+      {
+        path: 'confirm',
+        component: ConfirmationComponent,
       },
 
       {

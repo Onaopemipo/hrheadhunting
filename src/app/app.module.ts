@@ -70,10 +70,6 @@ import { AuthenticationService } from './_services/authentication.service';
 // import { JwtInterceptor } from './_services/jwt.interceptor';
 
 
-
-
-
-
 import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -83,6 +79,7 @@ import { JwtInterceptor } from './_services/jwt.interceptor';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Angular4PaystackModule } from 'angular4-paystack';
 import { Router, RouterModule } from '@angular/router';
+import { NgxPaginationModule } from 'ngx-pagination';
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
   interactionPlugin,
@@ -103,6 +100,7 @@ FullCalendarModule.registerPlugins([
     ReactiveFormsModule,
     Angular4PaystackModule,
     RouterModule,
+    // NgxDocViewerModule,
     // NbSidebarModule.forRoot(),
     // NbMenuModule.forRoot(),
     // NbDatepickerModule.forRoot(),
@@ -149,6 +147,7 @@ FullCalendarModule.registerPlugins([
     NbListModule,
     NbLayoutModule,
     NgxChartsModule,
+    NgxPaginationModule,
     NbDateFnsDateModule.forRoot({
       parseOptions: { useAdditionalWeekYearTokens: true, useAdditionalDayOfYearTokens: true },
       formatOptions: { useAdditionalWeekYearTokens: true, useAdditionalDayOfYearTokens: true },
@@ -162,7 +161,6 @@ FullCalendarModule.registerPlugins([
   ],
   bootstrap: [AppComponent],
   providers: [
-
     AlertserviceService,
     AuthService,
     AuthGuardService,

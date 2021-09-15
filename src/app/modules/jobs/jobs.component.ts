@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { AlertserviceService } from 'app/_services/alertservice.service';
 import { Component, OnInit } from '@angular/core';
 import { IStatus, MyColor } from 'app/components/status/models';
-import { CountriesServiceProxy, GradesServiceProxy, IDTextViewModel, JobServiceProxy, JobTypesServiceProxy, QualificationServiceProxy, SectorsServiceProxy, SkillAreasServiceProxy, StatesServiceProxy, CommonServiceProxy} from 'app/_services/service-proxies';
+import { CountriesServiceProxy, ManageJobDTO, GradesServiceProxy, IDTextViewModel, JobServiceProxy, JobTypesServiceProxy, QualificationServiceProxy, SectorsServiceProxy, SkillAreasServiceProxy, StatesServiceProxy, CommonServiceProxy} from 'app/_services/service-proxies';
 
 enum TP  {
 VIEW ='1',
@@ -250,7 +250,6 @@ tableActionClicked(event: TableActionEvent){
   }
 
   selectedTab = TABS.postedJobs;
-
   selectedOption;
   btnProcessing: boolean = false;
   loading: boolean = false;
@@ -258,7 +257,8 @@ tableActionClicked(event: TableActionEvent){
   jobtypeData: IDTextViewModel [] = [];
   currencyData: IDTextViewModel [] = [];
   jobTitleData: IDTextViewModel [] = [];
-  newJobModel: Job = new Job();
+  newJobModel: ManageJobDTO = new ManageJobDTO();
+  jobId: string = '';
 
   constructor( private alertMe: AlertserviceService, private router: Router, private job: JobServiceProxy,
     private jobtype: JobTypesServiceProxy, private country:CountriesServiceProxy,
@@ -399,26 +399,11 @@ tableActionClicked(event: TableActionEvent){
   // }
 
   async fetchSingleJob(){
-    const data = await this.job.getJobById(1).toPromise()
+    const data = await this.job.getJobById(this.jobId).toPromise()
       if(!data.hasError){
         this.singleJob = data.value;
       }
   }
-
-  // fetchAllJobs(){
-  //   this.loading = true;
-  //  this.job.fetchAllJobs(this.jobFilter.SkillAreaId, this.jobFilter.SectorId,
-  //   this.jobFilter.CountryId, this.jobFilter.StateId, this.jobFilter.IsNewlyAdded,
-  //   this.jobFilter.IsPopular,this.jobFilter.PageSize, this.jobFilter.PageNumber).subscribe(data => {
-  //     this.loading = false;
-  //     if(!data.hasError){
-  //       this.allJobs = data.value;
-  //       this.jobsCounter = data.totalCount;
-  //       console.log('My Jobs:',this.allJobs)
-  //    }
-  //   });
-
-  // }
 
   fetchAllJobs(){
     this.loading = true;
@@ -498,11 +483,11 @@ async fetchStates(){
     const data = await this.common.fetchAllEmployers().toPromise();
     this.recruiterData = data.value;
   }
-   getSelectedEmployee(event,selectType) {
-     if(selectType == 'employee'){
-      this.newJobModel.reviewers = event[0].employeeNumber;
-     }
-  }
+  //  getSelectedEmployee(event,selectType) {
+  //    if(selectType == 'employee'){
+  //     this.newJobModel.reviewers = event[0].employeeNumber;
+  //    }
+  // }
 
   }
 

@@ -9,10 +9,12 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { DashboardData, DashboardServiceProxy } from 'app/_services/service-proxies';
 import { JobsComponent } from './jobs/jobs.component';
 import { AlertserviceService } from 'app/_services/alertservice.service';
+import { EmployerProfileComponent } from './employer-profile/employer-profile.component';
+import { PasswordComponent } from './password/password.component';
 
 
 @NgModule({
-  declarations: [DashboardComponent, JobsComponent],
+  declarations: [DashboardComponent, JobsComponent, EmployerProfileComponent, PasswordComponent],
   imports: [
     CommonModule,
     EmployerDashboardRoutingModule,

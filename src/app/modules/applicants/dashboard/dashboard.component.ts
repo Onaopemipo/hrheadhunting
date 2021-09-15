@@ -19,6 +19,11 @@ export class DashboardComponent implements OnInit {
   myPlanHeader:string = "Nothing here";
   myPlanDesc: string = "No data available yet";
 
+  page = 1;
+  passenger: any;
+  itemsPerPage = 6;
+  totalItems : any;
+
 
   jobFilter = {
     companyId: undefined,
@@ -44,6 +49,7 @@ export class DashboardComponent implements OnInit {
   }
 
   allJobs: JobDTO []= [];
+  popularJobs: JobDTO []= [];
   showMenu:boolean = false;
   btnProcessing:boolean = false;
   recruiterData: IDTextViewModel [] = [];
@@ -59,8 +65,8 @@ export class DashboardComponent implements OnInit {
   skillAreaJobsCounter: number = 0;
   locationJobsData: IDTextViewModel [] = [];
   locationJobsCounter: number = 0;
-  filteredSkillArea = [];
-  filteredLocation = [];
+  filteredSkillArea:number = 0;
+  filteredLocation: number = 0;
   filteredEmployer = [];
 
 
@@ -80,7 +86,17 @@ searchFilter = {
     pageSize: 10,
     pageNo: 1
 }
-
+// showingPages = {
+//   groupOne: [],
+//   seperatorOne: false,
+//   groupTwo: [],
+//   seperatorTwo: false,
+//   groupThree: [],
+//   seperatorThree: false,
+// };
+  currentPage:number = 1;
+  totalPage:number = 1000;
+  showingPages = [1,2,3,4,5,6,7,8,9,10];
   constructor(private job: JobServiceProxy, private employer: EmployerServiceProxy, private skill: SkillAreasServiceProxy,
     private state: StatesServiceProxy, private route: Router, private sector: SectorsServiceProxy, public authenService: AuthenticationService,) { }
 
@@ -95,6 +111,40 @@ searchFilter = {
     this.fetchJobsLocation();
     this. fetchSkillAreaJobs();
   }
+
+  selectPage(num:number){
+    this.jobFilter.pageNumber = num;
+    this.fetchAllJobs();
+    this.currentPage = num;
+    this.showingPages;
+    if(this.totalPage <= 10){
+      this.showingPages = [1,2,3,4,5,6,7,8,9,10];
+    } else {
+      let midCon = this.currentPage;
+      if(midCon < 7){
+        midCon = 7;
+      }
+
+      if(midCon > this.totalPage - 5){
+        midCon = this.totalPage - 5;
+      }
+      let sPages = [midCon];
+      for(let a = 4; a > 0; a--){
+        sPages.push(midCon + a);
+        sPages.push(midCon - a);
+        // sPages.sort();
+        this.showingPages = sPages.sort((a,b)=> a-b);
+      }
+    }
+  }
+
+  searchUpdated(){
+    console.log('This is it',);
+    this.jobFilter = {...this.jobFilter};
+    // this.jobFilter.searchText = ;
+    this.fetchAllJobs();
+  }
+
 
   logOut(){
     this.authenService.clearusers();
@@ -150,6 +200,15 @@ searchFilter = {
     this.fetchAllJobs();
   }
 
+  filterPageUpdated(filter: any){
+    this.jobFilter.pageNumber = filter;
+    // console.log('See me',filter)
+    // this.jobFilter = {...this.jobFilter, ...filter};
+    console.log('Updated filter', this.jobFilter)
+    this.fetchAllJobs();
+
+  }
+
   toggleMenu(){
     this.showMenu = !this.showMenu;
   }
@@ -158,8 +217,9 @@ searchFilter = {
     this.loading = true;
     this.filteredSkillArea[0];
     this.filteredLocation[0];
-    const locationId = Number(this.filteredLocation.join());
-    const skillAreaId = Number(this.filteredSkillArea.join())
+    // const locationId = Number(this.filteredLocation.join());
+    const locationId = Number(this.filteredLocation);
+    const skillAreaId = Number(this.filteredSkillArea)
     this.job.fetchJobs(this.jobFilter.companyId, skillAreaId,
     this.jobFilter.countryId, locationId, this.jobFilter.isNewlyAdded,
     this.jobFilter.isPopular,this.jobFilter.searchText, this.jobFilter.pageSize,
@@ -168,6 +228,7 @@ searchFilter = {
       if(!data.hasError){
         this.allJobs = data.value;
         this.jobsCounter = data.totalCount;
+        // this.totalPage = data.totalCount/10;
         console.log('My Jobs:',this.allJobs);
      }
     });

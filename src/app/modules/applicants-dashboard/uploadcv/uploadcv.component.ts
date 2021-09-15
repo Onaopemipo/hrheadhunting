@@ -1,4 +1,4 @@
-import { AccountServiceProxy, ManageJobSeekerRegDTO } from './../../../_services/service-proxies';
+import { AccountServiceProxy, ApplicantProfileDTO, ApplicantServiceProxy, JobSeekerResume, ManageJobSeekerRegDTO } from './../../../_services/service-proxies';
 import { AlertserviceService } from './../../../_services/alertservice.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -8,18 +8,39 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./uploadcv.component.scss']
 })
 export class UploadcvComponent implements OnInit {
+
   jobSeeker: ManageJobSeekerRegDTO = new ManageJobSeekerRegDTO();
   btnProcessing: boolean = false;
+  applicantProfile: ApplicantProfileDTO = new ApplicantProfileDTO();
+  prevResume: JobSeekerResume[] = [];
 
- constructor(private alertMe: AlertserviceService, private applicant: AccountServiceProxy) { }
+
+ constructor(private alertMe: AlertserviceService, private applicant: ApplicantServiceProxy) { }
 
 
   ngOnInit(): void {
   }
 
+  async fetchProfile() {
+    const data = await this.applicant.getMyProfile().toPromise()
+    if(!data.hasError){
+      this.applicantProfile = data.value;
+      this.prevResume = data.value.resumes
+      console.log('Here is my profile', this.applicantProfile)
+    }
+  }
+
+  async fetchResume(){
+    const data = await this.applicant.fetchMyResumes(10,1).toPromise()
+    if(!data.hasError){
+      this.prevResume = data.value;
+    }
+  }
+
+
   uploadCV(){
     this.btnProcessing = true;
-    this.applicant.applicantSignUp(this.jobSeeker).subscribe(data => {
+    this.applicant.updateMyProfile(this.jobSeeker).subscribe(data => {
       if(!data.hasError){
         this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'Success', 'Ok').subscribe(res => {
         if(res){

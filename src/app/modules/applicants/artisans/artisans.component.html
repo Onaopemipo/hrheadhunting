@@ -91,7 +91,10 @@
       <nb-card *ngIf="artisanCounter > 0" style="background-color: transparent;">
         <nb-card-body>
           <div class="row" style="display: flex; flex-direction: row; justify-content: space-between;">
-            <div *ngFor="let artisan of artisanData" class="col-sm-12 col-md-6 col-lg-3 shadow p-3 mb-5 bg-white rounded" (click)="artisanDetails(artisan.id)" style="display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; margin: 0 1px 1px 0;">
+            <div *ngFor="let artisan of artisanData | paginate: { id: artisanFilter.id,
+              itemsPerPage: artisanFilter.pageSize,
+              currentPage: artisanFilter.pageNumber,
+              totalItems: artisanData.length }" class="col-sm-12 col-md-6 col-lg-3 shadow p-3 mb-5 bg-white rounded" (click)="artisanDetails(artisan.id)" style="display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; margin: 0 1px 1px 0;">
                 <!-- <img src="assets/images/Job_Seeker.png" style=" height: 50px; text-align: center;"  alt=""><br> -->
                 <img src="{{'data:image/jpg;base64,' + artisan.brandLogo}}" onError="this.onerror=null;this.src='assets/images/jobs.png';" style="width:7rem; height: 7rem;">
                 <span style="font-size: 14; font-weight: 600;">{{artisan.name}}</span>
@@ -101,6 +104,10 @@
             </div>
           </div>
         </nb-card-body>
+        <pagination-controls
+          class="pagi"
+          (pageChange)="filterPageUpdated($event)"
+        ></pagination-controls>
       </nb-card>
     </div>
 

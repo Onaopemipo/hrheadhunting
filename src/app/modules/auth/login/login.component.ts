@@ -5,7 +5,7 @@ import { AccountServiceProxy, UserLoginDTO } from '../../../_services/service-pr
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-// import { AlertserviceService } from 'app/_services/alertservice.service';
+import * as firebase from 'firebase/app';
 import { AuthenticationService } from '../../../_services/authentication.service';
 
 @Component({
@@ -136,15 +136,17 @@ doLinkedIn(){
   // .set("redirect_uri", 'http://localhost:5000/')
   // .set("scope", 'r_liteprofile r_emailaddress')
   // .set("response_type", 'code')
-  this.http.get(configUrl).subscribe(data => {
-    console.log('LinkedIn data is here',data);
+//   this.http.get(configUrl).subscribe(data => {
+//     console.log('LinkedIn data is here',data);
 
-  })
- }
+//   })
+//  }
 
+window.location.href = configUrl;
+}
  doGoogle(){
   this.social.doGoogleLogin().then(data => {
-    this.googleData = data.providerData[0];
+    this.googleData = data;
     console.log('You are', this.googleData);
     this.socialLogin.isSocial = true;
     this.socialLogin.email = this.googleData.email;
@@ -174,7 +176,7 @@ doLinkedIn(){
 
 doFacebook(){
   this.social.doFacebookLogin().then(data => {
-    this.facebookData = data.providerData[0];
+    this.facebookData = data;
     console.log('See your Facebook data',this.facebookData.displayName);
     this.socialLogin.isSocial = true;
     this.socialLogin.email = this.facebookData.email;
@@ -204,7 +206,7 @@ doFacebook(){
 
  doTwitter(){
    this.social.doTwitterLogin().then(data => {
-     this.twitterData = data.providerData[0];
+     this.twitterData = data;
      console.log('Here is you Twitter', this.twitterData);
      this.socialLogin.isSocial = true;
      this.socialLogin.email = this.twitterData.email;

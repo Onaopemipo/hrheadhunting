@@ -12,7 +12,7 @@ import { JobDTO, JobServiceProxy } from 'app/_services/service-proxies';
 })
 export class JobDetailsComponent implements OnInit {
 
-  jobId: number = 0;
+  jobId: string = '';
   applicantId: number = 1;
   checkStatus: boolean = false;
   jobDetails: JobDTO = new JobDTO();
@@ -22,7 +22,7 @@ export class JobDetailsComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-    this.job.getJobById(this.jobId = Number(this.route.snapshot.paramMap.get("id"))).subscribe(data => {
+    this.job.getJobById(this.jobId = this.route.snapshot.paramMap.get("id")).subscribe(data => {
       if(!data.hasError){
         this.jobDetails = data.value;
       }
@@ -31,7 +31,7 @@ export class JobDetailsComponent implements OnInit {
 
 
   applyForJob(){
-    this.job.applyJob(1).subscribe(data => {
+    this.job.applyJob(this.jobId).subscribe(data => {
       if(!data.hasError){
         this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, '', 'Ok')
       }
