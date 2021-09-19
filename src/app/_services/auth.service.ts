@@ -5,12 +5,11 @@ import { User } from '../_models/user';
 import { customConfig } from '../custumConfig';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
+
 // import { AngularFireAuth } from 'angularfire2/auth';
-import * as firebase from 'firebase/app';
 import { Auth } from "firebase/auth";
-import { Firestore, collectionData, collection } from '@angular/fire/firestore';
+// v9 compat packages are API compatible with v8 code
 import { getAuth, signInWithPopup, FacebookAuthProvider, TwitterAuthProvider, GoogleAuthProvider } from "firebase/auth";
 
 @Injectable()
@@ -19,6 +18,7 @@ export class AuthService {
   main_id = 0;
   user: User = {};
   authstatus: boolean = false;
+  Gprovider = new GoogleAuthProvider();
   constructor(public authServ: AuthenticationService,
     public http: HttpClient, public navCtrl: Router) { }
 
@@ -64,16 +64,17 @@ export class AuthService {
     };
   }
 
-
  async doGoogleLogin(){
-  return new Promise<any>((resolve, reject) => {
+  return new Promise<any>(() => {
     const auth = getAuth();
-    const provider = new GoogleAuthProvider();
-    const result = signInWithPopup(auth, provider)
+    signInWithPopup(auth, this.Gprovider)
       .then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
+        console.log('See Cred', credential)
         const token = credential.accessToken;
-        const user = resolve(result.user);
+        console.log('See Toke', token)
+        const user = result.user;
+        console.log('See Google', user)
         // ...
       })
     }).catch((error) => {

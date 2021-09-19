@@ -18,9 +18,6 @@ import { ThemeModule } from './@theme/theme.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DecimalPipe } from '@angular/common';
-import { AngularFireModule } from 'angularfire2';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
 import { NbDateFnsDateModule } from '@nebular/date-fns';
 import {
@@ -51,6 +48,7 @@ import {
   NbSpinnerModule,
   NbListModule,
   NbLayoutModule,
+
 
 
 } from '@nebular/theme';
@@ -85,6 +83,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { Angular4PaystackModule } from 'angular4-paystack';
 import { Router, RouterModule } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { NgxPermissionsModule } from 'ngx-permissions';
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
   interactionPlugin,
@@ -105,6 +105,7 @@ FullCalendarModule.registerPlugins([
     ReactiveFormsModule,
     Angular4PaystackModule,
     RouterModule,
+    NgxDocViewerModule,
     // NgxDocViewerModule,
     // NbSidebarModule.forRoot(),
     // NbMenuModule.forRoot(),
@@ -117,6 +118,7 @@ FullCalendarModule.registerPlugins([
     // }),
     NbSidebarModule.forRoot(),
     // NbMenuModule.forRoot(),
+    NgxPermissionsModule.forRoot(),
     NbDatepickerModule.forRoot(),
     NbDialogModule.forRoot(),
     NbWindowModule.forRoot(),

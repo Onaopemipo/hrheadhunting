@@ -1,4 +1,4 @@
-import { NbLayoutModule } from '@nebular/theme';
+import { NbCardModule, NbLayoutModule } from '@nebular/theme';
 import { ComponentsModule } from 'app/components/components.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -21,6 +21,7 @@ import { SubscriptionComponent } from './subscription/subscription.component';
     ConsultantDashboardRoutingModule,
     ComponentsModule,
     ThemeModule,
+    NbCardModule,
     NbLayoutModule,
   ],
 

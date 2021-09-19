@@ -20,10 +20,10 @@ export class LoginComponent implements OnInit {
   socialLogin: UserLoginDTO = new UserLoginDTO();
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   btnprocessing: boolean = false;
-  googleData: any;
-  facebookData: any;
+  googleData: any[] = [];
+  facebookData: any[] = [];
   linkedInData: any [] = [];
-  twitterData: any;
+  twitterData: any[] = [];
   emailPrompt: boolean = false;
   btnProcessing: boolean = false;
   applicantNames = []
@@ -145,93 +145,101 @@ doLinkedIn(){
 window.location.href = configUrl;
 }
  doGoogle(){
-  // this.social.doGoogleLogin().then(data => {
-  //   this.googleData = data;
-  //   console.log('You are', this.googleData);
-  //   this.socialLogin.isSocial = true;
-  //   this.socialLogin.email = this.googleData.email;
-  //   this.applicantNames = this.googleData.displayName.split(' ');
-  //   this.userlogin.firstName = this.applicantNames[1];
-  //   this.userlogin.lastName = this.applicantNames[0];
-  //   console.log(this.applicantNames + 'I am', this.userlogin.firstName + 'Last Name:' + this.userlogin.lastName)
-  //   if(this.socialLogin.email){
-  //     this.loginServices.getToken(this.socialLogin).subscribe(data => {
-  //       if(!data.hasError){
-  //         console.log(data);
-  //         this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'You are authenticated', 'Go to dashboard').subscribe(res => {
-  //           if(res){
-  //             this.route.navigateByUrl('/')
-  //           }
-  //         })
-  //         this.AuthenService.addUser(data.result);
-  //       }
-  //     })
+  this.social.doGoogleLogin().then(data => {
+    this.googleData = data;
+    console.log('You are', this.googleData);
+    this.socialLogin.isSocial = true;
+    this.socialLogin.email = this.googleData[0].email;
+    this.applicantNames = this.googleData[0].displayName.split(' ');
+    this.userlogin.firstName = this.applicantNames[1];
+    this.userlogin.lastName = this.applicantNames[0];
+    console.log(this.applicantNames + 'I am', this.userlogin.firstName + 'Last Name:' + this.userlogin.lastName)
+    if(this.socialLogin.email){
+      this.loginServices.getToken(this.socialLogin).subscribe(data => {
+        if(!data.hasError){
+          console.log(data);
+          this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'You are authenticated', 'Go to dashboard').subscribe(res => {
+            if(res){
+              this.route.navigateByUrl('/')
+            }
+          })
+          this.AuthenService.addUser(data.result);
+        }
+      })
 
-  //   }else {
-  //     this.emailPrompt = true;
-  //   }
+    }else {
+      this.emailPrompt = true;
+    }
 
-  // });
+  });
+}
+
+async doGoog(){
+ const data = this.social.doGoogleLogin().then(data =>{
+    console.log(data)
+  })
+
+  console.log(data)
 }
 
 doFacebook(){
-  // this.social.doFacebookLogin().then(data => {
-  //   this.facebookData = data;
-  //   console.log('See your Facebook data',this.facebookData.displayName);
-  //   this.socialLogin.isSocial = true;
-  //   this.socialLogin.email = this.facebookData.email;
-  //   this.applicantNames = this.facebookData.displayName.split(' ');
-  //   this.userlogin.firstName = this.applicantNames[0];
-  //   this.userlogin.lastName = this.applicantNames[1];
-  //   console.log(this.applicantNames + 'I am', this.userlogin.firstName + 'Last Name:' + this.userlogin.lastName)
-  //   if(this.socialLogin.email){
-  //     this.loginServices.getToken(this.socialLogin).subscribe(data => {
-  //       if(!data.hasError){
-  //         console.log(data);
-  //         this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'You are authenticated', 'Go to dashboard').subscribe(res => {
-  //           if(res){
-  //             this.route.navigateByUrl('/')
-  //           }
-  //         })
-  //         this.AuthenService.addUser(data.result);
-  //       }
-  //     })
+  this.social.doFacebookLogin().then(data => {
+    this.facebookData = data;
+    console.log('See your Facebook data',this.facebookData[0].displayName);
+    this.socialLogin.isSocial = true;
+    this.socialLogin.email = this.facebookData[0].email;
+    this.applicantNames = this.facebookData[0].displayName.split(' ');
+    this.userlogin.firstName = this.applicantNames[0];
+    this.userlogin.lastName = this.applicantNames[1];
+    console.log(this.applicantNames + 'I am', this.userlogin.firstName + 'Last Name:' + this.userlogin.lastName)
+    if(this.socialLogin.email){
+      this.loginServices.getToken(this.socialLogin).subscribe(data => {
+        if(!data.hasError){
+          console.log(data);
+          this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'You are authenticated', 'Go to dashboard').subscribe(res => {
+            if(res){
+              this.route.navigateByUrl('/')
+            }
+          })
+          this.AuthenService.addUser(data.result);
+        }
+      })
 
-  //   }else {
-  //     this.emailPrompt = true;
-  //   }
+    }else {
+      this.emailPrompt = true;
+    }
 
-  // });
+  });
 }
 
  doTwitter(){
-  //  this.social.doTwitterLogin().then(data => {
-  //    this.twitterData = data;
-  //    console.log('Here is you Twitter', this.twitterData);
-  //    this.socialLogin.isSocial = true;
-  //    this.socialLogin.email = this.twitterData.email;
-  //    this.applicantNames = this.twitterData.displayName.split(' ');
-  //    this.userlogin.firstName = this.applicantNames[0];
-  //    this.userlogin.lastName = this.applicantNames[1];
-  //    console.log(this.applicantNames + 'I am', this.userlogin.firstName + 'Last Name:' + this.userlogin.lastName)
-  //    if(this.socialLogin.email){
-  //      this.loginServices.getToken(this.socialLogin).subscribe(data => {
-  //        if(!data.hasError){
-  //          console.log(data);
-  //          this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'You are authenticated', 'Go to dashboard').subscribe(res => {
-  //            if(res){
-  //              this.route.navigateByUrl('/')
-  //            }
-  //          })
-  //          this.AuthenService.addUser(data.result);
-  //        }
-  //      })
+   this.social.doTwitterLogin().then(data => {
+     this.twitterData = data;
+     console.log('Here is you Twitter', this.twitterData);
+     this.socialLogin.isSocial = true;
+     this.socialLogin.email = this.twitterData[0].email;
+     this.applicantNames = this.twitterData[0].displayName.split(' ');
+     this.userlogin.firstName = this.applicantNames[0];
+     this.userlogin.lastName = this.applicantNames[1];
+     console.log(this.applicantNames + 'I am', this.userlogin.firstName + 'Last Name:' + this.userlogin.lastName)
+     if(this.socialLogin.email){
+       this.loginServices.getToken(this.socialLogin).subscribe(data => {
+         if(!data.hasError){
+           console.log(data);
+           this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'You are authenticated', 'Go to dashboard').subscribe(res => {
+             if(res){
+               this.route.navigateByUrl('/')
+             }
+           })
+           this.AuthenService.addUser(data.result);
+         }
+       })
 
-  //    }else {
-  //      this.emailPrompt = true;
-  //    }
+     }else {
+       this.emailPrompt = true;
+     }
 
-  //  });
+   });
  }
 
   ngOnInit(): void {
