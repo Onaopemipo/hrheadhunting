@@ -9,9 +9,13 @@ import { AuthenticationService } from 'app/_services/authentication.service';
 export class BlogsComponent implements OnInit {
 
   showMenu: boolean = false;
+  myRole: string = '';
   constructor(public authenService: AuthenticationService) { }
 
   ngOnInit(): void {
+    this.authenService.userRole().then(data => {
+      this.myRole = data;
+  })
   }
 
   toggleMenu(){

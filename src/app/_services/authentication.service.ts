@@ -15,6 +15,10 @@ export class  AuthenticationService {
     users: User[] = [];
     public globalUser = new BehaviorSubject<User>({});
     public authStatus = new BehaviorSubject<Boolean>(false);
+    public userPerm = '';
+    appDash: boolean = false;
+    empDash: boolean = false;
+    consDash: boolean = false;
     // public isUserAuthenticated = new BehaviorSubject<Boolean>(false);
 
     constructor(private router: Router) { }
@@ -27,8 +31,7 @@ export class  AuthenticationService {
                 if (this.users.length > 0) {
                 this.globalUser.next(this.users[0]);
                 this.authStatus.next(true);
-                this.myRole = this.users[0].userType;
-                console.log('See your user:', this.myRole)
+                console.log('See your user:', this.userPerm)
            } }
             resolve(this.users);
 
@@ -42,7 +45,6 @@ export class  AuthenticationService {
      user = await this.getuser();
      if(user){
       return user.length > 0;
-      console.log(user.length)
      } else return false;
     }
 
@@ -50,7 +52,9 @@ export class  AuthenticationService {
       let user = [];
       user = await this.getuser();
       if(user){
-       return this.myRole = user[0].lstPermissions
+       this.myRole = user[0].lstPermissions[0];
+       console.log('See your role', this.myRole)
+       return this.myRole
       }
     }
 
@@ -73,6 +77,28 @@ export class  AuthenticationService {
         localStorage.removeItem('user');
         console.log('user has been removed!')
         this.router.navigateByUrl('auth/login')
+    }
+
+    async getUserRole(){
+      this.getuser().then(data => {
+        this.userPerm = data[0].lstPermissions[0];
+        console.log('logger', this.userPerm)
+        switch(this.userPerm){
+          case "APP": {
+            this.appDash = true;
+            break;
+          }
+
+          case "RSS": {
+            this.empDash = true;
+            break;
+          }
+
+          case "CSS": {
+            this.consDash = true
+          }
+        }
+      })
     }
 
 }

@@ -29,6 +29,7 @@ export class ArtisandetailsComponent implements OnInit {
   //   starRating: 0,
   //   review: ''
   // }
+  myRole: string = '';
 
 
 
@@ -42,6 +43,9 @@ export class ArtisandetailsComponent implements OnInit {
       }
     })
 
+    this.authenService.userRole().then(data => {
+      this.myRole = data;
+  })
 
   }
 

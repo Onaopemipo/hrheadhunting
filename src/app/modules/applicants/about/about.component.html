@@ -12,10 +12,9 @@
       <li class="nav-item active">
         <a class="nav-link" [routerLink]="['/applicants/services']">Services </a>
       </li>
-      <li class="nav-item active">
-        <!-- <a class="nav-link" [routerLink]="['/applicants/blog']">Blog </a> -->
+      <!-- <li class="nav-item active">
         <a href="https://blog.hrheadhunting.ng/" target="_blank" rel="noopener noreferrer">Blog</a>
-      </li>
+      </li> -->
 
       <li class="nav-item active">
         <a class="nav-link"[routerLink]="['/applicants/boards']">Job Board</a>
@@ -61,8 +60,16 @@
           <a class="nav-link" [routerLink]="['/auth/login']">Log Out</a>
         </li>
 
-        <li class="nav-item active">
+        <li *ngIf="myRole === 'ASS'" class="nav-item active">
           <a class="nav-link" [routerLink]="['/appdash']">Dashboard</a>
+        </li>
+
+        <li *ngIf="myRole === 'RSS'" class="nav-item active">
+          <a class="nav-link" [routerLink]="['/consdash']">Dashboard</a>
+        </li>
+
+        <li *ngIf="myRole === 'CSS'" class="nav-item active">
+          <a class="nav-link" [routerLink]="['/empdash']">Dashboard</a>
         </li>
 
       </ul>
@@ -210,30 +217,38 @@
 
    <div class="col-sm-12 col-md-8 col-lg-7" >
     <h3 style="font-family: 'Rubik';">Why choose us?</h3>
-     <div class="row" class="shadow p-3 mb-5 bg-white rounded " style="padding: 10px; width: 60%;">
-      <i class="fa fa-star" style="width: 40px; height: 30px; padding-right: 20px; color: #4C7ED8" aria-hidden="true"></i>
+     <div class="row">
+      <div class="col-sm-9 col-md-8 col-lg-7 shadow p-3 mb-5 bg-white rounded">
+        <i class="fa fa-star" style="width: 40px; height: 30px; padding-right: 20px; color: #4C7ED8" aria-hidden="true"></i>
       <span>Affordable solutions. </span>
-     </div><div style="padding: 10px;"></div>
+      </div>
+     </div>
 
-   <div class="row" class="shadow p-3 mb-5 bg-white rounded " style="padding: 20px; width: 80%;">
-    <i class="fa fa-star" style="width: 40px; height: 30px; padding-right: 10px; color: #4C7ED8" aria-hidden="true"></i>
+   <div class="row" style="padding: 10px;">
+    <div class="col-sm-10 col-md-9 col-lg-8 shadow p-3 mb-5 bg-white rounded">
+      <i class="fa fa-star" style="width: 40px; height: 30px; padding-right: 10px; color: #4C7ED8" aria-hidden="true"></i>
     <span>Seamless incorporation of psychometric and aptitude tests into candidate search.</span>
+    </div>
  </div>
 
- <div class="row" class="shadow p-3 mb-5 bg-white rounded " style="padding: 20px; width: 95%;">
-  <i class="fa fa-star" style="width: 40px; height: 30px; padding-right: 10px; color: #4C7ED8" aria-hidden="true"></i>
+ <div class="row" style="padding: 10px;">
+  <div class="col-sm-11 col-md-10 col-lg-9 shadow p-3 mb-5 bg-white rounded">
+    <i class="fa fa-star" style="width: 40px; height: 30px; padding-right: 10px; color: #4C7ED8" aria-hidden="true"></i>
   <span>Resume scoring with the help of AI makes for being rightly positioned to get the dream job.</span>
+  </div>
 </div>
 
-<div class="row" class="shadow p-3 mb-5 bg-white rounded " style="padding: 20px; width: 100%;">
-   <i class="fa fa-star" style="width: 40px; height: 30px; padding-right: 10px; color: #4C7ED8" aria-hidden="true"></i>
-  <span>Video resumes and the access to candidates profiles make shortlisting efficient and effective.</span>
+<div class="row"  style="padding: 10px;">
+  <div class="col-sm-12 col-md-11 col-lg-10 shadow p-3 mb-5 bg-white rounded">
+    <i class="fa fa-star" style="width: 40px; height: 30px; padding-right: 10px; color: #4C7ED8" aria-hidden="true"></i>
+    <span>Video resumes and the access to candidates profiles make shortlisting efficient and effective.</span>
+  </div>
 </div>
 
     </div>
 
-    <div class="col-sm-12 col-md-4 col-lg-4" style="padding-top: 2%;">
-      <img src="assets/images/about.png" style="width: 90%; height: 100%;">
+    <div class="col-sm-12 col-md-4 col-lg-4" style="padding: 4% 0; ">
+      <img src="assets/images/about.png" style="width: 100%; height: 100%;">
     </div>
 
   </div>

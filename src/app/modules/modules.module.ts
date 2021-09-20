@@ -22,7 +22,7 @@ import { NbLayoutModule , NbCardModule, NbIconModule, NbSelectModule , NbCheckbo
 import { ThemeModule } from '../@theme/theme.module';
 
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { NgxEchartsModule } from 'ngx-echarts';
+import { NgxEchartsModule, NGX_ECHARTS_CONFIG } from 'ngx-echarts';
 import { ComponentsModule } from 'app/components/components.module';
 import { JobsComponent } from './jobs/jobs.component';
 import { ApplicantsComponent } from './applicants/applicants.component';
@@ -58,6 +58,11 @@ import { SubscriptionComponent } from './subscription/subscription.component';
     NbSelectModule,
     NbCheckboxModule,
     NbRadioModule,
+    NgxChartsModule,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts')
+    }),
+    // NgxEchartsModule,
     Angular4PaystackModule.forRoot(environment.paystackToken),
 
   ],
@@ -86,7 +91,7 @@ import { SubscriptionComponent } from './subscription/subscription.component';
     ReportServiceProxy,
     ConsultantServiceProxy,
     PaymentServiceProxy,
-    SubscriptionsServiceProxy
+    SubscriptionsServiceProxy,
   ]
 })
 export class ModulesModule { }

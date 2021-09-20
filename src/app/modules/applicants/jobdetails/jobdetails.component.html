@@ -16,10 +16,6 @@
           <a class="nav-link" [routerLink]="['/applicants/services']">Services </a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" [routerLink]="['/applicants/blog']">Blog </a>
-        </li>
-
-        <li class="nav-item active">
           <a class="nav-link"[routerLink]="['/applicants/boards']">Job Board</a>
         </li>
 
@@ -63,8 +59,16 @@
             <a class="nav-link" [routerLink]="['/auth/login']">Log Out</a>
           </li>
 
-          <li class="nav-item active">
+          <li *ngIf="myRole === 'ASS'" class="nav-item active">
             <a class="nav-link" [routerLink]="['/appdash']">Dashboard</a>
+          </li>
+
+          <li *ngIf="myRole === 'RSS'" class="nav-item active">
+            <a class="nav-link" [routerLink]="['/consdash']">Dashboard</a>
+          </li>
+
+          <li *ngIf="myRole === 'CSS'" class="nav-item active">
+            <a class="nav-link" [routerLink]="['/empdash']">Dashboard</a>
           </li>
 
         </ul>

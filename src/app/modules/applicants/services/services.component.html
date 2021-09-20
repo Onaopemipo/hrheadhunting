@@ -16,9 +16,7 @@
         <li class="nav-item active">
           <a class="nav-link" [routerLink]="['/applicants/services']">Services </a>
         </li>
-        <li class="nav-item active">
-          <a class="nav-link" [routerLink]="['/applicants/blog']">Blog </a>
-        </li>
+ >
 
         <li class="nav-item active">
           <a class="nav-link"[routerLink]="['/applicants/boards']">Job Board</a>
@@ -61,11 +59,19 @@
       <div *ngIf="authenService.authStatus | async" class="form-inline my-2 my-lg-0">
         <ul class="navbar-nav mr-auto" style="color: #fff;">
           <li class="nav-item active">
-            <a href="javascript: void(0)" class="nav-link" (click)="logOut()">Log Out</a>
+            <a class="nav-link" [routerLink]="['/auth/login']">Log Out</a>
           </li>
 
-          <li class="nav-item active">
+          <li *ngIf="myRole === 'ASS'" class="nav-item active">
             <a class="nav-link" [routerLink]="['/appdash']">Dashboard</a>
+          </li>
+
+          <li *ngIf="myRole === 'RSS'" class="nav-item active">
+            <a class="nav-link" [routerLink]="['/consdash']">Dashboard</a>
+          </li>
+
+          <li *ngIf="myRole === 'CSS'" class="nav-item active">
+            <a class="nav-link" [routerLink]="['/empdash']">Dashboard</a>
           </li>
 
         </ul>
@@ -140,7 +146,7 @@
              newsletters and follow-up emails to our entire database.
 
           </span>
-          <button class="btn btn-theme" type="submit" nbButton status="primary" style="color: #fff; margin-top: 5px">Post a Training</button>
+          <!-- <button class="btn btn-theme" type="submit" nbButton status="primary" style="color: #fff; margin-top: 5px">Post a Training</button> -->
         </div>
 
           </div>
@@ -163,7 +169,7 @@
        <span style="text-align: justify; line-height: 2.6;">Psychometric Assessment:  You can create  psychometric and competency-based assessment,
          and it will serve as outstanding indicator of a candidate's ability to execute the tasks needed for the job.
        </span>
-       <button *ngIf="(authenService.authStatus | async)" class="btn btn-theme" type="submit" nbButton [routerLink]="['/appdash']" status="primary" style="color: #fff; margin-top: 5px">Get Started</button>
+       <button *ngIf="(authenService.authStatus | async)" class="btn btn-theme" type="submit" nbButton [routerLink]="['/appdash/quiz']" status="primary" style="color: #fff; margin-top: 5px">Get Started</button>
        <button *ngIf="!(authenService.authStatus | async)" class="btn btn-theme" type="submit" nbButton [routerLink]="['/auth/login']" status="primary" style="color: #fff; margin-top: 5px">Get Started</button>
 
      </div>

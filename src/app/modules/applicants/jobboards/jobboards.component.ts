@@ -103,12 +103,16 @@ employerFilter = {
   currentPage:number = 1;
   totalPage:number = 1000;
   showingPages = [1,2,3,4,5,6,7,8,9,10];
+  myRole: string = '';
 
   constructor(private job: JobServiceProxy, private employer: EmployerServiceProxy, private skill: SkillAreasServiceProxy,
     private state: StatesServiceProxy, private sector: SectorsServiceProxy, public authenService: AuthenticationService,
     private artisan: ArtisanServiceProxy, private _sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
+    this.authenService.userRole().then(data => {
+      this.myRole = data;
+  })
     // this.fetchAllEmployers();
     this.fetchAllArtisans();
     this.fetchAllJobs();

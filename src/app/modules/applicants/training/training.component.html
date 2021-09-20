@@ -1,7 +1,6 @@
 <div class="bg-img">
   <div class="container">
     <!-- <ngx-navigator></ngx-navigator> -->
-
     <nav *ngFor="let i of [1,2]" [class]="{'fixed-Menu':i == 1}" class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%; padding: 0; background-color: #6495ED !important;">
       <button class="navbar-toggler" type="button" (click)="toggleMenu()" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon" style="color: #ffffff; display: none;"></span><i class="fa fa-bars" style="color: #ffffff;" aria-hidden="true"></i>
@@ -16,16 +15,14 @@
         <li class="nav-item active">
           <a class="nav-link" [routerLink]="['/applicants/services']">Services </a>
         </li>
-        <li class="nav-item active">
-          <a class="nav-link" [routerLink]="['/applicants/blog']">Blog </a>
-        </li>
+
 
         <li class="nav-item active">
           <a class="nav-link"[routerLink]="['/applicants/boards']">Job Board</a>
         </li>
 
         <li class="nav-item active">
-          <a class="nav-link"[routerLink]="['/applicants/trainings']">Artisan Board</a>
+          <a class="nav-link"[routerLink]="['/applicants/artisans']">Artisan Board</a>
         </li>
 
         <li class="nav-item active">
@@ -64,8 +61,16 @@
             <a class="nav-link" [routerLink]="['/auth/login']">Log Out</a>
           </li>
 
-          <li class="nav-item active">
+          <li *ngIf="myRole === 'ASS'" class="nav-item active">
             <a class="nav-link" [routerLink]="['/appdash']">Dashboard</a>
+          </li>
+
+          <li *ngIf="myRole === 'RSS'" class="nav-item active">
+            <a class="nav-link" [routerLink]="['/consdash']">Dashboard</a>
+          </li>
+
+          <li *ngIf="myRole === 'CSS'" class="nav-item active">
+            <a class="nav-link" [routerLink]="['/empdash']">Dashboard</a>
           </li>
 
         </ul>
@@ -144,6 +149,7 @@
               </div>
             </nb-tab>
           </nb-tabset>
+
         </nb-card-body>
       </nb-card>
     </div>
@@ -175,32 +181,10 @@
             <div style="padding: 20px;"></div>
           </div>
 
-          <div class="form-group">
-            <!-- <nb-checkbox *ngFor="let sector of sectorData">{{sector.text}}</nb-checkbox><br> -->
-            <nb-checkbox>Computer Software (453)</nb-checkbox><br>
-            <nb-checkbox>Health Care (453)</nb-checkbox><br>
-            <nb-checkbox>Engineering & Construction (52)</nb-checkbox><br>
-            <nb-checkbox>Manufacturing (453)</nb-checkbox><br>
+        <div class="row overflow">
+          <ngx-filter-box [data]="trainingData" (valueChange)="filterUpdated($event)"></ngx-filter-box>
 
         </div>
-
-        <!-- <div class="row" style="display: flex; justify-content: flex-start; flex-direction: row; padding: 10px;">
-          <div class="col" style="padding: 10px;">
-          <h6>List of companies in Nigeria</h6>
-          <div style="padding: 5px;"></div>
-          <span>3,234 companies found</span>
-          <div style="padding: 10px;"></div>
-          <input type="text" class="form-control" nbInput fullWidth id="keyword" placeholder="Enter Keyword" style="background-color: #ffffff; color:#95A8B8;">
-          </div>
-          <div style="padding: 20px;"></div>
-        </div>
-
-          <div class="form-group">
-            <nb-checkbox>Abia</nb-checkbox><br>
-            <nb-checkbox>Akwa Ibom</nb-checkbox><br>
-            <nb-checkbox>Anambra</nb-checkbox><br>
-            <nb-checkbox>Bauchi</nb-checkbox><br>
-          </div> -->
          </nb-card-body>
        </nb-card>
 

@@ -1,7 +1,7 @@
 <div class="bg-img">
   <div class="container">
     <!-- <ngx-navigator></ngx-navigator> -->
-  <nav *ngFor="let i of [1,2]" [class]="{'fixed-Menu':i == 1}" class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%; padding: 0; background-color: #6495ED !important;">
+    <nav *ngFor="let i of [1,2]" [class]="{'fixed-Menu':i == 1}" class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%; padding: 0; background-color: #6495ED !important;">
       <button class="navbar-toggler" type="button" (click)="toggleMenu()" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon" style="color: #ffffff; display: none;"></span><i class="fa fa-bars" style="color: #ffffff;" aria-hidden="true"></i>
       </button>
@@ -16,7 +16,8 @@
           <a class="nav-link" [routerLink]="['/applicants/services']">Services </a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" [routerLink]="['/applicants/blog']">Blog </a>
+          <!-- <a class="nav-link" [routerLink]="['/applicants/blog']">Blog </a> -->
+          <a href="https://blog.hrheadhunting.ng/" target="_blank" rel="noopener noreferrer">Blog</a>
         </li>
 
         <li class="nav-item active">
@@ -38,6 +39,7 @@
         <li *ngIf="authenService.authStatus | async" class="nav-item active">
           <a class="nav-link" [routerLink]="['/applicants/scorecv']">Score CV </a>
         </li>
+
       </ul>
 
       <div *ngIf="!(authenService.authStatus | async)" class="form-inline my-2 my-lg-0">
@@ -62,8 +64,16 @@
             <a class="nav-link" [routerLink]="['/auth/login']">Log Out</a>
           </li>
 
-          <li class="nav-item active">
+          <li *ngIf="myRole === 'ASS'" class="nav-item active">
             <a class="nav-link" [routerLink]="['/appdash']">Dashboard</a>
+          </li>
+
+          <li *ngIf="myRole === 'RSS'" class="nav-item active">
+            <a class="nav-link" [routerLink]="['/consdash']">Dashboard</a>
+          </li>
+
+          <li *ngIf="myRole === 'CSS'" class="nav-item active">
+            <a class="nav-link" [routerLink]="['/empdash']">Dashboard</a>
           </li>
 
         </ul>

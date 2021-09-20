@@ -25,12 +25,15 @@ export class ArtisansComponent implements OnInit {
     pageSize: 10,
     pageNumber: 1
   }
-
+  myRole: string = '';
 
 
   constructor(private artisan: ArtisanServiceProxy,public authenService: AuthenticationService, private route: Router) { }
 
   ngOnInit(): void {
+    this.authenService.userRole().then(data => {
+      this.myRole = data;
+  })
     this.fetchAllArtisans();
   }
 

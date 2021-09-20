@@ -16,9 +16,13 @@ export class ScorecvComponent implements OnInit {
   analysisResult: RezScore = new RezScore();
   imgSrc: string = '';
   pageId: number = 0;
+  myRole: string = '';
   constructor(public authenService: AuthenticationService, private score: CvScoreServiceProxy, private alertMe: AlertserviceService) { }
 
   ngOnInit(): void {
+    this.authenService.userRole().then(data => {
+      this.myRole = data;
+  })
   }
 
   toggleMenu(){

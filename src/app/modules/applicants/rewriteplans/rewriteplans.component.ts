@@ -11,9 +11,13 @@ export class RewriteplansComponent implements OnInit {
 
   rewritePlans: SubscriptionFeatureDTO [] = [];
   allPlans: SubscriptionPlanFeatureDTO [] = [];
+  myRole: string = '';
   constructor(private subscription: SubscriptionsServiceProxy, public authenService: AuthenticationService,) { }
 
   ngOnInit(): void {
+    this.authenService.userRole().then(data => {
+      this.myRole = data;
+  })
     this.fetchPlans();
   }
 

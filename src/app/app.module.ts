@@ -70,6 +70,9 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { AuthService } from './_services/auth.service';
 import { AuthGuardService } from './_services/auth-guard.service';
 import { AuthenticationService } from './_services/authentication.service';
+
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFireModule } from '@angular/fire/compat';
 // import { JwtInterceptor } from './_services/jwt.interceptor';
 
 
@@ -95,8 +98,11 @@ FullCalendarModule.registerPlugins([
   declarations: [AppComponent],
   imports: [
     // AngularFireModule.initializeApp(environment.firebaseConfig),
-    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
-    provideFirestore(() => getFirestore()),
+    // provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+    // provideFirestore(() => getFirestore()),
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule,
+
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,

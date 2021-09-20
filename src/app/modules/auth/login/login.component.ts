@@ -146,7 +146,7 @@ window.location.href = configUrl;
 }
  doGoogle(){
   this.social.doGoogleLogin().then(data => {
-    this.googleData = data;
+    this.googleData = data.providerData;
     console.log('You are', this.googleData);
     this.socialLogin.isSocial = true;
     this.socialLogin.email = this.googleData[0].email;
@@ -174,17 +174,11 @@ window.location.href = configUrl;
   });
 }
 
-async doGoog(){
- const data = this.social.doGoogleLogin().then(data =>{
-    console.log(data)
-  })
-
-  console.log(data)
-}
 
 doFacebook(){
   this.social.doFacebookLogin().then(data => {
-    this.facebookData = data;
+    this.facebookData = data.providerData;
+    console.log('Your facebook', this.facebookData)
     console.log('See your Facebook data',this.facebookData[0].displayName);
     this.socialLogin.isSocial = true;
     this.socialLogin.email = this.facebookData[0].email;
@@ -214,7 +208,7 @@ doFacebook(){
 
  doTwitter(){
    this.social.doTwitterLogin().then(data => {
-     this.twitterData = data;
+     this.twitterData = data.providerData;
      console.log('Here is you Twitter', this.twitterData);
      this.socialLogin.isSocial = true;
      this.socialLogin.email = this.twitterData[0].email;

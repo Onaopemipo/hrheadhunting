@@ -15,9 +15,13 @@ export class EmployerdetailsComponent implements OnInit {
   employerId:number = 0;
   loading: boolean = false;
   btnProcessing: boolean = false;
+  myRole: string = '';
   constructor(public authenService: AuthenticationService, private employer: EmployerServiceProxy, private router: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.authenService.userRole().then(data => {
+      this.myRole = data;
+  })
     this.loading = true;
     this.employer.getEmployerById(this.employerId = Number(this.router.snapshot.paramMap.get("id"))).subscribe(data => {
       this.loading = false;

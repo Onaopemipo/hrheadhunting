@@ -6,6 +6,8 @@ import { customConfig } from '../custumConfig';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+// import firebase from 'firebase/compat/app';
 
 // import { AngularFireAuth } from 'angularfire2/auth';
 import { Auth } from "firebase/auth";
@@ -19,7 +21,7 @@ export class AuthService {
   user: User = {};
   authstatus: boolean = false;
   Gprovider = new GoogleAuthProvider();
-  constructor(public authServ: AuthenticationService,
+  constructor(public authServ: AuthenticationService, private fAuth: AngularFireAuth,
     public http: HttpClient, public navCtrl: Router) { }
 
   public async isAuthenticated() {
@@ -65,46 +67,47 @@ export class AuthService {
   }
 
  async doGoogleLogin(){
-  return new Promise<any>(() => {
-    const auth = getAuth();
-    signInWithPopup(auth, this.Gprovider)
-      .then((result) => {
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        console.log('See Cred', credential)
-        const token = credential.accessToken;
-        console.log('See Toke', token)
-        const user = result.user;
-        console.log('See Google', user)
-        // ...
-      })
-    }).catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
-      });
+  return new Promise<any>((resolve, reject) => {
+    const provider = new GoogleAuthProvider();
+    provider.addScope('profile');
+    provider.addScope('email');
+    this.fAuth.signInWithPopup(provider)
+    .then(res => {
+      resolve(res.user);
+      console.log('Google', res.user)
+    })
+  }).catch((error) => {
+    // Handle Errors here.
+    let errorCode = error.code;
+    console.log(errorCode)
+    let errorMessage = error.message;
+    // The email of the user's account used.
+    let email = error.email;
+    console.log(email)
+    // The firebase.auth.AuthCredential type that was used.
+    let credential = error.credential;
+    // ...
+    console.log(CredentialsContainer)
+  });
 
   }
+
 
 
 async doTwitterLogin(){
   return new Promise<any>((resolve, reject) => {
   const auth = getAuth();
   const provider = new TwitterAuthProvider();
-    const result = signInWithPopup(auth, provider)
+    this.fAuth.signInWithPopup(provider)
     .then((result) => {
       // This gives you a the Twitter OAuth 1.0 Access Token and Secret.
       // You can use these server side with your app's credentials to access the Twitter API.
-      const credential = TwitterAuthProvider.credentialFromResult(result);
-      const token = credential.accessToken;
-      const secret = credential.secret;
+      // const credential = TwitterAuthProvider.credentialFromResult(result);
+      // const token = credential.accessToken;
+      // const secret = credential.secret;
 
       // The signed-in user info.
-      const user = resolve(result.user);
+      resolve(result.user);
       // ...
     })
   }).catch((error) => {
@@ -125,14 +128,13 @@ async doTwitterLogin(){
     return new Promise<any>((resolve, reject) => {
     const auth = getAuth();
     const provider = new FacebookAuthProvider();
-    const result =  signInWithPopup(auth, provider)
+    this.fAuth.signInWithPopup(provider)
       .then((result) => {
         // The signed-in user info.
-        const user = resolve(result.user);
-
+        resolve(result.user);
         // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-        const credential = FacebookAuthProvider.credentialFromResult(result);
-        const accessToken = credential.accessToken;
+        // const credential = FacebookAuthProvider.credentialFromResult(result);
+        // const accessToken = credential.accessToken;
 
         // ...
       })

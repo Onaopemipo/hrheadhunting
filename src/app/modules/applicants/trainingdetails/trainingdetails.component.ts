@@ -15,6 +15,7 @@ export class TrainingdetailsComponent implements OnInit {
   btnProcessing: boolean = false;
   attendeeForm: boolean = false;
   attendeeModel: TrainingApplicantDTO = new TrainingApplicantDTO();
+  myRole: string = '';
 
   constructor(private training: ConsultantServiceProxy, private alertMe: AlertserviceService, private route: Router, public authenService: AuthenticationService,private router: ActivatedRoute,) { }
 
@@ -26,6 +27,10 @@ export class TrainingdetailsComponent implements OnInit {
         // this.fetchSingleEmployer();
       }
     })
+
+    this.authenService.userRole().then(data => {
+      this.myRole = data;
+  })
   }
 
   toggleApplication(){

@@ -344,7 +344,7 @@ _handleReaderLoaded(readerEvt) {
 
   doGoogle(){
     this.social.doGoogleLogin().then(data => {
-      this.googleData = data;
+      this.googleData = data.providerData;
       console.log('You are', this.googleData);
       this.socialLogin.isSocial = true;
       this.socialLogin.email = this.googleData.email;
@@ -374,7 +374,7 @@ _handleReaderLoaded(readerEvt) {
 
   doFacebook(){
     this.social.doFacebookLogin().then(data => {
-      this.facebookData = data;
+      this.facebookData = data.providerData;;
       console.log('See your Facebook data',this.facebookData.displayName);
       this.socialLogin.isSocial = true;
       this.socialLogin.email = this.facebookData.email;

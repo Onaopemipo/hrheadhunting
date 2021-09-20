@@ -16,13 +16,16 @@ export class PricingComponent implements OnInit {
   cvPlan: SubscriptionFeatureDTO [] = [];
   recruiterPlan: SubscriptionFeatureDTO [] = [];
   showMenu: boolean = false;
-
+  myRole: string = '';
 
   constructor(private sub: SubscriptionsServiceProxy, public authenService: AuthenticationService) { }
 
 
 
   ngOnInit(): void {
+    this.authenService.userRole().then(data => {
+      this.myRole = data;
+  })
   }
 
   toggleMenu(){

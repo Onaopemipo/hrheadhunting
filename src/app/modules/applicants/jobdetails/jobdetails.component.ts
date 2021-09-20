@@ -46,12 +46,16 @@ export class JobdetailsComponent implements OnInit {
   }
 
   jobId:string = '';
+  myRole: string = '';
   constructor( private job: JobServiceProxy, private employer: EmployerServiceProxy, private common: CommonServiceProxy,
     private alertMe:AlertserviceService, private router: ActivatedRoute, private skill: SkillAreasServiceProxy,
     private state: StatesServiceProxy, private sector: SectorsServiceProxy, public authenService: AuthenticationService,
     private route: Router, private applicant: ApplicantServiceProxy,) { }
 
   ngOnInit(): void {
+    this.authenService.userRole().then(data => {
+      this.myRole = data;
+  })
     this.job.getJobById(this.jobId = this.router.snapshot.paramMap.get("id")).subscribe(data => {
       if(!data.hasError){
         this.singleJob = data.value;
