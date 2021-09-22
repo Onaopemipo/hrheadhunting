@@ -1,3 +1,4 @@
+@import'../../_responsive.scss';
 .header {
   background: url(/assets/images/landing_banner.png);
   // height: 354px;
@@ -205,5 +206,22 @@ li {
   .navbar .nav .btn-primary, .navbar .nav .btn-primary:active {
     display: block;
   }
+
+
 }
+
+@media (min-width: 576px) {
+
+  .re-order {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .re-order .row .first {
+    order: 2;
+  }
+  .re-order .row .second {
+    order: 1;
+  }
+ }
 

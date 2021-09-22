@@ -226,6 +226,11 @@ li {
     border: none;
   }
 
+  .resMo {
+    width: 150px;
+    height: 110px;
+  }
+
   .dashImage {
     display: none;
   }
@@ -238,5 +243,27 @@ li {
   .navbar .nav .btn-primary, .navbar .nav .btn-primary:active {
     display: block;
   }
+
+
 }
 
+@media (max-width: 576px) {
+  .resMo {
+    width: 150px !important;
+    height: 110px !important;
+  }
+
+  .smallDevice {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .mobile {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+}

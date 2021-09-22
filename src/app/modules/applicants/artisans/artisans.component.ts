@@ -26,6 +26,7 @@ export class ArtisansComponent implements OnInit {
     pageNumber: 1
   }
   myRole: string = '';
+  showMenu: boolean = false;
 
 
   constructor(private artisan: ArtisanServiceProxy,public authenService: AuthenticationService, private route: Router) { }
@@ -75,6 +76,10 @@ export class ArtisansComponent implements OnInit {
         console.log('see all artisans', this.artisanData)
       }
     })
+  }
+
+   toggleMenu(){
+    this.showMenu = !this.showMenu;
   }
 
 }

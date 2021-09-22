@@ -34,6 +34,18 @@
         <div *ngIf="password.errors.required">Password is required</div>
       </div>
       </div>
+
+      <div class="row">
+        <h6>Password requirements</h6>
+        <div>Must be a minimum of 8 characters.</div>
+        <div>Must contain letters, numbers, and symbols.</div>
+        <div> Passwords must match.</div>
+        <ul>
+          <li>Must be a minimum of 8 characters.</li>
+          <li>Must contain letters, numbers, and symbols.</li>
+          <li>Passwords must match.</li>
+        </ul>
+      </div>
       <div style="padding: 5px;"></div>
       <p style="text-align: center;font-size: .9rem;color: #71727B;font-weight: 400; font-family: Rubik;">I don't have an account? <a routerLink="/auth/signup" style="font-weight: 700;">Sign Up</a></p>
     </div>

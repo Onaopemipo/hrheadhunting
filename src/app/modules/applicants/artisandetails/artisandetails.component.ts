@@ -30,6 +30,7 @@ export class ArtisandetailsComponent implements OnInit {
   //   review: ''
   // }
   myRole: string = '';
+  showMenu: boolean = false;
 
 
 
@@ -47,6 +48,10 @@ export class ArtisandetailsComponent implements OnInit {
       this.myRole = data;
   })
 
+  }
+
+  toggleMenu(){
+    this.showMenu = !this.showMenu;
   }
 
   toggleRating(){
