@@ -3,6 +3,7 @@ import { ConsultantServiceProxy, IDTextViewModel, ManageTrainingDTO, StatesServi
 import { Component, OnInit } from '@angular/core';
 import { AlertserviceService } from 'app/_services/alertservice.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthenticationService } from 'app/_services/authentication.service';
 
 enum TP  {
   VIEW ='1',
@@ -52,20 +53,29 @@ tableActions: TableAction [] = [
   }
 
   trainingId: number = 0;
+  loggedinUser;
+  email:string = '';
   singleTraining: TrainingDTO = new TrainingDTO();
   attendeeForm: boolean = false;
   paymentLoading: boolean = false;
   attendeeModel: TrainingApplicantDTO = new TrainingApplicantDTO();
+  trainingAmount:number = 20000;
+
 
   constructor(private training: ConsultantServiceProxy, private alertMe: AlertserviceService, private route: Router,
-    private state: StatesServiceProxy, private router: ActivatedRoute, private payment: PaymentServiceProxy) { }
+    private state: StatesServiceProxy, private router: ActivatedRoute, private payment: PaymentServiceProxy, private auth: AuthenticationService,) { }
 
   ngOnInit(): void {
     this.reference = `ref-${Math.ceil(Math.random() * 10e13)}`;
     this.fetchStates();
     this.fetchTraining();
+    this.getUser();
   }
 
+  async getUser(){
+    this.loggedinUser = await this.auth.getuser()
+    this.email = this.loggedinUser[0].email
+  }
   paymentInit() {
     this.paymentLoading = true;
     // this.registerEmployer();
@@ -75,15 +85,46 @@ tableActions: TableAction [] = [
     this.paymentLoading = false;
   }
   paymentDone(event) {
-    console.log('success', event)
     if(event.status === 'success'){
-      // this.servicePayment = false;
-      this.verifyPayment();
-      this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'Success', 'Go to dashboard').subscribe(res => {
-        if(res){
-          this.route.navigateByUrl('/modules/training')
-        }
+      // this.verifyPayment();
+      // this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'Success', 'Go to dashboard').subscribe(res => {
+      //   if(res){
+      //     this.route.navigateByUrl('/modules/training')
+      //   }
+      // })
+
+      this.btnProcessing = true;
+      let newTraining:ManageTrainingDTO = new ManageTrainingDTO();
+      newTraining.title = this.trainingModel.title;
+      newTraining.fee = this.trainingModel.fee;
+      newTraining.location = this.trainingModel.location;
+      newTraining.stateId = Number(this.trainingModel.stateId);
+      newTraining.startDate = this.trainingModel.startDate;
+      newTraining.endDate = this.trainingModel.endDate;
+      newTraining.duration = this.trainingModel.duration;
+      newTraining.descriptions = this.trainingModel.descriptions;
+      newTraining.durationLength = 1;
+      newTraining.referenceNumber = this.reference;
+      this.training.postTraining(newTraining).subscribe(data => {
+      this.btnProcessing = false;
+      if(!data.hasError){
+        this.trainingResponse = data.result;
+        this.trainingFee = data.result.amount;
+        console.log('Here is your response',data.result)
+        this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, data.message, 'Pay Now').subscribe(res => {
+          if(res){
+            this.payNow = true;
+          }
+        })
+      }
+      else {
+        this.btnProcessing = false;
+        this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.FAILED, 'Not successful', 'Ok')
+      }
       })
+
+
+    } else{
 
     }
 
@@ -118,7 +159,6 @@ tableActions: TableAction [] = [
         }
       })
     }
-
     else {
       this.btnProcessing = false;
       this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.FAILED, 'Not successful', 'Ok')

@@ -74,16 +74,16 @@
 
           <div class="form-group row">
             <label for="currency" class="col-form-label" style="display:block">Start Date</label>
-              <ngx-date [(value)]="trainingModel.startDate" class="form-control" style="border: none;width: 100%;"></ngx-date>
+              <ngx-date [(value)]="trainingModel.startDate" style="border: none;width: 100%;"></ngx-date>
           </div>
 
           <div class="form-group row ">
             <label for="currency" class="col-form-label ">End Date</label>
-              <ngx-date [(value)]="trainingModel.endDate" class="form-control" style="border: none;width: 100%;"></ngx-date>
+              <ngx-date [(value)]="trainingModel.endDate" style="border: none;width: 100%;"></ngx-date>
           </div>
 
           <div class="form-group row">
-            <angular4-paystack
+            <angular4-paystack style="border: none;width: 100%;"
           [email]="email"
           [amount]="trainingAmount * 100"
           [ref]="reference"
@@ -92,10 +92,10 @@
           (onClose)="paymentCancel()"
           (callback)="paymentDone($event)"
         >
-          Pay No
+          Post Training
         </angular4-paystack>
-              <button *ngIf="!btnProcessing" nbButton status="primary" fullWidth (click)="postTraining()">Post Now</button>
-              <button *ngIf="btnProcessing" nbButton status="primary">Now Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button>
+              <!-- <button *ngIf="!btnProcessing" nbButton status="primary" fullWidth (click)="postTraining()">Post Now</button> -->
+              <!-- <button *ngIf="btnProcessing" nbButton status="primary">Now Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button> -->
               <span style="padding: 8px;"></span>
           </div>
         </form>

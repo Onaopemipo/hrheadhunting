@@ -14,6 +14,7 @@ import { TransactionComponent } from './transaction/transaction.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
 import { Angular4PaystackModule } from 'angular4-paystack';
 import { environment } from 'app/environment';
+import { NbDateFnsDateModule } from '@nebular/date-fns';
 
 
 @NgModule({
@@ -26,6 +27,11 @@ import { environment } from 'app/environment';
     NbCardModule,
     NbLayoutModule,
     Angular4PaystackModule.forRoot(environment.paystackToken),
+    NbDateFnsDateModule.forRoot({
+      parseOptions: { useAdditionalWeekYearTokens: true, useAdditionalDayOfYearTokens: true },
+      formatOptions: { useAdditionalWeekYearTokens: true, useAdditionalDayOfYearTokens: true },
+      getWeekOptions:{useAdditionalWeekYearTokens: true, useAdditionalDayOfYearTokens: true }
+    })
   ],
 
   providers: [

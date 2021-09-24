@@ -18,6 +18,7 @@ import { AlertserviceService } from 'app/_services/alertservice.service';
 import { QuizComponent } from './quiz/quiz.component';
 import { ApplicantProfileComponent } from '../applicants-dashboard/applicant-profile/applicant-profile.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { SubscriptionComponent } from './subscription/subscription.component';
     NbRadioModule,
     NbAccordionModule,
     NbProgressBarModule,
+    NgxDocViewerModule,
   ],
 
   providers: [

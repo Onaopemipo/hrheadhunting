@@ -37,6 +37,7 @@ import { Angular4PaystackModule } from 'angular4-paystack';
 import { PasswordComponent } from './password/password.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
 import { PasswordChangeComponent } from './password-change/password-change.component';
+import { NbDateFnsDateModule } from '@nebular/date-fns';
 
 
 
@@ -60,6 +61,11 @@ import { PasswordChangeComponent } from './password-change/password-change.compo
     NbCheckboxModule,
     NbRadioModule,
     NgxChartsModule,
+    NbDateFnsDateModule.forRoot({
+      parseOptions: { useAdditionalWeekYearTokens: true, useAdditionalDayOfYearTokens: true },
+      formatOptions: { useAdditionalWeekYearTokens: true, useAdditionalDayOfYearTokens: true },
+      getWeekOptions:{useAdditionalWeekYearTokens: true, useAdditionalDayOfYearTokens: true }
+    }),
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts')
     }),

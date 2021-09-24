@@ -22,25 +22,25 @@ export class ConsultantDashboardComponent implements OnInit {
 
     {
       title: 'My Profile',
-      icon: '/assets/icons/consultant.png',
+      icon: '/assets/icons/user.png',
       link: '/consdash/profile',
     },
 
-    {
-      title: 'My Transaction',
-      icon: '/assets/icons/consultant.png',
-      link: '/consdash/transaction',
-    },
+    // {
+    //   title: 'My Transaction',
+    //   icon: '/assets/icons/consultant.png',
+    //   link: '/consdash/transaction',
+    // },
 
     {
       title: 'My Subscription',
-      icon: '/assets/icons/consultant.png',
+      icon: '/assets/icons/cash.png',
       link: '/consdash/subscription',
     },
 
     {
       title: 'Change Password',
-      icon: '/assets/icons/consultant.png',
+      icon: '/assets/icons/password.png',
       link: '/consdash/training',
     },
   ];

@@ -49,25 +49,25 @@ export class LoginComponent implements OnInit {
       if(!data.hasError) {
         // console.log(resp)
         // console.log(resp.result)
-        if(data.result.lstPermissions[0] === "ASS"){
+        if(data.result.lstPermissions[0] === "CSS"){
           this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'User Authenticated', 'Go to Dashboard').subscribe(data => {
             if(data){
               // this.router.navigateByUrl('/dashboard')
-              this.router.navigateByUrl('/')
+              this.router.navigateByUrl('/consdash')
             }
           })
         }
 
-      //  else if(resp.result.lstPermissions[0] === "ASS"){
-      //     this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'User Authenticated', 'Go to Dashboard').subscribe(data => {
-      //       if(data){
-      //         // this.router.navigateByUrl('/dashboard')
-      //         this.router.navigateByUrl('/')
-      //       }
-      //     })
-      //   }
+       else if(data.result.lstPermissions[0] === "ASS"){
+          this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'User Authenticated', 'Go to Dashboard').subscribe(data => {
+            if(data){
+              // this.router.navigateByUrl('/dashboard')
+              this.router.navigateByUrl('')
+            }
+          })
+        }
 
-        else {
+        else if(data.result.lstPermissions[0] === "RSS") {
           this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'User Authenticated', 'Go to Dashboard').subscribe(res => {
             if(res){
               // this.router.navigateByUrl('/dashboard')

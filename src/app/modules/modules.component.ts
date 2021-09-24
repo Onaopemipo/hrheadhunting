@@ -94,7 +94,7 @@ export class ModulesComponent implements OnInit {
 
           {
             title: 'Change Password',
-            icon: '/assets/icons/settings.png',
+            icon: '/assets/icons/password.png',
             link: '/modules/password',
             // hidden: this.show,
 
@@ -171,7 +171,7 @@ export class ModulesComponent implements OnInit {
           },
           {
             title: 'Change Password',
-            icon: '/assets/icons/settings.png',
+            icon: '/assets/icons/password.png',
             link: '/modules/password',
             // hidden: this.show,
 

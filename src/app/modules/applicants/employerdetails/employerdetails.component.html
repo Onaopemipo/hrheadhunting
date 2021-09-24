@@ -64,14 +64,13 @@
             <a class="nav-link" [routerLink]="['/appdash']">Dashboard</a>
           </li>
 
-          <li *ngIf="myRole === 'RSS'" class="nav-item active">
+          <li *ngIf="myRole === 'CSS'" class="nav-item active">
             <a class="nav-link" [routerLink]="['/consdash']">Dashboard</a>
           </li>
 
-          <li *ngIf="myRole === 'CSS'" class="nav-item active">
-            <a class="nav-link" [routerLink]="['/empdash']">Dashboard</a>
+          <li *ngIf="myRole === 'RSS'" class="nav-item active">
+            <a class="nav-link" [routerLink]="['/modules']">Dashboard</a>
           </li>
-
         </ul>
       </div>
     </div>

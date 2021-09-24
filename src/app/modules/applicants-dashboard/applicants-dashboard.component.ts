@@ -17,7 +17,7 @@ export class ApplicantsDashboardComponent implements OnInit {
     {
       title: 'Dashboard',
       icon: '/assets/icons/home.png',
-      link: 'appdash/',
+      link: '/appdash',
     },
 
     {
@@ -46,7 +46,6 @@ export class ApplicantsDashboardComponent implements OnInit {
 
     },
 
-
     {
       title: 'Upload CV',
       icon: '/assets/icons/cvrewrite.png',
@@ -55,13 +54,13 @@ export class ApplicantsDashboardComponent implements OnInit {
 
     {
       title: 'My Profile',
-      icon: '/assets/icons/consultant.png',
+      icon: '/assets/icons/user.png',
       link: '/appdash/profile',
     },
 
     {
       title: 'Change Password',
-      icon: '/assets/icons/settings.png',
+      icon: '/assets/icons/password.png',
       link: '/appdash/password',
       // hidden: this.show,
 

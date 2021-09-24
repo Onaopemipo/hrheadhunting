@@ -617,11 +617,9 @@ async fetchCVPlan(){
         this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, data.message, 'Finish Setup').subscribe(res => {
           if(res){
             // this.route.navigateByUrl('dashboard')
-            this.route.navigateByUrl('/modules')
+            this.route.navigateByUrl('/consdash')
           }
         })
-        console.log('Consultant Added!');
-        alert('Consultant Added!')
       } else {
         this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.FAILED, data.message, 'OK')
       }

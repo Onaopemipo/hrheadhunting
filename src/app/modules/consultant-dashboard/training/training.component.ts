@@ -55,6 +55,7 @@ export class TrainingComponent implements OnInit {
   ngOnInit(): void {
     this.reference = `ref-${Math.ceil(Math.random() * 10e13)}`;
     this.fetchStates();
+    this.getUser();
   }
 
   async getUser(){
