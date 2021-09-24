@@ -92,6 +92,15 @@ export class ModulesComponent implements OnInit {
             link: '/modules/settings',
           },
 
+          {
+            title: 'Change Password',
+            icon: '/assets/icons/settings.png',
+            link: '/modules/password',
+            // hidden: this.show,
+
+            // hidden : this.privilege.lstPermissions ='ASS'? true:false
+          },
+
         ];
         console.log(this.show)
       } else {
@@ -159,6 +168,14 @@ export class ModulesComponent implements OnInit {
             title: 'Settings',
             icon: '/assets/icons/settings.png',
             link: '/modules/settings',
+          },
+          {
+            title: 'Change Password',
+            icon: '/assets/icons/settings.png',
+            link: '/modules/password',
+            // hidden: this.show,
+
+            // hidden : this.privilege.lstPermissions ='ASS'? true:false
           },
 
         ];

@@ -20,6 +20,7 @@ import { AuthGuardService as AuthGuard } from '../_services/auth-guard.service';
 import { NewquizComponent } from './newquiz/newquiz.component';
 import { PasswordComponent } from './password/password.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
+import { PasswordChangeComponent } from './password-change/password-change.component';
 const routes: Routes = [{
   path: '',
   component: ModulesComponent,
@@ -72,6 +73,10 @@ const routes: Routes = [{
       component: NewquizComponent
     },
 
+    {
+      path: 'password',
+      component: PasswordChangeComponent
+    },
 
     {
       path: 'training',

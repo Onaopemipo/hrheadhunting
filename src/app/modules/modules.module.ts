@@ -36,6 +36,7 @@ import { EmployerDashboardComponent } from './employer-dashboard/employer-dashbo
 import { Angular4PaystackModule } from 'angular4-paystack';
 import { PasswordComponent } from './password/password.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
+import { PasswordChangeComponent } from './password-change/password-change.component';
 
 
 
@@ -44,7 +45,7 @@ import { SubscriptionComponent } from './subscription/subscription.component';
   declarations: [ModulesComponent, JobsComponent, ApplicantquizComponent,
     DashboardComponent, QuizComponent, ReportsComponent, ApplicantsComponent, NewquizComponent,
     NewjobComponent, SettingsComponent, ApplicantselectionComponent, TrainingComponent,
-    ArtisansComponent, ConsultantsComponent, ApplicantsDashboardComponent, EmployerDashboardComponent, ConsultantDashboardComponent, PasswordComponent, SubscriptionComponent,],
+    ArtisansComponent, ConsultantsComponent, ApplicantsDashboardComponent, EmployerDashboardComponent, ConsultantDashboardComponent, PasswordComponent, SubscriptionComponent, PasswordChangeComponent,],
   imports: [
     CommonModule,
     ComponentsModule,
