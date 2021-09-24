@@ -12,6 +12,8 @@ import { ConsultantProfileComponent } from './consultant-profile/consultant-prof
 import { PasswordComponent } from './password/password.component';
 import { TransactionComponent } from './transaction/transaction.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
+import { Angular4PaystackModule } from 'angular4-paystack';
+import { environment } from 'app/environment';
 
 
 @NgModule({
@@ -23,6 +25,7 @@ import { SubscriptionComponent } from './subscription/subscription.component';
     ThemeModule,
     NbCardModule,
     NbLayoutModule,
+    Angular4PaystackModule.forRoot(environment.paystackToken),
   ],
 
   providers: [

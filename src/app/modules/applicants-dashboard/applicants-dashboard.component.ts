@@ -42,7 +42,7 @@ export class ApplicantsDashboardComponent implements OnInit {
     {
       title: 'CV Rewrite',
       icon: '/assets/icons/test.png',
-      link: '/appdash/quiz',
+      link: '/applicants/scorecv',
 
     },
 

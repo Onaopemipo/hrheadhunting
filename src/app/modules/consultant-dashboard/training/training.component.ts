@@ -1,7 +1,15 @@
 import { AlertserviceService } from 'app/_services/alertservice.service';
 import { Component, OnInit } from '@angular/core';
-import { ManageTrainingDTO, IDTextViewModel, TrainingDTO, ConsultantServiceProxy, StatesServiceProxy } from 'app/_services/service-proxies';
+import { ManageTrainingDTO, IDTextViewModel, TrainingDTO, ConsultantServiceProxy, StatesServiceProxy, PaymentServiceProxy } from 'app/_services/service-proxies';
+import { ColumnTypes, TableColumn } from 'app/components/tablecomponent/models';
+import { AuthenticationService } from 'app/_services/authentication.service';
+import { Router } from '@angular/router';
 
+enum TP  {
+  VIEW ='1',
+  PROCESS = "2",
+  DELETE = '3'
+  }
 @Component({
   selector: 'ngx-training',
   templateUrl: './training.component.html',
@@ -9,6 +17,14 @@ import { ManageTrainingDTO, IDTextViewModel, TrainingDTO, ConsultantServiceProxy
 })
 export class TrainingComponent implements OnInit {
 
+  postedTraining: TableColumn [] = [
+    {name: 'title', title: 'Training Title'},
+    {name: 'startDate', title: 'Training Date', type: ColumnTypes.Date},
+    {name: 'location', title: 'Training Location'},
+    {name: 'fee', title: 'Training Fee'},
+    {name: 'endDate', title: 'Valid To', type: ColumnTypes.Date},
+    // {name: 'isActive', title: 'Job Status', type: ColumnTypes.Status},
+  ];
   emptyHeader:string = "Nothing here";
   emptyDescription: string = "You don't have any training yet";
   trainingModel: ManageTrainingDTO = new ManageTrainingDTO();
@@ -28,16 +44,59 @@ export class TrainingComponent implements OnInit {
     pageNo: 1
   }
 
-  constructor(private training: ConsultantServiceProxy, private alertMe: AlertserviceService, private state: StatesServiceProxy) { }
+  loggedinUser;
+  email:string = '';
+  trainingAmount:number = 20000;
+
+
+  constructor(private training: ConsultantServiceProxy, private alertMe: AlertserviceService, private route: Router,
+    private state: StatesServiceProxy, private auth: AuthenticationService, private payment: PaymentServiceProxy) { }
 
   ngOnInit(): void {
     this.reference = `ref-${Math.ceil(Math.random() * 10e13)}`;
     this.fetchStates();
   }
 
+  async getUser(){
+    this.loggedinUser = await this.auth.getuser()
+    this.email = this.loggedinUser[0].email
+  }
+
   toggleTraining(){
     this.newTraining = true;
   }
+
+  paymentCancel() {
+    console.log('cancel')
+  }
+
+  paymentDone(event) {
+    console.log('success', event)
+    if(event.status === 'success'){
+      this.verifyPayment();
+      this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'Success', 'Go to dashboard').subscribe(res => {
+        if(res){
+          this.route.navigateByUrl('consdash/training')
+        }
+      })
+
+    }
+
+  }
+
+  verifyPayment() {
+    this.payment.verifyTrainingPayment(this.reference,this.email.toString()).subscribe(data => {
+      if (!data.hasError) {
+        this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, data.message, 'Go to Dashboard').subscribe(res => {
+          if(res){
+            this.route.navigateByUrl('/consdash/training')
+          }
+        });
+      } else {
+        this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.FAILED, "Payment Failed, Please try again", 'OK');
+    }
+  })
+}
 
   postTraining(){
     this.btnProcessing = true;
