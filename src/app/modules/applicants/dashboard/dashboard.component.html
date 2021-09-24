@@ -135,14 +135,13 @@
                 <div *ngFor="let job of allJobs | paginate: { id: 'jobsFilter',
                 itemsPerPage: jobFilter.pageSize,
                 currentPage: jobFilter.pageNumber,
-                totalItems: allJobs.length }"  class="col-sm-12 col-md-5 col-lg-5 mobile" [routerLink]="['/applicants/details', job.id]" style="display: flex; height: auto; cursor:pointer; margin: 2px;">
-                  <div class="row shadow-sm p-3 mb-5 bg-white rounded" style="display: flex; flex-direction: row; justify-content: space-between;">
+                totalItems: allJobs.length }" class="col-sm-12 col-md-5 col-lg-5 mobile" [routerLink]="['/applicants/details', job.id]"  style="display: flex; height: auto; cursor:pointer; margin: 2px;">
+                  <div class="row shadow-sm p-3 mb-5 bg-white rounded" style="display: flex; flex-direction: column; align-items: center; width: 150px; height: 150px;" style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
                     <div class="col-sm-4 col-md-4 col-lg-4">
                       <img src="assets/images/jobs.png" class="rounded img-fluid" >
                     </div>
                     <div class="col-sm-8 col-md-8 col-lg-8">
                         <span style="font-weight: 600; padding-right:25px;"><a [routerLink]="['/applicants/details', job.id]">{{job.position}}</a></span><br>
-                        <div style="padding-top: 5px;"></div>
                         <span>{{job.recruiter}}</span><br>
                         <span>{{job.state}} | {{job.jobTypeName}}</span><br>
                         <span style="margin-right: 4px;">Closes in {{job.jobCloseInDays}} days</span>
@@ -314,11 +313,11 @@
                 <div *ngFor="let employer of employerData | paginate: { id: employerFilter.companyId,
                   itemsPerPage: employerFilter.pageSize,
                   currentPage: employerFilter.pageNumber,
-                  totalItems: employerCounter }" class="col-sm-10 col-md-6 col-lg-4" style="padding: 10px; margin-bottom: 20px;">
-                  <div class="row shadow-sm p-3 mb-5 bg-white rounded" style="width: 100%;">
-                    <div class="col" style="width: 100%;">
-                      <img src="{{'data:image/jpg;base64,' + employer.logo}}" class="rounded-circle img-fluid" onError="this.onerror=null;this.src='assets/images/jobs.png';" style="max-width: 100%; height: auto;">
-                      <div style="display: block;">
+                  totalItems: employerCounter }" class="col-sm-12 col-md-6 col-lg-4">
+                  <div class="row shadow-sm p-3 mb-5 bg-white rounded" >
+                    <div class="col" style="display: flex; flex-direction: column; align-items: center; width: 150px; height: 150px;">
+                      <img src="{{'data:image/jpg;base64,' + employer.logo}}" class="rounded-circle img-fluid" onError="this.onerror=null;this.src='assets/images/jobs.png';" style="max-width: 100px; height: auto;">
+                      <div style="display: flex; flex-direction: column; align-items: center;">
                         <span style="font-weight: 600;" class="align-middle"><a [routerLink]="['/applicants/employerdetails', employer.id]">{{employer.name}}</a></span>
                         <span style="display: block;" class="align-middle">{{employer.sector}}</span>
                       </div>
