@@ -205,7 +205,6 @@ employerFilter = {
 
 
   filterUpdated(filter: any) {
-
     this.jobFilter = {...this.jobFilter, ...filter};
     console.log('Updated filter', this.jobFilter)
     this.fetchAllJobs();
@@ -214,7 +213,7 @@ employerFilter = {
   filterPageUpdated(filter: any){
     this.jobFilter.pageNumber = filter;
     // console.log('See me',filter)
-    // this.jobFilter = {...this.jobFilter, ...filter};
+    this.jobFilter = {...this.jobFilter, ...filter};
     console.log('Updated filter', this.jobFilter)
     this.fetchAllJobs();
 
@@ -266,8 +265,8 @@ employerFilter = {
     this.loading = true;
     this.filteredSkillArea[0];
     this.filteredLocation[0];
-    const locationId = Number(this.filteredLocation.join());
-    const skillAreaId = Number(this.filteredSkillArea.join())
+    const locationId = Number(this.filteredLocation);
+    const skillAreaId = Number(this.filteredSkillArea)
     this.job.fetchJobs(this.jobFilter.companyId, skillAreaId,
     this.jobFilter.countryId, locationId, this.jobFilter.isNewlyAdded,
     this.jobFilter.isPopular,this.jobFilter.searchText, this.jobFilter.pageSize,

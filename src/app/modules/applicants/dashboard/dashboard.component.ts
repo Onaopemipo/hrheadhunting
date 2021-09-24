@@ -98,8 +98,15 @@ searchFilter = {
   myRole: string = '';
   totalPage:number = 1000;
   showingPages = [1,2,3,4,5,6,7,8,9,10];
+  overFlowStatus: boolean;
+  collection = [];
+  p = 0;
   constructor(private job: JobServiceProxy, private employer: EmployerServiceProxy, private skill: SkillAreasServiceProxy,
-    private state: StatesServiceProxy, private route: Router, private sector: SectorsServiceProxy, public authenService: AuthenticationService,) { }
+    private state: StatesServiceProxy, private route: Router, private sector: SectorsServiceProxy, public authenService: AuthenticationService,) {
+      for (let i = 1; i <= 100; i++) {
+        this.collection.push(`item ${i}`);
+      }
+     }
 
   ngOnInit(): void {
     this.authenService.userRole().then(data => {
@@ -114,6 +121,14 @@ searchFilter = {
     this.authUser();
     this.fetchJobsLocation();
     this. fetchSkillAreaJobs();
+    this.checkOverflow();
+  }
+
+  checkOverflow(){
+    if(this.skillAreaJobsCounter > 3 ){
+      this.overFlowStatus = true;
+      console.log('See what I am saying:', this.skillAreaJobsCounter, this.overFlowStatus)
+    }
   }
 
   selectPage(num:number){
@@ -250,6 +265,7 @@ searchFilter = {
     const data = await this.skill.fetchSkillAreaJobs().toPromise();
     this.skillJobsData = data.value;
     this.skillAreaJobsCounter = data.totalCount;
+    this.checkOverflow();
   }
 
  async fetchStates(countryId){

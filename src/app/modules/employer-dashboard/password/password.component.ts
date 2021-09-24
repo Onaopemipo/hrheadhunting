@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertserviceService } from 'app/_services/alertservice.service';
-import { AccountServiceProxy, ConsultantServiceProxy, ManageEmployerDTO } from 'app/_services/service-proxies';
+import { AccountServiceProxy, ChangePasswordDTO, ConsultantServiceProxy, ManageEmployerDTO } from 'app/_services/service-proxies';
 
 @Component({
   selector: 'ngx-password',
@@ -9,10 +9,10 @@ import { AccountServiceProxy, ConsultantServiceProxy, ManageEmployerDTO } from '
 })
 export class PasswordComponent implements OnInit {
 
-  recruiter: ManageEmployerDTO = new ManageEmployerDTO();
+  passwordChange: ChangePasswordDTO = new ChangePasswordDTO();
   show: boolean = false;
   btnProcessing: boolean = false;
-    constructor(private consultant: ConsultantServiceProxy, private alertMe: AlertserviceService) { }
+    constructor(private applicant: AccountServiceProxy, private alertMe: AlertserviceService) { }
 
     ngOnInit(): void {
     }
@@ -22,13 +22,12 @@ export class PasswordComponent implements OnInit {
     }
 
     changePassword(){
-      if(this.recruiter.password){
-        this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES, 'Password Updated', 'Dismiss').subscribe(res => {
-          if(res){
-            this.recruiter = new ManageEmployerDTO();
-          }
-        })
-      }
+      this.applicant.changePassword(this.passwordChange).subscribe(data => {
+        if(!data.hasError){
+          this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES, 'Password Updated', 'Ok').subscribe(res => {
+          })
+        }
+      })
 
 
     }
