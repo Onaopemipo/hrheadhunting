@@ -21,6 +21,7 @@ export class ArtisandetailsComponent implements OnInit {
   stars = [1,2,3,4,5];
   isRated = true;
   rating = 1;
+  logoSource: string = '';
 
   ratingModel: ReviewArtisanDTO = new ReviewArtisanDTO();
 
@@ -40,11 +41,13 @@ export class ArtisandetailsComponent implements OnInit {
     this.artisan.getArtisanById(this.artisanId = Number(this.router.snapshot.paramMap.get("id"))).subscribe(data => {
       if(!data.hasError){
         this.singleArtisan = data.value;
+        this.logoSource = atob(data.value.brandLogo)
         console.log('Your single job is here:', this.singleArtisan);
+        console.log('Your logo is here:', this.logoSource);
       }
     })
 
-    this.authenService.userRole().then(data => {
+      this.authenService.userRole().then(data => {
       this.myRole = data;
   })
 

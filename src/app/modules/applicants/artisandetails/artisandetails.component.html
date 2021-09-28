@@ -92,8 +92,13 @@
             <div class="row" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
               <div class="col-sm-8 col-md-3 col-lg-3">
                 <!-- <img src="assets/images/jobs.png" style="width:5rem;"> -->
+                <!-- src="{{'data:image/jpg;ba.brandLogose64,' + singleArtisan}}" -->
                 <img src="{{'data:image/jpg;base64,' + singleArtisan.brandLogo}}" onError="this.onerror=null;this.src='assets/images/jobs.png';" style="width:10rem; height: 10rem;">
               </div>
+
+              <!-- <div class="col-sm-8 col-md-3 col-lg-3">
+                <img src="{{ logoSource }}" onError="this.onerror=null;this.src='assets/images/jobs.png';" style="width:10rem; height: 10rem;">
+              </div> -->
               <div class="col-sm-12 col-md-8 col-lg-8">
                 <table class="table table-striped">
                   <thead>
@@ -170,10 +175,10 @@
                         <td><i class="fa fa-compass" aria-hidden="true"></i></td>
                         <td>{{singleArtisan.location}}</td>
                       </tr>
-                      <tr>
+                      <!-- <tr>
                         <td><i class="fa fa-mobile" aria-hidden="true"></i></td>
                         <td>{{singleArtisan.mobile}}</td>
-                      </tr>
+                      </tr> -->
                     </tbody>
                   </table>
                 </div>

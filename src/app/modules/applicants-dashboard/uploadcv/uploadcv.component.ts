@@ -14,6 +14,8 @@ export class UploadcvComponent implements OnInit {
   applicantProfile: ApplicantProfileDTO = new ApplicantProfileDTO();
   prevResume: JobSeekerResume[] = [];
 
+  cvSource: string = '';
+  videoResumeSource: string = '';
 
  constructor(private alertMe: AlertserviceService, private applicant: ApplicantServiceProxy) { }
 
@@ -27,6 +29,8 @@ export class UploadcvComponent implements OnInit {
       this.applicantProfile = data.value;
       this.prevResume = data.value.resumes
       console.log('Here is my profile', this.applicantProfile)
+      this.cvSource = data.value.resumes[0].cvResume;
+      this.videoResumeSource = data.value.resumes[0].videoResume;
     }
   }
 

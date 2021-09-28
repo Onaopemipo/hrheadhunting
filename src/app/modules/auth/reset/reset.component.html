@@ -18,7 +18,7 @@
             <input type="email" nbInput fullWidth id="exampleInputEmail1" name="email" [(ngModel)]="userEmail.email" #email="ngModel" placeholder="Email">
           </div>
           <button type="button" *ngIf="!btnProcessing" nbButton fullWidth (click)="resetPassword()" status="primary">Continue</button>
-          <button *ngIf="btnProcessing" type="button" nbButton status="primary" style="margin-left: 20px;">Processing &nbsp; <i class="fa fa-spin fa-spinner"></i></button>
+          <button *ngIf="btnProcessing" type="button" fullWidth nbButton status="primary">Processing <i class="fa fa-spin fa-spinner"></i></button>
         </div>
       </form>
       <div style="padding: 5px;"></div>
