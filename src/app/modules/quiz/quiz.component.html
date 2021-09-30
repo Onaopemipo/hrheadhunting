@@ -40,11 +40,11 @@
               <input type="text" class="form-control" name="question" >
             </div>
 
-            <div class="col-md-4">
+            <!-- <div class="col-md-4">
               <select type="text" class="custom-select" name="quizType" (change)="onChange($event.target.value)">
                 <option *ngFor="let questiontype of optionTypes" [value]="questiontype.id"></option>
               </select>
-            </div>
+            </div> -->
           </div>
 
           <div *ngIf="myOptionType == 0" class="form-group">
@@ -64,13 +64,13 @@
             </div>
           </div>
 
-          <div *ngIf="myOptionType == 1" class="form-group row mydiv">
+          <!-- <div *ngIf="myOptionType == 1" class="form-group row mydiv">
             <div class="col">
               <nb-radio-group name="BooleanOption">
                 <nb-radio *ngFor="let option of booleanChoice" [value]="option.id" > </nb-radio>
               </nb-radio-group>
             </div>
-          </div>
+          </div> -->
 
           <div class="form-group row mydiv">
             <div class="col">

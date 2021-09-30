@@ -135,8 +135,8 @@
                 <div *ngFor="let job of allJobs | paginate: { id: 'jobsFilter',
                 itemsPerPage: jobFilter.pageSize,
                 currentPage: jobFilter.pageNumber,
-                totalItems: allJobs.length }" class="col-sm-12 col-md-5 col-lg-5 mobile" [routerLink]="['/applicants/details', job.id]"  style="display: flex; height: auto; cursor:pointer; margin: 2px;">
-                  <div class="row shadow-sm p-3 mb-5 bg-white rounded" style="display: flex; flex-direction: column; align-items: center; width: 150px; height: 150px;" style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+                totalItems: allJobs.length }" class="col-sm-12 col-md-6 col-lg-6" [routerLink]="['/applicants/details', job.id]"  style="display: flex; flex-direction: row; height: auto; cursor:pointer;">
+                  <div class="row shadow-sm p-3 mb-5 bg-white rounded" style="display: flex; flex-direction: row; justify-content: space-between; max-width: fit-content; margin: 1px;">
                     <div class="col-sm-4 col-md-4 col-lg-4">
                       <img src="assets/images/jobs.png" class="rounded img-fluid" >
                     </div>
@@ -152,7 +152,25 @@
 
             </nb-tab>
             <nb-tab tabTitle="Featured Jobs">
-              <div class="row">
+              <div class="row smallDevice" style="display: flex; flex-direction: row; justify-content: space-between; max-width: 100%;">
+                <div *ngFor="let job of allJobs | paginate: { id: 'jobsFilter',
+                itemsPerPage: jobFilter.pageSize,
+                currentPage: jobFilter.pageNumber,
+                totalItems: allJobs.length }" class="col-sm-12 col-md-6 col-lg-6" [routerLink]="['/applicants/details', job.id]"  style="display: flex; flex-direction: row; height: auto; cursor:pointer;">
+                  <div class="row shadow-sm p-3 mb-5 bg-white rounded" style="display: flex; flex-direction: row; justify-content: space-between; max-width: fit-content; margin: 1px;">
+                    <div class="col-sm-4 col-md-4 col-lg-4">
+                      <img src="assets/images/jobs.png" class="rounded img-fluid" >
+                    </div>
+                    <div class="col-sm-8 col-md-8 col-lg-8">
+                        <span style="font-weight: 600; padding-right:25px;"><a [routerLink]="['/applicants/details', job.id]">{{job.position}}</a></span><br>
+                        <span>{{job.recruiter}}</span><br>
+                        <span>{{job.state}} | {{job.jobTypeName}}</span><br>
+                        <span style="margin-right: 4px;">Closes in {{job.jobCloseInDays}} days</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="row">
                 <div class="col-sm-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
                   <div class="col-sm-12 col-md-4 col-lg-4">
                     <img src="assets/images/jobs.png" style="width: 100%;">
@@ -178,7 +196,7 @@
                       <span>Closes in 5 days</span><br>
                   </div>
                 </div>
-              </div>
+              </div> -->
             </nb-tab>
       </nb-tabset>
         </nb-card-body>

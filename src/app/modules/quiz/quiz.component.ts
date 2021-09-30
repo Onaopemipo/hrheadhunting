@@ -16,18 +16,18 @@ export class QuizComponent implements OnInit {
   myPlanDesc: string = "You don't have any quiz yet";
   // emptyButton: string = 'Add Quiz';
 
-  optionTypes = [
-    {id: 0, label: 'Multiple Choice'},
-    {id: 1, label: 'True/False'},
-    {id: 2, label: 'Long Text'},
-    {id: 3, label: 'Description'},
-  ];
+//   optionTypes = [
+//     {id: 0, label: 'Multiple Choice'},
+//     {id: 1, label: 'True/False'},
+//     {id: 2, label: 'Long Text'},
+//     {id: 3, label: 'Description'},
+//   ];
 
-  multiChoice: [] = [];
-  booleanChoice = [
-    { id: 0, label: 'A', value: 'True'},
-    { id: 1, label: 'B', value: 'False'},
-];
+//   multiChoice: [] = [];
+//   booleanChoice = [
+//     { id: 0, label: 'A', value: 'True'},
+//     { id: 1, label: 'B', value: 'False'},
+// ];
 
   pagetitle: string = 'Test';
   allQuizTypes: IDTextViewModel [] = [];

@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit {
           })
         }
 
-        else if(data.result.lstPermissions[0] === "RSS") {
+        else {
           this.alertMe.openModalAlert(this.alertMe.ALERT_TYPES.SUCCESS, 'User Authenticated', 'Go to Dashboard').subscribe(res => {
             if(res){
               // this.router.navigateByUrl('/dashboard')
