@@ -118,7 +118,7 @@
 <div class="container" style="margin-top: 2%; background-color: transparent;">
   <div class="row row-cols-2">
     <div class="col-sm-12 col-md-8 col-lg-8 ">
-      <nb-card>
+      <nb-card style="background-color: transparent;">
         <nb-card-header  style="font-weight:900;">
           Top Jobs
         </nb-card-header>
@@ -129,6 +129,27 @@
         <nb-card-body *ngIf="jobsCounter > 0" >
           <nb-tabset>
             <nb-tab tabTitle="All">
+              <div class="row smallDevice" style="display: flex; flex-direction: row; justify-content: space-between; max-width: 100%;">
+                <div *ngFor="let job of allJobs | paginate: { id: 'jobsFilter',
+                itemsPerPage: jobFilter.pageSize,
+                currentPage: jobFilter.pageNumber,
+                totalItems: allJobs.length }" class="col-sm-12 col-md-6 col-lg-6" [routerLink]="['/applicants/details', job.id]"  style="display: flex; flex-direction: row; height: auto; cursor:pointer;">
+                  <div class="row shadow-sm p-3 mb-5 bg-white rounded" style="display: flex; flex-direction: row; justify-content: space-between; max-width: fit-content; margin: 1px;">
+                    <div class="col-sm-4 col-md-4 col-lg-4">
+                      <img src="assets/images/jobs.png" class="rounded img-fluid" >
+                    </div>
+                    <div class="col-sm-8 col-md-8 col-lg-8">
+                        <span style="font-weight: 600; padding-right:25px;"><a [routerLink]="['/applicants/details', job.id]">{{job.position}}</a></span><br>
+                        <span>{{job.recruiter}}</span><br>
+                        <span>{{job.state}} | {{job.jobTypeName}}</span><br>
+                        <span style="margin-right: 4px;">Closes in {{job.jobCloseInDays}} days</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </nb-tab>
+            <!-- <nb-tab tabTitle="All">
               <div class="row" style="display: flex; flex-direction: row; justify-content: space-between;">
                 <div *ngFor="let job of allJobs | paginate: { id: jobFilter.companyId,
                   itemsPerPage: jobFilter.pageSize,
@@ -150,9 +171,27 @@
 
               </div>
 
-            </nb-tab>
-            <nb-tab tabTitle="Popular Jobs">
-              <div class="row">
+            </nb-tab> -->
+            <nb-tab tabTitle="Featured Jobs">
+              <div class="row smallDevice" style="display: flex; flex-direction: row; justify-content: space-between; max-width: 100%;">
+                <div *ngFor="let job of allJobs | paginate: { id: 'jobsFilter',
+                itemsPerPage: jobFilter.pageSize,
+                currentPage: jobFilter.pageNumber,
+                totalItems: allJobs.length }" class="col-sm-12 col-md-6 col-lg-6" [routerLink]="['/applicants/details', job.id]"  style="display: flex; flex-direction: row; height: auto; cursor:pointer;">
+                  <div class="row shadow-sm p-3 mb-5 bg-white rounded" style="display: flex; flex-direction: row; justify-content: space-between; max-width: fit-content; margin: 1px;">
+                    <div class="col-sm-4 col-md-4 col-lg-4">
+                      <img src="assets/images/jobs.png" class="rounded img-fluid" >
+                    </div>
+                    <div class="col-sm-8 col-md-8 col-lg-8">
+                        <span style="font-weight: 600; padding-right:25px;"><a [routerLink]="['/applicants/details', job.id]">{{job.position}}</a></span><br>
+                        <span>{{job.recruiter}}</span><br>
+                        <span>{{job.state}} | {{job.jobTypeName}}</span><br>
+                        <span style="margin-right: 4px;">Closes in {{job.jobCloseInDays}} days</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="row">
                 <div class="col-sm-12 col-md-6 col-lg-6" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;">
                   <div class="col-sm-12 col-md-4 col-lg-4">
                     <img src="assets/images/jobs.png" style="width:5rem;">
@@ -178,7 +217,7 @@
                       <span>Closes in 5 days</span><br>
                   </div>
                 </div>
-              </div>
+              </div> -->
             </nb-tab>
           </nb-tabset>
         </nb-card-body>
