@@ -131,6 +131,13 @@
                   </div>
 
                   <div style="padding-top: 10px;">
+                    <label>Date of Birth</label>
+                    <input type="date" id="dob" class="form-control"  [max]="minDate"  name="dateOfBirth" #dateOfBirth="ngModel" [(ngModel)]="jobSeeker.dateOfBirth">
+                    <!-- <ngx-date [(value)]="jobSeeker.dateOfBirth" [max]="minDate"> </ngx-date> -->
+
+                  </div>
+
+                  <!-- <div style="padding-top: 10px;">
                     <label for="">Nationality</label>
                   <select class="form-control" name="nationality" #nationality="ngModel" [(ngModel)]="jobSeeker.nationalityId" (change)="fetchStates($event.target.value)" required>
                     <option value="">Select</option>
@@ -139,12 +146,24 @@
                   <div *ngIf="nationality.invalid && (nationality.dirty || nationality.touched)" class="error">
                     <div *ngIf="nationality.errors.required">Nationality is required</div>
                   </div>
-                  </div>
+                  </div> -->
 
-                  <div style="padding-top: 10px;">
+                  <!-- <div style="padding-top: 10px;">
                     <label>Date of Birth</label>
                     <ngx-date [(value)]="jobSeeker.dateOfBirth" [max]="minDate"> </ngx-date>
 
+                  </div> -->
+
+                  <div style="padding-top: 10px;">
+                    <label for="inputPassword4">Password</label>
+                  <div style="display: flex;border: 0.800000011920929px solid #CED4DA;border-radius: 3px;background-color: #f7f9fc;padding: 5px;">
+                    <input [type]="show ? 'text' : 'password'" nbInput fullWidth placeholder="Password" name="password" #password="ngModel" [(ngModel)]="jobSeeker.password" required style="border: none;">
+                    <nb-icon  (click)="viewpassword()" *ngIf="!show"  icon="eye-off-outline" style="font-size: 32px;color: #95A8B8;cursor: pointer;"></nb-icon>
+                    <nb-icon  (click)="viewpassword()" *ngIf="show"  icon="eye-outline" style="font-size: 32px;color: #95A8B8;cursor: pointer;"></nb-icon>
+                  </div>
+                  <div *ngIf="password.invalid && (password.dirty || password.touched)" class="error">
+                    <div *ngIf="password.errors.required">Password is required</div>
+                  </div>
                   </div>
 
                   </div>
@@ -160,7 +179,7 @@
 
                   <div style="padding-top: 10px;">
                     <label>Phone Number</label>
-                    <input type="tel" class="form-control" name="phone" #phone="ngModel" [(ngModel)]="jobSeeker.phoneNumber" required>
+                    <input type="number" class="form-control" name="phone" minlength="11" maxlength="11" size="11" pattern="[0-9]+" #phone="ngModel" [(ngModel)]="jobSeeker.phoneNumber" required>
                     <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="error">
                       <div *ngIf="phone.errors.required">Phone is required</div>
                     </div>
@@ -190,7 +209,7 @@
 
 
                   <div style="padding-top: 10px;">
-                    <label for="inputPassword4">Password</label>
+                    <label for="inputPassword4">Confirm Password</label>
                   <div style="display: flex;border: 0.800000011920929px solid #CED4DA;border-radius: 3px;background-color: #f7f9fc;padding: 5px;">
                     <input [type]="show ? 'text' : 'password'" nbInput fullWidth placeholder="Password" name="password" #password="ngModel" [(ngModel)]="jobSeeker.password" required style="border: none;">
                     <nb-icon  (click)="viewpassword()" *ngIf="!show"  icon="eye-off-outline" style="font-size: 32px;color: #95A8B8;cursor: pointer;"></nb-icon>
@@ -495,7 +514,7 @@
 
                <div>
                 <label>Phone Number</label>
-                <input type="tel" class="form-control" name="phone" #phone="ngModel" [(ngModel)]="employer.mobile" required>
+                <input type="number" class="form-control" name="phone" #phone="ngModel" [(ngModel)]="employer.mobile" required>
                 <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="error">
                   <div *ngIf="phone.errors.required">Phone is required</div>
                 </div>
@@ -613,35 +632,45 @@
               <div>
                 <label for="" style="padding-top: 5px;">First name</label>
               <input type="text" class="form-control" name="firstName" #firstName="ngModel" [(ngModel)]="consultantModel.firstName" placeholder="First name">
-
+              <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="error">
+                <div *ngIf="firstName.errors.required">First Name is required</div>
+              </div>
               </div>
               <div style="padding: 10px;"></div>
 
              <div>
               <label for="" style="padding-top: 5px;">Last name</label>
               <input type="text" class="form-control" name="lastName" #lastName="ngModel" [(ngModel)]="consultantModel.lastName" placeholder="Last name">
-
+              <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="error">
+                <div *ngIf="lastName.errors.required">Last Name is required</div>
+              </div>
              </div>
               <div style="padding: 10px;"></div>
 
               <div>
                 <label for="inputEmail4">Email</label>
                 <input type="email" class="form-control" name="email" #email="ngModel" [(ngModel)]="consultantModel.email">
-
+                <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error">
+                  <div *ngIf="email.errors.required">Email is required</div>
+                </div>
               </div>
                 <div style="padding: 10px;"></div>
 
                <div>
                 <label>Phone Number</label>
-                <input type="tel" class="form-control" name="phone" #phone="ngModel" [(ngModel)]="consultantModel.mobile">
-
+                <input type="number" class="form-control" name="phone" #phone="ngModel" [(ngModel)]="consultantModel.mobile">
+                <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="error">
+                  <div *ngIf="phone.errors.required">Phone is required</div>
+                </div>
                </div>
                 <div style="padding: 10px;"></div>
 
                <div>
                 <label for="" style="padding-top: 5px;">Contact Person</label>
                 <input type="text" class="form-control" name="contactPerson" #contactPerson="ngModel" [(ngModel)]="consultantModel.contactPerson" placeholder="Contact Person">
-
+                <div *ngIf="contactPerson.invalid && (contactPerson.dirty || contactPerson.touched)" class="error">
+                  <div *ngIf="contactPerson.errors.required">Contact Person is required</div>
+                </div>
                </div>
                <div style="padding: 10px;"></div>
 
@@ -661,7 +690,9 @@
              <div>
               <label for="" style="padding-top: 5px;">Company Name</label>
               <input type="text" class="form-control" name="companyName" #companyName="ngModel" [(ngModel)]="consultantModel.name" placeholder="Company Name">
-
+              <div *ngIf="companyName.invalid && (companyName.dirty || companyName.touched)" class="error">
+                <div *ngIf="companyName.errors.required">Company Name is required</div>
+              </div>
              </div>
               <div style="padding: 10px;"></div>
 
@@ -686,7 +717,9 @@
               <div>
                 <label for="">Address</label>
               <textarea name="address" #address="ngModel" [(ngModel)]="consultantModel.address" cols="30" rows="10" style="width: 100%;"></textarea>
-
+              <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="error">
+                <div *ngIf="lastName.errors.required">Address is required</div>
+              </div>
               </div>
               <div style="padding: 10px;"></div>
 

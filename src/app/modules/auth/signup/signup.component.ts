@@ -84,7 +84,8 @@ export class SignupComponent implements OnInit {
   minAgeVal: Date = new Date();
   loading: boolean = false;
   btn: boolean = false;
-  minDate: Date = new Date();
+  // minDate: Date = new Date();
+  minDate: string = '';
   testAmount:number = 20000;
   foreignInstitution: number = 0;
   applicantNames = [];
@@ -101,7 +102,7 @@ export class SignupComponent implements OnInit {
     this.route.navigate(['/onboarding/accountsetup']);
   }
   ngOnInit(): void {
-    console.log('Your date:',this.minDate = new Date(new Date().setFullYear(new Date().getFullYear() - 18)))
+    // console.log('Your date:',this.minDate = new Date(new Date().setFullYear(new Date().getFullYear() - 18)))
     this.reference = `ref-${Math.ceil(Math.random() * 10e13)}`;
     this.tempRef = `ref-${Math.ceil(Math.random() * 10e13)}`;
     this.fetchInstitution();
@@ -118,15 +119,28 @@ export class SignupComponent implements OnInit {
     this.fetchGenders();
     this.fetchRecruiterSub();
     this.fetchCVPlan();
-    // this.minAgeCal();
+    this.minAgeCal();
 
   }
 
-  minAgeCal($scope, $filter){
-    var today = new Date();
-    var minAge = 18;
-    $scope.dob = ($filter)('date')(new Date(today.getFullYear() - minAge, today.getMonth(), today.getDate()), 'yyyy-MM-dd');
-    $scope.minAge = new Date(today.getFullYear() - minAge, today.getMonth(), today.getDate());
+  minAgeCal(){
+    let dateObj = new Date(new Date().setFullYear(new Date().getFullYear() - 18))
+    let month:any = dateObj.getMonth() + 1; //months from 1-12
+    let day:any  = dateObj.getDate();
+    let year = dateObj.getFullYear();
+    if(day<10){
+      day= '0'+ day;
+    }
+    if(month<10){
+      month = '0'+ month;
+    }
+    this.minDate = year + "-" + month + "-" + day;
+    // document.getElementById("dob").setAttribute("min", this.minDate);
+    // this.minDate = year + "-" + month + "-" + day;
+    // var today = new Date();
+    // var minAge = 18;
+    // $scope.dob = ($filter)('date')(new Date(today.getFullYear() - minAge, today.getMonth(), today.getDate()), 'yyyy-MM-dd');
+    // $scope.minAge = new Date(today.getFullYear() - minAge, today.getMonth(), today.getDate());
     // let today = new Date();
     // let minAge = 18;
     // console.log(this.today);
@@ -528,6 +542,7 @@ async fetchCVPlan(){
     // applicant.videoResume = this.jobSeeker.videoResume;
     // applicant.resume = this.jobSeeker.resume;
     applicant.password = this.jobSeeker.password;
+    // applicant.
     applicant.residentialStateId =  Number(this.jobSeeker.residentialStateId);
     // applicant.institutionName = this.jobSeeker.institutionName;
     // applicant.qualificationId =  Number(this.jobSeeker.qualificationId);
