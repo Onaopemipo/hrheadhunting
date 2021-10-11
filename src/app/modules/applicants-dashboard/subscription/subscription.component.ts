@@ -30,4 +30,8 @@ export class SubscriptionComponent implements OnInit {
       this.mySubData = data.value;
     }
   }
+
+  upgradePlan(){
+
+  }
 }

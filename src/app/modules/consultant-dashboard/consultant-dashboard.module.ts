@@ -7,7 +7,7 @@ import { ConsultantDashboardRoutingModule } from './consultant-dashboard-routing
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ThemeModule } from 'app/@theme/theme.module';
 import { TrainingComponent } from './training/training.component';
-import { ConsultantServiceProxy, PaymentServiceProxy, StatesServiceProxy } from 'app/_services/service-proxies';
+import { ConsultantServiceProxy, PaymentServiceProxy, StatesServiceProxy, SubscriptionsServiceProxy } from 'app/_services/service-proxies';
 import { ConsultantProfileComponent } from './consultant-profile/consultant-profile.component';
 import { PasswordComponent } from './password/password.component';
 import { TransactionComponent } from './transaction/transaction.component';
@@ -38,6 +38,7 @@ import { NbDateFnsDateModule } from '@nebular/date-fns';
     ConsultantServiceProxy,
     StatesServiceProxy,
     PaymentServiceProxy,
+    SubscriptionsServiceProxy
 
   ]
 })

@@ -519,6 +519,30 @@ async fetchCVPlan(){
     this.jobSeeker.genderId = event;
   }
 
+  dayManipulate(object) {
+
+    var startTime = new Date(new Date(object.date).toISOString());
+    let localDate = new Date().toLocaleString();
+    console.log("Diff: ", (startTime.getTimezoneOffset() * -1) / 60);
+    console.log("local: ", localDate);
+    startTime = new Date(startTime.getTime() + (startTime.getTimezoneOffset() * -60000));
+    let dateObj = new Date(object.date);
+
+    let day = dateObj.getDate().toString();
+    console.log(day)
+    day = +day < 10 ? '0' + day : day;
+    let month = (dateObj.getMonth() + 1).toString();
+    month = +month < 10 ? '0' + month : month;
+    let year = dateObj.getFullYear();
+    let formattedDate = year + "-" + month + "-" + day;
+    object.date = formattedDate;
+    console.log(object.date)
+    return object;
+  }
+
+
+
+
   registerApplicant(){
     this.btnProcessing = true;
     this.loading = true;
@@ -527,7 +551,7 @@ async fetchCVPlan(){
     applicant.firstName = this.jobSeeker.firstName;
     applicant.lastname = this.jobSeeker.lastname;
     applicant.email = this.jobSeeker.email;
-    applicant.nationalityId = Number(this.jobSeeker.nationalityId);
+    // applicant.nationalityId = Number(this.jobSeeker.nationalityId);
     applicant.genderId = Number(this.jobSeeker.genderId);
     // applicant.gradeId = Number(this.jobSeeker.gradeId);
     // applicant.institutionId = Number(this.jobSeeker.institutionId);
@@ -549,6 +573,7 @@ async fetchCVPlan(){
     // applicant.qualificationStartDate = this.jobSeeker.qualificationStartDate;
     // applicant.qualificationEndDate = this.jobSeeker.qualificationEndDate;
     // applicant.fieldOfInterestId = Number(this.jobSeeker.fieldOfInterestId);
+    console.log('Your dob',this.jobSeeker.dateOfBirth)
     applicant.dateOfBirth = this.jobSeeker.dateOfBirth;
     // applicant.courseOfStudyId = Number(this.jobSeeker.courseOfStudyId);
     this.loginServices.applicantSignUp(applicant).subscribe(data => {
